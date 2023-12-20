@@ -41,7 +41,6 @@ ui <- fluidPage(
            selectInput("performer", "Performer", choices = unique(df$Performer)),
            selectInput("science_type", "Science Type", choices = unique(df$Science.type)),
            selectInput("prices", "Prices", choices = unique(df$Prices)),
-           sliderInput("year_range", "Year range", min = min(df$Year), max = max(df$Year), value = c(min(df$Year), max(df$Year))),
     ),
     column(6,
            textOutput(("text_box_1")))
@@ -71,18 +70,16 @@ server <- function(input, output) {
              Funder == input$funder,
              Performer == input$performer,
              Science.type == input$science_type,
-             Prices == input$prices,
-             Year >= input$year_range[1],
-             Year <= input$year_range[2])
+             Prices == input$prices)
   })
   
   # Render the line plot
   output$line_plot <- renderPlotly({
-    p1 <- ggplot(filtered_data(), aes(x = Year, y = VALUE)) +
-      geom_line() +
-      labs(title = "Line Plot of VALUE over Year",
-           x = "Year",
-           y = "VALUE")
+    df1 <- filtered_data()
+    p1 <- df1 |> 
+            plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
+            layout(title = "Time Series with Rangeslider",
+             xaxis = list(rangeslider = list(visible = T)))
     
   p1 <- ggplotly(p1)
   })
