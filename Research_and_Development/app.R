@@ -13,12 +13,10 @@ library(gtable)
 
 options(shiny.autoreload = TRUE)
 
-
-url_GDPEMPL <- "https://github.com/mehdi-naji/BC-Econ-Dashboard/raw/main/data/processed/GDPEMPL_Industry_dash.csv"
-
-df <- read.csv(url_GDPEMPL, header = TRUE)
-
-dff <- na.omit(df)
+# Downloading processed data
+url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_1.csv"
+df <- read.csv(url, header = TRUE)
+df <- na.omit(df)
 
 # User Interface -----
 
@@ -32,20 +30,21 @@ ui <- fluidPage(
   
   # Layout
   fluidRow(
-    # First column with line plot and inputs
-    column(6,
-           plotOutput("line_plot"),
-           selectInput("geo", "GEO", choices = unique(df1$GEO)),
-           radioButtons("funder", "Funder", choices = unique(df1$Funder)),
-           radioButtons("performer", "Performer", choices = unique(df1$Performer)),
-           radioButtons("science_type", "Science Type", choices = unique(df1$Science_Type)),
-           selectInput("prices", "Prices", choices = unique(df1$Prices)),
-           sliderInput("year_range", "Year range", min = min(df1$Year), max = max(df1$Year), value = c(min(df1$Year), max(df1$Year)))
+    # First column with line plot
+    column(4,
+           plotlyOutput("line_plot")
     ),
-    # Second column with text box
+    # Second column with inputs
+    column(2,
+           selectInput("geo", "GEO", choices = unique(df$GEO)),
+           selectInput("funder", "Funder", choices = unique(df$Funder)),
+           selectInput("performer", "Performer", choices = unique(df$Performer)),
+           selectInput("science_type", "Science Type", choices = unique(df$Science.type)),
+           selectInput("prices", "Prices", choices = unique(df$Prices)),
+           sliderInput("year_range", "Year range", min = min(df$Year), max = max(df$Year), value = c(min(df$Year), max(df$Year))),
+    ),
     column(6,
-           textOutput("text_box_1")
-    )
+           textOutput(("text_box_1")))
   ),
   fluidRow(
     # Third column with text box
@@ -67,24 +66,28 @@ ui <- fluidPage(
 server <- function(input, output) {
   # Filter the data based on the inputs
   filtered_data <- reactive({
-    df1 %>%
+    df %>%
       filter(GEO == input$geo,
              Funder == input$funder,
              Performer == input$performer,
-             Science_Type == input$science_type,
+             Science.type == input$science_type,
              Prices == input$prices,
              Year >= input$year_range[1],
              Year <= input$year_range[2])
   })
   
   # Render the line plot
-  output$line_plot <- renderPlot({
-    ggplot(filtered_data(), aes(x = Year, y = VALUE)) +
+  output$line_plot <- renderPlotly({
+    p1 <- ggplot(filtered_data(), aes(x = Year, y = VALUE)) +
       geom_line() +
       labs(title = "Line Plot of VALUE over Year",
            x = "Year",
            y = "VALUE")
+    
+  p1 <- ggplotly(p1)
   })
+  
+  
   
   # Render the text boxes
   output$text_box_1 <- renderText({
