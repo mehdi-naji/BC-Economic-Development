@@ -19,31 +19,33 @@ df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
 # User Interface -----
-
-library(shiny)
-library(ggplot2)
-
-# Define the UI
 ui <- fluidPage(
+  
   # Title
   titlePanel("Shiny App with 5 Boxes"),
   
   # Layout
   fluidRow(
     # First column with line plot
-    column(4,
-           plotlyOutput("line_plot")
-    ),
-    # Second column with inputs
-    column(2,
-           selectInput("geo", "GEO", choices = unique(df$GEO)),
-           selectInput("funder", "Funder", choices = unique(df$Funder)),
-           selectInput("performer", "Performer", choices = unique(df$Performer)),
-           selectInput("science_type", "Science Type", choices = unique(df$Science.type)),
-           selectInput("prices", "Prices", choices = unique(df$Prices)),
+    column(6,
+           plotlyOutput("line_plot"),
+           fluidRow(
+             column(4,
+                    selectInput("geo", "GEO", choices = unique(df$GEO)), style = "font-size: 12px"),
+             column(4,
+                    selectInput("prices", "Prices", choices = unique(df$Prices)), style = "font-size: 12px"),
+             column(4,
+                    selectInput("science_type", "Science Type", choices = unique(df$Science.type)), style = "font-size: 12px")
+           ),
+           fluidRow(
+             column(6,
+                    selectInput("funder", "Funder", choices = unique(df$Funder)), style = "font-size: 12px;"),
+             column(6,
+                    selectInput("performer", "Performer", choices = unique(df$Performer)), style = "font-size: 12px")
+           )
     ),
     column(6,
-           textOutput(("text_box_1")))
+           plotlyOutput("sankey_diagram"))
   ),
   fluidRow(
     # Third column with text box
@@ -61,6 +63,7 @@ ui <- fluidPage(
   )
 )
 
+
 # Define the server
 server <- function(input, output) {
   # Filter the data based on the inputs
@@ -73,6 +76,12 @@ server <- function(input, output) {
              Prices == input$prices)
   })
   
+  sankey_data <- reactive({
+    df %>%
+      filter(GEO == input$geo,
+             Science.type == input$science_type,
+             Prices == input$prices)
+  })
   # Render the line plot
   output$line_plot <- renderPlotly({
     df1 <- filtered_data()
@@ -85,11 +94,57 @@ server <- function(input, output) {
   })
   
   
+  # Render the Sankey diagram
+  output$sankey_diagram <- renderPlotly({
+    df1 <- sankey_data()
+    df1 <- df1 |> filter (Funder != "Funder: total, all sectors",
+                          Performer != "Performer: total, all sectors")
+    nodes <- data.frame(name = c(as.character(df1$Funder), as.character(df1$Performer)))
+    nodes <- unique(nodes)
+    links <- data.frame(source = match(df1$Funder, nodes$name) - 1,
+                        target = match(df1$Performer, nodes$name) - 1,
+                        value = df1$VALUE)
+    
+    colors <- c("red", "green", "blue", "yellow", "orange", "purple", "pink", "brown")
+    
+    # Use the colors vector for the color attribute
+    fig <- plot_ly(
+      type = "sankey",
+      domain = list(
+        x = c(0,1),
+        y = c(0,1)
+      ),
+      orientation = "h",
+      valueformat = ".0f",
+      valuesuffix = "TWh",
+      node = list(
+        label = nodes$name,
+        color = colors,  # Use the colors vector here
+        pad = 15,
+        thickness = 20,
+        line = list(
+          color = colors,
+          width = 0.5
+        )
+      ),
+      link = list(
+        source = links$source,
+        target = links$target,
+        value = links$value
+      )
+    ) 
+    
+    fig <- fig %>% layout(
+      title = "Sankey Diagram",
+      font = list(
+        size = 10
+      )
+    )
+    
+    fig
+  })
   
   # Render the text boxes
-  output$text_box_1 <- renderText({
-    paste("This is the first text box.")
-  })
   
   output$text_box_2 <- renderText({
     paste("This is the second text box.")
