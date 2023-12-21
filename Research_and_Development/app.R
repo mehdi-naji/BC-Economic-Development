@@ -77,10 +77,31 @@ server <- function(input, output) {
   })
   
   sankey_data <- reactive({
-    df %>%
+    df |>
       filter(GEO == input$geo,
              Science.type == input$science_type,
-             Prices == input$prices)
+             Prices == input$prices) |>
+      mutate(
+        Funder_color = case_when(
+          Funder_color == 1 ~ "red",
+          Funder_color == 2 ~ "orange",
+          Funder_color == 3 ~ "yellow",
+          Funder_color == 4 ~ "green",
+          Funder_color == 5 ~ "blue",
+          Funder_color == 6 ~ "indigo",
+          Funder_color == 7 ~ "violet",
+          Funder_color == 8 ~ "brown",
+          TRUE ~ as.character(Funder_color)),
+        Performer_color = case_when(
+          Performer_color == 1 ~ "red",
+          Performer_color == 2 ~ "orange",
+          Performer_color == 3 ~ "yellow",
+          Performer_color == 4 ~ "green",
+          Performer_color == 5 ~ "blue",
+          Performer_color == 6 ~ "indigo",
+          Performer_color == 7 ~ "violet",
+          Performer_color == 8 ~ "brown")
+      )
   })
   # Render the line plot
   output$line_plot <- renderPlotly({
@@ -105,8 +126,6 @@ server <- function(input, output) {
                         target = match(df1$Performer, nodes$name) - 1,
                         value = df1$VALUE)
     
-    colors <- c("red", "green", "blue", "yellow", "orange", "purple", "pink", "brown")
-    
     # Use the colors vector for the color attribute
     fig <- plot_ly(
       type = "sankey",
@@ -119,11 +138,11 @@ server <- function(input, output) {
       valuesuffix = "TWh",
       node = list(
         label = nodes$name,
-        color = colors,  # Use the colors vector here
+        color = Performer_color,  # Use the colors vector here
         pad = 15,
         thickness = 20,
         line = list(
-          color = colors,
+          color = Funder_color,
           width = 0.5
         )
       ),

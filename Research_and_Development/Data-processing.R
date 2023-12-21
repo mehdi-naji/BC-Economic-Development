@@ -23,7 +23,7 @@ df1 <- select(df1, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 df2 <- select(df2, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 
 
-df1 |> 
+df1 <- df1 |> 
   mutate(
     Funder_color = case_when(
       str_detect(Funder, "total") ~ 1,
