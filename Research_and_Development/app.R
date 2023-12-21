@@ -80,28 +80,9 @@ server <- function(input, output) {
     df |>
       filter(GEO == input$geo,
              Science.type == input$science_type,
-             Prices == input$prices) |>
-      mutate(
-        Funder_color = case_when(
-          Funder_color == 1 ~ "red",
-          Funder_color == 2 ~ "orange",
-          Funder_color == 3 ~ "yellow",
-          Funder_color == 4 ~ "green",
-          Funder_color == 5 ~ "blue",
-          Funder_color == 6 ~ "indigo",
-          Funder_color == 7 ~ "violet",
-          Funder_color == 8 ~ "brown",
-          TRUE ~ as.character(Funder_color)),
-        Performer_color = case_when(
-          Performer_color == 1 ~ "red",
-          Performer_color == 2 ~ "orange",
-          Performer_color == 3 ~ "yellow",
-          Performer_color == 4 ~ "green",
-          Performer_color == 5 ~ "blue",
-          Performer_color == 6 ~ "indigo",
-          Performer_color == 7 ~ "violet",
-          Performer_color == 8 ~ "brown")
-      )
+             Prices == input$prices,
+             Funder != "Funder: total, all sectors",
+             Performer != "Performer: total, all sectors") 
   })
   # Render the line plot
   output$line_plot <- renderPlotly({
@@ -125,6 +106,26 @@ server <- function(input, output) {
     links <- data.frame(source = match(df1$Funder, nodes$name) - 1,
                         target = match(df1$Performer, nodes$name) - 1,
                         value = df1$VALUE)
+    node_colors <- c("Funder: total, all sectors" = "grey",
+                     "Funder: federal government sector" = "red", 
+                     "Funder: provincial governments sector" = "orange", 
+                     "Funder: provincial research organizations sector" = "yellow",
+                     "Funder: business enterprise sector" = "green",
+                     "Funder: higher education sector" = "violet", 
+                     "Funder: private non-profit sector" = "blue", 
+                     "Funder: foreign sector" = "brown", 
+                     "Performer: total, all sectors" = "grey",
+                     "Performer: federal government sector" = "red", 
+                     "Performer: provincial governments sector" = "orange", 
+                     "Performer: provincial research organizations sector" = "yellow",
+                     "Performer: business enterprise sector" = "green",
+                     "Performer: higher education sector" = "violet", 
+                     "Performer: private non-profit sector" = "blue")
+    
+    
+    nodes$color <- node_colors[nodes$name]
+    
+    
     
     # Use the colors vector for the color attribute
     fig <- plot_ly(
@@ -138,11 +139,11 @@ server <- function(input, output) {
       valuesuffix = "TWh",
       node = list(
         label = nodes$name,
-        color = Performer_color,  # Use the colors vector here
+        color = nodes$color,  # Use the node_colors vector here
         pad = 15,
         thickness = 20,
         line = list(
-          color = Funder_color,
+          color = "grey",
           width = 0.5
         )
       ),
