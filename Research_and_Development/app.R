@@ -18,6 +18,47 @@ url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
+
+
+ui_lineplot <-     column(6,
+                          plotlyOutput("line_plot"),
+                          fluidRow(
+                            column(4,
+                                   selectInput("geo", "GEO", choices = unique(df$GEO)), style = "font-size: 12px"),
+                            column(4,
+                                   selectInput("prices", "Prices", choices = unique(df$Prices)), style = "font-size: 12px"),
+                            column(4,
+                                   selectInput("science_type", "Science Type", choices = unique(df$Science.type)), style = "font-size: 12px")
+                          ),
+                          fluidRow(
+                            column(6,
+                                   selectInput("funder", "Funder", choices = unique(df$Funder)), style = "font-size: 12px;"),
+                            column(6,
+                                   selectInput("performer", "Performer", choices = unique(df$Performer)), style = "font-size: 12px")
+                          )
+)
+
+
+ui_table <-     column(4, fluidRow(
+  column(4,
+         selectInput("TFunder",
+                     "Funder:",
+                     unique(as.character(df$Funder)))
+  ),
+  column(4,
+         selectInput("TPerformer",
+                     "Performer:",
+                       unique(as.character(df$Performer)))
+  ),
+  column(4,
+         selectInput("TScience_type",
+                     "Science Type:",
+                       unique(as.character(df$Science.type)))
+  )
+),
+DT::dataTableOutput("table")
+)
+
 # User Interface -----
 ui <- fluidPage(
   
@@ -26,42 +67,18 @@ ui <- fluidPage(
   
   # Layout
   fluidRow(
-    # First column with line plot
-    column(6,
-           plotlyOutput("line_plot"),
-           fluidRow(
-             column(4,
-                    selectInput("geo", "GEO", choices = unique(df$GEO)), style = "font-size: 12px"),
-             column(4,
-                    selectInput("prices", "Prices", choices = unique(df$Prices)), style = "font-size: 12px"),
-             column(4,
-                    selectInput("science_type", "Science Type", choices = unique(df$Science.type)), style = "font-size: 12px")
-           ),
-           fluidRow(
-             column(6,
-                    selectInput("funder", "Funder", choices = unique(df$Funder)), style = "font-size: 12px;"),
-             column(6,
-                    selectInput("performer", "Performer", choices = unique(df$Performer)), style = "font-size: 12px")
-           )
+    ui_lineplot,
+    column(6,textOutput("text_box_4"))
     ),
-    column(6,
-           plotlyOutput("sankey_diagram"))
-  ),
   fluidRow(
-    # Third column with text box
-    column(4,
-           textOutput("text_box_2")
+    column(4,textOutput("text_box_2")),
+    ui_table
     ),
-    # Fourth column with text box
     column(4,
-           textOutput("text_box_3")
-    ),
-    # Fifth column with text box
-    column(4,
-           textOutput("text_box_4")
+           plotlyOutput("sankey_diagram")
+           
     )
   )
-)
 
 
 # Define the server
@@ -132,28 +149,32 @@ server <- function(input, output) {
       type = "sankey",
       domain = list(
         x = c(0,1),
-        y = c(0,1)
+        y = c(0,2)
       ),
-      orientation = "h",
+      orientation = "v",
       valueformat = ".0f",
       valuesuffix = "TWh",
       node = list(
-        label = nodes$name,
+        label = "",
         color = nodes$color,  # Use the node_colors vector here
         pad = 15,
-        thickness = 20,
+        thickness = 30,
         line = list(
           color = "grey",
           width = 0.5
         )
       ),
+      
+      labelFont = list( 
+        color = "black" 
+      ),
       link = list(
         source = links$source,
         target = links$target,
         value = links$value
-      )
-    ) 
+      ))
     
+  
     fig <- fig %>% layout(
       title = "Sankey Diagram",
       font = list(
@@ -170,9 +191,15 @@ server <- function(input, output) {
     paste("This is the second text box.")
   })
   
-  output$text_box_3 <- renderText({
-    paste("This is the third text box.")
-  })
+  # Filter data based on selections
+  output$table <- DT::renderDataTable(DT::datatable({
+    data <- df |>
+      filter (GEO %in% c('Alberta', "Ontario"),
+              Funder == input$TFunder,
+              Performer == input$TPerformer,
+              Science.type == input$TScience_type)
+    data
+  }))
   
   output$text_box_4 <- renderText({
     paste("This is the fourth text box.")

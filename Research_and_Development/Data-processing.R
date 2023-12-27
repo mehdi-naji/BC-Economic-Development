@@ -22,8 +22,20 @@ df2 <- df2 |> filter (Prices %in% c("Current prices", "2012 constant prices"))
 df1 <- select(df1, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 df2 <- select(df2, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 
+
+df1 <- df1 |>
+  arrange(GEO, Funder, Performer, `Science type`, Prices, Year) |>
+  filter(Year %in% c(2015, 2017, 2020)) |>
+  group_by(GEO, Funder, Performer, `Science type`, Prices) |>
+  mutate(GR_15_20 = ifelse(all(c(2015, 2020) %in% Year), (VALUE[Year == 2020] / VALUE[Year == 2015]) - 1, NA),
+         GR_17_20 = ifelse(all(c(2017, 2020) %in% Year), (VALUE[Year == 2020] / VALUE[Year == 2017]) - 1, NA))
+
+
 # write.csv(df1, "~/StrongerBC-Project/Data/Research_and_Development_1.csv", row.names = FALSE)
 # write.csv(df2, "~/StrongerBC-Project/Data/Research_and_Development_2.csv", row.names = FALSE)
+
+
+
 
 write.csv(df1, "C:/Users/mehdi/StrongerBC-Project/Data/Research_and_Development_1.csv", row.names = FALSE)
 write.csv(df2, "C:/Users/mehdi/StrongerBC-Project/Data/Research_and_Development_2.csv", row.names = FALSE)
