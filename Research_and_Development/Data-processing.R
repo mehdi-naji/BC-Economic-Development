@@ -20,8 +20,8 @@ df2$REF_DATE <- ymd(df2$REF_DATE)
 df1$Year <- year(df1$REF_DATE)
 df2$Year <- year(df2$REF_DATE)
 
-df1 <- df1 |> filter (Prices %in% c("Current prices", "2012 constant prices"))
-df2 <- df2 |> filter (Prices %in% c("Current prices", "2012 constant prices"))
+df1 <- df1 |> filter (Prices %in% c("Current prices", "2017 constant prices"))
+df2 <- df2 |> filter (Prices %in% c("Current prices", "2017 constant prices"))
 
 df1 <- select(df1, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 df2 <- select(df2, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
