@@ -10,6 +10,10 @@ library(stringr)
 df1 <- statcan_download_data("27-10-0273-01", "eng")
 df2 <- statcan_download_data("27-10-0273-02", "eng")
 
+df1$Funder <- substring(df1$Funder, 8, nchar(df1$Funder)) 
+df1$Performer <- substring(df1$Performer, 11, nchar(df1$Performer)) 
+
+  
 df1$REF_DATE <- ymd(df1$REF_DATE)
 df2$REF_DATE <- ymd(df2$REF_DATE)
 
