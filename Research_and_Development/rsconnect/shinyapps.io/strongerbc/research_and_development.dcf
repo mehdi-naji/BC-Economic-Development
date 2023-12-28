@@ -1,0 +1,12 @@
+name: research_and_development
+title:
+username: strongerbc
+account: strongerbc
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10850573
+bundleId: 8088427
+url: https://strongerbc.shinyapps.io/research_and_development/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

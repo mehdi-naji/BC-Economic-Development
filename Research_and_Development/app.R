@@ -13,77 +13,64 @@ library(gtable)
 
 options(shiny.autoreload = TRUE)
 
-# Downloading processed data
+# Downloading processed data ----
 url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_1.csv"
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
 
-
-ui_lineplot <-     column(6,
-                          plotlyOutput("line_plot"),
-                          fluidRow(
-                            column(4,
-                                   selectInput("geo", "GEO", choices = unique(df$GEO)), style = "font-size: 12px"),
-                            column(4,
-                                   selectInput("prices", "Prices", choices = unique(df$Prices)), style = "font-size: 12px"),
-                            column(4,
-                                   selectInput("science_type", "Science Type", choices = unique(df$Science.type)), style = "font-size: 12px")
-                          ),
-                          fluidRow(
-                            column(6,
-                                   selectInput("funder", "Funder", choices = unique(df$Funder)), style = "font-size: 12px;"),
-                            column(6,
-                                   selectInput("performer", "Performer", choices = unique(df$Performer)), style = "font-size: 12px")
-                          )
-)
-
-
-ui_table <-     column(4, fluidRow(
-  column(4,
-         selectInput("TFunder",
-                     "Funder:",
-                     unique(as.character(df$Funder)))
-  ),
-  column(4,
-         selectInput("TPerformer",
-                     "Performer:",
-                       unique(as.character(df$Performer)))
-  ),
-  column(4,
-         selectInput("TScience_type",
-                     "Science Type:",
-                       unique(as.character(df$Science.type)))
-  )
-),
-DT::dataTableOutput("table")
-)
+url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_Growth_1.csv"
+df_growth <- read.csv(url, header = TRUE)
+df_growth <- na.omit(df_growth)
 
 # User Interface -----
-ui <- fluidPage(
-  
-  # Title
-  titlePanel("Shiny App with 5 Boxes"),
-  
-  # Layout
-  fluidRow(
-    ui_lineplot,
-    column(6,textOutput("text_box_4"))
-    ),
-  fluidRow(
-    column(4,textOutput("text_box_2")),
-    ui_table
-    ),
-    column(4,
-           plotlyOutput("sankey_diagram")
-           
-    )
-  )
+## ui_components ----
+### line plot ----
+ui_lineplot <- column(6,plotlyOutput("line_plot"))
+### inputs ----
+ui_inputs_tabs <- fluidRow(
+                    column(6,
+                      fluidRow(selectInput("geo", "GEO", choices = unique(df$GEO)), style = "font-size: 12px"),
+                      fluidRow(selectInput("prices", "Prices", choices = unique(df$Prices)), style = "font-size: 12px"),
+                      fluidRow(selectInput("science_type", "Science Type", choices = unique(df$Science.type)), style = "font-size: 12px"),
+                      fluidRow(selectInput("funder", "Funder", choices = unique(df$Funder)), style = "font-size: 12px;"),
+                      fluidRow(selectInput("performer", "Performer", choices = unique(df$Performer)), style = "font-size: 12px")),
+                    column(6,
+                      fluidRow(selectInput("dgeo", "GEO", choices = unique(df$GEO)), style = "font-size: 12px"),
+                           ))
+
+### table ----
+ui_table <-  column(3, DT::dataTableOutput("table"))
+
+### multi line ----
+ui_multilineplot <- column(4, plotlyOutput("multilineplot"))
+
+### sankey graph ----
+ui_sankey <- column(5,plotlyOutput("sankey_diagram"))
+
+### tabs ----
+ui_text_tabs <- column(4, tabsetPanel(
+  tabPanel("Analysis", 
+           uiOutput("analysis")),
+  tabPanel("Considerations", 
+           uiOutput("consideration")),
+  tabPanel("inputs",
+           ui_inputs_tabs)))
 
 
-# Define the server
+## design -----
+ui <- navbarPage(
+  titlePanel("StrongerBC: Research and Development"),
+  fluidRow(
+    ui_lineplot, ui_text_tabs),
+  fluidRow(
+    ui_multilineplot, ui_table, ui_sankey))
+
+# Server ----
 server <- function(input, output) {
-  # Filter the data based on the inputs
+
+# Data ----
+## line plot data----  
   filtered_data <- reactive({
     df %>%
       filter(GEO == input$geo,
@@ -92,82 +79,127 @@ server <- function(input, output) {
              Science.type == input$science_type,
              Prices == input$prices)
   })
-  
+
+## growth table data----
+  filtered_data_growth <- reactive({
+    df_growth %>%
+      filter (GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada"),
+                     Funder == input$funder,
+                     Performer == input$performer,
+                     Science.type == input$science_type,
+                     Prices == input$prices)|>
+               select (GEO, GR_15_20, GR_17_20)|>
+      mutate(GR_15_20 = paste0(round(GR_15_20*100,1),"%"),
+             GR_17_20 = paste0(round(GR_17_20*100,1),"%"))|>
+      mutate(GEO = factor(GEO, levels = c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada")))|>
+      arrange(GEO)|>
+      rename(Region = GEO,
+             "3-year growth <br>(2015-2020)" = GR_15_20,
+             "5-year growth <br>(2017-2020)" = GR_17_20)
+  })
+
+## multi line data----  
+  filtered_data_multiline <- reactive({
+    df |> 
+      filter (GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta"),
+              Funder == input$funder,
+              Performer == input$performer,
+              Science.type == input$science_type,
+              Prices == input$prices)
+  })
+
+## sankey plot data----
   sankey_data <- reactive({
     df |>
-      filter(GEO == input$geo,
+      filter(Year == 2023,
+             GEO == input$geo,
              Science.type == input$science_type,
              Prices == input$prices,
-             Funder != "Funder: total, all sectors",
-             Performer != "Performer: total, all sectors") 
+             Funder != " total, all sectors",
+             Performer != " total, all sectors") |>
+      mutate(Funder = paste(Funder, "(F)", sep = " "),
+             Performer = paste(Performer, "(P)", sep = " "))
   })
-  # Render the line plot
+
+# Rendering ----
+## line plot ----
   output$line_plot <- renderPlotly({
     df1 <- filtered_data()
     p1 <- df1 |> 
             plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
-            layout(title = "Time Series with Rangeslider",
-             xaxis = list(rangeslider = list(visible = T)))
-    
+            layout(title = list(text = paste("Research and Development in <b>" , 
+                                 input$science_type, "</b>", 
+                                 " in <b>",input$geo , "</b>",
+                                 "\n", "Funder:<b>", input$funder, "</b>", 
+                                 "\n", "Performer:<b>", input$performer, "</b>"),
+                                x=0.1, y=0.78,font = list(size = 14)),
+                   xaxis = list(
+                     title = "", 
+                     rangeslider = list(
+                       visible = T,
+                       thickness = 0.02,  
+                       bgcolor = "darkgrey"  
+                     )
+                   ),
+             yaxis = list(title = paste ("million $ (", "<b>", input$prices, "</b>)")))
+
   p1 <- ggplotly(p1)
-  })
+  })   
   
   
-  # Render the Sankey diagram
+  ## Sankey diagram ----
   output$sankey_diagram <- renderPlotly({
     df1 <- sankey_data()
-    df1 <- df1 |> filter (Funder != "Funder: total, all sectors",
-                          Performer != "Performer: total, all sectors")
     nodes <- data.frame(name = c(as.character(df1$Funder), as.character(df1$Performer)))
     nodes <- unique(nodes)
     links <- data.frame(source = match(df1$Funder, nodes$name) - 1,
                         target = match(df1$Performer, nodes$name) - 1,
                         value = df1$VALUE)
-    node_colors <- c("Funder: total, all sectors" = "grey",
-                     "Funder: federal government sector" = "red", 
-                     "Funder: provincial governments sector" = "orange", 
-                     "Funder: provincial research organizations sector" = "yellow",
-                     "Funder: business enterprise sector" = "green",
-                     "Funder: higher education sector" = "violet", 
-                     "Funder: private non-profit sector" = "blue", 
-                     "Funder: foreign sector" = "brown", 
-                     "Performer: total, all sectors" = "grey",
-                     "Performer: federal government sector" = "red", 
-                     "Performer: provincial governments sector" = "orange", 
-                     "Performer: provincial research organizations sector" = "yellow",
-                     "Performer: business enterprise sector" = "green",
-                     "Performer: higher education sector" = "violet", 
-                     "Performer: private non-profit sector" = "blue")
+    node_colors <- c(                      " total, all sectors (F)" = "grey",
+                                    " federal government sector (F)" = "red", 
+                                " provincial governments sector (F)" = "orange", 
+                     " provincial research organizations sector (F)" = "yellow",
+                                   " business enterprise sector (F)" = "green",
+                                      " higher education sector (F)" = "violet", 
+                                    " private non-profit sector (F)" = "blue", 
+                                               " foreign sector (F)" = "brown",
+                                           " total, all sectors (P)" = "grey",
+                                    " federal government sector (P)" = "red", 
+                                " provincial governments sector (P)" = "orange", 
+                     " provincial research organizations sector (P)" = "yellow",
+                                   " business enterprise sector (P)" = "green",
+                                      " higher education sector (P)" = "violet", 
+                                    " private non-profit sector (P)" = "blue")
     
     
     nodes$color <- node_colors[nodes$name]
     
-    
-    
-    # Use the colors vector for the color attribute
-    fig <- plot_ly(
+    links$source_name <- nodes$name[links$source + 1]
+    links$target_name <- nodes$name[links$target + 1]
+
+   fig <- plot_ly(
       type = "sankey",
       domain = list(
         x = c(0,1),
-        y = c(0,2)
+        y = c(0,1)
       ),
-      orientation = "v",
-      valueformat = ".0f",
-      valuesuffix = "TWh",
+      orientation = "h",
+      valueformat = "$,.0f",
+      valuesuffix = "M",
       node = list(
-        label = "",
-        color = nodes$color,  # Use the node_colors vector here
+        label = nodes$name,
+        color = nodes$color,
         pad = 15,
         thickness = 30,
         line = list(
           color = "grey",
           width = 0.5
-        )
+        ),
+        hovertemplate = '%{label}<br>Total Value: %{value}<extra></extra>'
+        
       ),
       
-      labelFont = list( 
-        color = "black" 
-      ),
+      
       link = list(
         source = links$source,
         target = links$target,
@@ -175,10 +207,10 @@ server <- function(input, output) {
       ))
     
   
-    fig <- fig %>% layout(
-      title = "Sankey Diagram",
+    fig <- fig |> layout(
+      title = "The Flow from Funders (Left) to Performenrs (Right)",
       font = list(
-        size = 10
+        size = 12
       )
     )
     
@@ -191,19 +223,53 @@ server <- function(input, output) {
     paste("This is the second text box.")
   })
   
-  # Filter data based on selections
-  output$table <- DT::renderDataTable(DT::datatable({
-    data <- df |>
-      filter (GEO %in% c('Alberta', "Ontario"),
-              Funder == input$TFunder,
-              Performer == input$TPerformer,
-              Science.type == input$TScience_type)
-    data
-  }))
-  
-  output$text_box_4 <- renderText({
-    paste("This is the fourth text box.")
+  ## growth table ----
+  output$table <- DT::renderDataTable({
+    data <- filtered_data_growth()
+    DT::datatable(data, options = list(dom = 't'), escape = FALSE, rownames = FALSE, 
+                  caption = htmltools::tags$caption(style = "caption-side: top; font-size: 130%;", 
+                                                    "Research and Development Spending Growth"))
   })
+
+
+  
+  ## multi line plot ----
+  output$multilineplot <- renderPlotly({
+    df2 <- filtered_data_multiline()
+    p2 <- df2 |> 
+      plot_ly(x = ~Year, y = ~VALUE, color=~GEO, type = 'scatter', mode = 'lines') |>
+      layout(title = "Research and Development in Selected Provices",
+             xaxis = list(title = "", rangeslider = list(visible = F)),
+             yaxis = list(title = paste("million $ ( <b>", input$prices,"</b>)")),
+             legend = list(orientation = "h", xanchor = "center", x = 0.5, y = -0.2))
+    
+    p2 <- ggplotly(p2)
+  })
+  
+  
+  output$analysis <- renderUI({
+    HTML("
+  <ul style='text-align: justify;'>
+    <li>Spending on research and development promotes scientific and technological advancement while fostering economic progress through growth, productivity, adaptation, and market resilience.</li>
+    <li>Private sector in B.C. performed $2,333 million R&D in 2020, a 179 percent growth from $835 million in 2000.</li>
+    <li>Private sector accounted for 45 percent of overall R&D spending in the province in 2020.</li>
+    <li>B.C.’s private sector has seen a sharp increase in R&D spending in 2018, with an annual growth rate at 26.1 percent, the highest in the past 20 years.</li>
+    <li>B.C. surpassed Alberta in private sector R&D spending in 2016 and have remained third in Canada, following Ontario and Quebec.</li>
+  </ul>
+  ")
+  })
+  
+  
+  
+  output$consideration <- renderUI({
+    HTML("
+  <ul style='text-align: justify;'>
+    <li>Some selections might lack sufficient data.</li>
+  </ul>
+  ")
+  })
+  
+  
 }
 
 # Run the app
