@@ -10,7 +10,7 @@ library(leaflet)
 library(cowplot)
 library(grid)
 library(gtable)
-
+library(shinydashboard)
 options(shiny.autoreload = TRUE)
 
 # Downloading processed data ----
@@ -27,17 +27,6 @@ df_growth <- na.omit(df_growth)
 ## ui_components ----
 ### line plot ----
 ui_lineplot <- column(6,plotlyOutput("line_plot"))
-### inputs ----
-ui_inputs_tabs <- fluidRow(
-                    column(6,
-                      fluidRow(selectInput("geo", "GEO", choices = unique(df$GEO)), style = "font-size: 12px"),
-                      fluidRow(selectInput("prices", "Prices", choices = unique(df$Prices)), style = "font-size: 12px"),
-                      fluidRow(selectInput("science_type", "Science Type", choices = unique(df$Science.type)), style = "font-size: 12px"),
-                      fluidRow(selectInput("funder", "Funder", choices = unique(df$Funder)), style = "font-size: 12px;"),
-                      fluidRow(selectInput("performer", "Performer", choices = unique(df$Performer)), style = "font-size: 12px")),
-                    column(6,
-                      fluidRow(selectInput("dgeo", "GEO", choices = unique(df$GEO)), style = "font-size: 12px"),
-                           ))
 
 ### table ----
 ui_table <-  column(3, DT::dataTableOutput("table"))
@@ -53,18 +42,51 @@ ui_text_tabs <- column(4, tabsetPanel(
   tabPanel("Analysis", 
            uiOutput("analysis")),
   tabPanel("Considerations", 
-           uiOutput("consideration")),
-  tabPanel("inputs",
-           ui_inputs_tabs)))
+           uiOutput("consideration"))))
 
 
 ## design -----
-ui <- navbarPage(
-  titlePanel("StrongerBC: Research and Development"),
-  fluidRow(
-    ui_lineplot, ui_text_tabs),
-  fluidRow(
-    ui_multilineplot, ui_table, ui_sankey))
+ui <- dashboardPage(
+  dashboardHeader(
+    title = "StrongerBC: Research and Development",titleWidth = 450
+  ),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
+        selectInput("geo", "GEO", choices = unique(df$GEO)), 
+        selectInput("prices", "Prices", choices = unique(df$Prices)), 
+        selectInput("science_type", "Science Type", choices = unique(df$Science.type)), 
+        selectInput("funder", "Funder", choices = unique(df$Funder)), 
+        selectInput("performer", "Performer", choices = unique(df$Performer)),
+        selectInput("year", "Year", choices = unique(df$Year))
+    )
+  ),
+  dashboardBody(
+    tags$style(HTML("
+      .skin-blue .main-header .navbar, 
+      .skin-blue .main-header .logo,
+      .skin-blue .main-header .logo:hover,
+      .skin-blue .main-header .navbar .sidebar-toggle,
+      .skin-blue .main-header .navbar .sidebar-toggle:hover,
+      .skin-blue .content-header, 
+      .skin-blue .wrapper, 
+      .content-wrapper, 
+      .right-side   { 
+                      background-color: white; 
+                      color: black;
+      }
+
+
+      .skin-blue .main-header .navbar .sidebar-toggle {
+                      position: fixed;
+                      left:0;
+                    }
+    ")),
+    fluidRow(
+      ui_lineplot, ui_text_tabs),
+    fluidRow(
+      ui_multilineplot, ui_table, ui_sankey)))
+
 
 # Server ----
 server <- function(input, output) {
@@ -111,7 +133,7 @@ server <- function(input, output) {
 ## sankey plot data----
   sankey_data <- reactive({
     df |>
-      filter(Year == 2023,
+      filter(Year == input$year,
              GEO == input$geo,
              Science.type == input$science_type,
              Prices == input$prices,
