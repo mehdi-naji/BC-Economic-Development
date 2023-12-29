@@ -53,10 +53,10 @@ ui_text_tabs <- column(4, tabsetPanel(
 ui <- dashboardPage(
   dashboardHeader(
     title = tags$a(
-      tags$span("StrongerBC: Research and Development"),
+      tags$img(src='https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/logo.png', height='40', width='200', style="padding-left: 25px;float: left;") , 
+      tags$span("Research and Development", style = " color: black;font-size: 130%; "),
       href='https://strongerbc.shinyapps.io/research_and_development/',
-      tags$img(src='logo.png', height='60', width='200')  
-    ),titleWidth = 450
+    ),titleWidth = 600
   ),
   dashboardSidebar(
     collapsed = TRUE,
