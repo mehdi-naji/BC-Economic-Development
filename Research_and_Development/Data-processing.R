@@ -29,14 +29,15 @@ df1 <- select(df1, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 df2 <- select(df2, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 df3 <- select(df3, Year, GEO, VALUE)
 
+maxyear <- max(df1$Year[df1$GEO == "British Columbia"])
 
 df_growth <- df1 |>
   arrange(GEO, Funder, Performer, `Science type`, Prices, Year) |>
-  filter(Year %in% c(2015, 2017, 2020)) |>
+  filter(Year %in% c(maxyear-5, maxyear-3, maxyear)) |>
   group_by(GEO, Funder, Performer, `Science type`, Prices) |>
-  mutate(GR_15_20 = ifelse(all(c(2015, 2020) %in% Year), (VALUE[Year == 2020] / VALUE[Year == 2015]) - 1, NA),
-         GR_17_20 = ifelse(all(c(2017, 2020) %in% Year), (VALUE[Year == 2020] / VALUE[Year == 2017]) - 1, NA))|>
-  select(GEO, Funder, Performer, `Science type`, Prices, GR_15_20, GR_17_20)|>
+  mutate(GR5 = ifelse(all(c(maxyear-5, maxyear) %in% Year), (VALUE[Year == maxyear] / VALUE[Year == maxyear-5]) - 1, NA),
+         GR3 = ifelse(all(c(maxyear-3, maxyear) %in% Year), (VALUE[Year == maxyear] / VALUE[Year == maxyear-3]) - 1, NA))|>
+  select(GEO, Funder, Performer, `Science type`, Prices, GR5, GR3)|>
   distinct(.keep_all = TRUE)
   
 
