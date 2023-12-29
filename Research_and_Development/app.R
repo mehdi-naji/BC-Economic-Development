@@ -57,12 +57,12 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
-        selectInput("geo", "GEO", choices = unique(df$GEO)), 
-        selectInput("prices", "Prices", choices = unique(df$Prices)), 
+        selectInput("geo", "Region", choices = unique(df$GEO)), 
+        selectInput("prices", "Price type", choices = unique(df$Prices)), 
         selectInput("science_type", "Science Type", choices = unique(df$Science.type)), 
         selectInput("funder", "Funder", choices = unique(df$Funder)), 
         selectInput("performer", "Performer", choices = unique(df$Performer)),
-        selectInput("year", "Year", choices = unique(df$Year), selected = 2022)
+        selectInput("year", "Year", choices = unique(df$Year), selected = 2020)
     )
   ),
   dashboardBody(
@@ -86,6 +86,11 @@ ui <- dashboardPage(
                       left:0;
                     }
     ")),
+    tags$style(type="text/css",
+               ".shiny-output-error-validation {
+     font-size: 15px;
+    }"
+    ),
     fluidRow(
       ui_lineplot, ui_text_tabs),
     fluidRow(
@@ -169,7 +174,8 @@ server <- function(input, output) {
                      )
                    ),
              yaxis = list(title = paste ("million $ (", "<b>", input$prices, "</b>)")))
-
+  validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+    
   p1 <- ggplotly(p1)
   })   
   
@@ -182,21 +188,23 @@ server <- function(input, output) {
     links <- data.frame(source = match(df1$Funder, nodes$name) - 1,
                         target = match(df1$Performer, nodes$name) - 1,
                         value = df1$VALUE)
+    
+
     node_colors <- c(                      " total, all sectors (F)" = "grey",
-                                    " federal government sector (F)" = "red", 
-                                " provincial governments sector (F)" = "orange", 
-                     " provincial research organizations sector (F)" = "yellow",
-                                   " business enterprise sector (F)" = "green",
-                                      " higher education sector (F)" = "violet", 
-                                    " private non-profit sector (F)" = "blue", 
+                                    " federal government sector (F)" = "#ea5545", 
+                                " provincial governments sector (F)" = "#ef9b20", 
+                     " provincial research organizations sector (F)" = "#edbf33",
+                                   " business enterprise sector (F)" = "#87bc45",
+                                      " higher education sector (F)" = "#b33dc6", 
+                                    " private non-profit sector (F)" = "#27aeef", 
                                                " foreign sector (F)" = "brown",
                                            " total, all sectors (P)" = "grey",
-                                    " federal government sector (P)" = "red", 
-                                " provincial governments sector (P)" = "orange", 
-                     " provincial research organizations sector (P)" = "yellow",
-                                   " business enterprise sector (P)" = "green",
-                                      " higher education sector (P)" = "violet", 
-                                    " private non-profit sector (P)" = "blue")
+                                    " federal government sector (P)" = "#ea5545", 
+                                " provincial governments sector (P)" = "#ef9b20", 
+                     " provincial research organizations sector (P)" = "#edbf33",
+                                   " business enterprise sector (P)" = "#87bc45",
+                                      " higher education sector (P)" = "#b33dc6", 
+                                    " private non-profit sector (P)" = "#27aeef")
     
     
     nodes$color <- node_colors[nodes$name]
@@ -240,6 +248,7 @@ server <- function(input, output) {
         size = 12
       )
     )
+    validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the 'Year',  'Price type', or 'Region' selection in the sidebar."))
     
     fig
   })
@@ -262,29 +271,22 @@ server <- function(input, output) {
   
   ## bar plot ----
   output$barplot <- renderPlotly({
-    my_colors <- c("grey", "red", "orange", "yellow", "green", "violet",
-                   "blue", "pink", "brown", "navy")
-    geo_colors <- c("Ontario" = "grey",
-                    "United Kingdom" = "red", 
-                    "United States" = "orange", 
-                    "Japan" = "yellow",
-                    "British Columbia" = "green",
-                    "Germany" = "violet", 
-                    "Alberta" = "blue", 
-                    "France" = "brown",
-                    "Quebec" = "pink",
-                    "Canada" = "navy", 
-                    "Italy" = "brown")
+    my_colors <- c("#ea5545", "#f46a9b", "#ef9b20", "#edbf33",
+                   "#ede15b", "#bdcf32", "#87bc45", "#27aeef",
+                   "#b33dc6", "#e60049", "#50e991")
 
     df2 <- filtered_data_bar()
-    df2$color <- geo_colors[df2$GEO]
+    
+    df2$color <- my_colors[df2$GEO]
     p2 <- df2 |> 
       plot_ly(y = ~VALUE, color=~GEO, type = 'bar',marker = list(color = ~color))  |>
-      layout(title = "Research and Development in Selected Provices",
-             xaxis = list(title = ""),
-             yaxis = list(title = ""),
-             legend = list(orientation = "h", xanchor = "center", x = 0.5, y = -0.2))
-    
+      layout(title = paste("Research and Development as percentage of GDP \n in", input$year),
+             xaxis = list(title = "", showticklabels = FALSE),
+             yaxis = list(title = "Percent"),
+             legend = list(orientation = "h"),
+             bargroupgap = 0.2)
+
+    validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
     return(p2)
   })
   
