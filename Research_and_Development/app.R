@@ -23,6 +23,10 @@ url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_
 df_growth <- read.csv(url, header = TRUE)
 df_growth <- na.omit(df_growth)
 
+url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_3.csv"
+df_comp <- read.csv(url, header = TRUE)
+df_comp <- na.omit(df_comp)
+
 # User Interface -----
 ## ui_components ----
 ### line plot ----
@@ -31,8 +35,8 @@ ui_lineplot <- column(6,plotlyOutput("line_plot"))
 ### table ----
 ui_table <-  column(3, DT::dataTableOutput("table"))
 
-### multi line ----
-ui_multilineplot <- column(4, plotlyOutput("multilineplot"))
+### barplot ----
+ui_barplot <- column(4, plotlyOutput("barplot"))
 
 ### sankey graph ----
 ui_sankey <- column(5,plotlyOutput("sankey_diagram"))
@@ -58,7 +62,7 @@ ui <- dashboardPage(
         selectInput("science_type", "Science Type", choices = unique(df$Science.type)), 
         selectInput("funder", "Funder", choices = unique(df$Funder)), 
         selectInput("performer", "Performer", choices = unique(df$Performer)),
-        selectInput("year", "Year", choices = unique(df$Year))
+        selectInput("year", "Year", choices = unique(df$Year), selected = 2022)
     )
   ),
   dashboardBody(
@@ -85,7 +89,7 @@ ui <- dashboardPage(
     fluidRow(
       ui_lineplot, ui_text_tabs),
     fluidRow(
-      ui_multilineplot, ui_table, ui_sankey)))
+      ui_barplot, ui_table, ui_sankey)))
 
 
 # Server ----
@@ -120,14 +124,15 @@ server <- function(input, output) {
              "5-year growth <br>(2017-2020)" = GR_17_20)
   })
 
-## multi line data----  
-  filtered_data_multiline <- reactive({
-    df |> 
-      filter (GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta"),
-              Funder == input$funder,
-              Performer == input$performer,
-              Science.type == input$science_type,
-              Prices == input$prices)
+## bar line data----  
+  filtered_data_bar <- reactive({
+    df_comp |> 
+      filter (Year == input$year,
+              GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada", 
+                         "France", "Germany", "Italy", "Japan", "United Kingdom", "United States")
+              )|>
+      arrange(desc(VALUE)) %>%
+      mutate(GEO = factor(GEO, levels = GEO))
   })
 
 ## sankey plot data----
@@ -255,17 +260,32 @@ server <- function(input, output) {
 
 
   
-  ## multi line plot ----
-  output$multilineplot <- renderPlotly({
-    df2 <- filtered_data_multiline()
+  ## bar plot ----
+  output$barplot <- renderPlotly({
+    my_colors <- c("grey", "red", "orange", "yellow", "green", "violet",
+                   "blue", "pink", "brown", "navy")
+    geo_colors <- c("Ontario" = "grey",
+                    "United Kingdom" = "red", 
+                    "United States" = "orange", 
+                    "Japan" = "yellow",
+                    "British Columbia" = "green",
+                    "Germany" = "violet", 
+                    "Alberta" = "blue", 
+                    "France" = "brown",
+                    "Quebec" = "pink",
+                    "Canada" = "navy", 
+                    "Italy" = "brown")
+
+    df2 <- filtered_data_bar()
+    df2$color <- geo_colors[df2$GEO]
     p2 <- df2 |> 
-      plot_ly(x = ~Year, y = ~VALUE, color=~GEO, type = 'scatter', mode = 'lines') |>
+      plot_ly(y = ~VALUE, color=~GEO, type = 'bar',marker = list(color = ~color))  |>
       layout(title = "Research and Development in Selected Provices",
-             xaxis = list(title = "", rangeslider = list(visible = F)),
-             yaxis = list(title = paste("million $ ( <b>", input$prices,"</b>)")),
+             xaxis = list(title = ""),
+             yaxis = list(title = ""),
              legend = list(orientation = "h", xanchor = "center", x = 0.5, y = -0.2))
     
-    p2 <- ggplotly(p2)
+    return(p2)
   })
   
   
