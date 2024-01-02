@@ -52,9 +52,14 @@ ui_text_tabs <- column(4, tabsetPanel(
 ## design -----
 ui <- dashboardPage(
   dashboardHeader(
-    title = "StrongerBC: Research and Development",titleWidth = 450
+    title = tags$a(
+      tags$img(src='https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/logo.png', height='40', width='200', style="padding-left: 25px;float: left;") , 
+      tags$span("Research and Development", style = " color: black;font-size: 130%; "),
+      href='https://strongerbc.shinyapps.io/research_and_development/',
+    ),titleWidth = 600
   ),
   dashboardSidebar(
+    collapsed = TRUE,
     sidebarMenu(
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
         selectInput("geo", "Region", choices = unique(df$GEO)), 
@@ -119,14 +124,16 @@ server <- function(input, output) {
                      Performer == input$performer,
                      Science.type == input$science_type,
                      Prices == input$prices)|>
-               select (GEO, GR_15_20, GR_17_20)|>
-      mutate(GR_15_20 = paste0(round(GR_15_20*100,1),"%"),
-             GR_17_20 = paste0(round(GR_17_20*100,1),"%"))|>
+               select (GEO, GR3, GR5, Maxyear)|>
+      mutate(GR5 = paste0(round(GR5*100,1),"%"),
+             GR3 = paste0(round(GR3*100,1),"%"))|>
       mutate(GEO = factor(GEO, levels = c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada")))|>
       arrange(GEO)|>
-      rename(Region = GEO,
-             "3-year growth <br>(2015-2020)" = GR_15_20,
-             "5-year growth <br>(2017-2020)" = GR_17_20)
+      rename(Region = GEO) |>
+      rename_with(~paste0("3-year growth <br>(", unique(df_growth$Maxyear)-3, "-", unique(df_growth$Maxyear) ,")") , GR3)|>
+      rename_with(~paste0("5-year growth <br>(", unique(df_growth$Maxyear)-5, "-", unique(df_growth$Maxyear) ,")") , GR5)|>
+      select(-Maxyear)
+    
   })
 
 ## bar line data----  
