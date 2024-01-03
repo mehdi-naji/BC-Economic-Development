@@ -48,7 +48,7 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
-        selectInput("geo", "Region", choices = unique(df$GEO), multiple = TRUE), 
+        selectInput("geo", "Region", choices = unique(df$GEO), multiple = TRUE, selected = "Canada"), 
         selectInput("products", "Product Type", choices = unique(df$Products.and.product.groups))
     )
   ),
@@ -92,7 +92,8 @@ server <- function(input, output) {
   filtered_data <- reactive({
     df |>
       filter(GEO == input$geo,
-             Products.and.product.groups == input$products)
+             Products.and.product.groups == input$products) |>
+      arrange(YearMonth)
   })
 
 ## growth table data----
