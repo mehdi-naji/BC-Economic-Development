@@ -3,8 +3,6 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 library(stringr)
-library(zoo)
-
 
 df1 <- statcan_download_data("18-10-0004-01", "eng") 
 
@@ -13,11 +11,13 @@ df1$Year <- year(df1$REF_DATE)
 
 df1$Month <- month(df1$REF_DATE)
 df1$Month <- sprintf("%02d", df1$Month)
-df1$YearMonth <- paste(df1$Year, df1$Month, sep="-")
-df1$YearMonth <- as.yearmon(df1$YearMonth, format="%Y-%m")
+df1$YearMonth <- paste(df1$Year, df1$Month, "01", sep="-")
+df1$YearMonth <- as.Date(df1$YearMonth, format="%Y-%m-%d")
+df1$YearMonth <- format(as.Date(df1$YearMonth), "%Y-%m")
+
 
 df1 <- df1|>
-  filter (Year >= 2020,
+  filter (Year >= 2000,
           UOM == "2002=100")|>
   select (YearMonth, GEO, `Products and product groups`, COORDINATE, VALUE)
 

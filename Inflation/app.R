@@ -92,8 +92,7 @@ server <- function(input, output) {
   filtered_data <- reactive({
     df |>
       filter(GEO == input$geo,
-             Products.and.product.groups == input$products) |>
-      arrange(YearMonth)
+             Products.and.product.groups == input$products)
   })
 
 ## growth table data----
