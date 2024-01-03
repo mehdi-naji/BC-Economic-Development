@@ -18,12 +18,6 @@ url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Price_Ind
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
-df$Month <- sprintf("%02d", df$Month)
-
-df$YearMonth <- paste(df$Year, df$Month, sep="-")
-
-df <- df[order(df$YearMonth), ]
-
 # User Interface -----
 ## ui_components ----
 ### line plot ----

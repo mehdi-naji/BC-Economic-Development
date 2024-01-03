@@ -8,12 +8,6 @@ library(zoo)
 
 df1 <- statcan_download_data("18-10-0004-01", "eng") 
 
-df2 <- df1
-
-
-
-df1 <- df2
-
 df1$REF_DATE <- ymd(df1$REF_DATE)
 df1$Year <- year(df1$REF_DATE)
 
