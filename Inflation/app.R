@@ -48,7 +48,7 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
-        selectInput("geo", "Region", choices = unique(df$GEO)), 
+        selectInput("geo", "Region", choices = unique(df$GEO), multiple = TRUE), 
         selectInput("products", "Product Type", choices = unique(df$Products.and.product.groups))
     )
   ),
@@ -90,9 +90,10 @@ server <- function(input, output) {
 # Data ----
 ## line plot data----  
   filtered_data <- reactive({
-    df %>%
+    df |>
       filter(GEO == input$geo,
-             Products.and.product.groups == input$products)
+             Products.and.product.groups == input$products) |>
+      arrange(YearMonth)
   })
 
 ## growth table data----
@@ -109,25 +110,21 @@ server <- function(input, output) {
   output$line_plot <- renderPlotly({
     df1 <- filtered_data()
     p1 <- df1 |> 
-            plot_ly(x = ~YearMonth, y = ~VALUE, type = 'scatter', mode = 'lines')
-  #   |>
-  #           layout(title = list(text = paste("Research and Development in <b>" , 
-  #                                input$science_type, "</b>", 
-  #                                " in <b>",input$geo , "</b>",
-  #                                "\n", "Funder:<b>", input$funder, "</b>", 
-  #                                "\n", "Performer:<b>", input$performer, "</b>"),
-  #                               x=0.1, y=0.78,font = list(size = 14)),
-  #                  xaxis = list(
-  #                    title = "", 
-  #                    rangeslider = list(
-  #                      visible = T,
-  #                      thickness = 0.02,  
-  #                      bgcolor = "darkgrey"  
-  #                    )
-  #                  ),
-  #            yaxis = list(title = paste ("million $ (", "<b>", input$prices, "</b>)")))
-  # validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-  #   
+            plot_ly(x = ~YearMonth, y = ~inflation, color=~GEO, type = 'scatter', mode = 'lines')|>
+            layout(title = list(text = paste("Research and Development in <b>" ,
+                                 " in <b>",input$geo),
+                                x=0.1, y=0.78,font = list(size = 14)),
+                   xaxis = list(
+                     title = "",
+                     rangeslider = list(
+                       visible = T,
+                       thickness = 0.02,
+                       bgcolor = "darkgrey"
+                     )
+                   ),
+             yaxis = list(title = paste ("million $ (", "<b>", input$prices, "</b>)")))
+  validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+
   p1 <- ggplotly(p1)
   })   
   
