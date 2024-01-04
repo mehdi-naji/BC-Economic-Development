@@ -42,7 +42,7 @@ ui_barplot <- column(4, plotlyOutput("barplot"))
 ui_sankey <- column(5,plotlyOutput("sankey_diagram"))
 
 ### tabs ----
-ui_text_tabs <- column(4, tabsetPanel(
+ui_text_tabs <- column(6, tabsetPanel(
   tabPanel("Analysis", 
            uiOutput("analysis")),
   tabPanel("Considerations", 
@@ -62,12 +62,12 @@ ui <- dashboardPage(
     collapsed = TRUE,
     sidebarMenu(
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
-        selectInput("geo", "Region", choices = unique(df$GEO)), 
+        selectInput("geo", "Region", choices = unique(df$GEO), selected = "British Columbia"), 
         selectInput("prices", "Price type", choices = unique(df$Prices)), 
         selectInput("science_type", "Science Type", choices = unique(df$Science.type)), 
-        selectInput("funder", "Funder", choices = unique(df$Funder)), 
+        selectInput("funder", "Funder", choices = unique(df$Funder), selected = " business enterprise sector"), 
         selectInput("performer", "Performer", choices = unique(df$Performer)),
-        selectInput("year", "Year", choices = unique(df$Year), selected = 2020)
+        selectInput("year", "Year", choices = unique(df$Year), selected = 2021)
     )
   ),
   dashboardBody(
@@ -96,10 +96,17 @@ ui <- dashboardPage(
      font-size: 15px;
     }"
     ),
+    fluidPage(
+      h3(textOutput("title"))
+    ),
     fluidRow(
       ui_lineplot, ui_text_tabs),
     fluidRow(
-      ui_barplot, ui_table, ui_sankey)))
+      ui_sankey, ui_table, ui_barplot),
+    fluidPage(
+      textOutput("source")
+    )
+    ))
 
 
 # Server ----
@@ -161,6 +168,23 @@ server <- function(input, output) {
   })
 
 # Rendering ----
+  
+  output$title <- renderText({
+    if (input$funder == " business enterprise sector") {
+      "Private Sector Investment in Innovation"
+    } else if (input$funder == " federal government sector") {
+      "Federal Government Investment in Innovation"
+    } else if (input$funder == " provincial governments sector") {
+      "Provincial Government Investment in Innovation"
+    } else if (input$funder == " provincial research organizations sector") {
+      "Provincial Research Organizations Investment in Innovation"
+    } else if (input$funder == " foreign sector") {
+      "Foreign Investment in Innovation"
+    } else if (input$funder == " higher education sector") {
+      "Higher Education Investment in Innovation"
+    } else {"Investment in Innovation"}
+  })
+  
 ## line plot ----
   output$line_plot <- renderPlotly({
     df1 <- filtered_data()
@@ -302,10 +326,11 @@ server <- function(input, output) {
     HTML("
   <ul style='text-align: justify;'>
     <li>Spending on research and development promotes scientific and technological advancement while fostering economic progress through growth, productivity, adaptation, and market resilience.</li>
-    <li>Private sector in B.C. performed $2,333 million R&D in 2020, a 179 percent growth from $835 million in 2000.</li>
-    <li>Private sector accounted for 45 percent of overall R&D spending in the province in 2020.</li>
+    <li>Private sector R&D spending in B.C. increased $341 million between 2020 and 2021 to $3.028 billion. It has achieved a 263 percent growth from $835 million in 2000.</li>
+    <li>Private sector accounted for 50.5 percent of overall R&D spending in the province in 2021.</li>
     <li>B.C.’s private sector has seen a sharp increase in R&D spending in 2018, with an annual growth rate at 26.1 percent, the highest in the past 20 years.</li>
     <li>B.C. surpassed Alberta in private sector R&D spending in 2016 and have remained third in Canada, following Ontario and Quebec.</li>
+    <li>Though gradually catching up, Canada's R&D intensity remained below the G7 average (2.6) in 2020 at 1.9 percent. B.C.'s R&D spending was 1.7 percent of its GDP in 2020, ranking third in Canada.</li>
   </ul>
   ")
   })
@@ -315,9 +340,24 @@ server <- function(input, output) {
   output$consideration <- renderUI({
     HTML("
   <ul style='text-align: justify;'>
-    <li>Some selections might lack sufficient data.</li>
+    This dashboard was developed under the supervision of the Economic Strategy Branch, Sustainable Economy Division of the Ministry of Jobs, Economic Development and Innovation.
+    <br>
+    ---
+    <br>
+    <b>Data Source:</b>
+    <li>The information displayed on this dashboard is derived from StatCan's tables:
+      <ul>
+        <li>Table 27-10-0273-01: Gross Domestic Expenditures on Research and Development, by Science Type and by Funder and Performer Sector</li>
+        <li>Table 27-10-0273-02: Expenditures on Research and Development (R&D) by Performing Sector</li>
+        <li>Table 27-10-0359-01: Total Domestic Expenditures on Research and Development (R&D) as Percentage of Gross Domestic Product (GDP), Canada and Provinces, and G-7 Countries</li>
+      </ul>
+    </li>
   </ul>
-  ")
+")
+  })
+  
+  output$source <- renderText({
+    "2024 Ministry of Jobs, Economic Development and Innovation, Sustainable Economy Devision. All rights reserved. "
   })
   
   

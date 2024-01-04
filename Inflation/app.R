@@ -15,13 +15,22 @@ options(shiny.autoreload = TRUE)
 
 # Downloading processed data ----
 url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Price_Index_1.csv"
-df <- read.csv(url, header = TRUE)
-df <- na.omit(df)
+df1 <- read.csv(url, header = TRUE)
+df1 <- na.omit(df1)
+
+url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Core_Inflation_1.csv"
+df2 <- read.csv(url, header = TRUE)
+df2 <- na.omit(df2)
+df2 <- df2 |>
+  select(YearMonth, CoreWeighted, CoreTrim, CoreFactor, CPI, MnthInf, AnnMnthInf, AnnInf) |>
+  gather(key = "var",
+         value = "value",
+         -YearMonth)
 
 # User Interface -----
 ## ui_components ----
-### line plot ----
-ui_lineplot <- column(6,plotlyOutput("line_plot"))
+### canada inf plot ----
+ui_canada_inf <- column(6,plotlyOutput("canada_inf_plot"))
 
 ### table ----
 ui_table <-  column(3, DT::dataTableOutput("table"))
@@ -48,8 +57,21 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
-        selectInput("geo", "Region", choices = unique(df$GEO), multiple = TRUE, selected = "Canada"), 
-        selectInput("products", "Product Type", choices = unique(df$Products.and.product.groups))
+        selectInput("geo", "Region", choices = unique(df1$GEO), multiple = TRUE, selected = "Canada"), 
+        selectInput("products", "Product Type", choices = unique(df1$Products.and.product.groups)),
+        checkboxGroupInput("showvar", 
+                           label = 
+                             h3("Select Variables:"), 
+                           choices = 
+                             c("Core Factor Inflation" = "CoreFactor", 
+                               "Core Weighted Inflation" = "CoreWeighted", 
+                               "Core Trimed Inflation" = "CoreTrim", 
+                               "Monthly Inflation"  = "MnthInf", 
+                               "Annualized Inflation" = "AnnMnthInf", 
+                               "Average Annual Inflation" = "AnnInf"), 
+                           selected = 
+                             c("CoreFactor", "AnnMnthInf", "AnnInf"))
+      
     )
   ),
   dashboardBody(
@@ -79,7 +101,7 @@ ui <- dashboardPage(
     }"
     ),
     fluidRow(
-      ui_lineplot, ui_text_tabs),
+      ui_canada_inf, ui_text_tabs),
     fluidRow(
       ui_barplot, ui_table, ui_sankey)))
 
@@ -88,13 +110,11 @@ ui <- dashboardPage(
 server <- function(input, output) {
 
 # Data ----
-## line plot data----  
-  filtered_data <- reactive({
-    df |>
-      filter(GEO == input$geo,
-             Products.and.product.groups == input$products) |>
-      arrange(YearMonth)
-  })
+## Canada Inflation plot data----  
+Canada_inf_data <- reactive({
+  df2 |>
+    filter(var == input$showvar)
+})
 
 ## growth table data----
   
@@ -106,11 +126,11 @@ server <- function(input, output) {
   
 
 # Rendering ----
-## line plot ----
-  output$line_plot <- renderPlotly({
-    df1 <- filtered_data()
-    p1 <- df1 |> 
-            plot_ly(x = ~YearMonth, y = ~inflation, color=~GEO, type = 'scatter', mode = 'lines')|>
+## canada inf plot ----
+  output$canada_inf_plot <- renderPlotly({
+    dff2 <- Canada_inf_data()
+    p1 <- dff2 |> 
+            plot_ly(x = ~YearMonth, y = ~value, color = ~var, type = 'scatter', mode = 'lines')|>
             layout(title = list(text = paste("Research and Development in <b>" ,
                                  " in <b>",input$geo),
                                 x=0.1, y=0.78,font = list(size = 14)),
