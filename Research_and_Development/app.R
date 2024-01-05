@@ -11,6 +11,8 @@ library(cowplot)
 library(grid)
 library(gtable)
 library(shinydashboard)
+library(RColorBrewer)
+
 options(shiny.autoreload = TRUE)
 
 # Downloading processed data ----
@@ -67,7 +69,7 @@ ui <- dashboardPage(
         selectInput("science_type", "Science Type", choices = unique(df$Science.type)), 
         selectInput("funder", "Funder", choices = unique(df$Funder), selected = " business enterprise sector"), 
         selectInput("performer", "Performer", choices = unique(df$Performer)),
-        selectInput("year", "Year", choices = unique(df$Year), selected = 2021)
+        selectInput("year", "Year", choices = unique(df$Year), selected = 2020)
     )
   ),
   dashboardBody(
@@ -147,12 +149,29 @@ server <- function(input, output) {
   filtered_data_bar <- reactive({
     df_comp |> 
       filter (Year == input$year,
-              GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada", 
-                         "France", "Germany", "Italy", "Japan", "United Kingdom", "United States")
+              GEO %in% c("British Columbia", 
+                         "Ontario", 
+                         "Quebec", 
+                         "Alberta", 
+                         "Canada", 
+                         "France", 
+                         "Germany", 
+                         "Italy", 
+                         "Japan", 
+                         "United Kingdom", 
+                         "United States")
               )|>
-      arrange(desc(VALUE)) %>%
-      mutate(GEO = factor(GEO, levels = GEO))
-  })
+      arrange(VALUE) %>%
+      mutate(GEO = factor(GEO, levels = GEO),
+             color = case_when(
+               GEO == "Ontario" ~ "lightblue1" ,
+               GEO == "Quebec" ~ "lightskyblue1" ,
+               GEO == "Alberta" ~ "lightskyblue2" ,
+               GEO == "British Columbia" ~ "steelblue3",
+               GEO == "Canada" ~ "royalblue4",
+               GEO == "United States" ~ "#00868B",
+               TRUE ~ "darkgrey"))
+    })
 
 ## sankey plot data----
   sankey_data <- reactive({
@@ -222,19 +241,19 @@ server <- function(input, output) {
     
 
     node_colors <- c(                      " total, all sectors (F)" = "grey",
-                                    " federal government sector (F)" = "#ea5545", 
-                                " provincial governments sector (F)" = "#ef9b20", 
+                                    " federal government sector (F)" = "#8DB6CD", 
+                                " provincial governments sector (F)" = "#00EEEE", 
                      " provincial research organizations sector (F)" = "#edbf33",
-                                   " business enterprise sector (F)" = "#87bc45",
-                                      " higher education sector (F)" = "#b33dc6", 
+                                   " business enterprise sector (F)" = "#4F94CD",
+                                      " higher education sector (F)" = "#27408B", 
                                     " private non-profit sector (F)" = "#27aeef", 
-                                               " foreign sector (F)" = "brown",
+                                               " foreign sector (F)" = "#BFEFFF",
                                            " total, all sectors (P)" = "grey",
-                                    " federal government sector (P)" = "#ea5545", 
-                                " provincial governments sector (P)" = "#ef9b20", 
+                                    " federal government sector (P)" = "#8DB6CD", 
+                                " provincial governments sector (P)" = "#00EEEE", 
                      " provincial research organizations sector (P)" = "#edbf33",
-                                   " business enterprise sector (P)" = "#87bc45",
-                                      " higher education sector (P)" = "#b33dc6", 
+                                   " business enterprise sector (P)" = "#4F94CD",
+                                      " higher education sector (P)" = "#27408B", 
                                     " private non-profit sector (P)" = "#27aeef")
     
     
@@ -302,21 +321,19 @@ server <- function(input, output) {
   
   ## bar plot ----
   output$barplot <- renderPlotly({
-    my_colors <- c("#ea5545", "#f46a9b", "#ef9b20", "#edbf33",
-                   "#ede15b", "#bdcf32", "#87bc45", "#27aeef",
-                   "#b33dc6", "#e60049", "#50e991")
 
     df2 <- filtered_data_bar()
-    
-    df2$color <- my_colors[df2$GEO]
+    df2$formatted_VALUE <- sprintf("%.1f%%", df2$VALUE)
+    df2$adjusted_VALUE <- df2$VALUE + 0.2
     p2 <- df2 |> 
-      plot_ly(y = ~VALUE, color=~GEO, type = 'bar',marker = list(color = ~color))  |>
+      plot_ly(x = ~VALUE,y=~GEO, color=~GEO, type = 'bar',
+              colors = ~color, showlegend = FALSE)  |>
+      add_text(x = ~adjusted_VALUE,text = ~formatted_VALUE, textposition = 'outside') |>
       layout(title = paste("Research and Development as percentage of GDP \n in", input$year),
-             xaxis = list(title = "", showticklabels = FALSE),
-             yaxis = list(title = "Percent"),
-             legend = list(orientation = "h"),
-             bargroupgap = 0.2)
-
+             yaxis = list(title = ""),
+             xaxis = list(title = "Percent"),
+             bargroupgap = 0.3)
+ 
     validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
     return(p2)
   })

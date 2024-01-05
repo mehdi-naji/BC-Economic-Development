@@ -1,11 +1,11 @@
 name: research_and_development
-title:
+title: Research_and_Development
 username: strongerbc
 account: strongerbc
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10850573
-bundleId: 8093478
+bundleId: 8110325
 url: https://strongerbc.shinyapps.io/research_and_development/
 version: 1
 asMultiple: FALSE
