@@ -21,11 +21,6 @@ df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
 
-# url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_Growth_1.csv"
-# df_growth <- read.csv(url, header = TRUE)
-# df_growth <- na.omit(df_growth)
-
-
 url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_3.csv"
 df_comp <- read.csv(url, header = TRUE)
 df_comp <- na.omit(df_comp)
