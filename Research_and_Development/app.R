@@ -21,9 +21,11 @@ df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
 
-url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_Growth_1.csv"
-df_growth <- read.csv(url, header = TRUE)
-df_growth <- na.omit(df_growth)
+# url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_Growth_1.csv"
+# df_growth <- read.csv(url, header = TRUE)
+# df_growth <- na.omit(df_growth)
+
+
 
 url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_3.csv"
 df_comp <- read.csv(url, header = TRUE)
@@ -126,21 +128,39 @@ server <- function(input, output) {
   })
 
 ## growth table data----
+  
   filtered_data_growth <- reactive({
-    df_growth %>%
+    
+    df_growth <- df |>
+      arrange(GEO, Funder, Performer, Science.type, Prices, Year) |>
+      filter(Year %in% c(as.numeric(as.character(input$year)) -5, 
+                         as.numeric(as.character(input$year))-3, 
+                         as.numeric(as.character(input$year)))) |>
+      group_by(GEO, Funder, Performer, Science.type, Prices) |>
+      mutate(Maxyear = input$year,
+             GR5 = ifelse(all(c(as.numeric(as.character(input$year))-5, 
+                                as.numeric(as.character(input$year))) %in% Year), 
+                          (VALUE[Year == as.numeric(as.character(input$year))] / VALUE[Year == as.numeric(as.character(input$year))-5]) - 1, NA),
+             GR3 = ifelse(all(c(as.numeric(as.character(input$year))-3, 
+                                as.numeric(as.character(input$year))) %in% Year), 
+                          (VALUE[Year == as.numeric(as.character(input$year))] / VALUE[Year == as.numeric(as.character(input$year))-3]) - 1, NA))|>
+      select(GEO, Funder, Performer, Science.type, Prices, GR5, GR3, Maxyear, Year)|>
+      distinct(.keep_all = TRUE) |>
       filter (GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada"),
-                     Funder == input$funder,
-                     Performer == input$performer,
-                     Science.type == input$science_type,
-                     Prices == input$prices)|>
-               select (GEO, GR3, GR5, Maxyear)|>
+              Year == as.numeric(as.character(input$year)),
+              Funder == input$funder,
+              Performer == input$performer,
+              Science.type == input$science_type,
+              Prices == input$prices)|>
+      ungroup()|>
+      select (GEO, GR3, GR5, Maxyear) |>
       mutate(GR5 = paste0(round(GR5*100,1),"%"),
              GR3 = paste0(round(GR3*100,1),"%"))|>
       mutate(GEO = factor(GEO, levels = c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada")))|>
       arrange(GEO)|>
       rename(Region = GEO) |>
-      rename_with(~paste0("3-year growth <br>(", unique(df_growth$Maxyear)-3, "-", unique(df_growth$Maxyear) ,")") , GR3)|>
-      rename_with(~paste0("5-year growth <br>(", unique(df_growth$Maxyear)-5, "-", unique(df_growth$Maxyear) ,")") , GR5)|>
+      rename_with(~paste0("3-year growth <br>(", as.numeric(as.character(input$year))-3, "-", as.numeric(as.character(input$year)) ,")") , GR3)|>
+      rename_with(~paste0("5-year growth <br>(", as.numeric(as.character(input$year))-5, "-", as.numeric(as.character(input$year)) ,")") , GR5)|>
       select(-Maxyear)
     
   })
@@ -293,7 +313,8 @@ server <- function(input, output) {
     
   
     fig <- fig |> layout(
-      title = "The Flow from Funders (Left) to Performenrs (Right)",
+      title = paste("The Flow from Funders (Left) to Performenrs (Right) \n in" , input$year),
+      font = list(family = 'Arial', size = 12),
       font = list(
         size = 12
       )
@@ -313,8 +334,8 @@ server <- function(input, output) {
   output$table <- DT::renderDataTable({
     data <- filtered_data_growth()
     DT::datatable(data, options = list(dom = 't'), escape = FALSE, rownames = FALSE, 
-                  caption = htmltools::tags$caption(style = "caption-side: top; font-size: 130%;", 
-                                                    "Research and Development Spending Growth"))
+                  caption = htmltools::tags$caption("Research and Development Spending Growth",
+                                                    style = "font-family: Arial; font-size: 12px;"))
   })
 
 
@@ -330,6 +351,7 @@ server <- function(input, output) {
               colors = ~color, showlegend = FALSE)  |>
       add_text(x = ~adjusted_VALUE,text = ~formatted_VALUE, textposition = 'outside') |>
       layout(title = paste("Research and Development as percentage of GDP \n in", input$year),
+             font = list(family = 'Arial', size = 12),
              yaxis = list(title = ""),
              xaxis = list(title = "Percent"),
              bargroupgap = 0.3)
@@ -343,11 +365,11 @@ server <- function(input, output) {
     HTML("
   <ul style='text-align: justify;'>
     <li>Spending on research and development promotes scientific and technological advancement while fostering economic progress through growth, productivity, adaptation, and market resilience.</li>
-    <li>Private sector R&D spending in B.C. increased $341 million between 2020 and 2021 to $3.028 billion. It has achieved a 263 percent growth from $835 million in 2000.</li>
-    <li>Private sector accounted for 50.5 percent of overall R&D spending in the province in 2021.</li>
+    <li>Between 2020 and 2021, private sector R&D spending in British Columbia grew by $341 million to $3.028 billion. It increased by 263 percent from $835 million in 2000.</li>
+    <li>Private sector accounted for 50.5 percent of overall R&D spending in the province in 2021, highest in Canada.</li>
     <li>B.C.’s private sector has seen a sharp increase in R&D spending in 2018, with an annual growth rate at 26.1 percent, the highest in the past 20 years.</li>
     <li>B.C. surpassed Alberta in private sector R&D spending in 2016 and have remained third in Canada, following Ontario and Quebec.</li>
-    <li>Though gradually catching up, Canada's R&D intensity remained below the G7 average (2.6) in 2020 at 1.9 percent. B.C.'s R&D spending was 1.7 percent of its GDP in 2020, ranking third in Canada.</li>
+    <li>Canada’s R&D intensity remained at 1.9 percent, below the G7 average (2.6) in 2020. In 2020, B.C.’s R&D spending was 1.7 percent of its GDP, placing it third in Canada.</li>
   </ul>
   ")
   })

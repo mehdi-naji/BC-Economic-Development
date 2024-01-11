@@ -29,8 +29,6 @@ df1 <- select(df1, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 df2 <- select(df2, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 df3 <- select(df3, Year, GEO, VALUE)
 
-maxyear <- max(df1$Year[df1$GEO == "British Columbia"])
-
 df_growth <- df1 |>
   arrange(GEO, Funder, Performer, `Science type`, Prices, Year) |>
   filter(Year %in% c(maxyear-5, maxyear-3, maxyear)) |>
