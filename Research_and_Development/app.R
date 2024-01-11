@@ -29,7 +29,7 @@ Modal_df <- read.csv(url, header = TRUE)
 
 # Static inputs ----
 modal_title1 <- "Private sector investment in innovation"
-modal_text1 <- paste("The amount spent on research and development by the business enterprise sector (not adjusted for inflation) in "
+modal_text1 <- paste("The amount spent on research and development by the business enterprise sector (not adjusted for inflation) in") 
 modal_title2 <- "Value-added exports"
 modal_title3 <- "Non-residential structures, machinery and equipment and IP investment as share of GDP"
 modal_title4 <- "Labour Productivity"
@@ -116,7 +116,11 @@ ui <- dashboardPage(
           column(4, style = "height: 400px; background-color: white;margin-buttom: 10px;margin-right: 10px;"),
           column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
                  h4(modal_title1, style = "color: darkgreen; font-weight: bold;"), 
-                 p("$100,000", style = "color: black;")),
+                 p(modal_text1),
+                 p(Modal_df$Year, 
+                   style = "font-size: 30px; font-family: Arial; color: darkgreen;"),
+                 p(paste0("$", format(Modal_df$PrivateInvestment/1000, big.mark = ",", scientific = FALSE), "billion"), 
+                   style = "font-size: 40px; font-family: Arial; color: black;")),
           column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
                  h4(modal_title2, style = "color: darkgreen; font-weight: bold;"), 
                  p("$200,000", style = "color: black;")),
