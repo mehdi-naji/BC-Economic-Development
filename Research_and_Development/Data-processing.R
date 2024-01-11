@@ -29,18 +29,21 @@ df1 <- select(df1, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 df2 <- select(df2, Year, GEO, Funder, Performer, `Science type`, Prices, VALUE)
 df3 <- select(df3, Year, GEO, VALUE)
 
-df_growth <- df1 |>
-  arrange(GEO, Funder, Performer, `Science type`, Prices, Year) |>
-  filter(Year %in% c(maxyear-5, maxyear-3, maxyear)) |>
-  group_by(GEO, Funder, Performer, `Science type`, Prices) |>
-  mutate(Maxyear = maxyear,
-         GR5 = ifelse(all(c(maxyear-5, maxyear) %in% Year), (VALUE[Year == maxyear] / VALUE[Year == maxyear-5]) - 1, NA),
-         GR3 = ifelse(all(c(maxyear-3, maxyear) %in% Year), (VALUE[Year == maxyear] / VALUE[Year == maxyear-3]) - 1, NA))|>
-  select(GEO, Funder, Performer, `Science type`, Prices, GR5, GR3, Maxyear)|>
-  distinct(.keep_all = TRUE)
-  
+# Modal page data
+Modal_int <- df1 |>
+  filter (GEO == "British Columbia",
+          Performer == " business enterprise sector",
+          Funder == " total, all sectors",
+          `Science type` == "Total sciences",
+          Prices == "Current prices") |>
+  filter(Year == max(Year)) |>
+  pull (VALUE, Year)
 
+Modal_year <- names(Modal_int)
+Modal_privateinvestment <- Modal_int[[1]]
 
+Modal_data <- data.frame("Year" = Modal_year, 
+                         "PrivateInvestment" = Modal_privateinvestment)
 
 # write.csv(df1, "~/StrongerBC-Project/Data/Research_and_Development_1.csv", row.names = FALSE)
 # write.csv(df2, "~/StrongerBC-Project/Data/Research_and_Development_2.csv", row.names = FALSE)
@@ -49,6 +52,7 @@ df_growth <- df1 |>
 
 
 write.csv(df1, "C:/Users/mehdi/StrongerBC-Project/Data/Research_and_Development_1.csv", row.names = FALSE)
-write.csv(df_growth, "C:/Users/mehdi/StrongerBC-Project/Data/Research_and_Development_Growth_1.csv", row.names = FALSE)
 write.csv(df2, "C:/Users/mehdi/StrongerBC-Project/Data/Research_and_Development_2.csv", row.names = FALSE)
 write.csv(df3, "C:/Users/mehdi/StrongerBC-Project/Data/Research_and_Development_3.csv", row.names = FALSE)
+write.csv(Modal_data, "C:/Users/mehdi/StrongerBC-Project/Data/Research_and_Development_Modal_data.csv", row.names = FALSE)
+

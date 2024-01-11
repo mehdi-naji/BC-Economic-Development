@@ -20,10 +20,12 @@ url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
-
 url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_3.csv"
 df_comp <- read.csv(url, header = TRUE)
 df_comp <- na.omit(df_comp)
+
+url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_Modal_data.csv"
+Modal_df <- read.csv(url, header = TRUE)
 
 # Static inputs ----
 modal_title1 <- "Private sector investment in innovation"
