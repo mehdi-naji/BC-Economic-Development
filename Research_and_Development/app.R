@@ -26,10 +26,17 @@ df <- na.omit(df)
 # df_growth <- na.omit(df_growth)
 
 
-
 url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_3.csv"
 df_comp <- read.csv(url, header = TRUE)
 df_comp <- na.omit(df_comp)
+
+# Static inputs ----
+modal_title1 <- "Private sector investment in innovation"
+modal_text1 <- paste("The amount spent on research and development by the business enterprise sector (not adjusted for inflation) in "
+modal_title2 <- "Value-added exports"
+modal_title3 <- "Non-residential structures, machinery and equipment and IP investment as share of GDP"
+modal_title4 <- "Labour Productivity"
+modal_title5 <- "Exports as % of GDP"
 
 # User Interface -----
 ## ui_components ----
@@ -100,7 +107,39 @@ ui <- dashboardPage(
      font-size: 15px;
     }"
     ),
+    
+    tags$head(tags$style(".modal-dialog { width: 80%; }")),
+    tags$head(tags$style(".modal-body { min-height: 700px; }")),
     fluidPage(
+      modalDialog(
+        easyClose = TRUE, 
+        size = "l", 
+        footer = tagList(modalButton("OK")),
+        fluidRow(
+          column(4, style = "height: 400px; background-color: white;margin-buttom: 10px;margin-right: 10px;"),
+          column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
+                 h4(modal_title1, style = "color: darkgreen; font-weight: bold;"), 
+                 p("$100,000", style = "color: black;")),
+          column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
+                 h4(modal_title2, style = "color: darkgreen; font-weight: bold;"), 
+                 p("$200,000", style = "color: black;")),
+          column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
+                 h4(modal_title3, style = "color: darkgreen; font-weight: bold;"), 
+                 p("$300,000", style = "color: black;")),
+          column(1, style = "height: 400px; background-color: darkgreen;margin-buttom: 10px;")
+        ),
+        fluidRow(
+          column(4, style = "height: 400px; background-color: darkgreen;margin-right: 10px; margin-top: 10px;", 
+                 h2("Fostering \n Innovation Across Economy", style = "color: white; font-size: 300%;")),
+          column(3, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: px; margin-top: 10px;", 
+                 h4(modal_title4, style = "color: darkgreen; font-weight: bold;"), 
+                 p("$400,000", style = "color: black;")),
+          column(3, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-top: 10px;", 
+                 h4(modal_title5, style = "color: darkgreen; font-weight: bold;"), 
+                 p("$500,000", style = "color: black;")),
+          column(1, style = "height: 400px; background-color: white;")
+        )
+      ),
       h3(textOutput("title"))
     ),
     fluidRow(
@@ -114,7 +153,7 @@ ui <- dashboardPage(
 
 
 # Server ----
-server <- function(input, output) {
+server <- function(input, output, session) {
 
 # Data ----
 ## line plot data----  
@@ -207,7 +246,7 @@ server <- function(input, output) {
   })
 
 # Rendering ----
-  
+
   output$title <- renderText({
     if (input$funder == " business enterprise sector") {
       "Private Sector Investment in Innovation"
