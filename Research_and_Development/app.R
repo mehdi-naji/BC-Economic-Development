@@ -108,39 +108,39 @@ ui <- dashboardPage(
     tags$head(tags$style(".modal-dialog { width: 80%; }")),
     tags$head(tags$style(".modal-body { min-height: 700px; }")),
     fluidPage(
-      modalDialog(
-        easyClose = TRUE, 
-        size = "l", 
-        footer = tagList(modalButton("OK")),
-        fluidRow(
-          column(4, style = "height: 400px; background-color: white;margin-buttom: 10px;margin-right: 10px;"),
-          column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
-                 h4(modal_title1, style = "color: darkgreen; font-weight: bold;"), 
-                 p(modal_text1),
-                 p(Modal_df$Year, 
-                   style = "font-size: 30px; font-family: Arial; color: darkgreen;"),
-                 p(paste0("$", format(Modal_df$PrivateInvestment/1000, big.mark = ",", scientific = FALSE), "billion"), 
-                   style = "font-size: 40px; font-family: Arial; color: black;")),
-          column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
-                 h4(modal_title2, style = "color: darkgreen; font-weight: bold;"), 
-                 p("$200,000", style = "color: black;")),
-          column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
-                 h4(modal_title3, style = "color: darkgreen; font-weight: bold;"), 
-                 p("$300,000", style = "color: black;")),
-          column(1, style = "height: 400px; background-color: darkgreen;margin-buttom: 10px;")
-        ),
-        fluidRow(
-          column(4, style = "height: 400px; background-color: darkgreen;margin-right: 10px; margin-top: 10px;", 
-                 h2("Fostering \n Innovation Across Economy", style = "color: white; font-size: 300%;")),
-          column(3, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: px; margin-top: 10px;", 
-                 h4(modal_title4, style = "color: darkgreen; font-weight: bold;"), 
-                 p("$400,000", style = "color: black;")),
-          column(3, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-top: 10px;", 
-                 h4(modal_title5, style = "color: darkgreen; font-weight: bold;"), 
-                 p("$500,000", style = "color: black;")),
-          column(1, style = "height: 400px; background-color: white;")
-        )
-      ),
+      # modalDialog(
+      #   easyClose = TRUE, 
+      #   size = "l", 
+      #   footer = tagList(modalButton("OK")),
+      #   fluidRow(
+      #     column(4, style = "height: 400px; background-color: white;margin-buttom: 10px;margin-right: 10px;"),
+      #     column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
+      #            h4(modal_title1, style = "color: darkgreen; font-weight: bold;"), 
+      #            p(modal_text1),
+      #            p(Modal_df$Year, 
+      #              style = "font-size: 30px; font-family: Arial; color: darkgreen;"),
+      #            p(paste0("$", format(Modal_df$PrivateInvestment/1000, big.mark = ",", scientific = FALSE), "billion"), 
+      #              style = "font-size: 40px; font-family: Arial; color: black;")),
+      #     column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
+      #            h4(modal_title2, style = "color: darkgreen; font-weight: bold;"), 
+      #            p("$200,000", style = "color: black;")),
+      #     column(2, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: 10px;margin-buttom: 10px;", 
+      #            h4(modal_title3, style = "color: darkgreen; font-weight: bold;"), 
+      #            p("$300,000", style = "color: black;")),
+      #     column(1, style = "height: 400px; background-color: darkgreen;margin-buttom: 10px;")
+      #   ),
+      #   fluidRow(
+      #     column(4, style = "height: 400px; background-color: darkgreen;margin-right: 10px; margin-top: 10px;", 
+      #            h2("Fostering \n Innovation Across Economy", style = "color: white; font-size: 300%;")),
+      #     column(3, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-right: px; margin-top: 10px;", 
+      #            h4(modal_title4, style = "color: darkgreen; font-weight: bold;"), 
+      #            p("$400,000", style = "color: black;")),
+      #     column(3, style = "height: 400px; background-color: white; border: 1px solid darkgreen; margin-top: 10px;", 
+      #            h4(modal_title5, style = "color: darkgreen; font-weight: bold;"), 
+      #            p("$500,000", style = "color: black;")),
+      #     column(1, style = "height: 400px; background-color: white;")
+      #   )
+      # ),
       h3(textOutput("title"))
     ),
     fluidRow(
