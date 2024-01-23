@@ -16,7 +16,7 @@ library(RColorBrewer)
 options(shiny.autoreload = TRUE)
 
 # Downloading processed data ----
-url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/VA_Exports_1.csv"
+url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/VA_Exporsts_1.csv"
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
@@ -56,9 +56,9 @@ ui <- dashboardPage(
   dashboardHeader(
     title = tags$a(
       tags$img(src='https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/logo.png', height='40', width='200', style="padding-left: 25px;float: left;") , 
-      tags$span("Research and Development", style = " color: black;font-size: 130%; "),
+      tags$span("Value-added in Goods & Services Exports", style = " color: black;font-size: 130%; "),
       href='https://strongerbc.shinyapps.io/research_and_development/',
-    ),titleWidth = 600
+    ),titleWidth = 700
   ),
   dashboardSidebar(
     collapsed = TRUE,
@@ -152,13 +152,10 @@ server <- function(input, output, session) {
 
 # Data ----
 ## line plot data----  
-  filtered_data <- reactive({
+  line_plot_data <- reactive({
     df %>%
       filter(GEO == input$geo,
-             Funder == input$funder,
-             Performer == input$performer,
-             Science.type == input$science_type,
-             Prices == input$prices)
+             Industry == "Total industries")
   })
 
 ## growth table data----
@@ -201,20 +198,12 @@ server <- function(input, output, session) {
 
 ## bar line data----  
   filtered_data_bar <- reactive({
-    df_comp |> 
+    df |> 
       filter (Year == input$year,
               GEO %in% c("British Columbia", 
                          "Ontario", 
                          "Quebec", 
-                         "Alberta", 
-                         "Canada", 
-                         "France", 
-                         "Germany", 
-                         "Italy", 
-                         "Japan", 
-                         "United Kingdom", 
-                         "United States")
-              )|>
+                         "Alberta"))|>
       arrange(VALUE) %>%
       mutate(GEO = factor(GEO, levels = GEO),
              color = case_when(
@@ -222,8 +211,6 @@ server <- function(input, output, session) {
                GEO == "Quebec" ~ "lightskyblue1" ,
                GEO == "Alberta" ~ "lightskyblue2" ,
                GEO == "British Columbia" ~ "steelblue3",
-               GEO == "Canada" ~ "royalblue4",
-               GEO == "United States" ~ "#00868B",
                TRUE ~ "darkgrey"))
     })
 
@@ -231,13 +218,7 @@ server <- function(input, output, session) {
   sankey_data <- reactive({
     df |>
       filter(Year == input$year,
-             GEO == input$geo,
-             Science.type == input$science_type,
-             Prices == input$prices,
-             Funder != " total, all sectors",
-             Performer != " total, all sectors") |>
-      mutate(Funder = paste(Funder, "(F)", sep = " "),
-             Performer = paste(Performer, "(P)", sep = " "))
+             GEO == input$geo)
   })
 
 # Rendering ----
@@ -260,24 +241,20 @@ server <- function(input, output, session) {
   
 ## line plot ----
   output$line_plot <- renderPlotly({
-    df1 <- filtered_data()
+    df1 <- line_plot_data()
     p1 <- df1 |> 
-            plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
-            layout(title = list(text = paste("Research and Development in <b>" , 
-                                 input$science_type, "</b>", 
-                                 " in <b>",input$geo , "</b>",
-                                 "\n", "Funder:<b>", input$funder, "</b>", 
-                                 "\n", "Performer:<b>", input$performer, "</b>"),
+            plot_ly(x = ~Year, y = ~VALUE*1000, type = 'scatter', mode = 'lines') |>
+            layout(title = list(text = paste("Research and Development in <b>"),
                                 x=0.1, y=0.78,font = list(size = 14)),
                    xaxis = list(
                      title = "", 
                      rangeslider = list(
                        visible = T,
-                       thickness = 0.02,  
+                       thickness = 0.03,  
                        bgcolor = "darkgrey"  
                      )
                    ),
-             yaxis = list(title = paste ("million $ (", "<b>", input$prices, "</b>)")))
+             yaxis = list(title = paste ("$ ")))
   validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
     
   p1 <- ggplotly(p1)
