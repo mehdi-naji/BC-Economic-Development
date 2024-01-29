@@ -27,8 +27,6 @@ df2 <- df2 |>
 names(df2)[names(df2) == "VALUE"] <- "GDP"
 
 
-
-
 dff <- merge(df1, df2, by = c("Year", "GEO"))
 
 # write.csv(df1, "~/StrongerBC-Project/Data/VA_Exporsts_1.csv", row.names = FALSE)
