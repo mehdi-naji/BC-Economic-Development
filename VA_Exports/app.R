@@ -40,8 +40,8 @@ ui_table <-  column(3, DT::dataTableOutput("table"))
 ### barplot ----
 ui_barplot <- column(4, plotlyOutput("barplot"))
 
-### sankey graph ----
-ui_sankey <- column(5,plotlyOutput("sankey_diagram"))
+### Stacked Bar graph ----
+ui_stackbar <- column(5,plotlyOutput("stackbar"))
 
 ### tabs ----
 ui_text_tabs <- column(6, tabsetPanel(
@@ -65,11 +65,7 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
         selectInput("geo", "Region", choices = unique(df$GEO), selected = "British Columbia"), 
-        selectInput("prices", "Price type", choices = unique(df$Prices)), 
-        selectInput("science_type", "Science Type", choices = unique(df$Science.type)), 
-        selectInput("funder", "Funder", choices = unique(df$Funder), selected = " business enterprise sector"), 
-        selectInput("performer", "Performer", choices = unique(df$Performer)),
-        selectInput("year", "Year", choices = unique(df$Year), selected = 2020)
+        selectInput("year", "Year", choices = unique(df$Year), selected = 2018)
     )
   ),
   dashboardBody(
@@ -140,7 +136,7 @@ ui <- dashboardPage(
     fluidRow(
       ui_lineplot, ui_text_tabs),
     fluidRow(
-      ui_sankey, ui_table, ui_barplot),
+      ui_stackbar, ui_table, ui_barplot),
     fluidPage(
       textOutput("source")
     )
@@ -160,42 +156,6 @@ server <- function(input, output, session) {
 
 ## growth table data----
   
-  filtered_data_growth <- reactive({
-    
-    df_growth <- df |>
-      arrange(GEO, Funder, Performer, Science.type, Prices, Year) |>
-      filter(Year %in% c(as.numeric(as.character(input$year)) -5, 
-                         as.numeric(as.character(input$year))-3, 
-                         as.numeric(as.character(input$year)))) |>
-      group_by(GEO, Funder, Performer, Science.type, Prices) |>
-      mutate(Maxyear = input$year,
-             GR5 = ifelse(all(c(as.numeric(as.character(input$year))-5, 
-                                as.numeric(as.character(input$year))) %in% Year), 
-                          (VALUE[Year == as.numeric(as.character(input$year))] / VALUE[Year == as.numeric(as.character(input$year))-5]) - 1, NA),
-             GR3 = ifelse(all(c(as.numeric(as.character(input$year))-3, 
-                                as.numeric(as.character(input$year))) %in% Year), 
-                          (VALUE[Year == as.numeric(as.character(input$year))] / VALUE[Year == as.numeric(as.character(input$year))-3]) - 1, NA))|>
-      select(GEO, Funder, Performer, Science.type, Prices, GR5, GR3, Maxyear, Year)|>
-      distinct(.keep_all = TRUE) |>
-      filter (GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada"),
-              Year == as.numeric(as.character(input$year)),
-              Funder == input$funder,
-              Performer == input$performer,
-              Science.type == input$science_type,
-              Prices == input$prices)|>
-      ungroup()|>
-      select (GEO, GR3, GR5, Maxyear) |>
-      mutate(GR5 = paste0(round(GR5*100,1),"%"),
-             GR3 = paste0(round(GR3*100,1),"%"))|>
-      mutate(GEO = factor(GEO, levels = c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada")))|>
-      arrange(GEO)|>
-      rename(Region = GEO) |>
-      rename_with(~paste0("3-year growth <br>(", as.numeric(as.character(input$year))-3, "-", as.numeric(as.character(input$year)) ,")") , GR3)|>
-      rename_with(~paste0("5-year growth <br>(", as.numeric(as.character(input$year))-5, "-", as.numeric(as.character(input$year)) ,")") , GR5)|>
-      select(-Maxyear)
-    
-  })
-
 ## bar line data----  
   filtered_data_bar <- reactive({
     df |> 
@@ -214,30 +174,31 @@ server <- function(input, output, session) {
                TRUE ~ "darkgrey"))
     })
 
-## sankey plot data----
-  sankey_data <- reactive({
+## Stacked Bar data----
+  stackbar_data <- reactive({
     df |>
-      filter(Year == input$year,
-             GEO == input$geo)
+      filter(Industry != "Total industries",
+             GEO == input$geo,
+             Year == input$year)
   })
 
 # Rendering ----
 
-  output$title <- renderText({
-    if (input$funder == " business enterprise sector") {
-      "Private Sector Investment in Innovation"
-    } else if (input$funder == " federal government sector") {
-      "Federal Government Investment in Innovation"
-    } else if (input$funder == " provincial governments sector") {
-      "Provincial Government Investment in Innovation"
-    } else if (input$funder == " provincial research organizations sector") {
-      "Provincial Research Organizations Investment in Innovation"
-    } else if (input$funder == " foreign sector") {
-      "Foreign Investment in Innovation"
-    } else if (input$funder == " higher education sector") {
-      "Higher Education Investment in Innovation"
-    } else {"Investment in Innovation"}
-  })
+  # output$title <- renderText({
+  #   if (input$funder == " business enterprise sector") {
+  #     "Private Sector Investment in Innovation"
+  #   } else if (input$funder == " federal government sector") {
+  #     "Federal Government Investment in Innovation"
+  #   } else if (input$funder == " provincial governments sector") {
+  #     "Provincial Government Investment in Innovation"
+  #   } else if (input$funder == " provincial research organizations sector") {
+  #     "Provincial Research Organizations Investment in Innovation"
+  #   } else if (input$funder == " foreign sector") {
+  #     "Foreign Investment in Innovation"
+  #   } else if (input$funder == " higher education sector") {
+  #     "Higher Education Investment in Innovation"
+  #   } else {"Investment in Innovation"}
+  # })
   
 ## line plot ----
   output$line_plot <- renderPlotly({
@@ -261,79 +222,18 @@ server <- function(input, output, session) {
   })   
   
   
-  ## Sankey diagram ----
-  output$sankey_diagram <- renderPlotly({
-    df1 <- sankey_data()
-    nodes <- data.frame(name = c(as.character(df1$Funder), as.character(df1$Performer)))
-    nodes <- unique(nodes)
-    links <- data.frame(source = match(df1$Funder, nodes$name) - 1,
-                        target = match(df1$Performer, nodes$name) - 1,
-                        value = df1$VALUE)
-    
+  ## Stacked Bar diagram ----
+  output$stackbar <- renderPlotly({
+    df1 <- stackbar_data()
+    sorted_data <- df1 |>
+      arrange(desc(VALUE))
 
-    node_colors <- c(                      " total, all sectors (F)" = "grey",
-                                    " federal government sector (F)" = "#8DB6CD", 
-                                " provincial governments sector (F)" = "#00EEEE", 
-                     " provincial research organizations sector (F)" = "#edbf33",
-                                   " business enterprise sector (F)" = "#4F94CD",
-                                      " higher education sector (F)" = "#27408B", 
-                                    " private non-profit sector (F)" = "#27aeef", 
-                                               " foreign sector (F)" = "#BFEFFF",
-                                           " total, all sectors (P)" = "grey",
-                                    " federal government sector (P)" = "#8DB6CD", 
-                                " provincial governments sector (P)" = "#00EEEE", 
-                     " provincial research organizations sector (P)" = "#edbf33",
-                                   " business enterprise sector (P)" = "#4F94CD",
-                                      " higher education sector (P)" = "#27408B", 
-                                    " private non-profit sector (P)" = "#27aeef")
-    
-    
-    nodes$color <- node_colors[nodes$name]
-    
-    links$source_name <- nodes$name[links$source + 1]
-    links$target_name <- nodes$name[links$target + 1]
-
-   fig <- plot_ly(
-      type = "sankey",
-      domain = list(
-        x = c(0,1),
-        y = c(0,1)
-      ),
-      orientation = "h",
-      valueformat = "$,.0f",
-      valuesuffix = "M",
-      node = list(
-        label = nodes$name,
-        color = nodes$color,
-        pad = 15,
-        thickness = 30,
-        line = list(
-          color = "grey",
-          width = 0.5
-        ),
-        hovertemplate = '%{label}<br>Total Value: %{value}<extra></extra>'
-        
-      ),
-      
-      
-      link = list(
-        source = links$source,
-        target = links$target,
-        value = links$value
-      ))
-    
-  
-    fig <- fig |> layout(
-      title = paste("The Flow from Funders (Left) to Performenrs (Right) \n in" , input$year),
-      font = list(family = 'Arial', size = 12),
-      font = list(
-        size = 12
-      )
-    )
-    validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the 'Year',  'Price type', or 'Region' selection in the sidebar."))
+    # Create a pie chart
+    fig <- plot_ly(sorted_data, labels = ~Industry, values = ~VALUE, type = 'pie', textposition = 'inside')
+    fig <- fig %>% layout(showlegend = FALSE)
     
     fig
-  })
+      })
   
   # Render the text boxes
   
@@ -342,35 +242,28 @@ server <- function(input, output, session) {
   })
   
   ## growth table ----
-  output$table <- DT::renderDataTable({
-    data <- filtered_data_growth()
-    DT::datatable(data, options = list(dom = 't'), escape = FALSE, rownames = FALSE, 
-                  caption = htmltools::tags$caption("Research and Development Spending Growth",
-                                                    style = "font-family: Arial; font-size: 12px;"))
-  })
-
 
   
   ## bar plot ----
-  output$barplot <- renderPlotly({
-
-    df2 <- filtered_data_bar()
-    df2$formatted_VALUE <- sprintf("%.1f%%", df2$VALUE)
-    df2$adjusted_VALUE <- df2$VALUE + 0.2
-    p2 <- df2 |> 
-      plot_ly(x = ~VALUE,y=~GEO, color=~GEO, type = 'bar',
-              colors = ~color, showlegend = FALSE)  |>
-      add_text(x = ~adjusted_VALUE,text = ~formatted_VALUE, textposition = 'outside') |>
-      layout(title = paste("Research and Development as percentage of GDP \n in", input$year),
-             font = list(family = 'Arial', size = 12),
-             yaxis = list(title = ""),
-             xaxis = list(title = "Percent"),
-             bargroupgap = 0.3)
- 
-    validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
-    return(p2)
-  })
-  
+  # output$barplot <- renderPlotly({
+  # 
+  #   df2 <- filtered_data_bar()
+  #   df2$formatted_VALUE <- sprintf("%.1f%%", df2$VALUE)
+  #   df2$adjusted_VALUE <- df2$VALUE + 0.2
+  #   p2 <- df2 |> 
+  #     plot_ly(x = ~VALUE,y=~GEO, color=~GEO, type = 'bar',
+  #             colors = ~color, showlegend = FALSE)  |>
+  #     add_text(x = ~adjusted_VALUE,text = ~formatted_VALUE, textposition = 'outside') |>
+  #     layout(title = paste("Research and Development as percentage of GDP \n in", input$year),
+  #            font = list(family = 'Arial', size = 12),
+  #            yaxis = list(title = ""),
+  #            xaxis = list(title = "Percent"),
+  #            bargroupgap = 0.3)
+  # 
+  #   validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
+  #   return(p2)
+  # })
+  # 
   
   output$analysis <- renderUI({
     HTML("
