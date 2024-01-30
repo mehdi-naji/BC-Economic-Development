@@ -16,9 +16,8 @@ filter_conditions <- apply(filter_conditions, 1, any)
 df2 <- df1[filter_conditions, ]
 
 
-df2 <- df2 |> select(Year, `Labour productivity and related measures`, Industry, VALUE)
+df2 <- df2 |> select(Year, GEO, `Labour productivity and related measures`, UOM, SCALAR_FACTOR, Industry, VALUE)
 
 # write.csv(df1, "~/StrongerBC-Project/Data/VA_Exporsts_1.csv", row.names = FALSE)
-write.csv(df2, "C:/Users/MNAJI/StrongerBC-Project/Data/Labour_Productivity_1.csv", row.names = FALSE)
-
+write.csv(df2, "C:/Users/mehdi/StrongerBC-Project/Data/Labour_Productivity_1.csv", row.names = FALSE)
 
