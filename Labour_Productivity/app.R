@@ -53,9 +53,9 @@ ui <- dashboardPage(
   dashboardHeader(
     title = tags$a(
       tags$img(src='https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/logo.png', height='40', width='200', style="padding-left: 25px;float: left;") , 
-      tags$span("Value-added in Goods & Services Exports", style = " color: black;font-size: 130%; "),
+      tags$span("Labour Productivity", style = " color: black;font-size: 130%; "),
       href='https://strongerbc.shinyapps.io/research_and_development/',
-    ),titleWidth = 700
+    ),titleWidth = 500
   ),
   dashboardSidebar(
     collapsed = TRUE,
@@ -63,6 +63,7 @@ ui <- dashboardPage(
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
         selectInput("geo", "Region", choices = unique(df$GEO), selected = "British Columbia"), 
         selectInput("industry", "Industry", choices = unique(df$Industry), selected = "Total industries"), 
+        selectInput("labourtype", "Labour Productivity Measure", choices = unique(df$Labour.productivity.and.related.measures), selected = "Labour productivity"),
         selectInput("year", "Year", choices = unique(df$Year), selected = 2019)
     )
   ),
@@ -149,7 +150,8 @@ server <- function(input, output, session) {
   line_plot_data <- reactive({
     df %>%
       filter(GEO == input$geo,
-             Industry == "Total industries")
+             Industry == input$industry,
+             Labour.productivity.and.related.measures == input$labourtype)
   })
 
 ## bar line data----  
@@ -189,9 +191,12 @@ server <- function(input, output, session) {
 ## line plot ----
   output$line_plot <- renderPlotly({
     df1 <- line_plot_data()
+    unit1 <- df1 |> pull(UOM) |> unique()
+    unit2 <- df1 |> pull(SCALAR_FACTOR) |> unique() 
+    unit2 <- ifelse(unit2 == "units", "", paste("(",unit2,")"))
     p1 <- df1 |> 
-            plot_ly(x = ~Year, y = ~VA_EXP*1000, type = 'scatter', mode = 'lines') |>
-            layout(title = list(text = paste("Value-added Exports in", input$geo)),
+            plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
+            layout(title = list(text = paste(input$labourtype, "of" , input$industry, "in" , input$geo)),
                    xaxis = list(
                      title = "", 
                      rangeslider = list(
@@ -200,7 +205,7 @@ server <- function(input, output, session) {
                        bgcolor = "darkgrey"  
                      )
                    ),
-             yaxis = list(title = paste ("$ ")))
+             yaxis = list(title = paste (unit1, unit2)))
   validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
     
   p1 <- ggplotly(p1)
