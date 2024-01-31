@@ -38,7 +38,7 @@ ui_lineplot <- column(6,plotlyOutput("line_plot"))
 ui_barplot <- column(7, plotlyOutput("barplot"))
 
 ### Pie Chart ----
-ui_pie <- column(5,plotlyOutput("pie"))
+ui_treemap <- column(5,plotlyOutput("treemap"))
 
 ### tabs ----
 ui_text_tabs <- column(6, tabsetPanel(
@@ -135,7 +135,7 @@ ui <- dashboardPage(
     fluidRow(
       ui_lineplot, ui_text_tabs),
     fluidRow(
-      ui_pie, ui_barplot),
+      ui_treemap, ui_barplot),
     fluidPage(
       textOutput("source")
     )
@@ -154,20 +154,19 @@ server <- function(input, output, session) {
              Labour.productivity.and.related.measures == input$labourtype)
   })
 
-## bar line data----  
-  filtered_data_bar <- reactive({
-    df |> 
-      filter (Year == input$year,
-              Industry == input$industry)|>
-      mutate (EXP_GDP = 100 * VA_EXP / (GDP*1000))
-    })
+## bar data----  
 
-## Pie Chart data----
-  pie_data <- reactive({
+
+## treemap data----
+  treemap_data <- reactive({
     df |>
-      filter(Industry != "Total industries",
-             GEO == input$geo,
-             Year == input$year)
+      filter(GEO == input$geo,
+             Year == input$year,
+             Labour.productivity.and.related.measures == input$labourtype) |>
+      group_by(parent) |>
+      mutate(total_value = sum(VALUE))|>
+      ungroup()|>
+      mutate(per_val = (VALUE / total_value) * parent_val)
   })
 
 # Rendering ----
@@ -192,8 +191,6 @@ server <- function(input, output, session) {
   output$line_plot <- renderPlotly({
     df1 <- line_plot_data()
     unit1 <- df1 |> pull(UOM) |> unique()
-    unit2 <- df1 |> pull(SCALAR_FACTOR) |> unique() 
-    unit2 <- ifelse(unit2 == "units", "", paste("(",unit2,")"))
     p1 <- df1 |> 
             plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
             layout(title = list(text = paste(input$labourtype, "of" , input$industry, "in" , input$geo)),
@@ -205,27 +202,29 @@ server <- function(input, output, session) {
                        bgcolor = "darkgrey"  
                      )
                    ),
-             yaxis = list(title = paste (unit1, unit2)))
+             yaxis = list(title = paste (unit1)))
   validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
     
-  p1 <- ggplotly(p1)
+  p1 
   })   
   
   
-  ## Pie Chart diagram ----
-  output$pie <- renderPlotly({
-    df1 <- pie_data()
-    sorted_data <- df1 |>
-      arrange(desc(VA_EXP))
-
-    # Create a pie chart
-    fig <- plot_ly(sorted_data, labels = ~Industry, values = ~VA_EXP, type = 'pie', textposition = 'inside')
-    fig <- fig %>% layout(showlegend = FALSE)
-    fig <- fig %>% layout(title = paste("Industries Value Added in", input$geo), showlegend = FALSE)
+  ## treemap diagram ----
+  output$treemap <- renderPlotly({
+    df2 <- treemap_data()
     
+    p <- df2 |>
+      plot_ly(
+        type = 'treemap',
+        branchvalues = "total",
+        labels = ~Industry,
+        parents = ~parent,
+        values = ~per_val)
+    validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
     
-    fig
+    p
       })
+  
   
   # Render the text boxes
   
@@ -235,24 +234,24 @@ server <- function(input, output, session) {
   
 
   ## bar plot ----
-  output$barplot <- renderPlotly({
-    df2 <- filtered_data_bar()
-    df2$GEO <- reorder(df2$GEO, df2$EXP_GDP)
-    df2$formatted_VALUE <- sprintf("%.2f%%", df2$EXP_GDP)
-    df2$adjusted_VALUE <- df2$EXP_GDP + max(df2$EXP_GDP) / 10
-    p2 <- df2 |>
-      plot_ly(x = ~EXP_GDP, y=~GEO, color=~GEO, type = 'bar',
-              showlegend = FALSE)  |>
-      add_text(x = ~adjusted_VALUE,text = ~formatted_VALUE, textposition = 'outside') |>
-      layout(title = paste("Value added in Exports as Percent of GDP in", input$year),
-             font = list(family = 'Arial', size = 12),
-             yaxis = list(title = ""),
-             xaxis = list(title = "Percent"),
-             bargroupgap = 0.3)
-
-    validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
-    return(p2)
-  })
+  # output$barplot <- renderPlotly({
+  #   df2 <- filtered_data_bar()
+  #   df2$GEO <- reorder(df2$GEO, df2$EXP_GDP)
+  #   df2$formatted_VALUE <- sprintf("%.2f%%", df2$EXP_GDP)
+  #   df2$adjusted_VALUE <- df2$EXP_GDP + max(df2$EXP_GDP) / 10
+  #   p2 <- df2 |>
+  #     plot_ly(x = ~EXP_GDP, y=~GEO, color=~GEO, type = 'bar',
+  #             showlegend = FALSE)  |>
+  #     add_text(x = ~adjusted_VALUE,text = ~formatted_VALUE, textposition = 'outside') |>
+  #     layout(title = paste("Value added in Exports as Percent of GDP in", input$year),
+  #            font = list(family = 'Arial', size = 12),
+  #            yaxis = list(title = ""),
+  #            xaxis = list(title = "Percent"),
+  #            bargroupgap = 0.3)
+  # 
+  #   validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
+  #   return(p2)
+  # })
 
   
   output$analysis <- renderUI({
