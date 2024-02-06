@@ -21,6 +21,10 @@ df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
 
+# Load Canada provinces shapefile (you need to have this file)
+canada <- st_read("C:/Users/mehdi/Downloads/Provinces_and_Territories_of_Canada/Canada_Provincial_boundaries_generalized.shp")
+
+
 # Static inputs ----
 modal_title1 <- "Private sector investment in innovation"
 modal_text1 <- paste("The amount spent on research and development by the business enterprise sector (not adjusted for inflation) in") 
@@ -34,11 +38,11 @@ modal_title5 <- "Exports as % of GDP"
 ### line plot ----
 ui_lineplot <- column(6,plotlyOutput("line_plot"))
 
-### barplot ----
-ui_barplot <- column(7, plotlyOutput("barplot"))
+### map ----
+ui_map <- column(3, leafletOutput("map"))
 
 ### Pie Chart ----
-ui_treemap <- column(5,plotlyOutput("treemap"))
+ui_treemap <- column(9,plotlyOutput("treemap"))
 
 ### tabs ----
 ui_text_tabs <- column(6, tabsetPanel(
@@ -63,7 +67,7 @@ ui <- dashboardPage(
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
         selectInput("geo", "Region", choices = unique(df$GEO), selected = "British Columbia"), 
         selectInput("industry", "Industry", choices = unique(df$Industry), selected = "Total industries"), 
-        selectInput("labourtype", "Labour Productivity Measure", choices = unique(df$Labour.productivity.and.related.measures), selected = "Labour productivity"),
+        selectInput("labourtype", "Labour Productivity Measure", choices = unique(df$Labour.productivity.and.related.measures), selected = "Total number of jobs"),
         selectInput("year", "Year", choices = unique(df$Year), selected = 2019)
     )
   ),
@@ -135,7 +139,7 @@ ui <- dashboardPage(
     fluidRow(
       ui_lineplot, ui_text_tabs),
     fluidRow(
-      ui_treemap, ui_barplot),
+      ui_treemap, ui_map),
     fluidPage(
       textOutput("source")
     )
@@ -154,9 +158,20 @@ server <- function(input, output, session) {
              Labour.productivity.and.related.measures == input$labourtype)
   })
 
-## bar data----  
-
-
+## map data----  
+ map_data <- reactive({
+   df |> 
+     filter(
+       GEO != "Canada",
+       Year == input$year,
+       Labour.productivity.and.related.measures == input$labourtype,
+       Industry == input$industry
+     ) |>
+     select(
+       GEO, Labour.productivity.and.related.measures, Industry, VALUE 
+     )
+ })
+  
 ## treemap data----
   treemap_data <- reactive({
     df |>
@@ -221,7 +236,6 @@ server <- function(input, output, session) {
         parents = ~parent,
         values = ~per_val)
     validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-    
     p
       })
   
@@ -233,25 +247,35 @@ server <- function(input, output, session) {
   })
   
 
-  ## bar plot ----
-  # output$barplot <- renderPlotly({
-  #   df2 <- filtered_data_bar()
-  #   df2$GEO <- reorder(df2$GEO, df2$EXP_GDP)
-  #   df2$formatted_VALUE <- sprintf("%.2f%%", df2$EXP_GDP)
-  #   df2$adjusted_VALUE <- df2$EXP_GDP + max(df2$EXP_GDP) / 10
-  #   p2 <- df2 |>
-  #     plot_ly(x = ~EXP_GDP, y=~GEO, color=~GEO, type = 'bar',
-  #             showlegend = FALSE)  |>
-  #     add_text(x = ~adjusted_VALUE,text = ~formatted_VALUE, textposition = 'outside') |>
-  #     layout(title = paste("Value added in Exports as Percent of GDP in", input$year),
-  #            font = list(family = 'Arial', size = 12),
-  #            yaxis = list(title = ""),
-  #            xaxis = list(title = "Percent"),
-  #            bargroupgap = 0.3)
-  # 
-  #   validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
-  #   return(p2)
-  # })
+  ## map plot ----
+  output$map <- renderLeaflet({
+    df_map <- map_data()
+
+    # df2$formatted_VALUE <- sprintf("%.2f%%", df2$EXP_GDP)
+    
+    # Create a color palette
+    pal <- colorNumeric(palette = "viridis", domain = df_map$VALUE)
+    
+    p2 <- leaflet(data = canada, options = leafletOptions(minZoom = 2, maxZoom = 2, dragging = FALSE, doubleClickZoom = FALSE, scrollWheelZoom = FALSE, touchZoom = FALSE, keyboard = FALSE)) %>%
+            fitBounds(lng1 = min(st_bbox(canada)[c(1, 3)]),
+                      lat1 = min(st_bbox(canada)[c(2, 4)]),
+                      lng2 = max(st_bbox(canada)[c(1, 3)]),
+                      lat2 = max(st_bbox(canada)[c(2, 4)])) %>%
+            addProviderTiles(providers$CartoDB.Positron) %>%
+            addPolygons(fillColor = ~pal(df_map$VALUE),
+                        fillOpacity = 0.8, 
+                        color = "#BDBDC3", 
+                        weight = 1,
+                        # Add a popup feature that shows the province name and the value
+                        popup = ~paste0("<b>", Name_EN, "</b><br>Value: ", round(df_map$VALUE, 2))) %>%
+            leaflet::addLegend(pal = pal,
+                               values = df_map$VALUE,
+                               title = "Value",
+                               position = "bottomright")
+
+    validate(need(nrow(df_map) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
+    p2
+  })
 
   
   output$analysis <- renderUI({
