@@ -21,11 +21,6 @@ url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Labour_Pr
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
-
-# Load Canada provinces shapefile
-canada <- sf::read_sf("https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Provinces_and_Territories_of_Canada/Canada_Provincial_boundaries_generalized.shp")
-
-
 # Static inputs ----
 modal_title1 <- "Private sector investment in innovation"
 modal_text1 <- paste("The amount spent on research and development by the business enterprise sector (not adjusted for inflation) in") 
@@ -251,6 +246,11 @@ server <- function(input, output, session) {
   ## map plot ----
   output$map <- renderLeaflet({
     df_map <- map_data()
+    
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/Provinces_and_Territories_of_Canada.zip"
+    download.file(url, destfile = "canadian_provinces_shapefile.zip", mode = "wb")
+    unzip("canadian_provinces_shapefile.zip")
+    canada <- st_read("Canada_Provincial_boundaries_generalized.shp")
 
     # df2$formatted_VALUE <- sprintf("%.2f%%", df2$EXP_GDP)
 
