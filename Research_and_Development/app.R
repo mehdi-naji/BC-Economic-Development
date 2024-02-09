@@ -62,7 +62,7 @@ ui <- dashboardPage(
   dashboardHeader(
     title = tags$a(
       tags$img(src='https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/logo.png', height='40', width='200', style="padding-left: 25px;float: left;") , 
-      tags$span("Research and Development", style = " color: black;font-size: 130%; "),
+      tags$span("Non-residential investment as a share of GDP", style = " color: black;font-size: 130%; "),
       href='https://strongerbc.shinyapps.io/research_and_development/',
     ),titleWidth = 600
   ),
