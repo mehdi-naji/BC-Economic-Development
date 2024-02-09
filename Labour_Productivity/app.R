@@ -248,35 +248,39 @@ server <- function(input, output, session) {
     df_map <- map_data()
     
     url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/Provinces_and_Territories_of_Canada.zip"
-    download.file(url, destfile = "canadian_provinces_shapefile.zip", mode = "wb")
-    unzip("canadian_provinces_shapefile.zip")
+    can_zip <- tempfile(fileext = ".zip")
+    download.file(url, destfile = can_zip, mode = "wb")
+    
+    unzip(can_zip)
     canada <- st_read("Canada_Provincial_boundaries_generalized.shp")
-
+    
     # df2$formatted_VALUE <- sprintf("%.2f%%", df2$EXP_GDP)
-
+    
     # Create a color palette
     pal <- colorNumeric(palette = "viridis", domain = df_map$VALUE)
-
+    
     p2 <- leaflet(data = canada, options = leafletOptions(minZoom = 2, maxZoom = 2, dragging = FALSE, doubleClickZoom = FALSE, scrollWheelZoom = FALSE, touchZoom = FALSE, keyboard = FALSE)) %>%
-            fitBounds(lng1 = min(st_bbox(canada)[c(1, 3)]),
-                      lat1 = min(st_bbox(canada)[c(2, 4)]),
-                      lng2 = max(st_bbox(canada)[c(1, 3)]),
-                      lat2 = max(st_bbox(canada)[c(2, 4)])) %>%
-            addProviderTiles(providers$CartoDB.Positron) %>%
-            addPolygons(fillColor = ~pal(df_map$VALUE),
-                        fillOpacity = 0.8,
-                        color = "#BDBDC3",
-                        weight = 1,
-                        # Add a popup feature that shows the province name and the value
-                        popup = ~paste0("<b>", Name_EN, "</b><br>Value: ", round(df_map$VALUE, 2))) %>%
-            leaflet::addLegend(pal = pal,
-                               values = df_map$VALUE,
-                               title = "Value",
-                               position = "bottomright")
-
+      fitBounds(lng1 = min(st_bbox(canada)[c(1, 3)]),
+                lat1 = min(st_bbox(canada)[c(2, 4)]),
+                lng2 = max(st_bbox(canada)[c(1, 3)]),
+                lat2 = max(st_bbox(canada)[c(2, 4)])) %>%
+      addProviderTiles(providers$CartoDB.Positron) %>%
+      addPolygons(fillColor = ~pal(df_map$VALUE),
+                  fillOpacity = 0.8,
+                  color = "#BDBDC3",
+                  weight = 1,
+                  # Add a popup feature that shows the province name and the value
+                  popup = ~paste0("<b>", Name_EN, "</b><br>Value: ", round(df_map$VALUE, 2))) %>%
+      leaflet::addLegend(pal = pal,
+                         values = df_map$VALUE,
+                         title = "Value",
+                         position = "bottomright")
+    
     validate(need(nrow(df_map) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
     p2
   })
+  
+  
 
   
   output$analysis <- renderUI({
