@@ -23,7 +23,7 @@ df <- na.omit(df)
 
 
 # Load Canada provinces shapefile
-canada <- st_read("https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Canada_Provincial_boundaries_generalized.shp")
+canada <- sf::read_sf("https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Provinces_and_Territories_of_Canada/Canada_Provincial_boundaries_generalized.shp")
 
 
 # Static inputs ----
