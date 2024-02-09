@@ -21,6 +21,11 @@ url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Labour_Pr
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
+
+canada_url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/canada-with-provinces_795.geojson"
+geojson_content <- httr::GET(canada_url, httr::write_disk(tf <- tempfile(fileext = ".geojson"), overwrite = TRUE))
+canada <- sf::st_read(dsn = tf, quiet = TRUE)
+
 # Static inputs ----
 modal_title1 <- "Private sector investment in innovation"
 modal_text1 <- paste("The amount spent on research and development by the business enterprise sector (not adjusted for inflation) in") 
@@ -247,13 +252,6 @@ server <- function(input, output, session) {
   output$map <- renderLeaflet({
     df_map <- map_data()
     
-    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/Provinces_and_Territories_of_Canada.zip"
-    can_zip <- tempfile(fileext = ".zip")
-    download.file(url, destfile = can_zip, mode = "wb")
-    
-    unzip(can_zip)
-    canada <- st_read("Canada_Provincial_boundaries_generalized.shp")
-    
     # df2$formatted_VALUE <- sprintf("%.2f%%", df2$EXP_GDP)
     
     # Create a color palette
@@ -270,7 +268,7 @@ server <- function(input, output, session) {
                   color = "#BDBDC3",
                   weight = 1,
                   # Add a popup feature that shows the province name and the value
-                  popup = ~paste0("<b>", Name_EN, "</b><br>Value: ", round(df_map$VALUE, 2))) %>%
+                  popup = ~paste0("<b>", prov_name_en, "</b><br>Value: ", round(df_map$VALUE, 2))) %>%
       leaflet::addLegend(pal = pal,
                          values = df_map$VALUE,
                          title = "Value",
