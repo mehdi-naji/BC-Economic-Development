@@ -15,9 +15,7 @@ df2 <- df1[filter_conditions, ]
 
 df2 <- df2 |> 
   select(Year, GEO, Prices, Estimates, UOM, SCALAR_FACTOR, VALUE) |>
-  filter(Prices %in% c("Current prices", "Chained (2017) dollars"))
-df3 <- df2
-df3 <- df2 |>
+  filter(Prices %in% c("Current prices", "Chained (2017) dollars")) |>
   group_by(Year, GEO, Prices) |>
   mutate(GDP = first(VALUE[Estimates == "Gross domestic product at market prices"]),
          Estimate_per_GDP = round(100*VALUE/GDP,1))
