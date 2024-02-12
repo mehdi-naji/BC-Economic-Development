@@ -16,15 +16,7 @@ library(RColorBrewer)
 options(shiny.autoreload = TRUE)
 
 # Downloading processed data ----
-url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_1.csv"
-df <- read.csv(url, header = TRUE)
-df <- na.omit(df)
-
-url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_3.csv"
-df_comp <- read.csv(url, header = TRUE)
-df_comp <- na.omit(df_comp)
-
-url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_1.csv"
+url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Non_Residential_Investment_1.csv"
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
@@ -66,20 +58,17 @@ ui <- dashboardPage(
   dashboardHeader(
     title = tags$a(
       tags$img(src='https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/logo.png', height='40', width='200', style="padding-left: 25px;float: left;") , 
-      tags$span("Research and Development", style = " color: black;font-size: 130%; "),
+      tags$span("Non-residential investment as a share of GDP", style = " color: black;font-size: 130%; "),
       href='https://strongerbc.shinyapps.io/research_and_development/',
     ),titleWidth = 600
   ),
   dashboardSidebar(
     collapsed = TRUE,
     sidebarMenu(
-      ### input list ----
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
         selectInput("geo", "Region", choices = unique(df$GEO), selected = "British Columbia"), 
         selectInput("prices", "Price type", choices = unique(df$Prices)), 
-        selectInput("science_type", "Science Type", choices = unique(df$Science.type)),
-        selectInput("funder", "Funder", choices = unique(df$Funder)),
-        selectInput("performer", "Performer", choices = unique(df$Performer)),
+        selectInput("item", "Item", choices = unique(df$Estimates)), 
         selectInput("year", "Year", choices = unique(df$Year), selected = 2020)
     )
   ),
@@ -166,7 +155,7 @@ server <- function(input, output, session) {
   filtered_data <- reactive({
     df |>
       filter(GEO == input$geo,
-             Funder == input$funder,
+             Estimates == input$item,
              Performer == input$performer,
              Science.type == input$science_type,
              Prices == input$prices)
