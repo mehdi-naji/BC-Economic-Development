@@ -16,24 +16,20 @@ library(RColorBrewer)
 options(shiny.autoreload = TRUE)
 
 # Downloading processed data ----
-url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_1.csv"
+url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Non_Residential_Investment_1.csv"
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
 
-url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_3.csv"
-df_comp <- read.csv(url, header = TRUE)
-df_comp <- na.omit(df_comp)
-
-url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_Modal_data.csv"
-Modal_df <- read.csv(url, header = TRUE)
+# url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_Modal_data.csv"
+# Modal_df <- read.csv(url, header = TRUE)
 
 # Static inputs ----
-modal_title1 <- "Private sector investment in innovation"
-modal_text1 <- paste("The amount spent on research and development by the business enterprise sector (not adjusted for inflation) in") 
-modal_title2 <- "Value-added exports"
-modal_title3 <- "Non-residential structures, machinery and equipment and IP investment as share of GDP"
-modal_title4 <- "Labour Productivity"
-modal_title5 <- "Exports as % of GDP"
+# modal_title1 <- "Private sector investment in innovation"
+# modal_text1 <- paste("The amount spent on research and development by the business enterprise sector (not adjusted for inflation) in") 
+# modal_title2 <- "Value-added exports"
+# modal_title3 <- "Non-residential structures, machinery and equipment and IP investment as share of GDP"
+# modal_title4 <- "Labour Productivity"
+# modal_title5 <- "Exports as % of GDP"
 
 # User Interface -----
 ## ui_components ----
@@ -72,9 +68,7 @@ ui <- dashboardPage(
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
         selectInput("geo", "Region", choices = unique(df$GEO), selected = "British Columbia"), 
         selectInput("prices", "Price type", choices = unique(df$Prices)), 
-        selectInput("science_type", "Science Type", choices = unique(df$Science.type)), 
-        selectInput("funder", "Funder", choices = unique(df$Funder), selected = " business enterprise sector"), 
-        selectInput("performer", "Performer", choices = unique(df$Performer)),
+        selectInput("item", "Item", choices = unique(df$Estimates)), 
         selectInput("year", "Year", choices = unique(df$Year), selected = 2020)
     )
   ),
@@ -159,9 +153,9 @@ server <- function(input, output, session) {
 # Data ----
 ## line plot data----  
   filtered_data <- reactive({
-    df %>%
+    df |>
       filter(GEO == input$geo,
-             Funder == input$funder,
+             Estimates == input$item,
              Performer == input$performer,
              Science.type == input$science_type,
              Prices == input$prices)
