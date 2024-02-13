@@ -36,14 +36,14 @@ df <- df |>
 ### line plot ----
 ui_lineplot <- column(6,plotlyOutput("line_plot"))
 
-### table ----
-ui_lines <-  column(3, DT::dataTableOutput("table"))
+### lines plot ----
+ui_lines <-  column(6, plotlyOutput("lines"))
 
 ### barplot ----
-ui_barplot <- column(5, plotlyOutput("barplot"))
+ui_barplot <- column(6, plotlyOutput("barplot"))
 
-### sankey graph ----
-ui_pie <- column(4,plotlyOutput("sankey_diagram"))
+### pie graph ----
+# ui_pie <- column(2,plotlyOutput("sankey_diagram"))
 
 ### tabs ----
 ui_text_tabs <- column(6, tabsetPanel(
@@ -141,7 +141,10 @@ ui <- dashboardPage(
     fluidRow(
       ui_lineplot, ui_text_tabs),
     fluidRow(
-      ui_lines, ui_barplot , ui_pie),
+      ui_lines, 
+      ui_barplot , 
+      # ui_pie
+      ),
     fluidPage(
       textOutput("source")
     )
@@ -153,7 +156,7 @@ server <- function(input, output, session) {
 
 # Data ----
 ## line plot data----  
-  filtered_data <- reactive({
+  line_data <- reactive({
     df |>
       filter(GEO == input$geo,
              Estimates == input$item,
@@ -162,44 +165,44 @@ server <- function(input, output, session) {
 
 ## pie plot data----
   
-  filtered_data_growth <- reactive({
-    
-    df_growth <- df |>
-      arrange(GEO, Funder, Performer, Science.type, Prices, Year) |>
-      filter(Year %in% c(as.numeric(as.character(input$year)) -5, 
-                         as.numeric(as.character(input$year))-3, 
-                         as.numeric(as.character(input$year)))) |>
-      group_by(GEO, Funder, Performer, Science.type, Prices) |>
-      mutate(Maxyear = input$year,
-             GR5 = ifelse(all(c(as.numeric(as.character(input$year))-5, 
-                                as.numeric(as.character(input$year))) %in% Year), 
-                          (VALUE[Year == as.numeric(as.character(input$year))] / VALUE[Year == as.numeric(as.character(input$year))-5]) - 1, NA),
-             GR3 = ifelse(all(c(as.numeric(as.character(input$year))-3, 
-                                as.numeric(as.character(input$year))) %in% Year), 
-                          (VALUE[Year == as.numeric(as.character(input$year))] / VALUE[Year == as.numeric(as.character(input$year))-3]) - 1, NA))|>
-      select(GEO, Funder, Performer, Science.type, Prices, GR5, GR3, Maxyear, Year)|>
-      distinct(.keep_all = TRUE) |>
-      filter (GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada"),
-              Year == as.numeric(as.character(input$year)),
-              Funder == input$funder,
-              Performer == input$performer,
-              Science.type == input$science_type,
-              Prices == input$prices)|>
-      ungroup()|>
-      select (GEO, GR3, GR5, Maxyear) |>
-      mutate(GR5 = paste0(round(GR5*100,1),"%"),
-             GR3 = paste0(round(GR3*100,1),"%"))|>
-      mutate(GEO = factor(GEO, levels = c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada")))|>
-      arrange(GEO)|>
-      rename(Region = GEO) |>
-      rename_with(~paste0("3-year growth <br>(", as.numeric(as.character(input$year))-3, "-", as.numeric(as.character(input$year)) ,")") , GR3)|>
-      rename_with(~paste0("5-year growth <br>(", as.numeric(as.character(input$year))-5, "-", as.numeric(as.character(input$year)) ,")") , GR5)|>
-      select(-Maxyear)
-    
-  })
+  # filtered_data_growth <- reactive({
+  #   
+  #   df_growth <- df |>
+  #     arrange(GEO, Funder, Performer, Science.type, Prices, Year) |>
+  #     filter(Year %in% c(as.numeric(as.character(input$year)) -5, 
+  #                        as.numeric(as.character(input$year))-3, 
+  #                        as.numeric(as.character(input$year)))) |>
+  #     group_by(GEO, Funder, Performer, Science.type, Prices) |>
+  #     mutate(Maxyear = input$year,
+  #            GR5 = ifelse(all(c(as.numeric(as.character(input$year))-5, 
+  #                               as.numeric(as.character(input$year))) %in% Year), 
+  #                         (VALUE[Year == as.numeric(as.character(input$year))] / VALUE[Year == as.numeric(as.character(input$year))-5]) - 1, NA),
+  #            GR3 = ifelse(all(c(as.numeric(as.character(input$year))-3, 
+  #                               as.numeric(as.character(input$year))) %in% Year), 
+  #                         (VALUE[Year == as.numeric(as.character(input$year))] / VALUE[Year == as.numeric(as.character(input$year))-3]) - 1, NA))|>
+  #     select(GEO, Funder, Performer, Science.type, Prices, GR5, GR3, Maxyear, Year)|>
+  #     distinct(.keep_all = TRUE) |>
+  #     filter (GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada"),
+  #             Year == as.numeric(as.character(input$year)),
+  #             Funder == input$funder,
+  #             Performer == input$performer,
+  #             Science.type == input$science_type,
+  #             Prices == input$prices)|>
+  #     ungroup()|>
+  #     select (GEO, GR3, GR5, Maxyear) |>
+  #     mutate(GR5 = paste0(round(GR5*100,1),"%"),
+  #            GR3 = paste0(round(GR3*100,1),"%"))|>
+  #     mutate(GEO = factor(GEO, levels = c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada")))|>
+  #     arrange(GEO)|>
+  #     rename(Region = GEO) |>
+  #     rename_with(~paste0("3-year growth <br>(", as.numeric(as.character(input$year))-3, "-", as.numeric(as.character(input$year)) ,")") , GR3)|>
+  #     rename_with(~paste0("5-year growth <br>(", as.numeric(as.character(input$year))-5, "-", as.numeric(as.character(input$year)) ,")") , GR5)|>
+  #     select(-Maxyear)
+  #   
+  # })
 
 ## bar plot data----  
-  filtered_data_bar <- reactive({
+  bar_data <- reactive({
     df |> 
       filter (Year == input$year,
               GEO %in% c("British Columbia", 
@@ -213,23 +216,22 @@ server <- function(input, output, session) {
           })
 
 ## lines plot data----
-  sankey_data <- reactive({
+  lines_data <- reactive({
     df |>
-      filter(Year == input$year,
-             GEO == input$geo,
-             Science.type == input$science_type,
+      filter(GEO == input$geo,
              Prices == input$prices,
-             Funder != " total, all sectors",
-             Performer != " total, all sectors") |>
-      mutate(Funder = paste(Funder, "(F)", sep = " "),
-             Performer = paste(Performer, "(P)", sep = " "))
+             Estimates %in% c(
+               "Business gross fixed capital formation",
+               "Non-residential structures, machinery and equipment",
+               "Residential structures"
+             ))
   })
 
 # Rendering ----
 
 ## line plot ----
   output$line_plot <- renderPlotly({
-    df1 <- filtered_data()
+    df1 <- line_data()
     p1 <- df1 |> 
             plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
             layout(title = paste(input$item),
@@ -248,79 +250,8 @@ server <- function(input, output, session) {
   })   
   
   
-  ## lines diagram ----
-  output$sankey_diagram <- renderPlotly({
-    df1 <- sankey_data()
-    nodes <- data.frame(name = c(as.character(df1$Funder), as.character(df1$Performer)))
-    nodes <- unique(nodes)
-    links <- data.frame(source = match(df1$Funder, nodes$name) - 1,
-                        target = match(df1$Performer, nodes$name) - 1,
-                        value = df1$VALUE)
-    
 
-    node_colors <- c(                      " total, all sectors (F)" = "grey",
-                                    " federal government sector (F)" = "#8DB6CD", 
-                                " provincial governments sector (F)" = "#00EEEE", 
-                     " provincial research organizations sector (F)" = "#edbf33",
-                                   " business enterprise sector (F)" = "#4F94CD",
-                                      " higher education sector (F)" = "#27408B", 
-                                    " private non-profit sector (F)" = "#27aeef", 
-                                               " foreign sector (F)" = "#BFEFFF",
-                                           " total, all sectors (P)" = "grey",
-                                    " federal government sector (P)" = "#8DB6CD", 
-                                " provincial governments sector (P)" = "#00EEEE", 
-                     " provincial research organizations sector (P)" = "#edbf33",
-                                   " business enterprise sector (P)" = "#4F94CD",
-                                      " higher education sector (P)" = "#27408B", 
-                                    " private non-profit sector (P)" = "#27aeef")
-    
-    
-    nodes$color <- node_colors[nodes$name]
-    
-    links$source_name <- nodes$name[links$source + 1]
-    links$target_name <- nodes$name[links$target + 1]
 
-   fig <- plot_ly(
-      type = "sankey",
-      domain = list(
-        x = c(0,1),
-        y = c(0,1)
-      ),
-      orientation = "h",
-      valueformat = "$,.0f",
-      valuesuffix = "M",
-      node = list(
-        label = nodes$name,
-        color = nodes$color,
-        pad = 15,
-        thickness = 30,
-        line = list(
-          color = "grey",
-          width = 0.5
-        ),
-        hovertemplate = '%{label}<br>Total Value: %{value}<extra></extra>'
-        
-      ),
-      
-      
-      link = list(
-        source = links$source,
-        target = links$target,
-        value = links$value
-      ))
-    
-  
-    fig <- fig |> layout(
-      title = paste("The Flow from Funders (Left) to Performenrs (Right) \n in" , input$year),
-      font = list(family = 'Arial', size = 12),
-      font = list(
-        size = 12
-      )
-    )
-    validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the 'Year',  'Price type', or 'Region' selection in the sidebar."))
-    
-    fig
-  })
   
   # Render the text boxes
   
@@ -329,19 +260,19 @@ server <- function(input, output, session) {
   })
   
   ## pie plot ----
-  output$table <- DT::renderDataTable({
-    data <- filtered_data_growth()
-    DT::datatable(data, options = list(dom = 't'), escape = FALSE, rownames = FALSE, 
-                  caption = htmltools::tags$caption("Research and Development Spending Growth",
-                                                    style = "font-family: Arial; font-size: 12px;"))
-  })
+  # output$table <- DT::renderDataTable({
+  #   data <- filtered_data_growth()
+  #   DT::datatable(data, options = list(dom = 't'), escape = FALSE, rownames = FALSE, 
+  #                 caption = htmltools::tags$caption("Research and Development Spending Growth",
+  #                                                   style = "font-family: Arial; font-size: 12px;"))
+  # })
 
 
   
   ## bar plot ----
   output$barplot <- renderPlotly({
 
-    df2 <- filtered_data_bar()
+    df2 <- bar_data()
     p2 <- df2 |> 
       plot_ly(x = ~VALUE,y=~GEO, color=~Estimates, type = 'bar', 
               orientation = 'h', stackgroup = 'group') |>
@@ -357,6 +288,23 @@ server <- function(input, output, session) {
  
     validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
     return(p2)
+  })
+  
+  
+  ## lines diagram ----
+  output$lines <- renderPlotly({
+    dflines <- lines_data()
+    plines <- dflines |>
+      plot_ly(x = ~Year, y = ~VALUE, color = ~Estimates , type = 'scatter', mode = 'lines') |>
+      layout(title = paste("Non-residential Investment Breakdown in ", input$year),
+             font = list(family = 'Arial', size = 10),
+             yaxis = list(title = ""),
+             xaxis = list(title = ""),
+             legend = list(y = -0.3, x=0))
+    
+    validate(need(nrow(dflines) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+
+    plines <- ggplotly(plines)
   })
   
   
