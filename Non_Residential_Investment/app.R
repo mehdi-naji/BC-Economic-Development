@@ -19,9 +19,9 @@ options(shiny.autoreload = TRUE)
 url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Non_Residential_Investment_1.csv"
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
-
-# url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_Modal_data.csv"
-# Modal_df <- read.csv(url, header = TRUE)
+df <- df |> 
+  filter (Estimates != "Gross domestic product at market prices") |>
+  mutate(VALUE = VALUE * 1000000)
 
 # Static inputs ----
 # modal_title1 <- "Private sector investment in innovation"
@@ -37,13 +37,13 @@ df <- na.omit(df)
 ui_lineplot <- column(6,plotlyOutput("line_plot"))
 
 ### table ----
-ui_table <-  column(3, DT::dataTableOutput("table"))
+ui_lines <-  column(3, DT::dataTableOutput("table"))
 
 ### barplot ----
-ui_barplot <- column(4, plotlyOutput("barplot"))
+ui_barplot <- column(5, plotlyOutput("barplot"))
 
 ### sankey graph ----
-ui_sankey <- column(5,plotlyOutput("sankey_diagram"))
+ui_pie <- column(4,plotlyOutput("sankey_diagram"))
 
 ### tabs ----
 ui_text_tabs <- column(6, tabsetPanel(
@@ -58,13 +58,14 @@ ui <- dashboardPage(
   dashboardHeader(
     title = tags$a(
       tags$img(src='https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/logo.png', height='40', width='200', style="padding-left: 25px;float: left;") , 
-      tags$span("Non-residential investment as a share of GDP", style = " color: black;font-size: 130%; "),
+      tags$span("Non-residential investment as a share of GDP", style = " color: black;font-size: 100%; "),
       href='https://strongerbc.shinyapps.io/research_and_development/',
-    ),titleWidth = 600
+    ),titleWidth = 700
   ),
   dashboardSidebar(
     collapsed = TRUE,
     sidebarMenu(
+      ### input list ----
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
         selectInput("geo", "Region", choices = unique(df$GEO), selected = "British Columbia"), 
         selectInput("prices", "Price type", choices = unique(df$Prices)), 
@@ -135,12 +136,12 @@ ui <- dashboardPage(
       #     column(1, style = "height: 400px; background-color: white;")
       #   )
       # ),
-      h3(textOutput("title"))
     ),
+    ### Placement ----
     fluidRow(
       ui_lineplot, ui_text_tabs),
     fluidRow(
-      ui_sankey, ui_table, ui_barplot),
+      ui_lines, ui_barplot , ui_pie),
     fluidPage(
       textOutput("source")
     )
@@ -156,12 +157,10 @@ server <- function(input, output, session) {
     df |>
       filter(GEO == input$geo,
              Estimates == input$item,
-             Performer == input$performer,
-             Science.type == input$science_type,
              Prices == input$prices)
   })
 
-## growth table data----
+## pie plot data----
   
   filtered_data_growth <- reactive({
     
@@ -199,35 +198,21 @@ server <- function(input, output, session) {
     
   })
 
-## bar line data----  
+## bar plot data----  
   filtered_data_bar <- reactive({
-    df_comp |> 
+    df |> 
       filter (Year == input$year,
               GEO %in% c("British Columbia", 
                          "Ontario", 
                          "Quebec", 
                          "Alberta", 
-                         "Canada", 
-                         "France", 
-                         "Germany", 
-                         "Italy", 
-                         "Japan", 
-                         "United Kingdom", 
-                         "United States")
-              )|>
-      arrange(VALUE) %>%
-      mutate(GEO = factor(GEO, levels = GEO),
-             color = case_when(
-               GEO == "Ontario" ~ "lightblue1" ,
-               GEO == "Quebec" ~ "lightskyblue1" ,
-               GEO == "Alberta" ~ "lightskyblue2" ,
-               GEO == "British Columbia" ~ "steelblue3",
-               GEO == "Canada" ~ "royalblue4",
-               GEO == "United States" ~ "#00868B",
-               TRUE ~ "darkgrey"))
-    })
+                         "Canada"),
+                Estimates %in% c("Intellectual property products",
+                                 "Non-residential structures",
+                                 "Machinery and equipment"))
+          })
 
-## sankey plot data----
+## lines plot data----
   sankey_data <- reactive({
     df |>
       filter(Year == input$year,
@@ -242,33 +227,12 @@ server <- function(input, output, session) {
 
 # Rendering ----
 
-  output$title <- renderText({
-    if (input$funder == " business enterprise sector") {
-      "Private Sector Investment in Innovation"
-    } else if (input$funder == " federal government sector") {
-      "Federal Government Investment in Innovation"
-    } else if (input$funder == " provincial governments sector") {
-      "Provincial Government Investment in Innovation"
-    } else if (input$funder == " provincial research organizations sector") {
-      "Provincial Research Organizations Investment in Innovation"
-    } else if (input$funder == " foreign sector") {
-      "Foreign Investment in Innovation"
-    } else if (input$funder == " higher education sector") {
-      "Higher Education Investment in Innovation"
-    } else {"Investment in Innovation"}
-  })
-  
 ## line plot ----
   output$line_plot <- renderPlotly({
     df1 <- filtered_data()
     p1 <- df1 |> 
             plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
-            layout(title = list(text = paste("Research and Development in <b>" , 
-                                 input$science_type, "</b>", 
-                                 " in <b>",input$geo , "</b>",
-                                 "\n", "Funder:<b>", input$funder, "</b>", 
-                                 "\n", "Performer:<b>", input$performer, "</b>"),
-                                x=0.1, y=0.78,font = list(size = 14)),
+            layout(title = paste(input$item),
                    xaxis = list(
                      title = "", 
                      rangeslider = list(
@@ -277,14 +241,14 @@ server <- function(input, output, session) {
                        bgcolor = "darkgrey"  
                      )
                    ),
-             yaxis = list(title = paste ("million $ (", "<b>", input$prices, "</b>)")))
+             yaxis = list(title = paste (input$prices)))
   validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
     
   p1 <- ggplotly(p1)
   })   
   
   
-  ## Sankey diagram ----
+  ## lines diagram ----
   output$sankey_diagram <- renderPlotly({
     df1 <- sankey_data()
     nodes <- data.frame(name = c(as.character(df1$Funder), as.character(df1$Performer)))
@@ -364,7 +328,7 @@ server <- function(input, output, session) {
     paste("This is the second text box.")
   })
   
-  ## growth table ----
+  ## pie plot ----
   output$table <- DT::renderDataTable({
     data <- filtered_data_growth()
     DT::datatable(data, options = list(dom = 't'), escape = FALSE, rownames = FALSE, 
@@ -378,17 +342,18 @@ server <- function(input, output, session) {
   output$barplot <- renderPlotly({
 
     df2 <- filtered_data_bar()
-    df2$formatted_VALUE <- sprintf("%.1f%%", df2$VALUE)
-    df2$adjusted_VALUE <- df2$VALUE + 0.2
     p2 <- df2 |> 
-      plot_ly(x = ~VALUE,y=~GEO, color=~GEO, type = 'bar',
-              colors = ~color, showlegend = FALSE)  |>
-      add_text(x = ~adjusted_VALUE,text = ~formatted_VALUE, textposition = 'outside') |>
-      layout(title = paste("Research and Development as percentage of GDP \n in", input$year),
-             font = list(family = 'Arial', size = 12),
+      plot_ly(x = ~VALUE,y=~GEO, color=~Estimates, type = 'bar', 
+              orientation = 'h', stackgroup = 'group') |>
+      layout(title = paste("Non-residential Investment Breakdown in ", input$year),
+             font = list(family = 'Arial', size = 10),
              yaxis = list(title = ""),
-             xaxis = list(title = "Percent"),
-             bargroupgap = 0.3)
+             xaxis = list(title = ""),
+             bargap = 0.2,
+             barmode = "stack",
+             barnorm = "percent",
+             legend = list(y = -0.3, x=0),
+             autosize = TRUE)
  
     validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
     return(p2)
