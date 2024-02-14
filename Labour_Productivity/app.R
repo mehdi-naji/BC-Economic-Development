@@ -20,6 +20,11 @@ options(shiny.autoreload = TRUE)
 url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Labour_Productivity_1.csv"
 df <- read.csv(url, header = TRUE)
 df <- na.omit(df)
+df <- df |> filter(
+  Labour.productivity.and.related.measures %in% c("Total number of jobs",
+                                                  "Labour productivity",
+                                                  "Nominal value added")
+)
 
 
 canada_url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/canada-with-provinces_795.geojson"
@@ -65,6 +70,7 @@ ui <- dashboardPage(
   dashboardSidebar(
     collapsed = TRUE,
     sidebarMenu(
+      ### input list ----
       menuItem("Inputs", tabName = "inputs", icon = icon("dashboard")),
         selectInput("geo", "Region", choices = unique(df$GEO), selected = "British Columbia"), 
         selectInput("industry", "Industry", choices = unique(df$Industry), selected = "Total industries"), 
@@ -172,6 +178,7 @@ server <- function(input, output, session) {
        GEO, Labour.productivity.and.related.measures, Industry, VALUE 
      )
  })
+
   
 ## treemap data----
   treemap_data <- reactive({
@@ -183,6 +190,18 @@ server <- function(input, output, session) {
       mutate(total_value = sum(VALUE))|>
       ungroup()|>
       mutate(per_val = (VALUE / total_value) * parent_val)
+  })
+  
+  
+  
+  bar_data <- reactive({
+    df |>
+      filter(
+        GEO == input$geo,
+        Year == input$year,
+        Labour.productivity.and.related.measures == input$labourtype
+        
+      )
   })
 
 # Rendering ----
@@ -225,19 +244,41 @@ server <- function(input, output, session) {
   })   
   
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
   ## treemap diagram ----
   output$treemap <- renderPlotly({
-    df2 <- treemap_data()
-    
-    p <- df2 |>
-      plot_ly(
-        type = 'treemap',
-        branchvalues = "total",
-        labels = ~Industry,
-        parents = ~parent,
-        values = ~per_val)
-    validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-    p
+    if (input$labourtype == "Labour productivity") {
+      df2 <- bar_data()
+      p <- df2 |>
+        plot_ly(x = ~VALUE, y = ~Industry, color = ~Industry, type = 'bar') 
+      
+      #     branchvalues = "total",
+      #     labels = ~Industry,
+      #     parents = ~parent,
+      #     values = ~per_val)
+      # validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+      p
+            
+    } else {
+      df2 <- treemap_data()
+      p <- df2 |>
+        plot_ly(
+          type = 'treemap',
+          branchvalues = "total",
+          labels = ~Industry,
+          parents = ~parent,
+          values = ~per_val)
+      validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+      p}
       })
   
   

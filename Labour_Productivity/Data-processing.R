@@ -43,6 +43,7 @@ df2 <- df2 |>
       TRUE ~ 0)) |>
   ungroup()
 
+
 df2 <- df2 |> select(Year, GEO, `Labour productivity and related measures`, UOM, Industry, VALUE, parent, parent_val)
 
 # write.csv(df1, "~/StrongerBC-Project/Data/VA_Exporsts_1.csv", row.names = FALSE)
