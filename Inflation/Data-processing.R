@@ -82,30 +82,3 @@ write.csv(df3, "C:/Users/mehdi/StrongerBC-Project/Data/Core_Inflation_1.csv", ro
 # write.csv(df1_1, "~/StrongerBC-Project/Data/Price_Index_1.csv", row.names = FALSE)
 # write.csv(df3, "~/StrongerBC-Project/Data/Core_Inflation_1.csv", row.names = FALSE)
 
-
-library(plotly)
-
-
-dff <- df1_2 |> filter(GEO == "Canada",
-                     `Products and product groups` == "All-items")
-dff$Year <- as.factor(dff$Year)
-
-
-latest_year <- max(df1_2$Year)
-
-
-p <- plot_ly(dff, x = ~Month, y = ~MnthInf, color = ~Year, colors = "lightblue", type = "scatter", mode = "lines",
-             line = list(width = 2)) %>%
-  layout(title = "Line Plot",
-         xaxis = list(title = "Month"),
-         yaxis = list(title = "Value"))
-
-# Add interactivity
-p <- p %>% style(hoverinfo = "text", text = ~paste("Year: ", Year), traces = c(1:(length(unique(dff$Year))-1)))
-p <- p %>% style(hoverinfo = "text", text = ~paste("Year: ", Year), traces = c(length(unique(dff$Year))), line = list(color = "orange"))
-
-# Make other lines less visible when one is hovered
-p <- p %>% layout(hovermode = "closest")
-
-# Print the plot
-p
