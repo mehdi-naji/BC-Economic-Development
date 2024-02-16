@@ -7,6 +7,7 @@ library(zoo)
 
 df1 <- statcan_download_data("18-10-0004-01", "eng") 
 df2 <- statcan_download_data("18-10-0256-01", "eng")
+df3 <- statcan_download_data("10-10-0106-01", "eng")
 
 dating <- function(df, column) {
   df[[column]] <- ymd(df[[column]])
@@ -24,7 +25,7 @@ df1 <- dating(df1, "REF_DATE")
 df2 <- dating(df2, "REF_DATE")
 
 
-df1 <- df1|>
+df1_1 <- df1|>
   filter (Year >= 2000,
           UOM == "2002=100",
           `Products and product groups` %in% c(
@@ -39,11 +40,29 @@ df1 <- df1|>
             "Services"))|>
   select (YearMonth, Year, Month, GEO, `Products and product groups`, COORDINATE, VALUE)
 
+
+df_t1 <- df1|>
+  filter (Year >= 2000,
+          UOM == "2002=100",
+          GEO == "Canada",
+          `Products and product groups` %in% c(
+            "Services excluding shelter services",
+            "Shelter",
+            "Goods excluding food purchased from stores and energy",
+            "Energy", 
+            "Food purchased from stores"))|>
+  select (YearMonth, GEO, `Products and product groups`, VALUE) |> 
+  group_by(GEO, `Products and product groups`)|>
+  arrange(YearMonth) |>
+  mutate(Y_o_Y_inf = round((VALUE-lag(VALUE))/lag(VALUE)*100,2)) |>
+  ungroup()
+
 # Monthly Inflation
 df1_1 <- df1 |> 
   group_by(GEO, `Products and product groups`, COORDINATE)|>
   arrange(YearMonth) |>
-  mutate(MnthInf = round((VALUE-lag(VALUE))/lag(VALUE)*100,2))
+  mutate(MnthInf = round((VALUE-lag(VALUE))/lag(VALUE)*100,2)) |>
+  ungroup()
 
 # Annualized Monthly Inflation
 df1_1 <- df1_1 |> 
@@ -53,7 +72,7 @@ df1_1 <- df1_1 |>
 # Average past 12 month inflation
 df1_1 = df1_1 |>
   arrange(YearMonth) |>
-  mutate(AnnInf = round((VALUE/lag(VALUE,12)-1)*100,2))
+  mutate(Y_o_Y_inf = round((VALUE/lag(VALUE,12)-1)*100,2))
 
 
 df1_2 <- df1_1 |>
@@ -78,6 +97,7 @@ colnames(df3) <- c("Year", "Month", "YearMonth", "CoreFactor", "CoreWeighted", "
 
 write.csv(df1_1, "C:/Users/mehdi/StrongerBC-Project/Data/Price_Index_1.csv", row.names = FALSE)
 write.csv(df3, "C:/Users/mehdi/StrongerBC-Project/Data/Core_Inflation_1.csv", row.names = FALSE)
+write.csv(df_t1, "C:/Users/mehdi/StrongerBC-Project/Data/tableau_inflation_1.csv", row.names = FALSE)
 
 # write.csv(df1_1, "~/StrongerBC-Project/Data/Price_Index_1.csv", row.names = FALSE)
 # write.csv(df3, "~/StrongerBC-Project/Data/Core_Inflation_1.csv", row.names = FALSE)
