@@ -50,6 +50,13 @@ ui_map <- column(3, leafletOutput("map"))
 ### Pie Chart ----
 ui_treemap <- column(9,plotlyOutput("treemap"))
 
+### lines Chart ----
+ui_lines <- column(5,plotlyOutput("lines"))
+
+### table Chart ----
+ui_table <- column(4,plotlyOutput("table"))
+
+
 ### tabs ----
 ui_text_tabs <- column(6, tabsetPanel(
   tabPanel("Analysis", 

@@ -9,7 +9,7 @@ df1 <- statcan_download_data("36-10-0480-01", "eng")
 df1$REF_DATE <- ymd(df1$REF_DATE)
 df1$Year <- year(df1$REF_DATE)
 
-selected_sectors <- c(1, 2, 3, 4, 17, 37, 42, 53, 157, 158, 168, 181, 198, 213, 214, 225, 233, 245, 246, 256, 258, 266, 271, 276, 297, 299, 307, 308, 313, 316, 319, 320)
+selected_sectors <- c(1, 2, 3, 4, 17, 37, 42, 53, 157, 158, 168, 181, 198, 213, 214, 225, 233, 245, 246, 256, 258, 266, 271, 276, 290, 297, 293, 294, 299, 307, 308, 313, 316, 319, 320)
 filter_conditions  <- sapply(selected_sectors, function(x) grepl(paste0("\\..*\\.", x, "$"), df1$COORDINATE))
 filter_conditions <- apply(filter_conditions, 1, any)
 df2 <- df1[filter_conditions, ]
@@ -52,12 +52,10 @@ df3 <- df2 |>
   ungroup()
 
   
-ddf3 <- df2 |> 
-  group_by(Year, GEO, `Labour productivity and related measures`, UOM, Industry) |>
-  summarise(Value_Summary = summary(VALUE))
+# ddf3 <- df2 |> 
+#   group_by(Year, GEO, `Labour productivity and related measures`, UOM, Industry) |>
+#   summarise(Value_Summary = summary(VALUE))
 
 
 # write.csv(df1, "~/StrongerBC-Project/Data/VA_Exporsts_1.csv", row.names = FALSE)
-write.csv(df2, "C:/Users/mehdi/StrongerBC-Project/Data/Labour_Productivity_1.csv", row.names = FALSE)
-
-
+write.csv(df2, "C:/Users/MNAJI/StrongerBC-Project/Data/Labour_Productivity_1.csv", row.names = FALSE)
