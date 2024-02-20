@@ -192,7 +192,8 @@ server <- function(input, output, session) {
     df |>
       filter(GEO == input$geo,
              Year == input$year,
-             Labour.productivity.and.related.measures == input$labourtype) |>
+             Labour.productivity.and.related.measures == input$labourtype,
+             parent != "NONE") |>
       group_by(parent) |>
       mutate(total_value = sum(VALUE))|>
       ungroup()|>
@@ -200,15 +201,23 @@ server <- function(input, output, session) {
   })
   
   
-  
-  bar_data <- reactive({
+## lines data----  
+  lines_data <- reactive({
     df |>
       filter(
         GEO == input$geo,
-        Year == input$year,
-        Labour.productivity.and.related.measures == input$labourtype
-        
-      )
+        Labour.productivity.and.related.measures == input$labourtype,
+        Industry %in% c("Business sector industries",
+                        "Energy sector",
+                        "Information and communication sector",
+                        "Finance and insurance, and holding companies [BS5B]",
+                        "Industrial production",
+                        "Non-business sector industries")|>
+          group_by(Year, Industry) |>
+          arrange(Year) |>
+          mutate(LP_growth = lag(VALUE)) |>
+          ungroup()
+        )
   })
 
 # Rendering ----
@@ -252,27 +261,13 @@ server <- function(input, output, session) {
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-
   ## treemap diagram ----
   output$treemap <- renderPlotly({
     if (input$labourtype == "Labour productivity") {
-      df2 <- bar_data()
+      df2 <- lines_data()
       p <- df2 |>
-        plot_ly(x = ~VALUE, y = ~Industry, color = ~Industry, type = 'bar') 
+        plot_ly(x = ~Year, y =~VALUE, color = ~Industry, type = 'scatter', mode = 'lines') 
       
-      #     branchvalues = "total",
-      #     labels = ~Industry,
-      #     parents = ~parent,
-      #     values = ~per_val)
-      # validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
       p
             
     } else {

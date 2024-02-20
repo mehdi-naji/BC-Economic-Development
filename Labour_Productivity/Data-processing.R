@@ -45,16 +45,11 @@ df2 <- df2 |>
 
 df2 <- df2 |> select(Year, GEO, `Labour productivity and related measures`, UOM, Industry, VALUE, parent, parent_val)
 
-df3 <- df2 |> 
-  group_by(Year, GEO, `Labour productivity and related measures`, UOM, Industry) |>
+df2 <- df2 |> 
+  group_by(GEO, `Labour productivity and related measures`, UOM, Industry) |>
   arrange(Year) |>
-  mutate(LP_growth = lag(VALUE)) |>
+  mutate(LP_growth = ((VALUE / lag(VALUE))-1)*100) |>
   ungroup()
-
-  
-# ddf3 <- df2 |> 
-#   group_by(Year, GEO, `Labour productivity and related measures`, UOM, Industry) |>
-#   summarise(Value_Summary = summary(VALUE))
 
 
 # write.csv(df1, "~/StrongerBC-Project/Data/VA_Exporsts_1.csv", row.names = FALSE)
