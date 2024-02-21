@@ -48,13 +48,13 @@ ui_lineplot <- column(6,plotlyOutput("line_plot"))
 ui_map <- column(3, leafletOutput("map"))
 
 ### Pie Chart ----
-ui_treemap <- column(9,plotlyOutput("treemap"))
+ui_treemap <- column(6,plotlyOutput("treemap"))
 
 ### lines Chart ----
-ui_lines <- column(5,plotlyOutput("lines"))
+ui_lines <- column(6,plotlyOutput("lines"))
 
 ### table Chart ----
-ui_table <- column(4,plotlyOutput("table"))
+ui_table <-  column(3, DT::dataTableOutput("table"))
 
 
 ### tabs ----
@@ -153,7 +153,7 @@ ui <- dashboardPage(
     fluidRow(
       ui_lineplot, ui_text_tabs),
     fluidRow(
-      ui_treemap, ui_map),
+      ui_treemap, ui_table, ui_map),
     fluidPage(
       textOutput("source")
     )
@@ -216,19 +216,25 @@ server <- function(input, output, session) {
         )
   })
 
-  ## lines data----  
-  lines_data <- reactive({
+  ## table data----  
+  table_data <- reactive({
     df |>
       filter(
-        GEO == input$geo,
+        Year == input$year,
         Labour.productivity.and.related.measures == input$labourtype,
-        Industry %in% c("Business sector industries",
-                        "Energy sector",
-                        "Information and communication sector",
-                        "Finance and insurance, and holding companies [BS5B]",
-                        "Industrial production",
-                        "Non-business sector industries")
-      )
+        Industry == input$industry,
+        GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada"))|>
+      select (GEO, Y1_growth, Y3_growht, Y5_growth) |>
+      mutate(GEO = factor(GEO, levels = c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada")),
+             Y1_growth = paste0(round(Y1_growth,1),"%"),
+             Y3_growht = paste0(round(Y3_growht,1),"%"),
+             Y5_growth = paste0(round(Y5_growth,1),"%"))|>
+      arrange(GEO)|>
+      rename(Region = GEO) |>
+      rename_with(~paste0("one-year growth <br>(", as.numeric(as.character(input$year))-1, "-", as.numeric(as.character(input$year)) ,")") , Y1_growth)|>
+      rename_with(~paste0("3-year growth <br>(", as.numeric(as.character(input$year))-3, "-", as.numeric(as.character(input$year)) ,")") , Y3_growht)|>
+      rename_with(~paste0("5-year growth <br>(", as.numeric(as.character(input$year))-5, "-", as.numeric(as.character(input$year)) ,")") , Y5_growth)
+
   })
 # Rendering ----
 
@@ -276,7 +282,8 @@ server <- function(input, output, session) {
     if (input$labourtype == "Labour productivity") {
       df2 <- lines_data()
       p <- df2 |>
-        plot_ly(x = ~Year, y =~LP_growth, color = ~Industry, type = 'scatter', mode = 'lines') 
+        plot_ly(x = ~Year, y =~Y1_growth, color = ~Industry, type = 'scatter', mode = 'lines') |>
+        layout(legend = list(orientation = 'h', x = 0.5, xanchor = 'center', y = -0.3, yanchor = 'top'))
       
       p
             
@@ -292,6 +299,16 @@ server <- function(input, output, session) {
       validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
       p}
       })
+  
+  
+  ## table----
+  output$table <- DT::renderDataTable({
+    data <- table_data()
+    DT::datatable(data, options = list(dom = 't'), escape = FALSE, rownames = FALSE, 
+                  caption = htmltools::tags$caption("",
+                                                    style = "font-family: Arial; font-size: 12px;"))
+  })
+  
   
   
   # Render the text boxes
@@ -315,7 +332,6 @@ server <- function(input, output, session) {
                   fillOpacity = 0.8,
                   color = "#BDBDC3",
                   weight = 1,
-                  # Add a popup feature that shows the province name and the value
                   popup = ~paste0("<b>", prov_name_en, "</b><br>Value: ", round(canada$VALUE, 2))) |>
       leaflet::addLegend(pal = pal,
                          values = canada$VALUE,
