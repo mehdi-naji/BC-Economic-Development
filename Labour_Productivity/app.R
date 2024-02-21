@@ -212,14 +212,24 @@ server <- function(input, output, session) {
                         "Information and communication sector",
                         "Finance and insurance, and holding companies [BS5B]",
                         "Industrial production",
-                        "Non-business sector industries")|>
-          group_by(Year, Industry) |>
-          arrange(Year) |>
-          mutate(LP_growth = lag(VALUE)) |>
-          ungroup()
+                        "Non-business sector industries")
         )
   })
 
+  ## lines data----  
+  lines_data <- reactive({
+    df |>
+      filter(
+        GEO == input$geo,
+        Labour.productivity.and.related.measures == input$labourtype,
+        Industry %in% c("Business sector industries",
+                        "Energy sector",
+                        "Information and communication sector",
+                        "Finance and insurance, and holding companies [BS5B]",
+                        "Industrial production",
+                        "Non-business sector industries")
+      )
+  })
 # Rendering ----
 
   # output$title <- renderText({
@@ -266,7 +276,7 @@ server <- function(input, output, session) {
     if (input$labourtype == "Labour productivity") {
       df2 <- lines_data()
       p <- df2 |>
-        plot_ly(x = ~Year, y =~VALUE, color = ~Industry, type = 'scatter', mode = 'lines') 
+        plot_ly(x = ~Year, y =~LP_growth, color = ~Industry, type = 'scatter', mode = 'lines') 
       
       p
             
@@ -294,28 +304,23 @@ server <- function(input, output, session) {
   ## map plot ----
   output$map <- renderLeaflet({
     df_map <- map_data()
-    
-    # df2$formatted_VALUE <- sprintf("%.2f%%", df2$EXP_GDP)
-    
+    merged_df <- merge(canada, df_map, by.x="prov_name_en", by.y="GEO", all.x = TRUE)
+    canada$VALUE <- merged_df$VALUE
     # Create a color palette
-    pal <- colorNumeric(palette = "viridis", domain = df_map$VALUE)
+    pal <- colorNumeric(palette = "viridis", domain = canada$VALUE)
     
     p2 <- leaflet(data = canada, options = leafletOptions(minZoom = 2, maxZoom = 2, dragging = FALSE, doubleClickZoom = FALSE, scrollWheelZoom = FALSE, touchZoom = FALSE, keyboard = FALSE)) %>%
-      fitBounds(lng1 = min(st_bbox(canada)[c(1, 3)]),
-                lat1 = min(st_bbox(canada)[c(2, 4)]),
-                lng2 = max(st_bbox(canada)[c(1, 3)]),
-                lat2 = max(st_bbox(canada)[c(2, 4)])) %>%
       addProviderTiles(providers$CartoDB.Positron) %>%
-      addPolygons(fillColor = ~pal(df_map$VALUE),
+      addPolygons(fillColor = ~pal(canada$VALUE),
                   fillOpacity = 0.8,
                   color = "#BDBDC3",
                   weight = 1,
                   # Add a popup feature that shows the province name and the value
-                  popup = ~paste0("<b>", prov_name_en, "</b><br>Value: ", round(df_map$VALUE, 2))) %>%
+                  popup = ~paste0("<b>", prov_name_en, "</b><br>Value: ", round(canada$VALUE, 2))) |>
       leaflet::addLegend(pal = pal,
-                         values = df_map$VALUE,
+                         values = canada$VALUE,
                          title = "Value",
-                         position = "bottomright")
+                         position = "bottomleft")
     
     validate(need(nrow(df_map) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
     p2

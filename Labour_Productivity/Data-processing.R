@@ -48,7 +48,9 @@ df2 <- df2 |> select(Year, GEO, `Labour productivity and related measures`, UOM,
 df2 <- df2 |> 
   group_by(GEO, `Labour productivity and related measures`, UOM, Industry) |>
   arrange(Year) |>
-  mutate(LP_growth = ((VALUE / lag(VALUE))-1)*100) |>
+  mutate(Y1_growth = ((VALUE / lag(VALUE, n=1))-1)*100,
+         Y3_growht = ((VALUE / lag(VALUE, n=3))-1)*100,
+         Y5_growth = ((VALUE / lag(VALUE, n=5))-1)*100) |>
   ungroup()
 
 
