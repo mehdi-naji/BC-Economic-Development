@@ -222,7 +222,7 @@ server <- function(input, output, session) {
              Prices == input$prices,
              Estimates %in% c(
                "Business gross fixed capital formation",
-               "General governments final consumption expenditure"
+               "General governments final consumption expenditure",
                "Non-residential structures, machinery and equipment",
                "Residential structures"
              ))

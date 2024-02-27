@@ -12,7 +12,7 @@ df1$Year <- year(df1$REF_DATE)
 df2$REF_DATE <- ymd(df2$REF_DATE)
 df2$Year <- year(df2$REF_DATE)
 
-### TA inja
+### First dataset
 
 selected_sectors <- c(11:16, 38, 9)
 filter_conditions  <- sapply(selected_sectors, function(x) grepl(paste0("\\..*\\.", x, "$"), df1$COORDINATE))
@@ -41,5 +41,19 @@ df1_3 <- df1_2 |>
 df1_2<- merge(df1_2, df1_3, all = TRUE)
             
 # write.csv(df1, "~/StrongerBC-Project/Data/VA_Exporsts_1.csv", row.names = FALSE)
-write.csv(df1_2, "C:/Users/MNAJI/StrongerBC-Project/Data/Non_Residential_Investment_1.csv", row.names = FALSE)
+# write.csv(df1_2, "C:/Users/MNAJI/StrongerBC-Project/Data/Non_Residential_Investment_1.csv", row.names = FALSE)
+
+### Second dataset
+selected_sectors <- c(4,8,11,21, 28, 29, 32, 42, 43, 50, 51, 52, 53)
+selected_sectors <- as.character(selected_sectors)
+
+df2_1 <- df2 |>
+  mutate(extension = sub("^.*\\.", "", COORDINATE))
+
+df2_1 <- df2_1 |>
+  filter(extension %in% selected_sectors,
+         `Seasonal adjustment` == "Seasonally adjusted at annual rates")|>
+  select(Year, GEO, Prices, Estimates, UOM, SCALAR_FACTOR, VALUE)
+
+# write.csv(df2_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Non_Residential_Investment_2.csv", row.names = FALSE)
 

@@ -55,4 +55,4 @@ df2 <- df2 |>
 
 
 # write.csv(df1, "~/StrongerBC-Project/Data/VA_Exporsts_1.csv", row.names = FALSE)
-write.csv(df2, "C:/Users/MNAJI/StrongerBC-Project/Data/Labour_Productivity_1.csv", row.names = FALSE)
+# write.csv(df2, "C:/Users/MNAJI/StrongerBC-Project/Data/Labour_Productivity_1.csv", row.names = FALSE)
