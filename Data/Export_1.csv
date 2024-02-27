@@ -1,397 +1,1189 @@
-Year,GEO,EXP_to_all_countries,percent_change,share_of_canadian_export
-1988,British Columbia,"17,405",,12.90%
-1989,British Columbia,"17,775",2.10%,13.20%
-1990,British Columbia,"16,607",-6.60%,11.70%
-1991,British Columbia,"15,253",-8.20%,11.00%
-1992,British Columbia,"16,336",7.10%,10.60%
-1993,British Columbia,"19,034",16.50%,10.70%
-1994,British Columbia,"22,856",20.10%,10.80%
-1995,British Columbia,"26,874",17.60%,10.90%
-1996,British Columbia,"25,717",-4.30%,9.90%
-1997,British Columbia,"26,699",3.80%,9.50%
-1998,British Columbia,"25,942",-2.80%,8.70%
-1999,British Columbia,"29,044",12.00%,8.80%
-2000,British Columbia,"33,640",15.80%,8.70%
-2001,British Columbia,"31,680",-5.80%,8.40%
-2002,British Columbia,"28,828",-9.00%,7.90%
-2003,British Columbia,"28,265",-2.00%,8.00%
-2004,British Columbia,"31,008",9.70%,8.00%
-2005,British Columbia,"34,167",10.20%,8.40%
-2006,British Columbia,"33,466",-2.10%,8.10%
-2007,British Columbia,"31,524",-5.80%,7.50%
-2008,British Columbia,"33,124",5.10%,7.30%
-2009,British Columbia,"25,240",-23.80%,7.50%
-2010,British Columbia,"28,646",13.50%,7.70%
-2011,British Columbia,"32,671",14.10%,7.80%
-2012,British Columbia,"31,484",-3.60%,7.40%
-2013,British Columbia,"33,421",6.20%,7.50%
-2014,British Columbia,"35,832",7.20%,7.30%
-2015,British Columbia,"35,497",-0.90%,7.40%
-2016,British Columbia,"38,423",8.20%,8.20%
-2017,British Columbia,"43,241",12.50%,8.60%
-2018,British Columbia,"46,280",7.00%,8.60%
-2019,British Columbia,"43,348",-6.30%,8.00%
-2020,British Columbia,"39,604",-8.60%,8.30%
-2021,British Columbia,"53,936",36.20%,9.30%
-2022,British Columbia,"64,947",20.40%,8.90%
-2023,British Columbia,"56,456",-13.10%,7.90%
-1988,Alberta,"13,122",,9.70%
-1989,Alberta,"13,524",3.10%,10.00%
-1990,Alberta,"15,343",13.50%,10.80%
-1991,Alberta,"16,087",4.80%,11.60%
-1992,Alberta,"17,919",11.40%,11.60%
-1993,Alberta,"19,772",10.30%,11.10%
-1994,Alberta,"22,984",16.20%,10.80%
-1995,Alberta,"26,944",17.20%,10.90%
-1996,Alberta,"31,755",17.90%,12.20%
-1997,Alberta,"33,559",5.70%,12.00%
-1998,Alberta,"31,101",-7.30%,10.50%
-1999,Alberta,"34,717",11.60%,10.50%
-2000,Alberta,"55,493",59.80%,14.40%
-2001,Alberta,"57,061",2.80%,15.20%
-2002,Alberta,"48,932",-14.20%,13.40%
-2003,Alberta,"57,113",16.70%,16.10%
-2004,Alberta,"63,688",11.50%,16.50%
-2005,Alberta,"76,280",19.80%,18.70%
-2006,Alberta,"77,744",1.90%,18.90%
-2007,Alberta,"81,559",4.90%,19.40%
-2008,Alberta,"110,248",35.20%,24.20%
-2009,Alberta,"69,846",-36.60%,20.90%
-2010,Alberta,"78,743",12.70%,21.10%
-2011,Alberta,"93,217",18.40%,22.20%
-2012,Alberta,"95,048",2.00%,22.20%
-2013,Alberta,"103,014",8.40%,23.20%
-2014,Alberta,"121,581",18.00%,24.60%
-2015,Alberta,"92,429",-24.00%,19.20%
-2016,Alberta,"79,333",-14.20%,16.90%
-2017,Alberta,"100,493",26.70%,20.10%
-2018,Alberta,"117,654",17.10%,21.90%
-2019,Alberta,"117,202",-0.40%,21.50%
-2020,Alberta,"92,001",-21.50%,19.20%
-2021,Alberta,"138,071",50.10%,23.70%
-2022,Alberta,"204,963",48.40%,28.20%
-2023,Alberta,"175,052",-14.60%,24.60%
-1988,Saskatchewan,"5,770",,4.30%
-1989,Saskatchewan,"4,488",-22.20%,3.30%
-1990,Saskatchewan,"5,329",18.80%,3.80%
-1991,Saskatchewan,"5,691",6.80%,4.10%
-1992,Saskatchewan,"6,585",15.70%,4.30%
-1993,Saskatchewan,"6,069",-7.80%,3.40%
-1994,Saskatchewan,"7,539",24.20%,3.50%
-1995,Saskatchewan,"8,862",17.60%,3.60%
-1996,Saskatchewan,"9,315",5.10%,3.60%
-1997,Saskatchewan,"10,806",16.00%,3.90%
-1998,Saskatchewan,"9,924",-8.20%,3.30%
-1999,Saskatchewan,"9,763",-1.60%,2.90%
-2000,Saskatchewan,"12,562",28.70%,3.30%
-2001,Saskatchewan,"11,657",-7.20%,3.10%
-2002,Saskatchewan,"11,165",-4.20%,3.10%
-2003,Saskatchewan,"10,281",-7.90%,2.90%
-2004,Saskatchewan,"13,318",29.50%,3.50%
-2005,Saskatchewan,"14,822",11.30%,3.60%
-2006,Saskatchewan,"16,148",8.90%,3.90%
-2007,Saskatchewan,"19,328",19.70%,4.60%
-2008,Saskatchewan,"29,492",52.60%,6.50%
-2009,Saskatchewan,"21,759",-26.20%,6.50%
-2010,Saskatchewan,"23,614",8.50%,6.30%
-2011,Saskatchewan,"29,550",25.10%,7.10%
-2012,Saskatchewan,"31,676",7.20%,7.40%
-2013,Saskatchewan,"32,246",1.80%,7.30%
-2014,Saskatchewan,"35,313",9.50%,7.20%
-2015,Saskatchewan,"32,819",-7.10%,6.80%
-2016,Saskatchewan,"26,437",-19.40%,5.60%
-2017,Saskatchewan,"28,657",8.40%,5.70%
-2018,Saskatchewan,"30,634",6.90%,5.70%
-2019,Saskatchewan,"29,611",-3.30%,5.40%
-2020,Saskatchewan,"29,758",0.50%,6.20%
-2021,Saskatchewan,"37,039",24.50%,6.40%
-2022,Saskatchewan,"52,515",41.80%,7.20%
-2023,Saskatchewan,"49,133",-6.40%,6.90%
-1988,Manitoba,"3,019",,2.20%
-1989,Manitoba,"2,930",-3.00%,2.20%
-1990,Manitoba,"2,943",0.50%,2.10%
-1991,Manitoba,"3,079",4.60%,2.20%
-1992,Manitoba,"3,421",11.10%,2.20%
-1993,Manitoba,"3,677",7.50%,2.10%
-1994,Manitoba,"4,502",22.40%,2.10%
-1995,Manitoba,"5,456",21.20%,2.20%
-1996,Manitoba,"6,221",14.00%,2.40%
-1997,Manitoba,"7,314",17.60%,2.60%
-1998,Manitoba,"8,069",10.30%,2.70%
-1999,Manitoba,"8,041",-0.30%,2.40%
-2000,Manitoba,"9,578",19.10%,2.50%
-2001,Manitoba,"9,576",0.00%,2.60%
-2002,Manitoba,"9,404",-1.80%,2.60%
-2003,Manitoba,"9,194",-2.20%,2.60%
-2004,Manitoba,"9,297",1.10%,2.40%
-2005,Manitoba,"9,301",0.00%,2.30%
-2006,Manitoba,"10,195",9.60%,2.50%
-2007,Manitoba,"12,196",19.60%,2.90%
-2008,Manitoba,"12,972",6.40%,2.80%
-2009,Manitoba,"10,567",-18.50%,3.20%
-2010,Manitoba,"10,238",-3.10%,2.70%
-2011,Manitoba,"11,678",14.10%,2.80%
-2012,Manitoba,"11,363",-2.70%,2.70%
-2013,Manitoba,"12,550",10.40%,2.80%
-2014,Manitoba,"13,451",7.20%,2.70%
-2015,Manitoba,"13,752",2.20%,2.90%
-2016,Manitoba,"13,451",-2.20%,2.90%
-2017,Manitoba,"13,886",3.20%,2.80%
-2018,Manitoba,"15,484",11.50%,2.90%
-2019,Manitoba,"15,925",2.80%,2.90%
-2020,Manitoba,"15,750",-1.10%,3.30%
-2021,Manitoba,"17,436",10.70%,3.00%
-2022,Manitoba,"20,722",18.80%,2.80%
-2023,Manitoba,"21,526",3.90%,3.00%
-1988,Ontario,"65,057",,48.20%
-1989,Ontario,"65,686",1.00%,48.70%
-1990,Ontario,"68,919",4.90%,48.60%
-1991,Ontario,"66,948",-2.90%,48.30%
-1992,Ontario,"77,449",15.70%,50.10%
-1993,Ontario,"89,049",15.00%,50.10%
-1994,Ontario,"107,120",20.30%,50.40%
-1995,Ontario,"121,986",13.90%,49.50%
-1996,Ontario,"127,790",4.80%,49.30%
-1997,Ontario,"139,348",9.00%,49.80%
-1998,Ontario,"154,743",11.00%,52.00%
-1999,Ontario,"175,980",13.70%,53.00%
-2000,Ontario,"185,040",5.10%,48.00%
-2001,Ontario,"177,982",-3.80%,47.40%
-2002,Ontario,"180,802",1.60%,49.50%
-2003,Ontario,"167,679",-7.30%,47.30%
-2004,Ontario,"179,054",6.80%,46.40%
-2005,Ontario,"180,234",0.70%,44.10%
-2006,Ontario,"177,473",-1.50%,43.10%
-2007,Ontario,"177,379",-0.10%,42.20%
-2008,Ontario,"163,649",-7.70%,35.90%
-2009,Ontario,"125,598",-23.30%,37.60%
-2010,Ontario,"145,966",16.20%,39.00%
-2011,Ontario,"155,465",6.50%,37.10%
-2012,Ontario,"162,689",4.60%,38.00%
-2013,Ontario,"164,197",0.90%,37.00%
-2014,Ontario,"177,948",8.40%,36.10%
-2015,Ontario,"196,930",10.70%,40.90%
-2016,Ontario,"205,040",4.10%,43.80%
-2017,Ontario,"199,099",-2.90%,39.80%
-2018,Ontario,"201,764",1.30%,37.50%
-2019,Ontario,"209,784",4.00%,38.60%
-2020,Ontario,"187,104",-10.80%,39.10%
-2021,Ontario,"197,175",5.40%,33.80%
-2022,Ontario,"226,156",14.70%,31.10%
-2023,Ontario,"251,608",11.30%,35.40%
-1988,Quebec,"22,940",,17.00%
-1989,Quebec,"22,910",-0.10%,17.00%
-1990,Quebec,"24,731",7.90%,17.50%
-1991,Quebec,"24,268",-1.90%,17.50%
-1992,Quebec,"25,685",5.80%,16.60%
-1993,Quebec,"32,067",24.80%,18.10%
-1994,Quebec,"38,621",20.40%,18.20%
-1995,Quebec,"45,382",17.50%,18.40%
-1996,Quebec,"46,915",3.40%,18.10%
-1997,Quebec,"50,258",7.10%,17.90%
-1998,Quebec,"55,365",10.20%,18.60%
-1999,Quebec,"59,758",7.90%,18.00%
-2000,Quebec,"71,302",19.30%,18.50%
-2001,Quebec,"68,167",-4.40%,18.20%
-2002,Quebec,"65,502",-3.90%,17.90%
-2003,Quebec,"61,000",-6.90%,17.20%
-2004,Quebec,"64,568",5.80%,16.70%
-2005,Quebec,"66,884",3.60%,16.40%
-2006,Quebec,"69,060",3.30%,16.80%
-2007,Quebec,"67,154",-2.80%,16.00%
-2008,Quebec,"69,072",2.90%,15.20%
-2009,Quebec,"56,340",-18.40%,16.80%
-2010,Quebec,"57,786",2.60%,15.50%
-2011,Quebec,"62,173",7.60%,14.80%
-2012,Quebec,"62,602",0.70%,14.60%
-2013,Quebec,"64,859",3.60%,14.60%
-2014,Quebec,"74,560",15.00%,15.10%
-2015,Quebec,"80,045",7.40%,16.60%
-2016,Quebec,"78,361",-2.10%,16.70%
-2017,Quebec,"83,207",6.20%,16.60%
-2018,Quebec,"90,249",8.50%,16.80%
-2019,Quebec,"89,981",-0.30%,16.50%
-2020,Quebec,"84,427",-6.20%,17.60%
-2021,Quebec,"98,143",16.20%,16.80%
-2022,Quebec,"111,041",13.10%,15.30%
-2023,Quebec,"115,716",4.20%,16.30%
-1988,New Brunswick,"3,110",,2.30%
-1989,New Brunswick,"3,070",-1.30%,2.30%
-1990,New Brunswick,"3,130",2.00%,2.20%
-1991,New Brunswick,"3,063",-2.10%,2.20%
-1992,New Brunswick,"3,026",-1.20%,2.00%
-1993,New Brunswick,"3,435",13.50%,1.90%
-1994,New Brunswick,"4,226",23.00%,2.00%
-1995,New Brunswick,"5,419",28.20%,2.20%
-1996,New Brunswick,"5,396",-0.40%,2.10%
-1997,New Brunswick,"5,471",1.40%,2.00%
-1998,New Brunswick,"5,459",-0.20%,1.80%
-1999,New Brunswick,"6,086",11.50%,1.80%
-2000,New Brunswick,"7,403",21.60%,1.90%
-2001,New Brunswick,"8,271",11.70%,2.20%
-2002,New Brunswick,"8,166",-1.30%,2.20%
-2003,New Brunswick,"8,519",4.30%,2.40%
-2004,New Brunswick,"9,438",10.80%,2.40%
-2005,New Brunswick,"10,678",13.10%,2.60%
-2006,New Brunswick,"10,378",-2.80%,2.50%
-2007,New Brunswick,"11,183",7.80%,2.70%
-2008,New Brunswick,"12,808",14.50%,2.80%
-2009,New Brunswick,"9,825",-23.30%,2.90%
-2010,New Brunswick,"12,666",28.90%,3.40%
-2011,New Brunswick,"14,790",16.80%,3.50%
-2012,New Brunswick,"14,903",0.80%,3.50%
-2013,New Brunswick,"14,460",-3.00%,3.30%
-2014,New Brunswick,"13,032",-9.90%,2.60%
-2015,New Brunswick,"12,210",-6.30%,2.50%
-2016,New Brunswick,"10,642",-12.80%,2.30%
-2017,New Brunswick,"12,856",20.80%,2.60%
-2018,New Brunswick,"12,615",-1.90%,2.30%
-2019,New Brunswick,"13,090",3.80%,2.40%
-2020,New Brunswick,"10,307",-21.30%,2.20%
-2021,New Brunswick,"14,829",43.90%,2.50%
-2022,New Brunswick,"18,803",26.80%,2.60%
-2023,New Brunswick,"16,912",-10.10%,2.40%
-1988,Nova Scotia,"2,153",,1.60%
-1989,Nova Scotia,"2,147",-0.30%,1.60%
-1990,Nova Scotia,"2,220",3.40%,1.60%
-1991,Nova Scotia,"2,155",-2.90%,1.60%
-1992,Nova Scotia,"2,343",8.70%,1.50%
-1993,Nova Scotia,"2,430",3.80%,1.40%
-1994,Nova Scotia,"2,610",7.40%,1.20%
-1995,Nova Scotia,"2,977",14.10%,1.20%
-1996,Nova Scotia,"3,117",4.70%,1.20%
-1997,Nova Scotia,"3,161",1.40%,1.10%
-1998,Nova Scotia,"3,440",8.80%,1.20%
-1999,Nova Scotia,"3,985",15.80%,1.20%
-2000,Nova Scotia,"5,132",28.80%,1.30%
-2001,Nova Scotia,"5,707",11.20%,1.50%
-2002,Nova Scotia,"5,226",-8.40%,1.40%
-2003,Nova Scotia,"5,351",2.40%,1.50%
-2004,Nova Scotia,"5,430",1.50%,1.40%
-2005,Nova Scotia,"5,654",4.10%,1.40%
-2006,Nova Scotia,"5,071",-10.30%,1.20%
-2007,Nova Scotia,"5,288",4.30%,1.30%
-2008,Nova Scotia,"5,645",6.80%,1.20%
-2009,Nova Scotia,"4,237",-24.90%,1.30%
-2010,Nova Scotia,"4,279",1.00%,1.10%
-2011,Nova Scotia,"4,395",2.70%,1.00%
-2012,Nova Scotia,"3,835",-12.70%,0.90%
-2013,Nova Scotia,"4,324",12.80%,1.00%
-2014,Nova Scotia,"5,250",21.40%,1.10%
-2015,Nova Scotia,"5,346",1.80%,1.10%
-2016,Nova Scotia,"5,227",-2.20%,1.10%
-2017,Nova Scotia,"5,348",2.30%,1.10%
-2018,Nova Scotia,"5,723",7.00%,1.10%
-2019,Nova Scotia,"6,051",5.70%,1.10%
-2020,Nova Scotia,"5,222",-13.70%,1.10%
-2021,Nova Scotia,"6,212",19.00%,1.10%
-2022,Nova Scotia,"6,604",6.30%,0.90%
-2023,Nova Scotia,"6,470",-2.00%,0.90%
-1988,Prince Edward Island,140,,0.10%
-1989,Prince Edward Island,163,16.40%,0.10%
-1990,Prince Edward Island,168,3.30%,0.10%
-1991,Prince Edward Island,169,0.40%,0.10%
-1992,Prince Edward Island,175,3.30%,0.10%
-1993,Prince Edward Island,209,19.50%,0.10%
-1994,Prince Edward Island,290,38.80%,0.10%
-1995,Prince Edward Island,340,17.30%,0.10%
-1996,Prince Edward Island,354,4.00%,0.10%
-1997,Prince Edward Island,435,23.00%,0.20%
-1998,Prince Edward Island,466,7.10%,0.20%
-1999,Prince Edward Island,566,21.50%,0.20%
-2000,Prince Edward Island,683,20.60%,0.20%
-2001,Prince Edward Island,666,-2.40%,0.20%
-2002,Prince Edward Island,683,2.50%,0.20%
-2003,Prince Edward Island,638,-6.60%,0.20%
-2004,Prince Edward Island,645,1.10%,0.20%
-2005,Prince Edward Island,773,19.90%,0.20%
-2006,Prince Edward Island,786,1.80%,0.20%
-2007,Prince Edward Island,738,-6.10%,0.20%
-2008,Prince Edward Island,786,6.40%,0.20%
-2009,Prince Edward Island,759,-3.40%,0.20%
-2010,Prince Edward Island,691,-8.90%,0.20%
-2011,Prince Edward Island,731,5.80%,0.20%
-2012,Prince Edward Island,840,14.90%,0.20%
-2013,Prince Edward Island,890,5.90%,0.20%
-2014,Prince Edward Island,"1,069",20.20%,0.20%
-2015,Prince Edward Island,"1,243",16.20%,0.30%
-2016,Prince Edward Island,"1,256",1.00%,0.30%
-2017,Prince Edward Island,"1,318",5.00%,0.30%
-2018,Prince Edward Island,"1,385",5.10%,0.30%
-2019,Prince Edward Island,"1,492",7.70%,0.30%
-2020,Prince Edward Island,"1,508",1.10%,0.30%
-2021,Prince Edward Island,"1,694",12.40%,0.30%
-2022,Prince Edward Island,"1,989",17.40%,0.30%
-2023,Prince Edward Island,"2,335",17.40%,0.30%
-1988,Newfoundland and Labrador,"1,890",,1.40%
-1989,Newfoundland and Labrador,"1,837",-2.80%,1.40%
-1990,Newfoundland and Labrador,"1,899",3.40%,1.30%
-1991,Newfoundland and Labrador,"1,525",-19.70%,1.10%
-1992,Newfoundland and Labrador,"1,227",-19.50%,0.80%
-1993,Newfoundland and Labrador,"1,709",39.20%,1.00%
-1994,Newfoundland and Labrador,"1,580",-7.50%,0.70%
-1995,Newfoundland and Labrador,"1,883",19.20%,0.80%
-1996,Newfoundland and Labrador,"2,284",21.30%,0.90%
-1997,Newfoundland and Labrador,"2,516",10.10%,0.90%
-1998,Newfoundland and Labrador,"2,645",5.20%,0.90%
-1999,Newfoundland and Labrador,"2,934",10.90%,0.90%
-2000,Newfoundland and Labrador,"3,892",32.70%,1.00%
-2001,Newfoundland and Labrador,"3,464",-11.00%,0.90%
-2002,Newfoundland and Labrador,"5,534",59.80%,1.50%
-2003,Newfoundland and Labrador,"4,762",-14.00%,1.30%
-2004,Newfoundland and Labrador,"7,100",49.10%,1.80%
-2005,Newfoundland and Labrador,"8,061",13.50%,2.00%
-2006,Newfoundland and Labrador,"9,520",18.10%,2.30%
-2007,Newfoundland and Labrador,"11,686",22.80%,2.80%
-2008,Newfoundland and Labrador,"15,048",28.80%,3.30%
-2009,Newfoundland and Labrador,"8,617",-42.70%,2.60%
-2010,Newfoundland and Labrador,"9,212",6.90%,2.50%
-2011,Newfoundland and Labrador,"12,122",31.60%,2.90%
-2012,Newfoundland and Labrador,"11,552",-4.70%,2.70%
-2013,Newfoundland and Labrador,"11,920",3.20%,2.70%
-2014,Newfoundland and Labrador,"13,089",9.80%,2.70%
-2015,Newfoundland and Labrador,"9,140",-30.20%,1.90%
-2016,Newfoundland and Labrador,"8,396",-8.10%,1.80%
-2017,Newfoundland and Labrador,"10,202",21.50%,2.00%
-2018,Newfoundland and Labrador,"13,462",32.00%,2.50%
-2019,Newfoundland and Labrador,"14,762",9.70%,2.70%
-2020,Newfoundland and Labrador,"10,418",-29.40%,2.20%
-2021,Newfoundland and Labrador,"14,363",37.90%,2.50%
-2022,Newfoundland and Labrador,"15,850",10.40%,2.20%
-2023,Newfoundland and Labrador,"12,353",-22.10%,1.70%
-1988,Canada,"134,853",,100.00%
-1989,Canada,"134,843",0.00%,100.00%
-1990,Canada,"141,721",5.10%,100.00%
-1991,Canada,"138,519",-2.30%,100.00%
-1992,Canada,"154,530",11.60%,100.00%
-1993,Canada,"177,622",14.90%,100.00%
-1994,Canada,"212,493",19.60%,100.00%
-1995,Canada,"246,390",16.00%,100.00%
-1996,Canada,"259,295",5.20%,100.00%
-1997,Canada,"280,031",8.00%,100.00%
-1998,Canada,"297,480",6.20%,100.00%
-1999,Canada,"331,749",11.50%,100.00%
-2000,Canada,"385,679",16.30%,100.00%
-2001,Canada,"375,230",-2.70%,100.00%
-2002,Canada,"365,295",-2.60%,100.00%
-2003,Canada,"354,395",-3.00%,100.00%
-2004,Canada,"385,526",8.80%,100.00%
-2005,Canada,"408,550",6.00%,100.00%
-2006,Canada,"411,493",0.70%,100.00%
-2007,Canada,"419,944",2.10%,100.00%
-2008,Canada,"455,337",8.40%,100.00%
-2009,Canada,"334,448",-26.50%,100.00%
-2010,Canada,"374,015",11.80%,100.00%
-2011,Canada,"419,035",12.00%,100.00%
-2012,Canada,"428,049",2.20%,100.00%
-2013,Canada,"443,620",3.60%,100.00%
-2014,Canada,"493,332",11.20%,100.00%
-2015,Canada,"481,383",-2.40%,100.00%
-2016,Canada,"468,226",-2.70%,100.00%
-2017,Canada,"500,761",6.90%,100.00%
-2018,Canada,"538,133",7.50%,100.00%
-2019,Canada,"544,110",1.10%,100.00%
-2020,Canada,"478,639",-12.00%,100.00%
-2021,Canada,"582,529",21.70%,100.00%
-2022,Canada,"727,390",24.90%,100.00%
-2023,Canada,"711,349",-2.20%,100.00%
+Year,GEO,EXP_type,VALUE,,
+1988,British Columbia,Export to all countries,"17,405",,
+1989,British Columbia,Export to all countries,"17,775",,
+1990,British Columbia,Export to all countries,"16,607",,
+1991,British Columbia,Export to all countries,"15,253",,
+1992,British Columbia,Export to all countries,"16,336",,
+1993,British Columbia,Export to all countries,"19,034",,
+1994,British Columbia,Export to all countries,"22,856",,
+1995,British Columbia,Export to all countries,"26,874",,
+1996,British Columbia,Export to all countries,"25,717",,
+1997,British Columbia,Export to all countries,"26,699",,
+1998,British Columbia,Export to all countries,"25,942",,
+1999,British Columbia,Export to all countries,"29,044",,
+2000,British Columbia,Export to all countries,"33,640",,
+2001,British Columbia,Export to all countries,"31,680",,
+2002,British Columbia,Export to all countries,"28,828",,
+2003,British Columbia,Export to all countries,"28,265",,
+2004,British Columbia,Export to all countries,"31,008",,
+2005,British Columbia,Export to all countries,"34,167",,
+2006,British Columbia,Export to all countries,"33,466",,
+2007,British Columbia,Export to all countries,"31,524",,
+2008,British Columbia,Export to all countries,"33,124",,
+2009,British Columbia,Export to all countries,"25,240",,
+2010,British Columbia,Export to all countries,"28,646",,
+2011,British Columbia,Export to all countries,"32,671",,
+2012,British Columbia,Export to all countries,"31,484",,
+2013,British Columbia,Export to all countries,"33,421",,
+2014,British Columbia,Export to all countries,"35,832",,
+2015,British Columbia,Export to all countries,"35,497",,
+2016,British Columbia,Export to all countries,"38,423",,
+2017,British Columbia,Export to all countries,"43,241",,
+2018,British Columbia,Export to all countries,"46,280",,
+2019,British Columbia,Export to all countries,"43,348",,
+2020,British Columbia,Export to all countries,"39,604",,
+2021,British Columbia,Export to all countries,"53,936",,
+2022,British Columbia,Export to all countries,"64,947",,
+2023,British Columbia,Export to all countries,"56,456",,
+1988,Alberta,Export to all countries,"13,122",,
+1989,Alberta,Export to all countries,"13,524",,
+1990,Alberta,Export to all countries,"15,343",,
+1991,Alberta,Export to all countries,"16,087",,
+1992,Alberta,Export to all countries,"17,919",,
+1993,Alberta,Export to all countries,"19,772",,
+1994,Alberta,Export to all countries,"22,984",,
+1995,Alberta,Export to all countries,"26,944",,
+1996,Alberta,Export to all countries,"31,755",,
+1997,Alberta,Export to all countries,"33,559",,
+1998,Alberta,Export to all countries,"31,101",,
+1999,Alberta,Export to all countries,"34,717",,
+2000,Alberta,Export to all countries,"55,493",,
+2001,Alberta,Export to all countries,"57,061",,
+2002,Alberta,Export to all countries,"48,932",,
+2003,Alberta,Export to all countries,"57,113",,
+2004,Alberta,Export to all countries,"63,688",,
+2005,Alberta,Export to all countries,"76,280",,
+2006,Alberta,Export to all countries,"77,744",,
+2007,Alberta,Export to all countries,"81,559",,
+2008,Alberta,Export to all countries,"110,248",,
+2009,Alberta,Export to all countries,"69,846",,
+2010,Alberta,Export to all countries,"78,743",,
+2011,Alberta,Export to all countries,"93,217",,
+2012,Alberta,Export to all countries,"95,048",,
+2013,Alberta,Export to all countries,"103,014",,
+2014,Alberta,Export to all countries,"121,581",,
+2015,Alberta,Export to all countries,"92,429",,
+2016,Alberta,Export to all countries,"79,333",,
+2017,Alberta,Export to all countries,"100,493",,
+2018,Alberta,Export to all countries,"117,654",,
+2019,Alberta,Export to all countries,"117,202",,
+2020,Alberta,Export to all countries,"92,001",,
+2021,Alberta,Export to all countries,"138,071",,
+2022,Alberta,Export to all countries,"204,963",,
+2023,Alberta,Export to all countries,"175,052",,
+1988,Saskatchewan,Export to all countries,"5,770",,
+1989,Saskatchewan,Export to all countries,"4,488",,
+1990,Saskatchewan,Export to all countries,"5,329",,
+1991,Saskatchewan,Export to all countries,"5,691",,
+1992,Saskatchewan,Export to all countries,"6,585",,
+1993,Saskatchewan,Export to all countries,"6,069",,
+1994,Saskatchewan,Export to all countries,"7,539",,
+1995,Saskatchewan,Export to all countries,"8,862",,
+1996,Saskatchewan,Export to all countries,"9,315",,
+1997,Saskatchewan,Export to all countries,"10,806",,
+1998,Saskatchewan,Export to all countries,"9,924",,
+1999,Saskatchewan,Export to all countries,"9,763",,
+2000,Saskatchewan,Export to all countries,"12,562",,
+2001,Saskatchewan,Export to all countries,"11,657",,
+2002,Saskatchewan,Export to all countries,"11,165",,
+2003,Saskatchewan,Export to all countries,"10,281",,
+2004,Saskatchewan,Export to all countries,"13,318",,
+2005,Saskatchewan,Export to all countries,"14,822",,
+2006,Saskatchewan,Export to all countries,"16,148",,
+2007,Saskatchewan,Export to all countries,"19,328",,
+2008,Saskatchewan,Export to all countries,"29,492",,
+2009,Saskatchewan,Export to all countries,"21,759",,
+2010,Saskatchewan,Export to all countries,"23,614",,
+2011,Saskatchewan,Export to all countries,"29,550",,
+2012,Saskatchewan,Export to all countries,"31,676",,
+2013,Saskatchewan,Export to all countries,"32,246",,
+2014,Saskatchewan,Export to all countries,"35,313",,
+2015,Saskatchewan,Export to all countries,"32,819",,
+2016,Saskatchewan,Export to all countries,"26,437",,
+2017,Saskatchewan,Export to all countries,"28,657",,
+2018,Saskatchewan,Export to all countries,"30,634",,
+2019,Saskatchewan,Export to all countries,"29,611",,
+2020,Saskatchewan,Export to all countries,"29,758",,
+2021,Saskatchewan,Export to all countries,"37,039",,
+2022,Saskatchewan,Export to all countries,"52,515",,
+2023,Saskatchewan,Export to all countries,"49,133",,
+1988,Manitoba,Export to all countries,"3,019",,
+1989,Manitoba,Export to all countries,"2,930",,
+1990,Manitoba,Export to all countries,"2,943",,
+1991,Manitoba,Export to all countries,"3,079",,
+1992,Manitoba,Export to all countries,"3,421",,
+1993,Manitoba,Export to all countries,"3,677",,
+1994,Manitoba,Export to all countries,"4,502",,
+1995,Manitoba,Export to all countries,"5,456",,
+1996,Manitoba,Export to all countries,"6,221",,
+1997,Manitoba,Export to all countries,"7,314",,
+1998,Manitoba,Export to all countries,"8,069",,
+1999,Manitoba,Export to all countries,"8,041",,
+2000,Manitoba,Export to all countries,"9,578",,
+2001,Manitoba,Export to all countries,"9,576",,
+2002,Manitoba,Export to all countries,"9,404",,
+2003,Manitoba,Export to all countries,"9,194",,
+2004,Manitoba,Export to all countries,"9,297",,
+2005,Manitoba,Export to all countries,"9,301",,
+2006,Manitoba,Export to all countries,"10,195",,
+2007,Manitoba,Export to all countries,"12,196",,
+2008,Manitoba,Export to all countries,"12,972",,
+2009,Manitoba,Export to all countries,"10,567",,
+2010,Manitoba,Export to all countries,"10,238",,
+2011,Manitoba,Export to all countries,"11,678",,
+2012,Manitoba,Export to all countries,"11,363",,
+2013,Manitoba,Export to all countries,"12,550",,
+2014,Manitoba,Export to all countries,"13,451",,
+2015,Manitoba,Export to all countries,"13,752",,
+2016,Manitoba,Export to all countries,"13,451",,
+2017,Manitoba,Export to all countries,"13,886",,
+2018,Manitoba,Export to all countries,"15,484",,
+2019,Manitoba,Export to all countries,"15,925",,
+2020,Manitoba,Export to all countries,"15,750",,
+2021,Manitoba,Export to all countries,"17,436",,
+2022,Manitoba,Export to all countries,"20,722",,
+2023,Manitoba,Export to all countries,"21,526",,
+1988,Ontario,Export to all countries,"65,057",,
+1989,Ontario,Export to all countries,"65,686",,
+1990,Ontario,Export to all countries,"68,919",,
+1991,Ontario,Export to all countries,"66,948",,
+1992,Ontario,Export to all countries,"77,449",,
+1993,Ontario,Export to all countries,"89,049",,
+1994,Ontario,Export to all countries,"107,120",,
+1995,Ontario,Export to all countries,"121,986",,
+1996,Ontario,Export to all countries,"127,790",,
+1997,Ontario,Export to all countries,"139,348",,
+1998,Ontario,Export to all countries,"154,743",,
+1999,Ontario,Export to all countries,"175,980",,
+2000,Ontario,Export to all countries,"185,040",,
+2001,Ontario,Export to all countries,"177,982",,
+2002,Ontario,Export to all countries,"180,802",,
+2003,Ontario,Export to all countries,"167,679",,
+2004,Ontario,Export to all countries,"179,054",,
+2005,Ontario,Export to all countries,"180,234",,
+2006,Ontario,Export to all countries,"177,473",,
+2007,Ontario,Export to all countries,"177,379",,
+2008,Ontario,Export to all countries,"163,649",,
+2009,Ontario,Export to all countries,"125,598",,
+2010,Ontario,Export to all countries,"145,966",,
+2011,Ontario,Export to all countries,"155,465",,
+2012,Ontario,Export to all countries,"162,689",,
+2013,Ontario,Export to all countries,"164,197",,
+2014,Ontario,Export to all countries,"177,948",,
+2015,Ontario,Export to all countries,"196,930",,
+2016,Ontario,Export to all countries,"205,040",,
+2017,Ontario,Export to all countries,"199,099",,
+2018,Ontario,Export to all countries,"201,764",,
+2019,Ontario,Export to all countries,"209,784",,
+2020,Ontario,Export to all countries,"187,104",,
+2021,Ontario,Export to all countries,"197,175",,
+2022,Ontario,Export to all countries,"226,156",,
+2023,Ontario,Export to all countries,"251,608",,
+1988,Quebec,Export to all countries,"22,940",,
+1989,Quebec,Export to all countries,"22,910",,
+1990,Quebec,Export to all countries,"24,731",,
+1991,Quebec,Export to all countries,"24,268",,
+1992,Quebec,Export to all countries,"25,685",,
+1993,Quebec,Export to all countries,"32,067",,
+1994,Quebec,Export to all countries,"38,621",,
+1995,Quebec,Export to all countries,"45,382",,
+1996,Quebec,Export to all countries,"46,915",,
+1997,Quebec,Export to all countries,"50,258",,
+1998,Quebec,Export to all countries,"55,365",,
+1999,Quebec,Export to all countries,"59,758",,
+2000,Quebec,Export to all countries,"71,302",,
+2001,Quebec,Export to all countries,"68,167",,
+2002,Quebec,Export to all countries,"65,502",,
+2003,Quebec,Export to all countries,"61,000",,
+2004,Quebec,Export to all countries,"64,568",,
+2005,Quebec,Export to all countries,"66,884",,
+2006,Quebec,Export to all countries,"69,060",,
+2007,Quebec,Export to all countries,"67,154",,
+2008,Quebec,Export to all countries,"69,072",,
+2009,Quebec,Export to all countries,"56,340",,
+2010,Quebec,Export to all countries,"57,786",,
+2011,Quebec,Export to all countries,"62,173",,
+2012,Quebec,Export to all countries,"62,602",,
+2013,Quebec,Export to all countries,"64,859",,
+2014,Quebec,Export to all countries,"74,560",,
+2015,Quebec,Export to all countries,"80,045",,
+2016,Quebec,Export to all countries,"78,361",,
+2017,Quebec,Export to all countries,"83,207",,
+2018,Quebec,Export to all countries,"90,249",,
+2019,Quebec,Export to all countries,"89,981",,
+2020,Quebec,Export to all countries,"84,427",,
+2021,Quebec,Export to all countries,"98,143",,
+2022,Quebec,Export to all countries,"111,041",,
+2023,Quebec,Export to all countries,"115,716",,
+1988,New Brunswick,Export to all countries,"3,110",,
+1989,New Brunswick,Export to all countries,"3,070",,
+1990,New Brunswick,Export to all countries,"3,130",,
+1991,New Brunswick,Export to all countries,"3,063",,
+1992,New Brunswick,Export to all countries,"3,026",,
+1993,New Brunswick,Export to all countries,"3,435",,
+1994,New Brunswick,Export to all countries,"4,226",,
+1995,New Brunswick,Export to all countries,"5,419",,
+1996,New Brunswick,Export to all countries,"5,396",,
+1997,New Brunswick,Export to all countries,"5,471",,
+1998,New Brunswick,Export to all countries,"5,459",,
+1999,New Brunswick,Export to all countries,"6,086",,
+2000,New Brunswick,Export to all countries,"7,403",,
+2001,New Brunswick,Export to all countries,"8,271",,
+2002,New Brunswick,Export to all countries,"8,166",,
+2003,New Brunswick,Export to all countries,"8,519",,
+2004,New Brunswick,Export to all countries,"9,438",,
+2005,New Brunswick,Export to all countries,"10,678",,
+2006,New Brunswick,Export to all countries,"10,378",,
+2007,New Brunswick,Export to all countries,"11,183",,
+2008,New Brunswick,Export to all countries,"12,808",,
+2009,New Brunswick,Export to all countries,"9,825",,
+2010,New Brunswick,Export to all countries,"12,666",,
+2011,New Brunswick,Export to all countries,"14,790",,
+2012,New Brunswick,Export to all countries,"14,903",,
+2013,New Brunswick,Export to all countries,"14,460",,
+2014,New Brunswick,Export to all countries,"13,032",,
+2015,New Brunswick,Export to all countries,"12,210",,
+2016,New Brunswick,Export to all countries,"10,642",,
+2017,New Brunswick,Export to all countries,"12,856",,
+2018,New Brunswick,Export to all countries,"12,615",,
+2019,New Brunswick,Export to all countries,"13,090",,
+2020,New Brunswick,Export to all countries,"10,307",,
+2021,New Brunswick,Export to all countries,"14,829",,
+2022,New Brunswick,Export to all countries,"18,803",,
+2023,New Brunswick,Export to all countries,"16,912",,
+1988,Nova Scotia,Export to all countries,"2,153",,
+1989,Nova Scotia,Export to all countries,"2,147",,
+1990,Nova Scotia,Export to all countries,"2,220",,
+1991,Nova Scotia,Export to all countries,"2,155",,
+1992,Nova Scotia,Export to all countries,"2,343",,
+1993,Nova Scotia,Export to all countries,"2,430",,
+1994,Nova Scotia,Export to all countries,"2,610",,
+1995,Nova Scotia,Export to all countries,"2,977",,
+1996,Nova Scotia,Export to all countries,"3,117",,
+1997,Nova Scotia,Export to all countries,"3,161",,
+1998,Nova Scotia,Export to all countries,"3,440",,
+1999,Nova Scotia,Export to all countries,"3,985",,
+2000,Nova Scotia,Export to all countries,"5,132",,
+2001,Nova Scotia,Export to all countries,"5,707",,
+2002,Nova Scotia,Export to all countries,"5,226",,
+2003,Nova Scotia,Export to all countries,"5,351",,
+2004,Nova Scotia,Export to all countries,"5,430",,
+2005,Nova Scotia,Export to all countries,"5,654",,
+2006,Nova Scotia,Export to all countries,"5,071",,
+2007,Nova Scotia,Export to all countries,"5,288",,
+2008,Nova Scotia,Export to all countries,"5,645",,
+2009,Nova Scotia,Export to all countries,"4,237",,
+2010,Nova Scotia,Export to all countries,"4,279",,
+2011,Nova Scotia,Export to all countries,"4,395",,
+2012,Nova Scotia,Export to all countries,"3,835",,
+2013,Nova Scotia,Export to all countries,"4,324",,
+2014,Nova Scotia,Export to all countries,"5,250",,
+2015,Nova Scotia,Export to all countries,"5,346",,
+2016,Nova Scotia,Export to all countries,"5,227",,
+2017,Nova Scotia,Export to all countries,"5,348",,
+2018,Nova Scotia,Export to all countries,"5,723",,
+2019,Nova Scotia,Export to all countries,"6,051",,
+2020,Nova Scotia,Export to all countries,"5,222",,
+2021,Nova Scotia,Export to all countries,"6,212",,
+2022,Nova Scotia,Export to all countries,"6,604",,
+2023,Nova Scotia,Export to all countries,"6,470",,
+1988,Prince Edward Island,Export to all countries,140,,
+1989,Prince Edward Island,Export to all countries,163,,
+1990,Prince Edward Island,Export to all countries,168,,
+1991,Prince Edward Island,Export to all countries,169,,
+1992,Prince Edward Island,Export to all countries,175,,
+1993,Prince Edward Island,Export to all countries,209,,
+1994,Prince Edward Island,Export to all countries,290,,
+1995,Prince Edward Island,Export to all countries,340,,
+1996,Prince Edward Island,Export to all countries,354,,
+1997,Prince Edward Island,Export to all countries,435,,
+1998,Prince Edward Island,Export to all countries,466,,
+1999,Prince Edward Island,Export to all countries,566,,
+2000,Prince Edward Island,Export to all countries,683,,
+2001,Prince Edward Island,Export to all countries,666,,
+2002,Prince Edward Island,Export to all countries,683,,
+2003,Prince Edward Island,Export to all countries,638,,
+2004,Prince Edward Island,Export to all countries,645,,
+2005,Prince Edward Island,Export to all countries,773,,
+2006,Prince Edward Island,Export to all countries,786,,
+2007,Prince Edward Island,Export to all countries,738,,
+2008,Prince Edward Island,Export to all countries,786,,
+2009,Prince Edward Island,Export to all countries,759,,
+2010,Prince Edward Island,Export to all countries,691,,
+2011,Prince Edward Island,Export to all countries,731,,
+2012,Prince Edward Island,Export to all countries,840,,
+2013,Prince Edward Island,Export to all countries,890,,
+2014,Prince Edward Island,Export to all countries,"1,069",,
+2015,Prince Edward Island,Export to all countries,"1,243",,
+2016,Prince Edward Island,Export to all countries,"1,256",,
+2017,Prince Edward Island,Export to all countries,"1,318",,
+2018,Prince Edward Island,Export to all countries,"1,385",,
+2019,Prince Edward Island,Export to all countries,"1,492",,
+2020,Prince Edward Island,Export to all countries,"1,508",,
+2021,Prince Edward Island,Export to all countries,"1,694",,
+2022,Prince Edward Island,Export to all countries,"1,989",,
+2023,Prince Edward Island,Export to all countries,"2,335",,
+1988,Newfoundland and Labrador,Export to all countries,"1,890",,
+1989,Newfoundland and Labrador,Export to all countries,"1,837",,
+1990,Newfoundland and Labrador,Export to all countries,"1,899",,
+1991,Newfoundland and Labrador,Export to all countries,"1,525",,
+1992,Newfoundland and Labrador,Export to all countries,"1,227",,
+1993,Newfoundland and Labrador,Export to all countries,"1,709",,
+1994,Newfoundland and Labrador,Export to all countries,"1,580",,
+1995,Newfoundland and Labrador,Export to all countries,"1,883",,
+1996,Newfoundland and Labrador,Export to all countries,"2,284",,
+1997,Newfoundland and Labrador,Export to all countries,"2,516",,
+1998,Newfoundland and Labrador,Export to all countries,"2,645",,
+1999,Newfoundland and Labrador,Export to all countries,"2,934",,
+2000,Newfoundland and Labrador,Export to all countries,"3,892",,
+2001,Newfoundland and Labrador,Export to all countries,"3,464",,
+2002,Newfoundland and Labrador,Export to all countries,"5,534",,
+2003,Newfoundland and Labrador,Export to all countries,"4,762",,
+2004,Newfoundland and Labrador,Export to all countries,"7,100",,
+2005,Newfoundland and Labrador,Export to all countries,"8,061",,
+2006,Newfoundland and Labrador,Export to all countries,"9,520",,
+2007,Newfoundland and Labrador,Export to all countries,"11,686",,
+2008,Newfoundland and Labrador,Export to all countries,"15,048",,
+2009,Newfoundland and Labrador,Export to all countries,"8,617",,
+2010,Newfoundland and Labrador,Export to all countries,"9,212",,
+2011,Newfoundland and Labrador,Export to all countries,"12,122",,
+2012,Newfoundland and Labrador,Export to all countries,"11,552",,
+2013,Newfoundland and Labrador,Export to all countries,"11,920",,
+2014,Newfoundland and Labrador,Export to all countries,"13,089",,
+2015,Newfoundland and Labrador,Export to all countries,"9,140",,
+2016,Newfoundland and Labrador,Export to all countries,"8,396",,
+2017,Newfoundland and Labrador,Export to all countries,"10,202",,
+2018,Newfoundland and Labrador,Export to all countries,"13,462",,
+2019,Newfoundland and Labrador,Export to all countries,"14,762",,
+2020,Newfoundland and Labrador,Export to all countries,"10,418",,
+2021,Newfoundland and Labrador,Export to all countries,"14,363",,
+2022,Newfoundland and Labrador,Export to all countries,"15,850",,
+2023,Newfoundland and Labrador,Export to all countries,"12,353",,
+1988,Canada,Export to all countries,"134,853",,
+1989,Canada,Export to all countries,"134,843",,
+1990,Canada,Export to all countries,"141,721",,
+1991,Canada,Export to all countries,"138,519",,
+1992,Canada,Export to all countries,"154,530",,
+1993,Canada,Export to all countries,"177,622",,
+1994,Canada,Export to all countries,"212,493",,
+1995,Canada,Export to all countries,"246,390",,
+1996,Canada,Export to all countries,"259,295",,
+1997,Canada,Export to all countries,"280,031",,
+1998,Canada,Export to all countries,"297,480",,
+1999,Canada,Export to all countries,"331,749",,
+2000,Canada,Export to all countries,"385,679",,
+2001,Canada,Export to all countries,"375,230",,
+2002,Canada,Export to all countries,"365,295",,
+2003,Canada,Export to all countries,"354,395",,
+2004,Canada,Export to all countries,"385,526",,
+2005,Canada,Export to all countries,"408,550",,
+2006,Canada,Export to all countries,"411,493",,
+2007,Canada,Export to all countries,"419,944",,
+2008,Canada,Export to all countries,"455,337",,
+2009,Canada,Export to all countries,"334,448",,
+2010,Canada,Export to all countries,"374,015",,
+2011,Canada,Export to all countries,"419,035",,
+2012,Canada,Export to all countries,"428,049",,
+2013,Canada,Export to all countries,"443,620",,
+2014,Canada,Export to all countries,"493,332",,
+2015,Canada,Export to all countries,"481,383",,
+2016,Canada,Export to all countries,"468,226",,
+2017,Canada,Export to all countries,"500,761",,
+2018,Canada,Export to all countries,"538,133",,
+2019,Canada,Export to all countries,"544,110",,
+2020,Canada,Export to all countries,"478,639",,
+2021,Canada,Export to all countries,"582,529",,
+2022,Canada,Export to all countries,"727,390",,
+2023,Canada,Export to all countries,"711,349",,
+1988,British Columbia,Export Percent Change,,,
+1989,British Columbia,Export Percent Change,2.10%,,
+1990,British Columbia,Export Percent Change,-6.60%,,
+1991,British Columbia,Export Percent Change,-8.20%,,
+1992,British Columbia,Export Percent Change,7.10%,,
+1993,British Columbia,Export Percent Change,16.50%,,
+1994,British Columbia,Export Percent Change,20.10%,,
+1995,British Columbia,Export Percent Change,17.60%,,
+1996,British Columbia,Export Percent Change,-4.30%,,
+1997,British Columbia,Export Percent Change,3.80%,,
+1998,British Columbia,Export Percent Change,-2.80%,,
+1999,British Columbia,Export Percent Change,12.00%,,
+2000,British Columbia,Export Percent Change,15.80%,,
+2001,British Columbia,Export Percent Change,-5.80%,,
+2002,British Columbia,Export Percent Change,-9.00%,,
+2003,British Columbia,Export Percent Change,-2.00%,,
+2004,British Columbia,Export Percent Change,9.70%,,
+2005,British Columbia,Export Percent Change,10.20%,,
+2006,British Columbia,Export Percent Change,-2.10%,,
+2007,British Columbia,Export Percent Change,-5.80%,,
+2008,British Columbia,Export Percent Change,5.10%,,
+2009,British Columbia,Export Percent Change,-23.80%,,
+2010,British Columbia,Export Percent Change,13.50%,,
+2011,British Columbia,Export Percent Change,14.10%,,
+2012,British Columbia,Export Percent Change,-3.60%,,
+2013,British Columbia,Export Percent Change,6.20%,,
+2014,British Columbia,Export Percent Change,7.20%,,
+2015,British Columbia,Export Percent Change,-0.90%,,
+2016,British Columbia,Export Percent Change,8.20%,,
+2017,British Columbia,Export Percent Change,12.50%,,
+2018,British Columbia,Export Percent Change,7.00%,,
+2019,British Columbia,Export Percent Change,-6.30%,,
+2020,British Columbia,Export Percent Change,-8.60%,,
+2021,British Columbia,Export Percent Change,36.20%,,
+2022,British Columbia,Export Percent Change,20.40%,,
+2023,British Columbia,Export Percent Change,-13.10%,,
+1988,Alberta,Export Percent Change,,,
+1989,Alberta,Export Percent Change,3.10%,,
+1990,Alberta,Export Percent Change,13.50%,,
+1991,Alberta,Export Percent Change,4.80%,,
+1992,Alberta,Export Percent Change,11.40%,,
+1993,Alberta,Export Percent Change,10.30%,,
+1994,Alberta,Export Percent Change,16.20%,,
+1995,Alberta,Export Percent Change,17.20%,,
+1996,Alberta,Export Percent Change,17.90%,,
+1997,Alberta,Export Percent Change,5.70%,,
+1998,Alberta,Export Percent Change,-7.30%,,
+1999,Alberta,Export Percent Change,11.60%,,
+2000,Alberta,Export Percent Change,59.80%,,
+2001,Alberta,Export Percent Change,2.80%,,
+2002,Alberta,Export Percent Change,-14.20%,,
+2003,Alberta,Export Percent Change,16.70%,,
+2004,Alberta,Export Percent Change,11.50%,,
+2005,Alberta,Export Percent Change,19.80%,,
+2006,Alberta,Export Percent Change,1.90%,,
+2007,Alberta,Export Percent Change,4.90%,,
+2008,Alberta,Export Percent Change,35.20%,,
+2009,Alberta,Export Percent Change,-36.60%,,
+2010,Alberta,Export Percent Change,12.70%,,
+2011,Alberta,Export Percent Change,18.40%,,
+2012,Alberta,Export Percent Change,2.00%,,
+2013,Alberta,Export Percent Change,8.40%,,
+2014,Alberta,Export Percent Change,18.00%,,
+2015,Alberta,Export Percent Change,-24.00%,,
+2016,Alberta,Export Percent Change,-14.20%,,
+2017,Alberta,Export Percent Change,26.70%,,
+2018,Alberta,Export Percent Change,17.10%,,
+2019,Alberta,Export Percent Change,-0.40%,,
+2020,Alberta,Export Percent Change,-21.50%,,
+2021,Alberta,Export Percent Change,50.10%,,
+2022,Alberta,Export Percent Change,48.40%,,
+2023,Alberta,Export Percent Change,-14.60%,,
+1988,Saskatchewan,Export Percent Change,,,
+1989,Saskatchewan,Export Percent Change,-22.20%,,
+1990,Saskatchewan,Export Percent Change,18.80%,,
+1991,Saskatchewan,Export Percent Change,6.80%,,
+1992,Saskatchewan,Export Percent Change,15.70%,,
+1993,Saskatchewan,Export Percent Change,-7.80%,,
+1994,Saskatchewan,Export Percent Change,24.20%,,
+1995,Saskatchewan,Export Percent Change,17.60%,,
+1996,Saskatchewan,Export Percent Change,5.10%,,
+1997,Saskatchewan,Export Percent Change,16.00%,,
+1998,Saskatchewan,Export Percent Change,-8.20%,,
+1999,Saskatchewan,Export Percent Change,-1.60%,,
+2000,Saskatchewan,Export Percent Change,28.70%,,
+2001,Saskatchewan,Export Percent Change,-7.20%,,
+2002,Saskatchewan,Export Percent Change,-4.20%,,
+2003,Saskatchewan,Export Percent Change,-7.90%,,
+2004,Saskatchewan,Export Percent Change,29.50%,,
+2005,Saskatchewan,Export Percent Change,11.30%,,
+2006,Saskatchewan,Export Percent Change,8.90%,,
+2007,Saskatchewan,Export Percent Change,19.70%,,
+2008,Saskatchewan,Export Percent Change,52.60%,,
+2009,Saskatchewan,Export Percent Change,-26.20%,,
+2010,Saskatchewan,Export Percent Change,8.50%,,
+2011,Saskatchewan,Export Percent Change,25.10%,,
+2012,Saskatchewan,Export Percent Change,7.20%,,
+2013,Saskatchewan,Export Percent Change,1.80%,,
+2014,Saskatchewan,Export Percent Change,9.50%,,
+2015,Saskatchewan,Export Percent Change,-7.10%,,
+2016,Saskatchewan,Export Percent Change,-19.40%,,
+2017,Saskatchewan,Export Percent Change,8.40%,,
+2018,Saskatchewan,Export Percent Change,6.90%,,
+2019,Saskatchewan,Export Percent Change,-3.30%,,
+2020,Saskatchewan,Export Percent Change,0.50%,,
+2021,Saskatchewan,Export Percent Change,24.50%,,
+2022,Saskatchewan,Export Percent Change,41.80%,,
+2023,Saskatchewan,Export Percent Change,-6.40%,,
+1988,Manitoba,Export Percent Change,,,
+1989,Manitoba,Export Percent Change,-3.00%,,
+1990,Manitoba,Export Percent Change,0.50%,,
+1991,Manitoba,Export Percent Change,4.60%,,
+1992,Manitoba,Export Percent Change,11.10%,,
+1993,Manitoba,Export Percent Change,7.50%,,
+1994,Manitoba,Export Percent Change,22.40%,,
+1995,Manitoba,Export Percent Change,21.20%,,
+1996,Manitoba,Export Percent Change,14.00%,,
+1997,Manitoba,Export Percent Change,17.60%,,
+1998,Manitoba,Export Percent Change,10.30%,,
+1999,Manitoba,Export Percent Change,-0.30%,,
+2000,Manitoba,Export Percent Change,19.10%,,
+2001,Manitoba,Export Percent Change,0.00%,,
+2002,Manitoba,Export Percent Change,-1.80%,,
+2003,Manitoba,Export Percent Change,-2.20%,,
+2004,Manitoba,Export Percent Change,1.10%,,
+2005,Manitoba,Export Percent Change,0.00%,,
+2006,Manitoba,Export Percent Change,9.60%,,
+2007,Manitoba,Export Percent Change,19.60%,,
+2008,Manitoba,Export Percent Change,6.40%,,
+2009,Manitoba,Export Percent Change,-18.50%,,
+2010,Manitoba,Export Percent Change,-3.10%,,
+2011,Manitoba,Export Percent Change,14.10%,,
+2012,Manitoba,Export Percent Change,-2.70%,,
+2013,Manitoba,Export Percent Change,10.40%,,
+2014,Manitoba,Export Percent Change,7.20%,,
+2015,Manitoba,Export Percent Change,2.20%,,
+2016,Manitoba,Export Percent Change,-2.20%,,
+2017,Manitoba,Export Percent Change,3.20%,,
+2018,Manitoba,Export Percent Change,11.50%,,
+2019,Manitoba,Export Percent Change,2.80%,,
+2020,Manitoba,Export Percent Change,-1.10%,,
+2021,Manitoba,Export Percent Change,10.70%,,
+2022,Manitoba,Export Percent Change,18.80%,,
+2023,Manitoba,Export Percent Change,3.90%,,
+1988,Ontario,Export Percent Change,,,
+1989,Ontario,Export Percent Change,1.00%,,
+1990,Ontario,Export Percent Change,4.90%,,
+1991,Ontario,Export Percent Change,-2.90%,,
+1992,Ontario,Export Percent Change,15.70%,,
+1993,Ontario,Export Percent Change,15.00%,,
+1994,Ontario,Export Percent Change,20.30%,,
+1995,Ontario,Export Percent Change,13.90%,,
+1996,Ontario,Export Percent Change,4.80%,,
+1997,Ontario,Export Percent Change,9.00%,,
+1998,Ontario,Export Percent Change,11.00%,,
+1999,Ontario,Export Percent Change,13.70%,,
+2000,Ontario,Export Percent Change,5.10%,,
+2001,Ontario,Export Percent Change,-3.80%,,
+2002,Ontario,Export Percent Change,1.60%,,
+2003,Ontario,Export Percent Change,-7.30%,,
+2004,Ontario,Export Percent Change,6.80%,,
+2005,Ontario,Export Percent Change,0.70%,,
+2006,Ontario,Export Percent Change,-1.50%,,
+2007,Ontario,Export Percent Change,-0.10%,,
+2008,Ontario,Export Percent Change,-7.70%,,
+2009,Ontario,Export Percent Change,-23.30%,,
+2010,Ontario,Export Percent Change,16.20%,,
+2011,Ontario,Export Percent Change,6.50%,,
+2012,Ontario,Export Percent Change,4.60%,,
+2013,Ontario,Export Percent Change,0.90%,,
+2014,Ontario,Export Percent Change,8.40%,,
+2015,Ontario,Export Percent Change,10.70%,,
+2016,Ontario,Export Percent Change,4.10%,,
+2017,Ontario,Export Percent Change,-2.90%,,
+2018,Ontario,Export Percent Change,1.30%,,
+2019,Ontario,Export Percent Change,4.00%,,
+2020,Ontario,Export Percent Change,-10.80%,,
+2021,Ontario,Export Percent Change,5.40%,,
+2022,Ontario,Export Percent Change,14.70%,,
+2023,Ontario,Export Percent Change,11.30%,,
+1988,Quebec,Export Percent Change,,,
+1989,Quebec,Export Percent Change,-0.10%,,
+1990,Quebec,Export Percent Change,7.90%,,
+1991,Quebec,Export Percent Change,-1.90%,,
+1992,Quebec,Export Percent Change,5.80%,,
+1993,Quebec,Export Percent Change,24.80%,,
+1994,Quebec,Export Percent Change,20.40%,,
+1995,Quebec,Export Percent Change,17.50%,,
+1996,Quebec,Export Percent Change,3.40%,,
+1997,Quebec,Export Percent Change,7.10%,,
+1998,Quebec,Export Percent Change,10.20%,,
+1999,Quebec,Export Percent Change,7.90%,,
+2000,Quebec,Export Percent Change,19.30%,,
+2001,Quebec,Export Percent Change,-4.40%,,
+2002,Quebec,Export Percent Change,-3.90%,,
+2003,Quebec,Export Percent Change,-6.90%,,
+2004,Quebec,Export Percent Change,5.80%,,
+2005,Quebec,Export Percent Change,3.60%,,
+2006,Quebec,Export Percent Change,3.30%,,
+2007,Quebec,Export Percent Change,-2.80%,,
+2008,Quebec,Export Percent Change,2.90%,,
+2009,Quebec,Export Percent Change,-18.40%,,
+2010,Quebec,Export Percent Change,2.60%,,
+2011,Quebec,Export Percent Change,7.60%,,
+2012,Quebec,Export Percent Change,0.70%,,
+2013,Quebec,Export Percent Change,3.60%,,
+2014,Quebec,Export Percent Change,15.00%,,
+2015,Quebec,Export Percent Change,7.40%,,
+2016,Quebec,Export Percent Change,-2.10%,,
+2017,Quebec,Export Percent Change,6.20%,,
+2018,Quebec,Export Percent Change,8.50%,,
+2019,Quebec,Export Percent Change,-0.30%,,
+2020,Quebec,Export Percent Change,-6.20%,,
+2021,Quebec,Export Percent Change,16.20%,,
+2022,Quebec,Export Percent Change,13.10%,,
+2023,Quebec,Export Percent Change,4.20%,,
+1988,New Brunswick,Export Percent Change,,,
+1989,New Brunswick,Export Percent Change,-1.30%,,
+1990,New Brunswick,Export Percent Change,2.00%,,
+1991,New Brunswick,Export Percent Change,-2.10%,,
+1992,New Brunswick,Export Percent Change,-1.20%,,
+1993,New Brunswick,Export Percent Change,13.50%,,
+1994,New Brunswick,Export Percent Change,23.00%,,
+1995,New Brunswick,Export Percent Change,28.20%,,
+1996,New Brunswick,Export Percent Change,-0.40%,,
+1997,New Brunswick,Export Percent Change,1.40%,,
+1998,New Brunswick,Export Percent Change,-0.20%,,
+1999,New Brunswick,Export Percent Change,11.50%,,
+2000,New Brunswick,Export Percent Change,21.60%,,
+2001,New Brunswick,Export Percent Change,11.70%,,
+2002,New Brunswick,Export Percent Change,-1.30%,,
+2003,New Brunswick,Export Percent Change,4.30%,,
+2004,New Brunswick,Export Percent Change,10.80%,,
+2005,New Brunswick,Export Percent Change,13.10%,,
+2006,New Brunswick,Export Percent Change,-2.80%,,
+2007,New Brunswick,Export Percent Change,7.80%,,
+2008,New Brunswick,Export Percent Change,14.50%,,
+2009,New Brunswick,Export Percent Change,-23.30%,,
+2010,New Brunswick,Export Percent Change,28.90%,,
+2011,New Brunswick,Export Percent Change,16.80%,,
+2012,New Brunswick,Export Percent Change,0.80%,,
+2013,New Brunswick,Export Percent Change,-3.00%,,
+2014,New Brunswick,Export Percent Change,-9.90%,,
+2015,New Brunswick,Export Percent Change,-6.30%,,
+2016,New Brunswick,Export Percent Change,-12.80%,,
+2017,New Brunswick,Export Percent Change,20.80%,,
+2018,New Brunswick,Export Percent Change,-1.90%,,
+2019,New Brunswick,Export Percent Change,3.80%,,
+2020,New Brunswick,Export Percent Change,-21.30%,,
+2021,New Brunswick,Export Percent Change,43.90%,,
+2022,New Brunswick,Export Percent Change,26.80%,,
+2023,New Brunswick,Export Percent Change,-10.10%,,
+1988,Nova Scotia,Export Percent Change,,,
+1989,Nova Scotia,Export Percent Change,-0.30%,,
+1990,Nova Scotia,Export Percent Change,3.40%,,
+1991,Nova Scotia,Export Percent Change,-2.90%,,
+1992,Nova Scotia,Export Percent Change,8.70%,,
+1993,Nova Scotia,Export Percent Change,3.80%,,
+1994,Nova Scotia,Export Percent Change,7.40%,,
+1995,Nova Scotia,Export Percent Change,14.10%,,
+1996,Nova Scotia,Export Percent Change,4.70%,,
+1997,Nova Scotia,Export Percent Change,1.40%,,
+1998,Nova Scotia,Export Percent Change,8.80%,,
+1999,Nova Scotia,Export Percent Change,15.80%,,
+2000,Nova Scotia,Export Percent Change,28.80%,,
+2001,Nova Scotia,Export Percent Change,11.20%,,
+2002,Nova Scotia,Export Percent Change,-8.40%,,
+2003,Nova Scotia,Export Percent Change,2.40%,,
+2004,Nova Scotia,Export Percent Change,1.50%,,
+2005,Nova Scotia,Export Percent Change,4.10%,,
+2006,Nova Scotia,Export Percent Change,-10.30%,,
+2007,Nova Scotia,Export Percent Change,4.30%,,
+2008,Nova Scotia,Export Percent Change,6.80%,,
+2009,Nova Scotia,Export Percent Change,-24.90%,,
+2010,Nova Scotia,Export Percent Change,1.00%,,
+2011,Nova Scotia,Export Percent Change,2.70%,,
+2012,Nova Scotia,Export Percent Change,-12.70%,,
+2013,Nova Scotia,Export Percent Change,12.80%,,
+2014,Nova Scotia,Export Percent Change,21.40%,,
+2015,Nova Scotia,Export Percent Change,1.80%,,
+2016,Nova Scotia,Export Percent Change,-2.20%,,
+2017,Nova Scotia,Export Percent Change,2.30%,,
+2018,Nova Scotia,Export Percent Change,7.00%,,
+2019,Nova Scotia,Export Percent Change,5.70%,,
+2020,Nova Scotia,Export Percent Change,-13.70%,,
+2021,Nova Scotia,Export Percent Change,19.00%,,
+2022,Nova Scotia,Export Percent Change,6.30%,,
+2023,Nova Scotia,Export Percent Change,-2.00%,,
+1988,Prince Edward Island,Export Percent Change,,,
+1989,Prince Edward Island,Export Percent Change,16.40%,,
+1990,Prince Edward Island,Export Percent Change,3.30%,,
+1991,Prince Edward Island,Export Percent Change,0.40%,,
+1992,Prince Edward Island,Export Percent Change,3.30%,,
+1993,Prince Edward Island,Export Percent Change,19.50%,,
+1994,Prince Edward Island,Export Percent Change,38.80%,,
+1995,Prince Edward Island,Export Percent Change,17.30%,,
+1996,Prince Edward Island,Export Percent Change,4.00%,,
+1997,Prince Edward Island,Export Percent Change,23.00%,,
+1998,Prince Edward Island,Export Percent Change,7.10%,,
+1999,Prince Edward Island,Export Percent Change,21.50%,,
+2000,Prince Edward Island,Export Percent Change,20.60%,,
+2001,Prince Edward Island,Export Percent Change,-2.40%,,
+2002,Prince Edward Island,Export Percent Change,2.50%,,
+2003,Prince Edward Island,Export Percent Change,-6.60%,,
+2004,Prince Edward Island,Export Percent Change,1.10%,,
+2005,Prince Edward Island,Export Percent Change,19.90%,,
+2006,Prince Edward Island,Export Percent Change,1.80%,,
+2007,Prince Edward Island,Export Percent Change,-6.10%,,
+2008,Prince Edward Island,Export Percent Change,6.40%,,
+2009,Prince Edward Island,Export Percent Change,-3.40%,,
+2010,Prince Edward Island,Export Percent Change,-8.90%,,
+2011,Prince Edward Island,Export Percent Change,5.80%,,
+2012,Prince Edward Island,Export Percent Change,14.90%,,
+2013,Prince Edward Island,Export Percent Change,5.90%,,
+2014,Prince Edward Island,Export Percent Change,20.20%,,
+2015,Prince Edward Island,Export Percent Change,16.20%,,
+2016,Prince Edward Island,Export Percent Change,1.00%,,
+2017,Prince Edward Island,Export Percent Change,5.00%,,
+2018,Prince Edward Island,Export Percent Change,5.10%,,
+2019,Prince Edward Island,Export Percent Change,7.70%,,
+2020,Prince Edward Island,Export Percent Change,1.10%,,
+2021,Prince Edward Island,Export Percent Change,12.40%,,
+2022,Prince Edward Island,Export Percent Change,17.40%,,
+2023,Prince Edward Island,Export Percent Change,17.40%,,
+1988,Newfoundland and Labrador,Export Percent Change,,,
+1989,Newfoundland and Labrador,Export Percent Change,-2.80%,,
+1990,Newfoundland and Labrador,Export Percent Change,3.40%,,
+1991,Newfoundland and Labrador,Export Percent Change,-19.70%,,
+1992,Newfoundland and Labrador,Export Percent Change,-19.50%,,
+1993,Newfoundland and Labrador,Export Percent Change,39.20%,,
+1994,Newfoundland and Labrador,Export Percent Change,-7.50%,,
+1995,Newfoundland and Labrador,Export Percent Change,19.20%,,
+1996,Newfoundland and Labrador,Export Percent Change,21.30%,,
+1997,Newfoundland and Labrador,Export Percent Change,10.10%,,
+1998,Newfoundland and Labrador,Export Percent Change,5.20%,,
+1999,Newfoundland and Labrador,Export Percent Change,10.90%,,
+2000,Newfoundland and Labrador,Export Percent Change,32.70%,,
+2001,Newfoundland and Labrador,Export Percent Change,-11.00%,,
+2002,Newfoundland and Labrador,Export Percent Change,59.80%,,
+2003,Newfoundland and Labrador,Export Percent Change,-14.00%,,
+2004,Newfoundland and Labrador,Export Percent Change,49.10%,,
+2005,Newfoundland and Labrador,Export Percent Change,13.50%,,
+2006,Newfoundland and Labrador,Export Percent Change,18.10%,,
+2007,Newfoundland and Labrador,Export Percent Change,22.80%,,
+2008,Newfoundland and Labrador,Export Percent Change,28.80%,,
+2009,Newfoundland and Labrador,Export Percent Change,-42.70%,,
+2010,Newfoundland and Labrador,Export Percent Change,6.90%,,
+2011,Newfoundland and Labrador,Export Percent Change,31.60%,,
+2012,Newfoundland and Labrador,Export Percent Change,-4.70%,,
+2013,Newfoundland and Labrador,Export Percent Change,3.20%,,
+2014,Newfoundland and Labrador,Export Percent Change,9.80%,,
+2015,Newfoundland and Labrador,Export Percent Change,-30.20%,,
+2016,Newfoundland and Labrador,Export Percent Change,-8.10%,,
+2017,Newfoundland and Labrador,Export Percent Change,21.50%,,
+2018,Newfoundland and Labrador,Export Percent Change,32.00%,,
+2019,Newfoundland and Labrador,Export Percent Change,9.70%,,
+2020,Newfoundland and Labrador,Export Percent Change,-29.40%,,
+2021,Newfoundland and Labrador,Export Percent Change,37.90%,,
+2022,Newfoundland and Labrador,Export Percent Change,10.40%,,
+2023,Newfoundland and Labrador,Export Percent Change,-22.10%,,
+1988,Canada,Export Percent Change,,,
+1989,Canada,Export Percent Change,0.00%,,
+1990,Canada,Export Percent Change,5.10%,,
+1991,Canada,Export Percent Change,-2.30%,,
+1992,Canada,Export Percent Change,11.60%,,
+1993,Canada,Export Percent Change,14.90%,,
+1994,Canada,Export Percent Change,19.60%,,
+1995,Canada,Export Percent Change,16.00%,,
+1996,Canada,Export Percent Change,5.20%,,
+1997,Canada,Export Percent Change,8.00%,,
+1998,Canada,Export Percent Change,6.20%,,
+1999,Canada,Export Percent Change,11.50%,,
+2000,Canada,Export Percent Change,16.30%,,
+2001,Canada,Export Percent Change,-2.70%,,
+2002,Canada,Export Percent Change,-2.60%,,
+2003,Canada,Export Percent Change,-3.00%,,
+2004,Canada,Export Percent Change,8.80%,,
+2005,Canada,Export Percent Change,6.00%,,
+2006,Canada,Export Percent Change,0.70%,,
+2007,Canada,Export Percent Change,2.10%,,
+2008,Canada,Export Percent Change,8.40%,,
+2009,Canada,Export Percent Change,-26.50%,,
+2010,Canada,Export Percent Change,11.80%,,
+2011,Canada,Export Percent Change,12.00%,,
+2012,Canada,Export Percent Change,2.20%,,
+2013,Canada,Export Percent Change,3.60%,,
+2014,Canada,Export Percent Change,11.20%,,
+2015,Canada,Export Percent Change,-2.40%,,
+2016,Canada,Export Percent Change,-2.70%,,
+2017,Canada,Export Percent Change,6.90%,,
+2018,Canada,Export Percent Change,7.50%,,
+2019,Canada,Export Percent Change,1.10%,,
+2020,Canada,Export Percent Change,-12.00%,,
+2021,Canada,Export Percent Change,21.70%,,
+2022,Canada,Export Percent Change,24.90%,,
+2023,Canada,Export Percent Change,-2.20%,,
+1988,British Columbia,Share of Canadian Export,12.90%,,
+1989,British Columbia,Share of Canadian Export,13.20%,,
+1990,British Columbia,Share of Canadian Export,11.70%,,
+1991,British Columbia,Share of Canadian Export,11.00%,,
+1992,British Columbia,Share of Canadian Export,10.60%,,
+1993,British Columbia,Share of Canadian Export,10.70%,,
+1994,British Columbia,Share of Canadian Export,10.80%,,
+1995,British Columbia,Share of Canadian Export,10.90%,,
+1996,British Columbia,Share of Canadian Export,9.90%,,
+1997,British Columbia,Share of Canadian Export,9.50%,,
+1998,British Columbia,Share of Canadian Export,8.70%,,
+1999,British Columbia,Share of Canadian Export,8.80%,,
+2000,British Columbia,Share of Canadian Export,8.70%,,
+2001,British Columbia,Share of Canadian Export,8.40%,,
+2002,British Columbia,Share of Canadian Export,7.90%,,
+2003,British Columbia,Share of Canadian Export,8.00%,,
+2004,British Columbia,Share of Canadian Export,8.00%,,
+2005,British Columbia,Share of Canadian Export,8.40%,,
+2006,British Columbia,Share of Canadian Export,8.10%,,
+2007,British Columbia,Share of Canadian Export,7.50%,,
+2008,British Columbia,Share of Canadian Export,7.30%,,
+2009,British Columbia,Share of Canadian Export,7.50%,,
+2010,British Columbia,Share of Canadian Export,7.70%,,
+2011,British Columbia,Share of Canadian Export,7.80%,,
+2012,British Columbia,Share of Canadian Export,7.40%,,
+2013,British Columbia,Share of Canadian Export,7.50%,,
+2014,British Columbia,Share of Canadian Export,7.30%,,
+2015,British Columbia,Share of Canadian Export,7.40%,,
+2016,British Columbia,Share of Canadian Export,8.20%,,
+2017,British Columbia,Share of Canadian Export,8.60%,,
+2018,British Columbia,Share of Canadian Export,8.60%,,
+2019,British Columbia,Share of Canadian Export,8.00%,,
+2020,British Columbia,Share of Canadian Export,8.30%,,
+2021,British Columbia,Share of Canadian Export,9.30%,,
+2022,British Columbia,Share of Canadian Export,8.90%,,
+2023,British Columbia,Share of Canadian Export,7.90%,,
+1988,Alberta,Share of Canadian Export,9.70%,,
+1989,Alberta,Share of Canadian Export,10.00%,,
+1990,Alberta,Share of Canadian Export,10.80%,,
+1991,Alberta,Share of Canadian Export,11.60%,,
+1992,Alberta,Share of Canadian Export,11.60%,,
+1993,Alberta,Share of Canadian Export,11.10%,,
+1994,Alberta,Share of Canadian Export,10.80%,,
+1995,Alberta,Share of Canadian Export,10.90%,,
+1996,Alberta,Share of Canadian Export,12.20%,,
+1997,Alberta,Share of Canadian Export,12.00%,,
+1998,Alberta,Share of Canadian Export,10.50%,,
+1999,Alberta,Share of Canadian Export,10.50%,,
+2000,Alberta,Share of Canadian Export,14.40%,,
+2001,Alberta,Share of Canadian Export,15.20%,,
+2002,Alberta,Share of Canadian Export,13.40%,,
+2003,Alberta,Share of Canadian Export,16.10%,,
+2004,Alberta,Share of Canadian Export,16.50%,,
+2005,Alberta,Share of Canadian Export,18.70%,,
+2006,Alberta,Share of Canadian Export,18.90%,,
+2007,Alberta,Share of Canadian Export,19.40%,,
+2008,Alberta,Share of Canadian Export,24.20%,,
+2009,Alberta,Share of Canadian Export,20.90%,,
+2010,Alberta,Share of Canadian Export,21.10%,,
+2011,Alberta,Share of Canadian Export,22.20%,,
+2012,Alberta,Share of Canadian Export,22.20%,,
+2013,Alberta,Share of Canadian Export,23.20%,,
+2014,Alberta,Share of Canadian Export,24.60%,,
+2015,Alberta,Share of Canadian Export,19.20%,,
+2016,Alberta,Share of Canadian Export,16.90%,,
+2017,Alberta,Share of Canadian Export,20.10%,,
+2018,Alberta,Share of Canadian Export,21.90%,,
+2019,Alberta,Share of Canadian Export,21.50%,,
+2020,Alberta,Share of Canadian Export,19.20%,,
+2021,Alberta,Share of Canadian Export,23.70%,,
+2022,Alberta,Share of Canadian Export,28.20%,,
+2023,Alberta,Share of Canadian Export,24.60%,,
+1988,Saskatchewan,Share of Canadian Export,4.30%,,
+1989,Saskatchewan,Share of Canadian Export,3.30%,,
+1990,Saskatchewan,Share of Canadian Export,3.80%,,
+1991,Saskatchewan,Share of Canadian Export,4.10%,,
+1992,Saskatchewan,Share of Canadian Export,4.30%,,
+1993,Saskatchewan,Share of Canadian Export,3.40%,,
+1994,Saskatchewan,Share of Canadian Export,3.50%,,
+1995,Saskatchewan,Share of Canadian Export,3.60%,,
+1996,Saskatchewan,Share of Canadian Export,3.60%,,
+1997,Saskatchewan,Share of Canadian Export,3.90%,,
+1998,Saskatchewan,Share of Canadian Export,3.30%,,
+1999,Saskatchewan,Share of Canadian Export,2.90%,,
+2000,Saskatchewan,Share of Canadian Export,3.30%,,
+2001,Saskatchewan,Share of Canadian Export,3.10%,,
+2002,Saskatchewan,Share of Canadian Export,3.10%,,
+2003,Saskatchewan,Share of Canadian Export,2.90%,,
+2004,Saskatchewan,Share of Canadian Export,3.50%,,
+2005,Saskatchewan,Share of Canadian Export,3.60%,,
+2006,Saskatchewan,Share of Canadian Export,3.90%,,
+2007,Saskatchewan,Share of Canadian Export,4.60%,,
+2008,Saskatchewan,Share of Canadian Export,6.50%,,
+2009,Saskatchewan,Share of Canadian Export,6.50%,,
+2010,Saskatchewan,Share of Canadian Export,6.30%,,
+2011,Saskatchewan,Share of Canadian Export,7.10%,,
+2012,Saskatchewan,Share of Canadian Export,7.40%,,
+2013,Saskatchewan,Share of Canadian Export,7.30%,,
+2014,Saskatchewan,Share of Canadian Export,7.20%,,
+2015,Saskatchewan,Share of Canadian Export,6.80%,,
+2016,Saskatchewan,Share of Canadian Export,5.60%,,
+2017,Saskatchewan,Share of Canadian Export,5.70%,,
+2018,Saskatchewan,Share of Canadian Export,5.70%,,
+2019,Saskatchewan,Share of Canadian Export,5.40%,,
+2020,Saskatchewan,Share of Canadian Export,6.20%,,
+2021,Saskatchewan,Share of Canadian Export,6.40%,,
+2022,Saskatchewan,Share of Canadian Export,7.20%,,
+2023,Saskatchewan,Share of Canadian Export,6.90%,,
+1988,Manitoba,Share of Canadian Export,2.20%,,
+1989,Manitoba,Share of Canadian Export,2.20%,,
+1990,Manitoba,Share of Canadian Export,2.10%,,
+1991,Manitoba,Share of Canadian Export,2.20%,,
+1992,Manitoba,Share of Canadian Export,2.20%,,
+1993,Manitoba,Share of Canadian Export,2.10%,,
+1994,Manitoba,Share of Canadian Export,2.10%,,
+1995,Manitoba,Share of Canadian Export,2.20%,,
+1996,Manitoba,Share of Canadian Export,2.40%,,
+1997,Manitoba,Share of Canadian Export,2.60%,,
+1998,Manitoba,Share of Canadian Export,2.70%,,
+1999,Manitoba,Share of Canadian Export,2.40%,,
+2000,Manitoba,Share of Canadian Export,2.50%,,
+2001,Manitoba,Share of Canadian Export,2.60%,,
+2002,Manitoba,Share of Canadian Export,2.60%,,
+2003,Manitoba,Share of Canadian Export,2.60%,,
+2004,Manitoba,Share of Canadian Export,2.40%,,
+2005,Manitoba,Share of Canadian Export,2.30%,,
+2006,Manitoba,Share of Canadian Export,2.50%,,
+2007,Manitoba,Share of Canadian Export,2.90%,,
+2008,Manitoba,Share of Canadian Export,2.80%,,
+2009,Manitoba,Share of Canadian Export,3.20%,,
+2010,Manitoba,Share of Canadian Export,2.70%,,
+2011,Manitoba,Share of Canadian Export,2.80%,,
+2012,Manitoba,Share of Canadian Export,2.70%,,
+2013,Manitoba,Share of Canadian Export,2.80%,,
+2014,Manitoba,Share of Canadian Export,2.70%,,
+2015,Manitoba,Share of Canadian Export,2.90%,,
+2016,Manitoba,Share of Canadian Export,2.90%,,
+2017,Manitoba,Share of Canadian Export,2.80%,,
+2018,Manitoba,Share of Canadian Export,2.90%,,
+2019,Manitoba,Share of Canadian Export,2.90%,,
+2020,Manitoba,Share of Canadian Export,3.30%,,
+2021,Manitoba,Share of Canadian Export,3.00%,,
+2022,Manitoba,Share of Canadian Export,2.80%,,
+2023,Manitoba,Share of Canadian Export,3.00%,,
+1988,Ontario,Share of Canadian Export,48.20%,,
+1989,Ontario,Share of Canadian Export,48.70%,,
+1990,Ontario,Share of Canadian Export,48.60%,,
+1991,Ontario,Share of Canadian Export,48.30%,,
+1992,Ontario,Share of Canadian Export,50.10%,,
+1993,Ontario,Share of Canadian Export,50.10%,,
+1994,Ontario,Share of Canadian Export,50.40%,,
+1995,Ontario,Share of Canadian Export,49.50%,,
+1996,Ontario,Share of Canadian Export,49.30%,,
+1997,Ontario,Share of Canadian Export,49.80%,,
+1998,Ontario,Share of Canadian Export,52.00%,,
+1999,Ontario,Share of Canadian Export,53.00%,,
+2000,Ontario,Share of Canadian Export,48.00%,,
+2001,Ontario,Share of Canadian Export,47.40%,,
+2002,Ontario,Share of Canadian Export,49.50%,,
+2003,Ontario,Share of Canadian Export,47.30%,,
+2004,Ontario,Share of Canadian Export,46.40%,,
+2005,Ontario,Share of Canadian Export,44.10%,,
+2006,Ontario,Share of Canadian Export,43.10%,,
+2007,Ontario,Share of Canadian Export,42.20%,,
+2008,Ontario,Share of Canadian Export,35.90%,,
+2009,Ontario,Share of Canadian Export,37.60%,,
+2010,Ontario,Share of Canadian Export,39.00%,,
+2011,Ontario,Share of Canadian Export,37.10%,,
+2012,Ontario,Share of Canadian Export,38.00%,,
+2013,Ontario,Share of Canadian Export,37.00%,,
+2014,Ontario,Share of Canadian Export,36.10%,,
+2015,Ontario,Share of Canadian Export,40.90%,,
+2016,Ontario,Share of Canadian Export,43.80%,,
+2017,Ontario,Share of Canadian Export,39.80%,,
+2018,Ontario,Share of Canadian Export,37.50%,,
+2019,Ontario,Share of Canadian Export,38.60%,,
+2020,Ontario,Share of Canadian Export,39.10%,,
+2021,Ontario,Share of Canadian Export,33.80%,,
+2022,Ontario,Share of Canadian Export,31.10%,,
+2023,Ontario,Share of Canadian Export,35.40%,,
+1988,Quebec,Share of Canadian Export,17.00%,,
+1989,Quebec,Share of Canadian Export,17.00%,,
+1990,Quebec,Share of Canadian Export,17.50%,,
+1991,Quebec,Share of Canadian Export,17.50%,,
+1992,Quebec,Share of Canadian Export,16.60%,,
+1993,Quebec,Share of Canadian Export,18.10%,,
+1994,Quebec,Share of Canadian Export,18.20%,,
+1995,Quebec,Share of Canadian Export,18.40%,,
+1996,Quebec,Share of Canadian Export,18.10%,,
+1997,Quebec,Share of Canadian Export,17.90%,,
+1998,Quebec,Share of Canadian Export,18.60%,,
+1999,Quebec,Share of Canadian Export,18.00%,,
+2000,Quebec,Share of Canadian Export,18.50%,,
+2001,Quebec,Share of Canadian Export,18.20%,,
+2002,Quebec,Share of Canadian Export,17.90%,,
+2003,Quebec,Share of Canadian Export,17.20%,,
+2004,Quebec,Share of Canadian Export,16.70%,,
+2005,Quebec,Share of Canadian Export,16.40%,,
+2006,Quebec,Share of Canadian Export,16.80%,,
+2007,Quebec,Share of Canadian Export,16.00%,,
+2008,Quebec,Share of Canadian Export,15.20%,,
+2009,Quebec,Share of Canadian Export,16.80%,,
+2010,Quebec,Share of Canadian Export,15.50%,,
+2011,Quebec,Share of Canadian Export,14.80%,,
+2012,Quebec,Share of Canadian Export,14.60%,,
+2013,Quebec,Share of Canadian Export,14.60%,,
+2014,Quebec,Share of Canadian Export,15.10%,,
+2015,Quebec,Share of Canadian Export,16.60%,,
+2016,Quebec,Share of Canadian Export,16.70%,,
+2017,Quebec,Share of Canadian Export,16.60%,,
+2018,Quebec,Share of Canadian Export,16.80%,,
+2019,Quebec,Share of Canadian Export,16.50%,,
+2020,Quebec,Share of Canadian Export,17.60%,,
+2021,Quebec,Share of Canadian Export,16.80%,,
+2022,Quebec,Share of Canadian Export,15.30%,,
+2023,Quebec,Share of Canadian Export,16.30%,,
+1988,New Brunswick,Share of Canadian Export,2.30%,,
+1989,New Brunswick,Share of Canadian Export,2.30%,,
+1990,New Brunswick,Share of Canadian Export,2.20%,,
+1991,New Brunswick,Share of Canadian Export,2.20%,,
+1992,New Brunswick,Share of Canadian Export,2.00%,,
+1993,New Brunswick,Share of Canadian Export,1.90%,,
+1994,New Brunswick,Share of Canadian Export,2.00%,,
+1995,New Brunswick,Share of Canadian Export,2.20%,,
+1996,New Brunswick,Share of Canadian Export,2.10%,,
+1997,New Brunswick,Share of Canadian Export,2.00%,,
+1998,New Brunswick,Share of Canadian Export,1.80%,,
+1999,New Brunswick,Share of Canadian Export,1.80%,,
+2000,New Brunswick,Share of Canadian Export,1.90%,,
+2001,New Brunswick,Share of Canadian Export,2.20%,,
+2002,New Brunswick,Share of Canadian Export,2.20%,,
+2003,New Brunswick,Share of Canadian Export,2.40%,,
+2004,New Brunswick,Share of Canadian Export,2.40%,,
+2005,New Brunswick,Share of Canadian Export,2.60%,,
+2006,New Brunswick,Share of Canadian Export,2.50%,,
+2007,New Brunswick,Share of Canadian Export,2.70%,,
+2008,New Brunswick,Share of Canadian Export,2.80%,,
+2009,New Brunswick,Share of Canadian Export,2.90%,,
+2010,New Brunswick,Share of Canadian Export,3.40%,,
+2011,New Brunswick,Share of Canadian Export,3.50%,,
+2012,New Brunswick,Share of Canadian Export,3.50%,,
+2013,New Brunswick,Share of Canadian Export,3.30%,,
+2014,New Brunswick,Share of Canadian Export,2.60%,,
+2015,New Brunswick,Share of Canadian Export,2.50%,,
+2016,New Brunswick,Share of Canadian Export,2.30%,,
+2017,New Brunswick,Share of Canadian Export,2.60%,,
+2018,New Brunswick,Share of Canadian Export,2.30%,,
+2019,New Brunswick,Share of Canadian Export,2.40%,,
+2020,New Brunswick,Share of Canadian Export,2.20%,,
+2021,New Brunswick,Share of Canadian Export,2.50%,,
+2022,New Brunswick,Share of Canadian Export,2.60%,,
+2023,New Brunswick,Share of Canadian Export,2.40%,,
+1988,Nova Scotia,Share of Canadian Export,1.60%,,
+1989,Nova Scotia,Share of Canadian Export,1.60%,,
+1990,Nova Scotia,Share of Canadian Export,1.60%,,
+1991,Nova Scotia,Share of Canadian Export,1.60%,,
+1992,Nova Scotia,Share of Canadian Export,1.50%,,
+1993,Nova Scotia,Share of Canadian Export,1.40%,,
+1994,Nova Scotia,Share of Canadian Export,1.20%,,
+1995,Nova Scotia,Share of Canadian Export,1.20%,,
+1996,Nova Scotia,Share of Canadian Export,1.20%,,
+1997,Nova Scotia,Share of Canadian Export,1.10%,,
+1998,Nova Scotia,Share of Canadian Export,1.20%,,
+1999,Nova Scotia,Share of Canadian Export,1.20%,,
+2000,Nova Scotia,Share of Canadian Export,1.30%,,
+2001,Nova Scotia,Share of Canadian Export,1.50%,,
+2002,Nova Scotia,Share of Canadian Export,1.40%,,
+2003,Nova Scotia,Share of Canadian Export,1.50%,,
+2004,Nova Scotia,Share of Canadian Export,1.40%,,
+2005,Nova Scotia,Share of Canadian Export,1.40%,,
+2006,Nova Scotia,Share of Canadian Export,1.20%,,
+2007,Nova Scotia,Share of Canadian Export,1.30%,,
+2008,Nova Scotia,Share of Canadian Export,1.20%,,
+2009,Nova Scotia,Share of Canadian Export,1.30%,,
+2010,Nova Scotia,Share of Canadian Export,1.10%,,
+2011,Nova Scotia,Share of Canadian Export,1.00%,,
+2012,Nova Scotia,Share of Canadian Export,0.90%,,
+2013,Nova Scotia,Share of Canadian Export,1.00%,,
+2014,Nova Scotia,Share of Canadian Export,1.10%,,
+2015,Nova Scotia,Share of Canadian Export,1.10%,,
+2016,Nova Scotia,Share of Canadian Export,1.10%,,
+2017,Nova Scotia,Share of Canadian Export,1.10%,,
+2018,Nova Scotia,Share of Canadian Export,1.10%,,
+2019,Nova Scotia,Share of Canadian Export,1.10%,,
+2020,Nova Scotia,Share of Canadian Export,1.10%,,
+2021,Nova Scotia,Share of Canadian Export,1.10%,,
+2022,Nova Scotia,Share of Canadian Export,0.90%,,
+2023,Nova Scotia,Share of Canadian Export,0.90%,,
+1988,Prince Edward Island,Share of Canadian Export,0.10%,,
+1989,Prince Edward Island,Share of Canadian Export,0.10%,,
+1990,Prince Edward Island,Share of Canadian Export,0.10%,,
+1991,Prince Edward Island,Share of Canadian Export,0.10%,,
+1992,Prince Edward Island,Share of Canadian Export,0.10%,,
+1993,Prince Edward Island,Share of Canadian Export,0.10%,,
+1994,Prince Edward Island,Share of Canadian Export,0.10%,,
+1995,Prince Edward Island,Share of Canadian Export,0.10%,,
+1996,Prince Edward Island,Share of Canadian Export,0.10%,,
+1997,Prince Edward Island,Share of Canadian Export,0.20%,,
+1998,Prince Edward Island,Share of Canadian Export,0.20%,,
+1999,Prince Edward Island,Share of Canadian Export,0.20%,,
+2000,Prince Edward Island,Share of Canadian Export,0.20%,,
+2001,Prince Edward Island,Share of Canadian Export,0.20%,,
+2002,Prince Edward Island,Share of Canadian Export,0.20%,,
+2003,Prince Edward Island,Share of Canadian Export,0.20%,,
+2004,Prince Edward Island,Share of Canadian Export,0.20%,,
+2005,Prince Edward Island,Share of Canadian Export,0.20%,,
+2006,Prince Edward Island,Share of Canadian Export,0.20%,,
+2007,Prince Edward Island,Share of Canadian Export,0.20%,,
+2008,Prince Edward Island,Share of Canadian Export,0.20%,,
+2009,Prince Edward Island,Share of Canadian Export,0.20%,,
+2010,Prince Edward Island,Share of Canadian Export,0.20%,,
+2011,Prince Edward Island,Share of Canadian Export,0.20%,,
+2012,Prince Edward Island,Share of Canadian Export,0.20%,,
+2013,Prince Edward Island,Share of Canadian Export,0.20%,,
+2014,Prince Edward Island,Share of Canadian Export,0.20%,,
+2015,Prince Edward Island,Share of Canadian Export,0.30%,,
+2016,Prince Edward Island,Share of Canadian Export,0.30%,,
+2017,Prince Edward Island,Share of Canadian Export,0.30%,,
+2018,Prince Edward Island,Share of Canadian Export,0.30%,,
+2019,Prince Edward Island,Share of Canadian Export,0.30%,,
+2020,Prince Edward Island,Share of Canadian Export,0.30%,,
+2021,Prince Edward Island,Share of Canadian Export,0.30%,,
+2022,Prince Edward Island,Share of Canadian Export,0.30%,,
+2023,Prince Edward Island,Share of Canadian Export,0.30%,,
+1988,Newfoundland and Labrador,Share of Canadian Export,1.40%,,
+1989,Newfoundland and Labrador,Share of Canadian Export,1.40%,,
+1990,Newfoundland and Labrador,Share of Canadian Export,1.30%,,
+1991,Newfoundland and Labrador,Share of Canadian Export,1.10%,,
+1992,Newfoundland and Labrador,Share of Canadian Export,0.80%,,
+1993,Newfoundland and Labrador,Share of Canadian Export,1.00%,,
+1994,Newfoundland and Labrador,Share of Canadian Export,0.70%,,
+1995,Newfoundland and Labrador,Share of Canadian Export,0.80%,,
+1996,Newfoundland and Labrador,Share of Canadian Export,0.90%,,
+1997,Newfoundland and Labrador,Share of Canadian Export,0.90%,,
+1998,Newfoundland and Labrador,Share of Canadian Export,0.90%,,
+1999,Newfoundland and Labrador,Share of Canadian Export,0.90%,,
+2000,Newfoundland and Labrador,Share of Canadian Export,1.00%,,
+2001,Newfoundland and Labrador,Share of Canadian Export,0.90%,,
+2002,Newfoundland and Labrador,Share of Canadian Export,1.50%,,
+2003,Newfoundland and Labrador,Share of Canadian Export,1.30%,,
+2004,Newfoundland and Labrador,Share of Canadian Export,1.80%,,
+2005,Newfoundland and Labrador,Share of Canadian Export,2.00%,,
+2006,Newfoundland and Labrador,Share of Canadian Export,2.30%,,
+2007,Newfoundland and Labrador,Share of Canadian Export,2.80%,,
+2008,Newfoundland and Labrador,Share of Canadian Export,3.30%,,
+2009,Newfoundland and Labrador,Share of Canadian Export,2.60%,,
+2010,Newfoundland and Labrador,Share of Canadian Export,2.50%,,
+2011,Newfoundland and Labrador,Share of Canadian Export,2.90%,,
+2012,Newfoundland and Labrador,Share of Canadian Export,2.70%,,
+2013,Newfoundland and Labrador,Share of Canadian Export,2.70%,,
+2014,Newfoundland and Labrador,Share of Canadian Export,2.70%,,
+2015,Newfoundland and Labrador,Share of Canadian Export,1.90%,,
+2016,Newfoundland and Labrador,Share of Canadian Export,1.80%,,
+2017,Newfoundland and Labrador,Share of Canadian Export,2.00%,,
+2018,Newfoundland and Labrador,Share of Canadian Export,2.50%,,
+2019,Newfoundland and Labrador,Share of Canadian Export,2.70%,,
+2020,Newfoundland and Labrador,Share of Canadian Export,2.20%,,
+2021,Newfoundland and Labrador,Share of Canadian Export,2.50%,,
+2022,Newfoundland and Labrador,Share of Canadian Export,2.20%,,
+2023,Newfoundland and Labrador,Share of Canadian Export,1.70%,,
+1988,Canada,Share of Canadian Export,100.00%,,
+1989,Canada,Share of Canadian Export,100.00%,,
+1990,Canada,Share of Canadian Export,100.00%,,
+1991,Canada,Share of Canadian Export,100.00%,,
+1992,Canada,Share of Canadian Export,100.00%,,
+1993,Canada,Share of Canadian Export,100.00%,,
+1994,Canada,Share of Canadian Export,100.00%,,
+1995,Canada,Share of Canadian Export,100.00%,,
+1996,Canada,Share of Canadian Export,100.00%,,
+1997,Canada,Share of Canadian Export,100.00%,,
+1998,Canada,Share of Canadian Export,100.00%,,
+1999,Canada,Share of Canadian Export,100.00%,,
+2000,Canada,Share of Canadian Export,100.00%,,
+2001,Canada,Share of Canadian Export,100.00%,,
+2002,Canada,Share of Canadian Export,100.00%,,
+2003,Canada,Share of Canadian Export,100.00%,,
+2004,Canada,Share of Canadian Export,100.00%,,
+2005,Canada,Share of Canadian Export,100.00%,,
+2006,Canada,Share of Canadian Export,100.00%,,
+2007,Canada,Share of Canadian Export,100.00%,,
+2008,Canada,Share of Canadian Export,100.00%,,
+2009,Canada,Share of Canadian Export,100.00%,,
+2010,Canada,Share of Canadian Export,100.00%,,
+2011,Canada,Share of Canadian Export,100.00%,,
+2012,Canada,Share of Canadian Export,100.00%,,
+2013,Canada,Share of Canadian Export,100.00%,,
+2014,Canada,Share of Canadian Export,100.00%,,
+2015,Canada,Share of Canadian Export,100.00%,,
+2016,Canada,Share of Canadian Export,100.00%,,
+2017,Canada,Share of Canadian Export,100.00%,,
+2018,Canada,Share of Canadian Export,100.00%,,
+2019,Canada,Share of Canadian Export,100.00%,,
+2020,Canada,Share of Canadian Export,100.00%,,
+2021,Canada,Share of Canadian Export,100.00%,,
+2022,Canada,Share of Canadian Export,100.00%,,
+2023,Canada,Share of Canadian Export,100.00%,,

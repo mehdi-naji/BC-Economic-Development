@@ -50,6 +50,14 @@ load_m6_lp1 <- function() {
   return(df)
 }
 
+## Export----
+load_m6_exp1 <- function() {
+  url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_1.csv"
+  df <- read.csv(url, header = TRUE)
+  df <- na.omit(df)
+  return(df)
+}
+
 
 
 # RnD Dash ----
@@ -543,4 +551,27 @@ m6_lp_render_map <- function(df, canada_map, input){
   validate(need(nrow(df_map) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
   p2
 }
+
+# Export Dash----
+## line plot ----
+m6_exp_lineplot_data <- function(df, geo){
+  df |>
+    filter(GEO == geo)
+}
+
+m6_exp_render_lineplot <- function(df, input){
+  df1 <- m6_exp_lineplot_data(df, input$m6_exp_lineplot_geo)
+  p1 <- df1 |> 
+    plot_ly(x = ~Year, y = ~share_of_canadian_export, type = 'scatter', mode = 'lines') |>
+    layout(xaxis = list(
+      title = "", 
+      rangeslider = list(
+        visible = T,
+        thickness = 0.03,  
+        bgcolor = "darkgrey"  
+      )
+    ))
+  validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
   
+  p1 
+}
