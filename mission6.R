@@ -1,3 +1,4 @@
+
 # Loading data----
 ## Canada Map
 load_canada_map <- function(){
@@ -527,7 +528,7 @@ m6_lp_render_map <- function(df, canada_map, input){
   # Create a color palette
   pal <- colorNumeric(palette = "viridis", domain = canada_map$VALUE)
   
-  p2 <- leaflet(data = canada_map, options = leafletOptions(minZoom = 2, maxZoom = 2, dragging = FALSE, doubleClickZoom = FALSE, scrollWheelZoom = FALSE, touchZoom = FALSE, keyboard = FALSE)) %>%
+  p2 <- leaflet(data = canada_map) %>%
     addProviderTiles(providers$CartoDB.Positron) %>%
     addPolygons(fillColor = ~pal(canada_map$VALUE),
                 fillOpacity = 0.8,

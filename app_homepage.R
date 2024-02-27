@@ -7,6 +7,7 @@ library(plotly)
 library(leaflet)
 library(sf)
 
+
 options(scipen = 999999999)  
 
 source_exports <- "BC Stats"
@@ -448,7 +449,7 @@ server <- function(input, output, session) {
     p1
   })
   ### map----
-  output$m6_lp_map <- renderPlotly({
+  output$m6_lp_map <- renderLeaflet({
     p1 <- m6_lp_render_map(df_m6_lp_1, canada_map,input)
     
     p1
