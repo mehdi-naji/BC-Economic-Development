@@ -554,15 +554,16 @@ m6_lp_render_map <- function(df, canada_map, input){
 
 # Export Dash----
 ## line plot ----
-m6_exp_lineplot_data <- function(df, geo){
+m6_exp_lineplot_data <- function(df, geo, exptype){
   df |>
-    filter(GEO == geo)
+    filter(GEO == geo,
+           EXP_type == exptype)
 }
 
 m6_exp_render_lineplot <- function(df, input){
-  df1 <- m6_exp_lineplot_data(df, input$m6_exp_lineplot_geo)
+  df1 <- m6_exp_lineplot_data(df, input$m6_exp_lineplot_geo, input$m6_exp_lineplot_exptype)
   p1 <- df1 |> 
-    plot_ly(x = ~Year, y = ~share_of_canadian_export, type = 'scatter', mode = 'lines') |>
+    plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
     layout(xaxis = list(
       title = "", 
       rangeslider = list(
@@ -574,4 +575,11 @@ m6_exp_render_lineplot <- function(df, input){
   validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
   
   p1 
+}
+
+## Heat Map----
+m6_exp_heatmap_data <- function(df, geo, exptype){
+  df |>
+    filter(GEO == geo,
+           EXP_type == exptype)
 }

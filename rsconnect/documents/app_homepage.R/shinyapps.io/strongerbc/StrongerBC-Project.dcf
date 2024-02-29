@@ -5,8 +5,9 @@ account: strongerbc
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11334491
-bundleId: 8300504
+bundleId: 8305196
 url: https://strongerbc.shinyapps.io/StrongerBC-Project/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: DataLoad.R|Inflation/app.R|Inflation/Data-processing.R|Labour_Productivity/app.R|Labour_Productivity/Data-processing.R|logo.png|m6_RnD.R|m6_VAEX.R|Non_Residential_Investment/.RData|Non_Residential_Investment/app.R|Non_Residential_Investment/Data-processing.R|Research_and_Development/.RData|Research_and_Development/app.R|Research_and_Development/app1.R|Research_and_Development/Data-processing.R|supplementary materials/canada-with-provinces_795.geojson|VA_Exports/app.R|VA_Exports/Data-processing.R|Data

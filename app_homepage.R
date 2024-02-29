@@ -22,6 +22,7 @@ df_m6_RnD_2 <- load_m6_RnD2()
 df_m6_VAEX_1 <- load_m6_VAEX1()
 df_m6_nRinv_1 <- load_m6_nRinv1()
 df_m6_lp_1 <- load_m6_lp1()
+df_m6_exp_1 <- load_m6_exp1()
 
 
 
@@ -42,7 +43,7 @@ sidebar <- dashboardSidebar(
                        menuSubItem("Value-added Export", tabName = "VAEX"),
                        menuSubItem("Non-residential Investment", tabName = "nRinv"),
                        menuSubItem("Labour productivity", tabName = "LP"),
-                       menuSubItem("Value-added Export", tabName = "VA_EX")),
+                       menuSubItem("Export", tabName = "EXP")),
               menuItem("Data Source", tabName = "data_source", icon = icon("database"))
               
               
@@ -332,9 +333,23 @@ body <- dashboardBody(
                        selectInput("m6_lp_map_labourtype", "Labour Productivity Measure", choices = unique(df_m6_lp_1$Labour.productivity.and.related.measures)),
                        selectInput("m6_lp_map_industry", "Industry", choices = unique(df_m6_lp_1$Industry))
                 )
-              ))
+              ))),
+        ### EXP ----
+        tabItem(tabName = "EXP",
+                    #### Line Plot----
+                    fluidPage(
+                      style = "background-color: white;margin: 20px;",
+                      fluidRow(
+                        column(9, h3("Figure 6-5-1: TBD" ))
+                      ),
+                      fluidRow(
+                        column(9,plotlyOutput("m6_exp_lineplot")),
+                        column(3, 
+                               selectInput("m6_exp_lineplot_geo", "Region", choices = unique(df_m6_exp_1$GEO), selected = "British Columbia"),
+                               selectInput("m6_exp_lineplot_exptype", "Export Measuremnet", choices = unique(df_m6_exp_1$EXP_type))
+                      ))
             
-    ),
+    )),
     tabItem(tabName = "data_source",
             h3("Data Sources & Permissions", style="margin-left:15px;margin-bottom:20px"))
   )
@@ -452,6 +467,12 @@ server <- function(input, output, session) {
   output$m6_lp_map <- renderLeaflet({
     p1 <- m6_lp_render_map(df_m6_lp_1, canada_map,input)
     
+    p1
+  })
+  ## EXPORT----
+  ### Line plot----
+  output$m6_exp_lineplot <- renderPlotly({
+    p1 <- m6_exp_render_lineplot(df_m6_exp_1, input)
     p1
   })
 }
