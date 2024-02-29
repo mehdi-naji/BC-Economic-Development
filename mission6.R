@@ -258,7 +258,8 @@ m6_RnD_render_sankey <- function(df, input){
 m6_VAEX_lineplot_data <- function(df, geo){
   df |>
     filter(GEO == geo,
-           Industry == "Total industries")
+           Industry == "Total industries",
+           Value.added.exports.variable == "Value added exports" )
 }
 
 m6_VAEX_render_lineplot <- function(df, input){
@@ -284,7 +285,8 @@ m6_VAEX_render_lineplot <- function(df, input){
 m6_VAEX_bar_data <- function(df, year, industry){
   df |> 
     filter (Year == year,
-            Industry == industry)|>
+            Industry == industry,
+            Value.added.exports.variable == "Value added exports")|>
     mutate (EXP_GDP = 100 * VA_EXP / (GDP*1000))
 }
 
@@ -308,30 +310,9 @@ m6_VAEX_pie_data <- function(df, geo, year){
   df |>
     filter(Industry != "Total industries",
            GEO == geo,
-           Year == year)
+           Year == year,
+           Value.added.exports.variable == "Value added in exports, within-province" )
 }
-
-
-
-
-
-
-
-ddd <- load_m6_VAEX1()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 m6_VAEX_render_pie <- function(df, input){
   df1 <- m6_VAEX_pie_data(df, input$m6_VAEX_pie_geo, input$m6_VAEX_pie_year)
