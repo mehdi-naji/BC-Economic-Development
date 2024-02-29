@@ -13,10 +13,10 @@ df1$Year <- year(df1$REF_DATE)
 df2$REF_DATE <- ymd(df2$REF_DATE)
 df2$Year <- year(df2$REF_DATE)
 
-df1 <- df1 |> filter (`Value added exports variable` == "Value added exports",
+df1 <- df1 |> filter (`Value added exports variable` %in% c("Value added exports","Value added in exports, within-province"),
                      `Country Code` == "Total of all countries",
                      Aggregation == "Summary level") |>
-  select(Year, GEO, Industry, VALUE)
+  select(Year, GEO, Industry, `Value added exports variable`, VALUE)
 names(df1)[names(df1) == "VALUE"] <- "VA_EXP"
 
 

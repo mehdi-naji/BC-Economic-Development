@@ -134,7 +134,7 @@ body <- dashboardBody(
             fluidPage(
               style = "background-color: white;margin: 20px;",
               fluidRow(
-                column(9, h3("Figure 6-1-1: The trend of investment in innovation" ))
+                column(9, h3("Figure 6-1-1: Private sector investment in innovation " ))
               ),
               fluidRow(
                 column(9,plotlyOutput("m6_RnD_lineplot")),
@@ -142,19 +142,19 @@ body <- dashboardBody(
                      selectInput("m6_RnD_lineplot_geo", "Region", choices = unique(df_m6_RnD_1$GEO), selected = "British Columbia"), 
                      selectInput("m6_RnD_lineplot_prices", "Price type", choices = unique(df_m6_RnD_1$Prices)), 
                      selectInput("m6_RnD_lineplot_science_type", "Science Type", choices = unique(df_m6_RnD_1$Science.type)),
-                     selectInput("m6_RnD_lineplot_funder", "Funder", choices = unique(df_m6_RnD_1$Funder)),
+                     selectInput("m6_RnD_lineplot_funder", "Funder", choices = unique(df_m6_RnD_1$Funder), selected = " business enterprise sector"),
                      selectInput("m6_RnD_lineplot_performer", "Performer", choices = unique(df_m6_RnD_1$Performer))
             )    )),
             #### Bar Plot ----
             fluidPage(
               style = "background-color: white;margin: 20px;",
               fluidRow(
-                column(9, h3("Figure 6-1-2: Research and Development as percentage of GDP" ))
+                column(9, h3("Figure 6-1-2: Funding flows in B.C." ))
               ),
               fluidRow(
                 column(9,plotlyOutput("m6_RnD_barplot")),
                 column(3, 
-                       selectInput("m6_RnD_barplot_year", "Year", choices = unique(df_m6_RnD_2$Year), selected = 2020)
+                       selectInput("m6_RnD_barplot_year", "Year", choices = unique(df_m6_RnD_2$Year), selected = max(df_m6_RnD_2$Year))
                 )    )),
             #### Table ----
             fluidPage(
@@ -167,15 +167,15 @@ body <- dashboardBody(
                 column(3, 
                        selectInput("m6_RnD_table_prices", "Price type", choices = unique(df_m6_RnD_1$Prices)), 
                        selectInput("m6_RnD_table_science_type", "Science Type", choices = unique(df_m6_RnD_1$Science.type)),
-                       selectInput("m6_RnD_table_funder", "Funder", choices = unique(df_m6_RnD_1$Funder)),
+                       selectInput("m6_RnD_table_funder", "Funder", choices = unique(df_m6_RnD_1$Funder), selected = " business enterprise sector"),
                        selectInput("m6_RnD_table_performer", "Performer", choices = unique(df_m6_RnD_1$Performer)),
-                       selectInput("m6_RnD_table_year", "Year", choices = unique(df_m6_RnD_1$Year), selected = 2020)
+                       selectInput("m6_RnD_table_year", "Year", choices = unique(df_m6_RnD_1$Year), selected = max(df_m6_exp_1$Year))
               )    )),
             #### Sankey Plot ----
             fluidPage(
               style = "background-color: white;margin: 20px;",
               fluidRow(
-                column(9, h3("Figure 6-1-4: The flow from Funders (left) to performers (right)" ))
+                column(9, h3("Figure 6-1-4: R&D intensity " ))
               ),
               fluidRow(
                 column(9,plotlyOutput("m6_RnD_sankey")),
@@ -203,7 +203,7 @@ body <- dashboardBody(
             fluidPage(
               style = "background-color: white;margin: 20px;",
               fluidRow(
-                column(9, h3("Figure 6-2-2: TBD" ))
+                column(9, h3("Figure 6-2-2: Value-added exports by industry in B.C." ))
               ),
               fluidRow(
                 column(9,plotlyOutput("m6_VAEX_barplot")),
@@ -216,7 +216,7 @@ body <- dashboardBody(
             fluidPage(
               style = "background-color: white;margin: 20px;",
               fluidRow(
-                column(9, h3("Figure 62-3: TBD" ))
+                column(9, h3("Figure 62-3: Value-added exports GDP contribution" ))
               ),
               fluidRow(
                 column(9,plotlyOutput("m6_VAEX_pie")),

@@ -27,7 +27,8 @@ load_m6_VAEX1 <- function() {
   url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/VA_Exporsts_1.csv"
   df <- read.csv(url, header = TRUE)
   df <- na.omit(df)
-  
+  df <- df |>   mutate(Industry = str_remove(Industry, "\\s\\[.*\\]$"))
+
   return(df)
 }
 
@@ -54,11 +55,10 @@ load_m6_lp1 <- function() {
 load_m6_exp1 <- function() {
   url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_1.csv"
   df <- read.csv(url, header = TRUE)
-  df <- na.omit(df)
   return(df)
 }
 
-
+sd <- load_m6_exp1()
 
 # RnD Dash ----
 ## Line plot----
@@ -121,8 +121,8 @@ m6_RnD_barplot_data <- function(df, year){
 
 m6_RnD_render_barplot <- function(df, input){
   df2 <- m6_RnD_barplot_data(df, input$m6_RnD_barplot_year)
-  df2$formatted_VALUE <- sprintf("%.1f%%", df2$VALUE)
-  df2$adjusted_VALUE <- df2$VALUE + 0.2
+  df2$formatted_VALUE <- sprintf("<b>%.1f%%</b>", df2$VALUE)
+  df2$adjusted_VALUE <- df2$VALUE + 0.1
   p2 <- df2 |> 
     plot_ly(x = ~VALUE,y=~GEO, color=~GEO, type = 'bar',
             colors = ~color, showlegend = FALSE)  |>
@@ -310,6 +310,28 @@ m6_VAEX_pie_data <- function(df, geo, year){
            GEO == geo,
            Year == year)
 }
+
+
+
+
+
+
+
+ddd <- load_m6_VAEX1()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 m6_VAEX_render_pie <- function(df, input){
   df1 <- m6_VAEX_pie_data(df, input$m6_VAEX_pie_geo, input$m6_VAEX_pie_year)
