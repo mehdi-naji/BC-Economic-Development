@@ -1,6 +1,6 @@
 
 # Loading data----
-## Canada Map
+## Canada Map----
 load_canada_map <- function(){
   canada_url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/canada-with-provinces_795.geojson"
   geojson_content <- httr::GET(canada_url, httr::write_disk(tf <- tempfile(fileext = ".geojson"), overwrite = TRUE))
@@ -61,6 +61,12 @@ load_m6_exp1 <- function() {
 
 load_m6_exp2 <- function() {
   url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_2.csv"
+  df <- read.csv(url, header = TRUE)
+  return(df)
+}
+
+load_m6_exp3 <- function() {
+  url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_3.csv"
   df <- read.csv(url, header = TRUE)
   return(df)
 }
@@ -591,12 +597,36 @@ m6_exp_heatmap_data <- function(df){
 }
 
 m6_exp_render_heatmap <- function(df, input){
-  data <- m6_exp_heatmap_data(df)
+  df1 <- m6_exp_heatmap_data(df)
+  df1$Value <- as.numeric(sub("%", "", df1$Value))
+  
   p1 <- plot_ly(
-    x = data$Sector,
-    y = data$GEO,
-    z = data$Value,
-    type = "heatmap"
-  )
+    data = df1,
+    x = ~GEO,
+    y = ~Sector,
+    z = ~Value,
+    type = "heatmap",
+    colorscale = "Plasma" )
+  p1
+}
+##Stacked Bar Chart ----
+m6_exp_stackbar_data <- function(df){
+  return(df)
+}
+
+m6_exp_render_stackbar <- function(df, input){
+  df1 <- m6_exp_stackbar_data(df)
+  
+  p1 <- plot_ly(data = df1, 
+               x = ~Year, 
+               y = ~Value,
+               color = ~Type,
+               colors = c('#1f77b4', '#ff7f0e'), 
+               type='bar') %>%
+    layout(barmode = 'stack',
+           xaxis = list(title=""),
+           yaxis = list(title="Value"),
+           title="Environmental and Clean Technology Products by Year and GEO")
+
   p1
 }
