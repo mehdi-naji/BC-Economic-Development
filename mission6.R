@@ -55,10 +55,15 @@ load_m6_lp1 <- function() {
 load_m6_exp1 <- function() {
   url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_1.csv"
   df <- read.csv(url, header = TRUE)
+  df <- df|> filter(EXP_type != "Export Percent Change")
   return(df)
 }
 
-sd <- load_m6_exp1()
+load_m6_exp2 <- function() {
+  url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_2.csv"
+  df <- read.csv(url, header = TRUE)
+  return(df)
+}
 
 # RnD Dash ----
 ## Line plot----
@@ -581,8 +586,17 @@ m6_exp_render_lineplot <- function(df, input){
 }
 
 ## Heat Map----
-m6_exp_heatmap_data <- function(df, geo, exptype){
-  df |>
-    filter(GEO == geo,
-           EXP_type == exptype)
+m6_exp_heatmap_data <- function(df){
+  return(df)
+}
+
+m6_exp_render_heatmap <- function(df, input){
+  data <- m6_exp_heatmap_data(df)
+  p1 <- plot_ly(
+    x = data$Sector,
+    y = data$GEO,
+    z = data$Value,
+    type = "heatmap"
+  )
+  p1
 }

@@ -14,6 +14,8 @@ source_exports <- "BC Stats"
 
 source("mission5.R")
 source("mission6.R")
+source("Executive_summaries.R")
+
 
 # Loading data ----
 canada_map <- load_canada_map()
@@ -23,7 +25,7 @@ df_m6_VAEX_1 <- load_m6_VAEX1()
 df_m6_nRinv_1 <- load_m6_nRinv1()
 df_m6_lp_1 <- load_m6_lp1()
 df_m6_exp_1 <- load_m6_exp1()
-
+df_m6_exp_2 <- load_m6_exp2()
 
 
 
@@ -145,6 +147,16 @@ body <- dashboardBody(
                      selectInput("m6_RnD_lineplot_funder", "Funder", choices = unique(df_m6_RnD_1$Funder), selected = " business enterprise sector"),
                      selectInput("m6_RnD_lineplot_performer", "Performer", choices = unique(df_m6_RnD_1$Performer))
             )    )),
+            #### EXESUM ----
+            fluidPage(
+              style = "background-color: aliceblue ; margin: 20px;",
+              fluidRow(
+                column(12, h2("Executive Summary"))
+              ),
+              fluidRow(
+                column(12, uiOutput("exesum_m6_RnD"))
+              )
+            ),
             #### Bar Plot ----
             fluidPage(
               style = "background-color: white;margin: 20px;",
@@ -199,6 +211,16 @@ body <- dashboardBody(
                 column(3, 
                        selectInput("m6_VAEX_lineplot_geo", "Region", choices = unique(df_m6_VAEX_1$GEO), selected = "British Columbia"))
                 )),
+            #### EXESUM ----
+            fluidPage(
+              style = "background-color: aliceblue ; margin: 20px;",
+              fluidRow(
+                column(12, h2("Executive Summary"))
+              ),
+              fluidRow(
+                column(12, uiOutput("exesum_m6_VAEX"))
+              )
+            ),
             #### Bar Plot ----
             fluidPage(
               style = "background-color: white;margin: 20px;",
@@ -241,6 +263,16 @@ body <- dashboardBody(
                        selectInput("m6_nRinv_lineplot_item", "Item", choices = unique(df_m6_nRinv_1$Estimates)),
                        selectInput("m6_nRinv_lineplot_prices", "Price Type", choices = unique(df_m6_nRinv_1$Prices)))
               )),
+            #### EXESUM ----
+            fluidPage(
+              style = "background-color: aliceblue ; margin: 20px;",
+              fluidRow(
+                column(12, h2("Executive Summary"))
+              ),
+              fluidRow(
+                column(12, uiOutput("exesum_m6_nRinv"))
+              )
+            ),
             #### Lines plot ----
             fluidPage(
               style = "background-color: white;margin: 20px;",
@@ -282,6 +314,16 @@ body <- dashboardBody(
                        selectInput("m6_lp_lineplot_industry", "Industry", choices = unique(df_m6_lp_1$Industry)),
                        selectInput("m6_lp_lineplot_labourtype", "Labour Productivity Measure", choices = unique(df_m6_lp_1$Labour.productivity.and.related.measures)))
               )),
+            #### EXESUM ----
+            fluidPage(
+              style = "background-color: aliceblue ; margin: 20px;",
+              fluidRow(
+                column(12, h2("Executive Summary"))
+              ),
+              fluidRow(
+                column(12, uiOutput("exesum_m6_lp"))
+              )
+            ),
             #### Lines Plot----
             fluidPage(
               style = "background-color: white;margin: 20px;",
@@ -347,9 +389,29 @@ body <- dashboardBody(
                         column(3, 
                                selectInput("m6_exp_lineplot_geo", "Region", choices = unique(df_m6_exp_1$GEO), selected = "British Columbia"),
                                selectInput("m6_exp_lineplot_exptype", "Export Measuremnet", choices = unique(df_m6_exp_1$EXP_type))
-                      ))
-            
-    )),
+                      ))),
+                #### EXESUM ----
+                fluidPage(
+                  style = "background-color: aliceblue ; margin: 20px;",
+                  fluidRow(
+                    column(12, h2("Executive Summary"))
+                  ),
+                  fluidRow(
+                    column(12, uiOutput("exesum_m6_exp"))
+                  )
+                ),
+                #### Heatmap Plot----
+                fluidPage(
+                  style = "background-color: white;margin: 20px;",
+                  fluidRow(
+                    column(9, h3("Figure 6-5-2: TBD" ))
+                  ),
+                  fluidRow(
+                    column(9,plotlyOutput("m6_exp_heatmap")),
+                    column(3, 
+                           # selectInput("m6_exp_lineplot_exptype", "Export Measuremnet", choices = unique(df_m6_exp_1$EXP_type))
+                    ))),
+    ),
     tabItem(tabName = "data_source",
             h3("Data Sources & Permissions", style="margin-left:15px;margin-bottom:20px"))
   )
@@ -386,6 +448,8 @@ ui <- tagList(
 server <- function(input, output, session) {
   # m6 ----
   ## RnD----
+  ### Executive Summary----
+  output$exesum_m6_RnD <- renderUI(Exesum_m6_RnD)
   ### Line Plot----
   output$m6_RnD_lineplot <- renderPlotly({
     p1 <- m6_RnD_render_lineplot(df_m6_RnD_1, input)
@@ -411,6 +475,8 @@ server <- function(input, output, session) {
   })
   
   ## VAEX----
+  ### Executive Summary----
+  output$exesum_m6_VAEX <- renderUI(Exesum_m6_RnD)
   ### Line plot----
   output$m6_VAEX_lineplot <- renderPlotly({
     p1 <- m6_VAEX_render_lineplot(df_m6_VAEX_1, input)
@@ -427,6 +493,8 @@ server <- function(input, output, session) {
     p1
   })
   ## non-residential Investment----
+  ### Executive Summary----
+  output$exesum_nRinv <- renderUI(Exesum_m6_RnD)
   ### Line plot----
   output$m6_nRinv_lineplot <- renderPlotly({
     p1 <- m6_nRinv_render_lineplot(df_m6_nRinv_1, input)
@@ -443,6 +511,8 @@ server <- function(input, output, session) {
     p1
   })
   ## labour Productivity----
+  ### Executive Summary----
+  output$exesum_m6_lp <- renderUI(Exesum_m6_RnD)
   ### Line plot----
   output$m6_lp_lineplot <- renderPlotly({
     p1 <- m6_lp_render_lineplot(df_m6_lp_1, input)
@@ -470,9 +540,16 @@ server <- function(input, output, session) {
     p1
   })
   ## EXPORT----
+  ### Executive Summary----
+  output$exesum_m6_exp <- renderUI(Exesum_m6_RnD)
   ### Line plot----
   output$m6_exp_lineplot <- renderPlotly({
     p1 <- m6_exp_render_lineplot(df_m6_exp_1, input)
+    p1
+  })
+  ### Line plot----
+  output$m6_exp_heatmap <- renderPlotly({
+    p1 <- m6_exp_render_heatmap(df_m6_exp_2, input)
     p1
   })
 }
