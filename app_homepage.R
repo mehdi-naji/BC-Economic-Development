@@ -423,8 +423,19 @@ body <- dashboardBody(
                   fluidRow(
                     column(9,plotlyOutput("m6_exp_stackbar")),
                     column(3, 
-                           # selectInput("m6_exp_lineplot_exptype", "Export Measuremnet", choices = unique(df_m6_exp_1$EXP_type))
+                           selectInput("m6_exp_stackbar_year", "Year", choices = unique(df_m6_exp_3$Year))
                     ))),
+              #### Bubble plot----
+              fluidPage(
+                style = "background-color: white;margin: 20px;",
+                fluidRow(
+                  column(9, h3("Figure 6-5-5: TBD" ))
+                ),
+                fluidRow(
+                  column(9,plotlyOutput("m6_exp_bubble")),
+                  column(3, 
+                         # selectInput("m6_exp_stackbar_year", "Year", choices = unique(df_m6_exp_3$Year))
+                  ))),
               
       ),
    #### Data Source Tab----
@@ -569,9 +580,14 @@ server <- function(input, output, session) {
         p1 <- m6_exp_render_heatmap(df_m6_exp_2, input)
         p1
       })
-      ### Heat Map----
+      ### Stacked Bar Plot----
       output$m6_exp_stackbar <- renderPlotly({
         p1 <- m6_exp_render_stackbar(df_m6_exp_3, input)
+        p1
+      })
+      ### Bubble Plot----
+      output$m6_exp_bubble <- renderPlotly({
+        p1 <- m6_exp_render_bubble(df_m6_exp_4, input)
         p1
       })
 }
