@@ -74,6 +74,8 @@
     load_m6_exp4 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_4.csv"
       df <- read.csv(url, header = TRUE)
+      df <- na.omit(df)
+      
       return(df)
     }
     
@@ -642,25 +644,26 @@
     
     m6_exp_render_bubble <- function(df, input){
       data <- m6_exp_bubble_data(df)
-      color_scale <- colorRamp(c("green", "red"))
-      colors <- color_scale(100)[as.numeric(cut(data$growth_change, breaks = 100))]
+      data$GDP <- as.numeric(data$GDP)
+      data$growth_change <- as.numeric(data$growth_change)
+      data$growth <- as.numeric(data$growth)
+      data$exports <- as.numeric(data$exports)
       
       p1 <- plot_ly(
         data,
         x = ~exports,
         y = ~growth,
         size = ~GDP,
-        color = ~growth_change,
-        colors = colors,
+        # color = ~growth_change,
         type = "scatter",
         mode = "markers",
-        marker = list(sizemode = "diameter")
-      ) %>%
+        marker = list(sizemode = "diameter")) %>%
         layout(
           title = "Bubble Chart with Plotly",
           xaxis = list(title = "Level"),
           yaxis = list(title = "Growth"),
           showlegend = TRUE
         )
+      
       p1
     }
