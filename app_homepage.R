@@ -413,7 +413,7 @@ body <- dashboardBody(
                           column(9,plotlyOutput("m6_exp_lineplot")),
                           column(3, 
                                  selectInput("m6_exp_lineplot_geo", "Region", choices = unique(df_m6_exp_1$GEO), selected = "British Columbia"),
-                                 selectInput("m6_exp_lineplot_exptype", "Export Measuremnet", choices = unique(df_m6_exp_1$EXP_type))
+                                 selectInput("m6_exp_lineplot_exptype", "Export Measuremnet", choices = unique(df_m6_exp_1$EXP_type), selected = "Share of Canadian Export")
                         ))),
               ##### EXESUM ----
                   fluidPage(
