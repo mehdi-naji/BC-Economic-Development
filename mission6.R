@@ -39,7 +39,6 @@
       df <- na.omit(df)
       return(df)
     }
-    
     ## LabourProductivity
     load_m6_lp1 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Labour_Productivity_1.csv"
@@ -68,6 +67,12 @@
     load_m6_exp3 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_3.csv"
       df <- read.csv(url, header = TRUE)
+      df <- df |> 
+        select(Year, GEO, Type, Value)
+      df <- na.omit(df)
+      
+      # df$Value <- as.numeric(as.character(df$Value))
+      
       return(df)
     }
     
@@ -257,9 +262,7 @@
             color = "grey",
             width = 0.5
           ),
-          hovertemplate = '%{label}<br>Total Value: %{value}<extra></extra>'
-          
-        ),
+          hovertemplate = '%{label}<br>Total Value: %{value}<extra></extra>'        ),
         
         
         link = list(
@@ -267,6 +270,14 @@
           target = links$target,
           value = links$value
         ))
+      
+      fig <- fig %>% layout(
+        font = list(size = 16, color = "black"),
+        hoverlabel = list(font = list(size = 16, color = "black")),
+        updatemenus = list(
+          font = list(color = "black")
+        )
+      )
     
       validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the 'Year',  'Price type', or 'Region' selection in the sidebar."))
       
@@ -348,17 +359,17 @@
     
 # Non residential Investment Dash----
     ## line plot ----
-    m6_nRinv_lineplot_data <- function(df, geo, item, prices){
+    m6_nRinv_lineplot_data <- function(df, geo, item){
       df |>
         filter(GEO == geo,
                Estimates == item,
-               Prices == prices)
+               Prices == "Current prices")
     }
     
     m6_nRinv_render_lineplot <- function(df, input){
-      df1 <- m6_nRinv_lineplot_data(df, input$m6_nRinv_lineplot_geo, input$m6_nRinv_lineplot_item, input$m6_nRinv_lineplot_prices)
+      df1 <- m6_nRinv_lineplot_data(df, input$m6_nRinv_lineplot_geo, input$m6_nRinv_lineplot_item)
       p1 <- df1 |> 
-        plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
+        plot_ly(x = ~Year, y = ~Estimate_per_GDP, type = 'scatter', mode = 'lines') |>
         layout(xaxis = list(
                  title = "", 
                  rangeslider = list(
@@ -391,9 +402,7 @@
       dflines <- m6_nRinv_lines_data(df, input$m6_nRinv_lines_geo, input$m6_nRinv_lines_prices)
       plines <- dflines |>
         plot_ly(x = ~Year, y = ~VALUE, color = ~Estimates , type = 'scatter', mode = 'lines')|>
-        layout(title = paste("Non-residential Investment Breakdown in ", input$m6_nRinv_lines_geo),
-               font = list(family = 'Arial', size = 10),
-               yaxis = list(title = ""),
+        layout(yaxis = list(title = ""),
                xaxis = list(title = ""),
                legend = list(y = -0.3, x=0))
       
@@ -422,15 +431,13 @@
       df2 <- m6_nRinv_barplot_data(df, input$m6_nRinv_barplot_year)
       p2 <- df2 |> 
         plot_ly(x = ~VALUE,y=~GEO, color=~Estimates, type = 'bar', 
-                orientation = 'h', stackgroup = 'group') |>
-        layout(title = paste("Non-residential Investment Breakdown in ", input$m6_nRinv_barplot_year),
-               font = list(family = 'Arial', size = 10),
-               yaxis = list(title = ""),
+                orientation = 'h', stackgroup = 'group', text = ~VALUE) |>
+        layout(yaxis = list(title = ""),
                xaxis = list(title = ""),
                bargap = 0.2,
                barmode = "stack",
                barnorm = "percent",
-               legend = list(y = -0.3, x=0),
+               legend = list(y = -0.3, x=0, orientation = 'h'),
                autosize = TRUE)
       
       validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
@@ -615,7 +622,8 @@
         y = ~Sector,
         z = ~Value,
         type = "heatmap",
-        colorscale = "Plasma" )
+        colorscale = "Plasma" )|>
+        layout(title = "Exports as a share of total Canadian exports in 2023 ")
       p1
     }
     ##Stacked Bar Chart ----
@@ -626,7 +634,7 @@
     
     m6_exp_render_stackbar <- function(df, input){
       df1 <- m6_exp_stackbar_data(df, input$m6_exp_stackbar_year)
-    
+      
       p1 <- plot_ly(data = df1, 
                     y = ~GEO, 
                     x = ~Value,
@@ -654,14 +662,14 @@
         x = ~exports,
         y = ~growth,
         size = ~GDP,
-        # color = ~growth_change,
+        color = ~growth_change,
         type = "scatter",
         mode = "markers",
-        marker = list(sizemode = "diameter")) %>%
+        marker = list(sizemode = "diameter"),
+        text = ~GEO) %>%
         layout(
-          title = "Bubble Chart with Plotly",
-          xaxis = list(title = "Level"),
-          yaxis = list(title = "Growth"),
+          xaxis = list(title = "Export Level"),
+          yaxis = list(title = "Export Growth"),
           showlegend = TRUE
         )
       

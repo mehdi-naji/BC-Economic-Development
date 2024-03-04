@@ -1,41 +1,41 @@
-Year,GEO,Type,Value,,,,,,,,,,
-2018,Quebec,Environmental Products,"1,826.56",,,,,,,,,,
-2018,Ontario,Environmental Products,"3,019.55",,,,,,,,,,
-2018,Alberta,Environmental Products,411.471,,,,,,,,,,
-2018,British Columbia,Environmental Products,"1,316.56",,,,,,,,,,
-2019,Quebec,Environmental Products,"1,644.82",,,,,,,,,,
-2019,Ontario,Environmental Products,"2,386.26",,,,,,,,,,
-2019,Alberta,Environmental Products,477.613,,,,,,,,,,
-2019,British Columbia,Environmental Products,"1,165.17",,,,,,,,,,
-2020,Quebec,Environmental Products,"1,564.70",,,,,,,,,,
-2020,Ontario,Environmental Products,"2,398.09",,,,,,,,,,
-2020,Alberta,Environmental Products,569.974,,,,,,,,,,
-2020,British Columbia,Environmental Products,"1,296.76",,,,,,,,,,
-2021,Quebec,Environmental Products,"1,880.18",,,,,,,,,,
-2021,Ontario,Environmental Products,"3,456.30",,,,,,,,,,
-2021,Alberta,Environmental Products,571.977,,,,,,,,,,
-2021,British Columbia,Environmental Products,"1,789.77",,,,,,,,,,
-2022,Quebec,Environmental Products,"2,153.48",,,,,,,,,,
-2022,Ontario,Environmental Products,"4,122.67",,,,,,,,,,
-2022,Alberta,Environmental Products,726.845,,,,,,,,,,
-2022,British Columbia,Environmental Products,"2,476.05",,,,,,,,,,
-2018,Quebec,Clean technology products ,"1,241.39",,,,,,,,,,
-2018,Ontario,Clean technology products ,"4,362.32",,,,,,,,,,
-2018,Alberta,Clean technology products ,456.848,,,,,,,,,,
-2018,British Columbia,Clean technology products ,569.7,,,,,,,,,,
-2019,Quebec,Clean technology products ,"1,393.87",,,,,,,,,,
-2019,Ontario,Clean technology products ,"4,449.21",,,,,,,,,,
-2019,Alberta,Clean technology products ,718.676,,,,,,,,,,
-2019,British Columbia,Clean technology products ,659.937,,,,,,,,,,
-2020,Quebec,Clean technology products ,"1,515.83",,,,,,,,,,
-2020,Ontario,Clean technology products ,"4,888.85",,,,,,,,,,
-2020,Alberta,Clean technology products ,582.663,,,,,,,,,,
-2020,British Columbia,Clean technology products ,624.693,,,,,,,,,,
-2021,Quebec,Clean technology products ,"1,633.85",,,,,,,,,,
-2021,Ontario,Clean technology products ,"5,765.44",,,,,,,,,,
-2021,Alberta,Clean technology products ,607.981,,,,,,,,,,
-2021,British Columbia,Clean technology products ,679.984,,,,,,,,,,
-2022,Quebec,Clean technology products ,"1,641.24",,,,,,,,,,
-2022,Ontario,Clean technology products ,"6,343.67",,,,,,,,,,
-2022,Alberta,Clean technology products ,622.911,,,,,,,,,,
-2022,British Columbia,Clean technology products ,779.395,,,,,,,,,,
+Year,GEO,Type,Value
+2018,Quebec,Environmental Products,1826.6
+2018,Ontario,Environmental Products,3019.6
+2018,Alberta,Environmental Products,411.5
+2018,British Columbia,Environmental Products,1316.6
+2019,Quebec,Environmental Products,1644.8
+2019,Ontario,Environmental Products,2386.3
+2019,Alberta,Environmental Products,477.6
+2019,British Columbia,Environmental Products,1165.2
+2020,Quebec,Environmental Products,1564.7
+2020,Ontario,Environmental Products,2398.1
+2020,Alberta,Environmental Products,570.0
+2020,British Columbia,Environmental Products,1296.8
+2021,Quebec,Environmental Products,1880.2
+2021,Ontario,Environmental Products,3456.3
+2021,Alberta,Environmental Products,572.0
+2021,British Columbia,Environmental Products,1789.8
+2022,Quebec,Environmental Products,2153.5
+2022,Ontario,Environmental Products,4122.7
+2022,Alberta,Environmental Products,726.8
+2022,British Columbia,Environmental Products,2476.1
+2018,Quebec,Clean technology products ,1241.4
+2018,Ontario,Clean technology products ,4362.3
+2018,Alberta,Clean technology products ,456.8
+2018,British Columbia,Clean technology products ,569.7
+2019,Quebec,Clean technology products ,1393.9
+2019,Ontario,Clean technology products ,4449.2
+2019,Alberta,Clean technology products ,718.7
+2019,British Columbia,Clean technology products ,659.9
+2020,Quebec,Clean technology products ,1515.8
+2020,Ontario,Clean technology products ,4888.9
+2020,Alberta,Clean technology products ,582.7
+2020,British Columbia,Clean technology products ,624.7
+2021,Quebec,Clean technology products ,1633.9
+2021,Ontario,Clean technology products ,5765.4
+2021,Alberta,Clean technology products ,608.0
+2021,British Columbia,Clean technology products ,680.0
+2022,Quebec,Clean technology products ,1641.2
+2022,Ontario,Clean technology products ,6343.7
+2022,Alberta,Clean technology products ,622.9
+2022,British Columbia,Clean technology products ,779.4
