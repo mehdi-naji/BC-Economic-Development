@@ -12,8 +12,13 @@ options(scipen = 999999999)
 
 source_exports <- "BC Stats"
 
-source("mission5.R")
-source("mission6.R")
+source("home-ui.R")
+
+# source("mission5.R")
+source("mission6-charts.R")
+source("mission6-ui.R")
+source("mission6-server.R")
+
 source("Executive_summaries.R")
 
 
@@ -33,584 +38,90 @@ df_m6_exp_4 <- load_m6_exp4()
 
 # UI ----
 ui <- function() {
-  
   header <- dashboardHeader()
-## Sidebar ----
-sidebar <- dashboardSidebar(
-  sidebarMenu(id = "tabs",
-              menuItem("Home", tabName = "home", icon = icon("home")),
-              menuItem("Mission 1", tabName = "mission1", icon = icon("bullseye")),
-              menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye")),
-              menuItem("Mission 3", tabName = "mission3", icon = icon("bullseye")),
-              menuItem("Mission 4", tabName = "mission4", icon = icon("bullseye")),
-              menuItem("Mission 5", tabName = "mission5", icon = icon("bullseye")),
-              menuItem("Mission 6", tabName = "mission6", icon = icon("bullseye"),
-                       menuSubItem("Investment in Innovation", tabName = "RnD"),
-                       menuSubItem("Value-added Export", tabName = "VAEX"),
-                       menuSubItem("Non-residential Investment", tabName = "nRinv"),
-                       menuSubItem("Labour productivity", tabName = "LP"),
-                       menuSubItem("Export", tabName = "EXP")),
-              menuItem("Data Source", tabName = "data_source", icon = icon("database"))
-              
-              
+  ## Sidebar ----
+  sidebar <- dashboardSidebar(
+    collapsed = TRUE,
+    sidebarMenu(id = "tabs",
+                menuItem("Home", tabName = "home", icon = icon("home")),
+                menuItem("Mission 1", tabName = "mission1", icon = icon("bullseye")),
+                menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye")),
+                menuItem("Mission 3", tabName = "mission3", icon = icon("bullseye")),
+                menuItem("Mission 4", tabName = "mission4", icon = icon("bullseye")),
+                menuItem("Mission 5", tabName = "mission5", icon = icon("bullseye"),
+                         menuSubItem("Clean Energy Generated", tabName = "CEG")
+                         ),
+                menuItem("Mission 6", tabName = "mission6", icon = icon("bullseye"),
+                         menuSubItem("Investment in Innovation", tabName = "RnD"),
+                         menuSubItem("Value-added Export", tabName = "VAEX"),
+                         menuSubItem("Non-residential Investment", tabName = "nRinv"),
+                         menuSubItem("Labour productivity", tabName = "LP"),
+                         menuSubItem("Export", tabName = "EXP")),
+                menuItem("Data Source", tabName = "data_source", icon = icon("database"))
+                
+                
+    )
   )
-)
-
-## Body ----
-style1 <- "background-color:#B0E2FF; height: 300px; padding: 10px; border-radius: 10px; border: 5px solid #ecf0f5;"
-style2 <- "background-color:#337AB7; color:white;"
-style3 <- "background-color:#C1FFC1; height: 300px; padding: 10px; border-radius: 10px; border: 5px solid #ecf0f5;"
-
-
-body <- dashboardBody(
-  tabItems(
-    ### Home tab ----
-    tabItem(tabName = "home",
-            fluidRow(
-              column(width = 12,
-                     style = "background-color:#337AB7; color:white; border-radius: 10px; padding: 2px; text-align: center;",
-                     h2(strong("Inclusive Growth"))
-            )),
-            fluidRow(
-              column(width = 4,
-                     style = style1, 
-                     h3(strong("MISSION 1:"), br(), "Supporting people and families"),
-                     p (
-                       HTML("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <strong>1234 Ut</strong> enim ad minim veniam.")
-                     ),
-                     div(
-                       actionButton("button1", "Explore further", icon = icon("line-chart"), style = style2),
-                       style = "position: absolute; bottom: 5px; left: 5px;"  
-                     )              ),
-              column(width = 4, 
-                     style = style1,
-                     h3(strong("MISSION 2:"), br(), "Building resilient communities"),
-                     p (
-                       HTML("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <strong>1234 Ut</strong> enim ad minim veniam.")
-                     ),
-                     div(
-                       actionButton("button1", "Explore further", icon = icon("line-chart"), style = style2),
-                       style = "position: absolute; bottom: 5px; left: 5px;"  
-                     )              ),
-              column(width = 4,
-                     style = style1,
-                     h3(strong("MISSION 3:"), br(), "Advancing true, lasting and meaningful reconciliation with Indigenous Peoples"),
-                     p (
-                       HTML("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <strong>1234 Ut</strong> enim ad minim veniam.")
-                     ),
-                     div(
-                       actionButton("button1", "Explore further", icon = icon("line-chart"), style = style2),
-                       style = "position: absolute; bottom: 5px; left: 5px;"  
-                     )              )
-            ),
-            fluidRow(
-              column(width = 12,
-                     style = "background-color:#006400; color:white; border-radius: 10px; padding: 2px; text-align: center;",
-                     h2(strong("Clean Growth"))
-              )),
-            fluidRow(
-              column(width =4,
-                     style=style3,
-                     h3(strong("MISSION 4:"), br(), "Meeting B.C.’s climate commitments"),
-                     p (
-                       HTML("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <strong>1234 Ut</strong> enim ad minim veniam.")
-                     ),
-                     div(
-                       actionButton("button1", "Explore further", icon = icon("line-chart"), style = style2),
-                       style = "position: absolute; bottom: 5px; left: 5px;"  
-                     )              ),
-              column (width=4,
-                      style=style3,
-                      h3(strong("MISSION 5:"), br(), "Leading on environmental and social responsibility"),
-                      p (
-                        HTML("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <strong>1234 Ut</strong> enim ad minim veniam.")
-                      ),
-                      div(
-                        actionButton("button1", "Explore further", icon = icon("line-chart"), style = style2),
-                        style = "position: absolute; bottom: 5px; left: 5px;"  
-                      )              ),
-              column (width=4,
-                      style=style3,
-                      h3(strong("MISSION 6:"), br(), "Fostering innovation throughout B.C.'s economy"),
-                      p (
-                        HTML("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <strong>1234 Ut</strong> enim ad minim veniam.")
-                        ),
-                      div(
-                        actionButton("button1", "Explore further", icon = icon("line-chart"), style = style2),
-                        style = "position: absolute; bottom: 5px; left: 5px;"  
-                      )
-              )
-            )
-    ),
-    ### Mission5 ----
-    tabItem(tabName = "mission5",
-            mission5_ui
-            ),
-      #### RnD ----
-      tabItem(tabName = "RnD",
-              ##### Line Plot----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-1-1: Private sector investment in innovation " ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_RnD_lineplot")),
-                  column(3, 
-                       selectInput("m6_RnD_lineplot_geo", "Region", choices = unique(df_m6_RnD_1$GEO), selected = "British Columbia"), 
-                       selectInput("m6_RnD_lineplot_prices", "Price type", choices = unique(df_m6_RnD_1$Prices)), 
-                       selectInput("m6_RnD_lineplot_science_type", "Science Type", choices = unique(df_m6_RnD_1$Science.type)),
-                       selectInput("m6_RnD_lineplot_funder", "Funder", choices = unique(df_m6_RnD_1$Funder), selected = " business enterprise sector"),
-                       selectInput("m6_RnD_lineplot_performer", "Performer", choices = unique(df_m6_RnD_1$Performer))
-              )    )),
-              ##### EXESUM ----
-              fluidPage(
-                style = "background-color: aliceblue ; margin: 20px;",
-                fluidRow(
-                  column(12, h2("Executive Summary"))
-                ),
-                fluidRow(
-                  column(12, uiOutput("exesum_m6_RnD"))
+    body <- dashboardBody(
+      tabItems(
+        ### Home tab ----
+        ui_m6_home(),
+        ### Mission6 ----
+        ui_m6_RnD(df_m6_RnD_1, df_m6_RnD_2),
+        ui_m6_VAEX(df_m6_VAEX_1),
+        ui_m6_nRinv(df_m6_nRinv_1),
+        ui_m6_lp(df_m6_lp_1),
+        ui_m6_exp(df1 = df_m6_exp_1, df3 = df_m6_exp_3),
+       #### Data Source Tab----
+        tabItem(tabName = "data_source",
+                h3("Data Sources & Permissions", style="margin-left:15px;margin-bottom:20px")
                 )
-              ),
-              ##### Sankey Plot ----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-1-2: R&D funding flows" ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_RnD_sankey")),
-                  column(3, 
-                         selectInput("m6_RnD_sankey_geo", "Region", choices = unique(df_m6_RnD_1$GEO), selected = "British Columbia"), 
-                         selectInput("m6_RnD_sankey_science_type", "Science Type", choices = unique(df_m6_RnD_1$Science.type)),
-                         selectInput("m6_RnD_sankey_year", "Year", choices = unique(df_m6_RnD_1$Year), selected = 2021)
-                  )    )),
-              ##### Table ----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-1-3: Research and Development Spending Growth" ))
-                ),
-                fluidRow(
-                  column(9,DT::dataTableOutput("m6_RnD_table")),
-                  column(3, 
-                         selectInput("m6_RnD_table_prices", "Price type", choices = unique(df_m6_RnD_1$Prices)), 
-                         selectInput("m6_RnD_table_science_type", "Science Type", choices = unique(df_m6_RnD_1$Science.type)),
-                         selectInput("m6_RnD_table_funder", "Funder", choices = unique(df_m6_RnD_1$Funder), selected = " business enterprise sector"),
-                         selectInput("m6_RnD_table_performer", "Performer", choices = unique(df_m6_RnD_1$Performer)),
-                         selectInput("m6_RnD_table_year", "Year", choices = unique(df_m6_RnD_1$Year), selected = 2021)
-                )    )),
-              ##### Bar Plot ----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-1-4: R&D intensity" ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_RnD_barplot")),
-                  column(3, 
-                         selectInput("m6_RnD_barplot_year", "Year", choices = unique(df_m6_RnD_2$Year), selected = 2020)
-                  )    ))
-
-              
-              ),
-      #### VAEX ----
-      tabItem(tabName = "VAEX",
-              ##### Line Plot----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-2-1: Value-added in goods and services exports" ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_VAEX_lineplot")),
-                  column(3, 
-                         selectInput("m6_VAEX_lineplot_geo", "Region", choices = unique(df_m6_VAEX_1$GEO), selected = "British Columbia"))
-                  )),
-              ##### EXESUM ----
-              fluidPage(
-                style = "background-color: aliceblue ; margin: 20px;",
-                fluidRow(
-                  column(12, h2("Executive Summary"))
-                ),
-                fluidRow(
-                  column(12, uiOutput("exesum_m6_VAEX"))
-                )
-              ),
-              ##### Pie Chart ----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-2-2: Value-added exports GDP contribution" ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_VAEX_pie")),
-                  column(3, 
-                         selectInput("m6_VAEX_pie_geo", "Region", choices = unique(df_m6_VAEX_1$GEO), selected = "British Columbia"),
-                         selectInput("m6_VAEX_pie_year", "Year", choices = unique(df_m6_RnD_1$Year), selected = 2019)
-                  )    )),
-              ##### Bar Plot ----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-2-3: Value-added exports by industry in B.C." ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_VAEX_barplot")),
-                  column(3, 
-                         selectInput("m6_VAEX_barplot_year", "Year", choices = unique(df_m6_VAEX_1$Year), selected = 2019),
-                         selectInput("m6_VAEX_barplot_industry", "Industry", choices = unique(df_m6_VAEX_1$Industry), selected = "Total industries")
-                  )    ))
-      ),
-      #### Non residential investment ----
-      tabItem(tabName = "nRinv",
-              ##### Line Plot----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-3-1: Non-residential investment as a share of GDP" ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_nRinv_lineplot")),
-                  column(3, 
-                         selectInput("m6_nRinv_lineplot_geo", "Region", choices = unique(df_m6_nRinv_1$GEO), selected = "British Columbia"),
-                         selectInput("m6_nRinv_lineplot_item", "Item", choices = c("Non-residential structures",
-                                                                                   "Machinery and equipment",
-                                                                                   "Intellectual property products")),
-                         # selectInput("m6_nRinv_lineplot_prices", "Price Type", choices = unique(df_m6_nRinv_1$Prices))
-                         )
-                )),
-              ##### EXESUM ----
-              fluidPage(
-                style = "background-color: aliceblue ; margin: 20px;",
-                fluidRow(
-                  column(12, h2("Executive Summary"))
-                ),
-                fluidRow(
-                  column(12, uiOutput("exesum_m6_nRinv"))
-                )
-              ),
-              ##### Lines plot ----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-3-2: Gross fixed capital formation breakdown " ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_nRinv_lines")),
-                  column(3,
-                         selectInput("m6_nRinv_lines_geo", "Region", choices = unique(df_m6_nRinv_1$GEO), selected = "British Columbia"),
-                         selectInput("m6_nRinv_lines_prices", "Price Type", choices = unique(df_m6_nRinv_1$Prices))
-                  )    )),
-              ##### Bar Plot ----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-3-3: Non-residential investment breakdown by jurisdictions" ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_nRinv_barplot")),
-                  column(3, 
-                         selectInput("m6_nRinv_barplot_year", "Year", choices = unique(df_m6_nRinv_1$Year), selected = 2019),
-  
-                  )    ))
-              
-      ),
-      #### Labour Productivity ----
-      tabItem(tabName = "LP",
-              ##### Line Plot----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-4-1: Labour productivity " ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_lp_lineplot")),
-                  column(3, 
-                         selectInput("m6_lp_lineplot_geo", "Region", choices = unique(df_m6_lp_1$GEO), selected = "British Columbia"),
-                         selectInput("m6_lp_lineplot_industry", "Industry", choices = unique(df_m6_lp_1$Industry)),
-                         selectInput("m6_lp_lineplot_labourtype", "Labour Productivity Measure", choices = unique(df_m6_lp_1$Labour.productivity.and.related.measures),
-                                     selected = "Labour productivity"))
-                )),
-              ##### EXESUM ----
-              fluidPage(
-                style = "background-color: aliceblue ; margin: 20px;",
-                fluidRow(
-                  column(12, h2("Executive Summary"))
-                ),
-                fluidRow(
-                  column(12, uiOutput("exesum_m6_lp"))
-                )
-              ),
-              ##### Lines Plot----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-4-2: Labour productivity by sector" ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_lp_lines")),
-                  column(3, 
-                         selectInput("m6_lp_lines_geo", "Region", choices = unique(df_m6_lp_1$GEO), selected = "British Columbia"),
-                         selectInput("m6_lp_lines_labourtype", "Labour Productivity Measure", choices = unique(df_m6_lp_1$Labour.productivity.and.related.measures),
-                                     selected = "Labour productivity"))
-                )),
-              ##### Map----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-4-3: Labour productivity by jurisdictions" ))
-                ),
-                fluidRow(
-                  column(9,leafletOutput("m6_lp_map")),
-                  column(3, 
-                         selectInput("m6_lp_map_year", "Year", choices = unique(df_m6_lp_1$Year), selected = 2020),
-                         selectInput("m6_lp_map_labourtype", "Labour Productivity Measure", choices = unique(df_m6_lp_1$Labour.productivity.and.related.measures),
-                                                                                                             selected = "Labour productivity"),
-                         selectInput("m6_lp_map_industry", "Industry", choices = unique(df_m6_lp_1$Industry))
-                  ))),
-              ##### Table----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-4-4: Labour productivity growth rate " ))
-                ),
-                fluidRow(
-                  column(9,DT::dataTableOutput("m6_lp_table")),
-                  column(3, 
-                         selectInput("m6_lp_table_year", "Year", choices = unique(df_m6_lp_1$Year), selected = 2022),
-                         selectInput("m6_lp_table_labourtype", "Labour Productivity Measure", choices = unique(df_m6_lp_1$Labour.productivity.and.related.measures),
-                                     selected = "Labour productivity"),
-                         selectInput("m6_lp_table_industry", "Industry", choices = unique(df_m6_lp_1$Industry))
-                  )
-                )),
-              
-              ##### Treemap Plot----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-4-5: Total number of jobs by industry  " ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_lp_treemap")),
-                  column(3, 
-                         selectInput("m6_lp_treemap_geo", "Region", choices = unique(df_m6_lp_1$GEO), selected = "British Columbia"),
-                         selectInput("m6_lp_treemap_year", "Year", choices = unique(df_m6_lp_1$Year), selected = 2022))
-                ))
-              
-              
-              ),
-     #### EXP ----
-          tabItem(tabName = "EXP",
-              ##### Line Plot----
-                      fluidPage(
-                        style = "background-color: white;margin: 20px;",
-                        fluidRow(
-                          column(9, h3("Figure 6-5-1: Exports as a share of total Canadian exports" ))
-                        ),
-                        fluidRow(
-                          column(9,plotlyOutput("m6_exp_lineplot")),
-                          column(3, 
-                                 selectInput("m6_exp_lineplot_geo", "Region", choices = unique(df_m6_exp_1$GEO), selected = "British Columbia"),
-                                 selectInput("m6_exp_lineplot_exptype", "Export Measuremnet", choices = unique(df_m6_exp_1$EXP_type), selected = "Share of Canadian Export")
-                        ))),
-              ##### EXESUM ----
-                  fluidPage(
-                    style = "background-color: aliceblue ; margin: 20px;",
-                    fluidRow(
-                      column(12, h2("Executive Summary"))
-                    ),
-                    fluidRow(
-                      column(12, uiOutput("exesum_m6_exp"))
-                    )
-                  ),
-              ##### Heatmap Plot----
-                  fluidPage(
-                    style = "background-color: white;margin: 20px;",
-                    fluidRow(
-                      column(9, h3("Figure 6-5-2: Exports as a share of total Canadian exports by commodity types " ))
-                    ),
-                    fluidRow(
-                      column(9,plotlyOutput("m6_exp_heatmap")),
-                      column(3, 
-                             # selectInput("m6_exp_lineplot_exptype", "Export Measuremnet", choices = unique(df_m6_exp_1$EXP_type))
-                      ))),
-              ##### Stacked Bar----
-                fluidPage(
-                  style = "background-color: white;margin: 20px;",
-                  fluidRow(
-                    column(9, h3("Figure 6-5-4: Environmental and clean technology products exports  " ))
-                  ),
-                  fluidRow(
-                    column(9,plotlyOutput("m6_exp_stackbar")),
-                    column(3, 
-                           selectInput("m6_exp_stackbar_year", "Year", choices = unique(df_m6_exp_3$Year), selected = 2022)
-                    ))),
-              ##### Bubble plot----
-              fluidPage(
-                style = "background-color: white;margin: 20px;",
-                fluidRow(
-                  column(9, h3("Figure 6-5-5: Exports by destinations" ))
-                ),
-                fluidRow(
-                  column(9,plotlyOutput("m6_exp_bubble")),
-                  column(3, 
-                         # selectInput("m6_exp_stackbar_year", "Year", choices = unique(df_m6_exp_3$Year))
-                  ))),
-              
-      ),
-   #### Data Source Tab----
-    tabItem(tabName = "data_source",
-            h3("Data Sources & Permissions", style="margin-left:15px;margin-bottom:20px"))
-  )
-)
-
-ui <- tagList(
-  tags$header(class="header", style="background-color:#003366; border-bottom:2px solid #fcba19;
+             ) 
+          ) # This closes dashboard body
+    
+    ## UI environment ----
+    ui <- tagList(
+      tags$header(class="header", style="background-color:#003366; border-bottom:2px solid #fcba19;
               padding:0 0px 0 0px; display:flex; height:80px;width:100%;",
-              tags$div(class="banner", style="display:flex; justify-content:flex-start; align-items:center;  margin: 0 10px 0 10px",
-                       a(href="https://www2.gov.bc.ca/gov/content/data/about-data-management/bc-stats",
-                         img(src = 'https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/logo.png', title = "StrongerBC", height = "40px", alt = "British Columbia - StrongerBC"),
-                         onclick="gtag"
-                       ),
-                       h1("StrongerBC Indicators", style="font-weight:400; color:white; margin: 5px 5px 0 18px;")
-              )
-  ),
-  dashboardPage(header = header, sidebar = sidebar, body = body, skin = "blue"),
-
-  column(width = 12,
-         style = "background-color:#003366; border-top:2px solid #fcba19;",
-         
-         tags$footer(class="footer",
-                     tags$div(class="container", style="display:flex; justify-content:center; flex-direction:column; text-align:center; height:46px;",
-                              tags$ul(style="display:flex; flex-direction:row; flex-wrap:wrap; margin:0; list-style:none; align-items:center; height:100%;",
-                                      tags$li(a(href="https://www2.gov.bc.ca/gov/content/home", "Home", style="font-size:1em; font-weight:normal; color:white; padding-left:5px; padding-right:5px; border-right:1px solid #4b5e7e;")),
-                                      tags$li(a(href="https://www2.gov.bc.ca/gov/content/home/disclaimer", "Disclaimer", style="font-size:1em; font-weight:normal; color:white; padding-left:5px; padding-right:5px; border-right:1px solid #4b5e7e;"))
-                                      
-                              )
-                     )
-         )
-  )
-)
+                  tags$div(class="banner", style="display:flex; justify-content:flex-start; align-items:center;  margin: 0 10px 0 10px",
+                           a(href="https://www2.gov.bc.ca/gov/content/data/about-data-management/bc-stats",
+                             img(src = 'https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/bc_logo.svg', title = "StrongerBC", height = "40px", alt = "British Columbia - StrongerBC"),
+                             onclick="gtag"
+                           ),
+                           h1("StrongerBC Indicators", style = "font-weight:400; color:white; margin: 5px 5px 0 18px;"),
+                           h2("Work in progress, subject to change!", style = "font-size: 16px; color: white; margin: 0 5px 5px 18px;")
+                  )
+      ),
+      dashboardPage(header = header, sidebar = sidebar, body = body, skin = "blue"),
+      column(width = 12,
+             style = "background-color:#003366; border-top:2px solid #fcba19;",
+             tags$footer(class="footer",
+                         tags$div(class="container", style="display:flex; justify-content:center; flex-direction:column; text-align:center; height:46px;",
+                                  tags$ul(style="display:flex; flex-direction:row; flex-wrap:wrap; margin:0; list-style:none; align-items:center; height:100%;",
+                                          tags$li(a(href="https://www2.gov.bc.ca/gov/content/home", "Home", style="font-size:1em; font-weight:normal; color:white; padding-left:5px; padding-right:5px; border-right:1px solid #4b5e7e;")),
+                                          tags$li(a(href="https://www2.gov.bc.ca/gov/content/home/disclaimer", "Disclaimer", style="font-size:1em; font-weight:normal; color:white; padding-left:5px; padding-right:5px; border-right:1px solid #4b5e7e;"))
+                                          
+                                  )
+                         )
+             )
+      )
+    )
+    
+    
 }
+
 # Server----
 server <- function(input, output, session) {
-  # m6 ----
-    ## RnD----
-      ### Executive Summary----
-      output$exesum_m6_RnD <- renderUI(Exesum_m6_RnD)
-      ### Line Plot----
-      output$m6_RnD_lineplot <- renderPlotly({
-        p1 <- m6_RnD_render_lineplot(df_m6_RnD_1, input)
-        p1
-      })
-        
-      ### Bar Plot----
-      output$m6_RnD_barplot <- renderPlotly({
-        p1 <- m6_RnD_render_barplot(df_m6_RnD_2, input)
-        p1
-      })
-      
-      ### Table----
-      output$m6_RnD_table <- DT::renderDataTable({
-        p1 <- m6_RnD_render_table(df_m6_RnD_1, input)
-        p1
-      })
-      
-      ### Sankey Plot----
-      output$m6_RnD_sankey <- renderPlotly({
-        p1 <- m6_RnD_render_sankey(df_m6_RnD_1, input)
-        p1
-      })
-      
-    ## VAEX----
-      ### Executive Summary----
-      output$exesum_m6_VAEX <- renderUI(Exesum_m6_RnD)
-      ### Line plot----
-      output$m6_VAEX_lineplot <- renderPlotly({
-        p1 <- m6_VAEX_render_lineplot(df_m6_VAEX_1, input)
-        p1
-      })
-      ### Bar plot ----
-      output$m6_VAEX_barplot <- renderPlotly({
-        p1 <- m6_VAEX_render_barplot(df_m6_VAEX_1, input)
-        p1
-      })
-      ### Pie plot----
-      output$m6_VAEX_pie <- renderPlotly({
-        p1 <- m6_VAEX_render_pie(df_m6_VAEX_1, input)
-        p1
-      })
-    ## non-residential Investment----
-      ### Executive Summary----
-      output$exesum_nRinv <- renderUI(Exesum_m6_RnD)
-      ### Line plot----
-      output$m6_nRinv_lineplot <- renderPlotly({
-        p1 <- m6_nRinv_render_lineplot(df_m6_nRinv_1, input)
-        p1
-      })
-      ### Lines plot----
-      output$m6_nRinv_lines <- renderPlotly({
-        p1 <- m6_nRinv_render_lines(df_m6_nRinv_1, input)
-        p1
-      })
-      ### Bar plot----
-      output$m6_nRinv_barplot <- renderPlotly({
-        p1 <- m6_nRinv_render_barplot(df_m6_nRinv_1, input)
-        p1
-      })
-    ## labour Productivity----
-      ### Executive Summary----
-      output$exesum_m6_lp <- renderUI(Exesum_m6_RnD)
-      ### Line plot----
-      output$m6_lp_lineplot <- renderPlotly({
-        p1 <- m6_lp_render_lineplot(df_m6_lp_1, input)
-        p1
-      })
-      ### Lines plot----
-      output$m6_lp_lines <- renderPlotly({
-        p1 <- m6_lp_render_lines(df_m6_lp_1, input)
-        p1
-      })
-      ### Treemap plot----
-      output$m6_lp_treemap <- renderPlotly({
-        p1 <- m6_lp_render_treemap(df_m6_lp_1, input)
-        p1
-      })
-      ### table----
-      output$m6_lp_table <- DT::renderDataTable({
-        p1 <- m6_lp_render_table(df_m6_lp_1, input)
-        p1
-      })
-      ### map----
-      output$m6_lp_map <- renderLeaflet({
-        p1 <- m6_lp_render_map(df_m6_lp_1, canada_map,input)
-        
-        p1
-      })
-    ## EXPORT----
-      ### Executive Summary----
-      output$exesum_m6_exp <- renderUI(Exesum_m6_RnD)
-      ### Line plot----
-      output$m6_exp_lineplot <- renderPlotly({
-        p1 <- m6_exp_render_lineplot(df_m6_exp_1, input)
-        p1
-      })
-      ### Heat Map----
-      output$m6_exp_heatmap <- renderPlotly({
-        p1 <- m6_exp_render_heatmap(df_m6_exp_2, input)
-        p1
-      })
-      ### Stacked Bar Plot----
-      output$m6_exp_stackbar <- renderPlotly({
-        p1 <- m6_exp_render_stackbar(df_m6_exp_3, input)
-        p1
-      })
-      ### Bubble Plot----
-      output$m6_exp_bubble <- renderPlotly({
-        p1 <- m6_exp_render_bubble(df_m6_exp_4, input)
-        p1
-      })
+  
+  observeEvent(input$button6, {
+    updateTabItems(session, "tabs", selected = "RnD")
+  })
+  
+  mission6_RnD_server(Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input)
+  mission6_VAEX_server(Exesum_m6_VAEX, df_m6_VAEX_1, output, input)
+  mission6_nRinv_server(Exesum_m6_nRinv, df_m6_nRinv_1, output, input)
+  mission6_lp_server(Exesum_m6_lp, df_m6_lp_1, output, input)
+  mission6_exp_server(Exesum_m6_exp, df_m6_exp_1, df_m6_exp_2, df_m6_exp_3, df_m6_exp_4, output, input)
+
 }
-shinyApp(ui = ui, server = server)
+shinyApp(ui, server)

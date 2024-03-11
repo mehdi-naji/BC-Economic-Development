@@ -2,10 +2,8 @@ Exesum_m6_RnD <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>
     <li>Private sector investment in innovation reached <b>$3.028 billion</b> in 2021, with an increase of <b>263 percent</b> from $835 million in 2000.</li> 
     <li>B.C.’s private sector has seen a sharp increase in R&D spending in 2018, with an annual growth rate of <b>26.1 percent</b>, the highest in the past 20 years.</li>
-    <span style='color: blue;'>Provincial comparison:</span>
     <li>Private sector accounted for <b>50.5 percent</b> of overall R&D spending in the province in 2021, the highest in Canada.</li>
     <li>B.C. surpassed Alberta in private sector R&D spending in 2016 and has remained third in Canada, following Ontario and Quebec.</li>
-    <span style='color: blue;'>B.C. in global context:</span>
     <li>Canada’s R&D intensity remained at <b>1.9 percent</b>, below the G7 average (2.6) in 2020. In 2020, B.C.’s R&D spending was 1.7 percent of its GDP, placing it third in Canada.</li>
   </ul>
 ")
@@ -13,10 +11,12 @@ Exesum_m6_RnD <- HTML("
 
 Exesum_m6_VAEX <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>
-    <span style='color: blue;'>Total non-residential investment:</span>
-    <li>In 2019, the value-added in goods and services exports in B.C. decreased by 3.1% to $57.2 billion from $59 billion in 2018. B.C.'s value-added in goods and services exports increased by 20% between 2016 and 2019, and by 31.2 percent between 2014 and 2019.</li>  
-    <li>In B.C., the top five contributors to value-added exports in 2019 were mining, quarrying, and oil and gas extraction, manufacturing, transportation and warehousing, professional, scientific and technical services, and accommodation and food services industries. They accounted for 74 percent of the total value-added in goods and services exports. 
-    <li>B.C.’s value-added in goods and services exports contributed 18.5 percent of GDP in 2019, down from 19.8 percent in 2018. Saskatchewan's economy has been the most reliant on exports in Canada, accounting for 34.1 percent of GDP in 2018 and 34.9 percent in 2019. In 2019, value-added exports accounted for 19.7% of Ontario's GDP and 18.2% of Quebec's GDP.</li> 
+    <span style='color: blue;'>Value-added in goods and services exports:</span>
+    <li>Value-added in goods and services exports in B.C. reached $57.2 billion in 2019, with a 3.1 percent decrease from $59 billion in 2018. B.C.’s value-added in goods and services exports grew by 20 percent between 2016 and 2019, and by 31.2 percent between 2014 and 2019.</li>  
+    <span style='color: blue;'>Industry Breakdown:</span>
+    <li>In B.C., the top five contributors to value-added exports in 2019 were mining, quarrying, and oil and gas extraction, manufacturing, transportation and warehousing, professional, scientific and technical services, and accommodation and food services industries. They accounted for 74 percent of the total value-added in goods and services exports.</li>
+    <span style='color: blue;'>Provincial comparison:</span>
+    <li>B.C.’s value-added in goods and services exports’ GDP contribution was 18.5 percent in 2019, down from 19.8 percent in 2018. Saskatchewan's economy has been the most reliant on exports in Canada, with value-added exports accounting for 34.1 percent of GDP in 2018 and 34.9 percent in 2019. In 2019, value-added exports accounted for 19.7% of Ontario's GDP and 18.2% of Quebec's GDP.</li> 
     <li>Value-added in goods and services exports contributed to 448,253 jobs in B.C. in 2019, third highest in Canada, after Ontario (1,341,866) and Quebec (660,157). </li>
   </ul>
 ")
@@ -34,10 +34,12 @@ Exesum_m6_nRinv <- HTML("
 
 Exesum_m6_lp <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>
-    <span style='color: blue;'>Total non-residential investment:</span>
-    <li>B.C.’s labour productivity in 2022 was $64.6 per hour, a two-year dip from its record of $68 per hour in 2020. Nonetheless, at $64.6, B.C. ranked second among large provinces. In 2022, labour productivity was $78.9 per hour in Alberta, $59.7 per hour in Quebec and $63.6 per hour in Ontario. </li>
-    <li>Labour productivity has been improving over the last two decades. B.C.’s labour productivity increased by 4.5 percent and 6.8 percent over the last three and five years, the most among large provinces. In Quebec, labour productivity increased by 3.3 percent over the past three years and 5.3 percent over the past five years; While in Ontario, it increased by 1.4 percent and 3.3 percent respectively. </li> 
-    <li>Labour productivity in B.C.’s information and communication sector in increased by 8.9 percent in 2022, highest among all sectors, followed by finance and insurance, and holding companies at 6.6 percent. At $307 per hour, energy sector has the highest labour productivity in B.C.   </li>
+    <span style='color: blue;'>Labour productivity:</span>
+    <li>B.C.’s labour productivity in 2022 was $64.6 per hour, dropping in two consecutive years from the peak in 2020 at $68 per hour. Nonetheless, at $64.6, B.C. ranked second among large provinces. Labour productivity was $78.9 per hour in Alberta, $59.7 per hour in Quebec and $63.6 per hour in Ontario in 2022.</li>  
+    <span style='color: blue;'>Labour productivity growth rate:</span>
+    <li>Labour productivity has been improving over the last two decades. B.C.’s labour productivity grew by 4.5 percent and 6.8 percent respectively in the past three and five years, highest among large provinces. Labour productivity grew by 3.3 percent over the past three years and 5.3 percent over the past five years in Quebec, and by 1.4 percent and 3.3 percent respectively in Ontario.</li>
+    <span style='color: blue;'>Industry breakdown:</span>
+    <li> Labour productivity in information and communication sector in B.C. grew by 8.9 percent in 2022, highest among all sectors, followed by finance and insurance, and holding companies at 6.6 percent. At $307 per hour, energy sector has the highest labour productivity among all sectors in B.C. </li>
   </ul>
 ")
 
