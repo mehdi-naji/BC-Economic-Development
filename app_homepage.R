@@ -28,6 +28,8 @@ source("Executive_summaries.R")
 # Loading data ----
 canada_map <- load_canada_map()
 
+df_m2_GII_1 <- load_m2_GII1()
+
 df_m5_CEG_1 <- load_m5_CEG1()
 
 df_m6_RnD_1 <- load_m6_RnD1()
@@ -51,7 +53,9 @@ ui <- function() {
     sidebarMenu(id = "tabs",
                 menuItem("Home", tabName = "home", icon = icon("home")),
                 menuItem("Mission 1", tabName = "mission1", icon = icon("bullseye")),
-                menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye")),
+                menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye"),
+                         menuSubItem("Government Investment in Infrastructure", tabName = "GII")
+                         ),
                 menuItem("Mission 3", tabName = "mission3", icon = icon("bullseye")),
                 menuItem("Mission 4", tabName = "mission4", icon = icon("bullseye")),
                 menuItem("Mission 5", tabName = "mission5", icon = icon("bullseye"),
@@ -72,6 +76,8 @@ ui <- function() {
       tabItems(
         ### Home tab ----
         ui_m6_home(),
+        ### Mission2 ----
+        ui_m2_GII(df_m2_GII_1),
         ### Mission5 ----
         ui_m5_CEG(df_m5_CEG_1),
         ### Mission6 ----
@@ -124,6 +130,8 @@ server <- function(input, output, session) {
   observeEvent(input$button6, {
     updateTabItems(session, "tabs", selected = "RnD")
   })
+  
+  mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
   
   mission5_CEG_server(Exesum_m5_CEG, df_m5_CEG_1, output, input)
   
