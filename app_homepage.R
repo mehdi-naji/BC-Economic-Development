@@ -14,7 +14,10 @@ source_exports <- "BC Stats"
 
 source("home-ui.R")
 
-# source("mission5.R")
+source("mission5-charts.R")
+source("mission5-ui.R")
+source("mission5-server.R")
+
 source("mission6-charts.R")
 source("mission6-ui.R")
 source("mission6-server.R")
@@ -24,6 +27,9 @@ source("Executive_summaries.R")
 
 # Loading data ----
 canada_map <- load_canada_map()
+
+df_m5_CEG_1 <- load_m5_CEG1()
+
 df_m6_RnD_1 <- load_m6_RnD1()
 df_m6_RnD_2 <- load_m6_RnD2()
 df_m6_VAEX_1 <- load_m6_VAEX1()
@@ -66,6 +72,8 @@ ui <- function() {
       tabItems(
         ### Home tab ----
         ui_m6_home(),
+        ### Mission5 ----
+        ui_m5_CEG(df_m5_CEG_1),
         ### Mission6 ----
         ui_m6_RnD(df_m6_RnD_1, df_m6_RnD_2),
         ui_m6_VAEX(df_m6_VAEX_1),
@@ -116,6 +124,8 @@ server <- function(input, output, session) {
   observeEvent(input$button6, {
     updateTabItems(session, "tabs", selected = "RnD")
   })
+  
+  mission5_CEG_server(Exesum_m5_CEG, df_m5_CEG_1, output, input)
   
   mission6_RnD_server(Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input)
   mission6_VAEX_server(Exesum_m6_VAEX, df_m6_VAEX_1, output, input)
