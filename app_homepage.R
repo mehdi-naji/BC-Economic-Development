@@ -14,6 +14,14 @@ source_exports <- "BC Stats"
 
 source("home-ui.R")
 
+source("mission1-charts.R")
+source("mission1-ui.R")
+source("mission1-server.R")
+
+source("mission2-charts.R")
+source("mission2-ui.R")
+source("mission2-server.R")
+
 source("mission5-charts.R")
 source("mission5-ui.R")
 source("mission5-server.R")
@@ -27,6 +35,8 @@ source("Executive_summaries.R")
 
 # Loading data ----
 canada_map <- load_canada_map()
+
+df_m1_UR_1 <- load_m1_UR1()
 
 df_m2_GII_1 <- load_m2_GII1()
 
@@ -52,7 +62,9 @@ ui <- function() {
     collapsed = TRUE,
     sidebarMenu(id = "tabs",
                 menuItem("Home", tabName = "home", icon = icon("home")),
-                menuItem("Mission 1", tabName = "mission1", icon = icon("bullseye")),
+                menuItem("Mission 1", tabName = "mission1", icon = icon("bullseye"),
+                         menuSubItem("Unemploymnet Rate", tabName = "UR")
+                         ),
                 menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye"),
                          menuSubItem("Government Investment in Infrastructure", tabName = "GII")
                          ),
@@ -76,6 +88,8 @@ ui <- function() {
       tabItems(
         ### Home tab ----
         ui_m6_home(),
+        ### Mission1 ----
+        ui_m1_UR(df_m1_UR_1),
         ### Mission2 ----
         ui_m2_GII(df_m2_GII_1),
         ### Mission5 ----
@@ -130,6 +144,8 @@ server <- function(input, output, session) {
   observeEvent(input$button6, {
     updateTabItems(session, "tabs", selected = "RnD")
   })
+  
+  mission1_UR_server(Exesum_m1_UR, df_m1_UR_1, output, input)
   
   mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
   
