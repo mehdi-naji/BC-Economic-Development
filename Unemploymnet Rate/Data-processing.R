@@ -81,6 +81,6 @@ df2_2 <- df2 |>
 # write.csv(df1, "~/StrongerBC-Project/Data/Research_and_Development_1.csv", row.names = FALSE)
 # write.csv(df2, "~/StrongerBC-Project/Data/Research_and_Development_2.csv", row.names = FALSE)
 
-write.csv(df1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemploymnet_Rate_1.csv", row.names = FALSE)
-write.csv(df2_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemploymnet_Rate_2.csv", row.names = FALSE)
-write.csv(df2_2, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemploymnet_Rate_3.csv", row.names = FALSE)
+write.csv(df1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_1.csv", row.names = FALSE)
+write.csv(df2_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_2.csv", row.names = FALSE)
+write.csv(df2_2, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_3.csv", row.names = FALSE)

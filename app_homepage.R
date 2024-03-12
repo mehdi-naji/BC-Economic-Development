@@ -37,6 +37,9 @@ source("Executive_summaries.R")
 canada_map <- load_canada_map()
 
 df_m1_UR_1 <- load_m1_UR1()
+df_m1_UR_2 <- load_m1_UR2()
+df_m1_UR_3 <- load_m1_UR3()
+
 
 df_m2_GII_1 <- load_m2_GII1()
 
