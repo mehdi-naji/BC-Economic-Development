@@ -22,6 +22,13 @@ load_m1_UR3 <- function() {
   return(df)
 }
 
+load_m1_UR4 <- function() {
+  url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Unemployment_Rate_4.csv"
+  df <- read.csv(url, header = TRUE)
+  df <- na.omit(df)
+  return(df)
+}
+
 # UR Dash----
     ## Line plot----
         m1_UR_lineplot_data <- function(df, geo, character, age, sex) {
@@ -55,33 +62,7 @@ load_m1_UR3 <- function() {
         m1_UR_waffle_data <- function(df, year) {
           df |>
             filter(
-              Year == year,
-              Sex != "Both sexes",
-              Age == "15 years and over",
-              GEO %in% c("Canada",
-                         "Quebec",
-                         "Alberta",
-                         "British Columbia")  )|>
-            mutate( Reason = case_when(
-              Reason %in% c(
-                "Business conditions, did not look for full-time work in last month",
-                "Business conditions, looked for full-time work in last month") ~ "Business conditions",
-              Reason %in% c(
-                "Could not find full-time work, did not look for full-time work in last month",
-                "Could not find full-time work, looked for full-time work in last month") ~ "Could not find full-time work",
-              TRUE ~ Reason)
-            ) |>
-            group_by(Year, GEO, Sex, Age, Reason) |>
-            summarise(VALUE = sum(VALUE)) |>
-            ungroup() |>
-            filter(Reason %in% c(
-              "Part-time employment, all reasons",
-              "Own illness",
-              "Caring for children",
-              "Going to school",
-              "Personal preference",
-              "Could not find full-time work",
-              "Business conditions"))
+              Year == year)
         }
 
         m1_UR_render_waffle <- function(df, input){
@@ -104,11 +85,15 @@ load_m1_UR3 <- function() {
               Females <-  wide_df1[wide_df1$GEO == geo & wide_df1$Reason == reason, ]$Females
               total <- ifelse(Males + Females == 0, 1,Males + Females)
 
-              parts <- c('Males' = as.integer(round((Males / total) / 4)), 
-                         'Female' = as.integer(round((Females / total) / 4)))
+              parts <- c('Males' = as.integer(round((Males / total) * 25)), 
+                         'Females' = as.integer(round((Females / total) *25)))
 
               waffle_chart <- waffle(parts, rows = 5, colors = colors, size = 1.0) +
-                theme(legend.position = "none")
+                theme(legend.position = "none")+
+                labs(
+                  y = ifelse(reason == unique(wide_df1$Reason)[1], geo, ""),
+                  x = ifelse(geo == unique(wide_df1$GEO)[length(unique(wide_df1$GEO))], reason, "")
+                )
 
 
               waffle_charts[[length(waffle_charts) + 1]] <- waffle_chart
@@ -117,6 +102,6 @@ load_m1_UR3 <- function() {
 
           
           # validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-          waffle_chart
-          # grid.arrange(grobs = waffle_charts, ncol = 7)
+          p1 <- grid.arrange(grobs = waffle_charts, ncol = 7)
+          return(p1)
         }
