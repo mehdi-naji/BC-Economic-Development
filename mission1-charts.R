@@ -59,14 +59,15 @@ load_m1_UR4 <- function() {
         }
 
         ## Waffle plot----
-        m1_UR_waffle_data <- function(df, year) {
+        m1_UR_waffle_data <- function(df, year, geo) {
           df |>
             filter(
+              GEO == geo, 
               Year == year)
         }
 
         m1_UR_render_waffle <- function(df, input){
-          df1 <- m1_UR_waffle_data(df, input$m1_UR_waffle_year)
+          df1 <- m1_UR_waffle_data(df, input$m1_UR_waffle_year, input$m1_UR_waffle_geo)
           df1[is.na(df1)] <- 0
 
           wide_df1 <- pivot_wider(

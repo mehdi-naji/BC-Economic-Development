@@ -37,6 +37,7 @@ ui_m1_UR <- function(df1, df2, df3, df4){
               column(9,plotOutput("m1_UR_waffle")),
               column(3,
                      selectInput("m1_UR_waffle_year", "Year", choices = unique(df4$Year), selected = 2010),
+                     selectInput("m1_UR_waffle_geo", "GEO", choices = unique(df4$GEO), selected = "British Columbia"),
                      downloadButton("m1_UR_waffle_dwnbtt", "Download Filtered Data in CSV"))
             )
           ),
