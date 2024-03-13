@@ -1,9 +1,22 @@
 # Mission1 ----
+Exesum_m1_UR <- HTML("
+  <ul style='text-align: justify; font-size: 20px;'>
+    <li>Unemploymnet Rate</li> 
+    <li>Unemploymnet Rate</li>
+    <li>Unemploymnet Rate</li>
+    <li>Unemploymnet Rate</li>
+  </ul>
+")
+
+
+
+
+# Mission2 ----
 Exesum_m2_GII <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>
     <li>Government investments in infrastructure in B.C. reached $5.269 billion in 2022, with an increase of 42.3 percent from $3.679 billion in 2021.</li> 
     <li>B.C.’s government investments in infrastructure grew substantially in the past three years, faster than that of Ontario or Quebec. 2022 witnessed the highest annual growth rate in the past decade. </li>
-    <li>B.C. made the third largest government investment in infrastructure in Canada in 2022, following Ontario ($8.483 billion) and Quebec ($8.045 billion). ​</li>
+    <li>B.C. made the third largest government investment in infrastructure in Canada in 2022, following Ontario ($8.483 billion) and Quebec ($8.045 billion). </li>
     <li>B.C.’s government investment in hospitals started to grow rapidly since 2020, accounting for roughly 30 percent of government investments in infrastructure in 2021 and 2022. Other provinces including Ontario and Quebec, as well as Canada have seen a decline in government investments in hospitals in 2021 and 2022. Government investments in education services took up 30 to 40 percent of overall investments in infrastructure in Ontario and Quebec.</li>
   </ul>
 ")

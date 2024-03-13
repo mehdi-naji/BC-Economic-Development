@@ -27,8 +27,8 @@ load_m1_UR3 <- function() {
         m1_UR_lineplot_data <- function(df, geo, character, age, sex) {
           df |>
             filter(GEO == geo,
-                   `Labour force characteristics` == character,
-                   `Age group` == age,
+                   Labour.force.characteristics == character,
+                   Age.group == age,
                    Sex == sex)
         }
         
@@ -49,4 +49,88 @@ load_m1_UR3 <- function() {
           p1 <- ggplotly(p1)
           return(p1)
           
+        }
+
+        ## Waffle plot----
+        m1_UR_waffle_data <- function(df, year) {
+          df |>
+            filter(
+              Year == year,
+              Sex != "Both sexes",
+              Age.group == "15 years and over",
+              GEO %in% c("Canada",
+                         "Quebec",
+                         "Alberta",
+                         "British Columbia")  )|>
+            mutate( Reason = case_when(
+              Reason.for.part-time.work == "Business conditions, did not look for full-time work in last month" ~ "Business conditions",
+              `Reason for part-time work` == "Business conditions, looked for full-time work in last month" ~ "Business conditions",
+              `Reason for part-time work` == "Could not find full-time work, did not look for full-time work in last month" ~ "Could not find full-time work",
+              `Reason for part-time work` == "Could not find full-time work, looked for full-time work in last month" ~ "Could not find full-time work",
+              TRUE ~ Reason.for.part-time.work)
+            ) |>
+            group_by(Year, GEO, Sex, `Age group`, Reason) |>
+            summarise(VALUE = sum(VALUE)) |>
+            ungroup() |>
+            filter(Reason %in% c(
+              "Part-time employment, all reasons",
+              "Own illness",
+              "Caring for children",
+              "Going to school",
+              "Personal preference",
+              "Could not find full-time work",
+              "Business conditions"))
+        }
+
+        m1_UR_render_waffle <- function(df, input){
+          df1 <- m1_UR_waffle_data(df, input$m1_UR_waffle_year)
+          df1[is.na(df1)] <- 0
+
+          wide_df1 <- pivot_wider(
+            data = df1,
+            names_from = Sex,
+            values_from = VALUE,
+            values_fill = 0
+          )
+
+          colors <- c('Males' = "#FFA500", 'Females' = "#4384FF")
+
+          size <- length(unique(wide_df1$Reason)) * length(unique(wide_df1$GEO))
+
+          waffle_charts <- list()
+          for (geo in unique(wide_df1$GEO)) {
+            for (reason in unique(wide_df1$Reason)) {
+              Males <-  wide_df1[wide_df1$GEO == geo & wide_df1$Reason == reason, ]$Males
+              Females <-  wide_df1[wide_df1$GEO == geo & wide_df1$Reason == reason, ]$Females
+              total <- ifelse(Males + Females == 0, 1,Males + Females)
+
+              parts <- c('Males' = as.integer(round((Males / total) *25)),
+                         'Females' = as.integer(round((Females / total) *25)))
+
+
+              waffle_chart <- plot_ly(
+                data = parts,
+                x = ~Sex,
+                y = ~Value,
+                type = 'bar',
+                marker = list(color = colors)
+              ) %>% layout(
+                title = paste("Waffle Chart for", geo, "and", reason),
+                showlegend = FALSE
+              )
+
+              waffle_chart <- waffle(parts, rows = 5, colors = colors, size = 1.0) +
+                theme(legend.position = "none")
+
+
+              waffle_charts[[length(waffle_charts) + 1]] <- waffle_chart
+            }
+          }
+
+          p1 <- grid.arrange(grobs = waffle_charts)
+
+          validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+
+          p1 <- ggplotly(p1)
+          return(p1)
         }

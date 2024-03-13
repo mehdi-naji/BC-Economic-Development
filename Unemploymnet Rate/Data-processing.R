@@ -19,8 +19,12 @@ df1 <- df1 |>
   filter(
     Year >=2000
   ) |>
+  mutate(
+    Reason = `Reason for part-time work`,
+    Age = `Age group`
+  ) |>
   select(
-    Year, GEO,`Reason for part-time work`, Sex, `Age group`, VALUE  
+    Year, GEO, Reason, Sex, Age, VALUE  
   )
 
 df2_1 <- df2 |>
@@ -28,8 +32,12 @@ df2_1 <- df2 |>
     Year >= 2000,
     `North American Industry Classification System (NAICS)` == "Total, all industries",
   )|>
+  mutate(
+    Character = `Labour force characteristics`,
+    Age = `Age group`
+  ) |>
   select(
-    Year, GEO, `Labour force characteristics`, Sex, `Age group`, VALUE  
+    Year, GEO, Character, Sex, Age, VALUE  
   )
 
 df2_2 <- df2 |>
@@ -70,8 +78,11 @@ df2_2 <- df2 |>
               `North American Industry Classification System (NAICS)` == "Information, culture and recreation [51, 71]" ~ "Information, culture and recreation",
               `North American Industry Classification System (NAICS)` == "Accommodation and food services [72]" ~ "Accommodation and food services",
               `North American Industry Classification System (NAICS)` == "Public administration [91]" ~ "Public administration",
-              TRUE ~ "F"
+              TRUE ~ "Other"
                   ))|>
+  mutate(
+    Character = `Labour force characteristics`
+  ) |>
   select(
     Year, GEO, `Labour force characteristics`, NAICS , VALUE  
   )
@@ -81,6 +92,6 @@ df2_2 <- df2 |>
 # write.csv(df1, "~/StrongerBC-Project/Data/Research_and_Development_1.csv", row.names = FALSE)
 # write.csv(df2, "~/StrongerBC-Project/Data/Research_and_Development_2.csv", row.names = FALSE)
 
-write.csv(df1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_1.csv", row.names = FALSE)
+write.csv(df1,   "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_1.csv", row.names = FALSE)
 write.csv(df2_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_2.csv", row.names = FALSE)
 write.csv(df2_2, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_3.csv", row.names = FALSE)
