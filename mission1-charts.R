@@ -27,8 +27,8 @@ load_m1_UR3 <- function() {
         m1_UR_lineplot_data <- function(df, geo, character, age, sex) {
           df |>
             filter(GEO == geo,
-                   Labour.force.characteristics == character,
-                   Age.group == age,
+                   Character == character,
+                   Age == age,
                    Sex == sex)
         }
         
@@ -57,19 +57,21 @@ load_m1_UR3 <- function() {
             filter(
               Year == year,
               Sex != "Both sexes",
-              Age.group == "15 years and over",
+              Age == "15 years and over",
               GEO %in% c("Canada",
                          "Quebec",
                          "Alberta",
                          "British Columbia")  )|>
             mutate( Reason = case_when(
-              Reason.for.part-time.work == "Business conditions, did not look for full-time work in last month" ~ "Business conditions",
-              `Reason for part-time work` == "Business conditions, looked for full-time work in last month" ~ "Business conditions",
-              `Reason for part-time work` == "Could not find full-time work, did not look for full-time work in last month" ~ "Could not find full-time work",
-              `Reason for part-time work` == "Could not find full-time work, looked for full-time work in last month" ~ "Could not find full-time work",
-              TRUE ~ Reason.for.part-time.work)
+              Reason %in% c(
+                "Business conditions, did not look for full-time work in last month",
+                "Business conditions, looked for full-time work in last month") ~ "Business conditions",
+              Reason %in% c(
+                "Could not find full-time work, did not look for full-time work in last month",
+                "Could not find full-time work, looked for full-time work in last month") ~ "Could not find full-time work",
+              TRUE ~ Reason)
             ) |>
-            group_by(Year, GEO, Sex, `Age group`, Reason) |>
+            group_by(Year, GEO, Sex, Age, Reason) |>
             summarise(VALUE = sum(VALUE)) |>
             ungroup() |>
             filter(Reason %in% c(
@@ -95,8 +97,6 @@ load_m1_UR3 <- function() {
 
           colors <- c('Males' = "#FFA500", 'Females' = "#4384FF")
 
-          size <- length(unique(wide_df1$Reason)) * length(unique(wide_df1$GEO))
-
           waffle_charts <- list()
           for (geo in unique(wide_df1$GEO)) {
             for (reason in unique(wide_df1$Reason)) {
@@ -104,20 +104,8 @@ load_m1_UR3 <- function() {
               Females <-  wide_df1[wide_df1$GEO == geo & wide_df1$Reason == reason, ]$Females
               total <- ifelse(Males + Females == 0, 1,Males + Females)
 
-              parts <- c('Males' = as.integer(round((Males / total) *25)),
-                         'Females' = as.integer(round((Females / total) *25)))
-
-
-              waffle_chart <- plot_ly(
-                data = parts,
-                x = ~Sex,
-                y = ~Value,
-                type = 'bar',
-                marker = list(color = colors)
-              ) %>% layout(
-                title = paste("Waffle Chart for", geo, "and", reason),
-                showlegend = FALSE
-              )
+              parts <- c('Males' = as.integer(round((Males / total) / 4)), 
+                         'Female' = as.integer(round((Females / total) / 4)))
 
               waffle_chart <- waffle(parts, rows = 5, colors = colors, size = 1.0) +
                 theme(legend.position = "none")
@@ -127,10 +115,8 @@ load_m1_UR3 <- function() {
             }
           }
 
-          p1 <- grid.arrange(grobs = waffle_charts)
-
-          validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-
-          p1 <- ggplotly(p1)
-          return(p1)
+          
+          # validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+          waffle_chart
+          # grid.arrange(grobs = waffle_charts, ncol = 7)
         }

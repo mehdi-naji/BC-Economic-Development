@@ -27,6 +27,40 @@ df1 <- df1 |>
     Year, GEO, Reason, Sex, Age, VALUE  
   )
 
+df1_1 <- df1 |>
+  filter(
+    Sex != "Both sexes",
+    Age == "15 years and over",
+    GEO %in% c("Canada",
+               "Quebec",
+               "Alberta",
+               "Ontario",
+               "British Columbia")  )|>
+  mutate( Reason = case_when(
+    Reason %in% c(
+      "Business conditions, did not look for full-time work in last month",
+      "Business conditions, looked for full-time work in last month") ~ "Business conditions",
+    Reason %in% c(
+      "Could not find full-time work, did not look for full-time work in last month",
+      "Could not find full-time work, looked for full-time work in last month") ~ "Could not find full-time work",
+    TRUE ~ Reason)
+  ) |>
+  group_by(Year, GEO, Sex, Age, Reason) |>
+  summarise(VALUE = sum(VALUE)) |>
+  ungroup() |>
+  filter(Reason %in% c(
+    "Part-time employment, all reasons",
+    "Own illness",
+    "Caring for children",
+    "Going to school",
+    "Personal preference",
+    "Could not find full-time work",
+    "Business conditions"))
+
+
+
+
+
 df2_1 <- df2 |>
   filter(
     Year >= 2000,
@@ -95,3 +129,4 @@ df2_2 <- df2 |>
 write.csv(df1,   "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_1.csv", row.names = FALSE)
 write.csv(df2_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_2.csv", row.names = FALSE)
 write.csv(df2_2, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_3.csv", row.names = FALSE)
+write.csv(df1_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_4.csv", row.names = FALSE)

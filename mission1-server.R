@@ -18,9 +18,8 @@ mission1_UR_server <- function(Exesum_m1_UR, df_m1_UR_1, df_m1_UR_2, df_m1_UR_3,
   )
   
   ### Waffle Plot----
-  output$m1_UR_waffle <- renderPlotly({
-    p1 <- m1_UR_render_waffle(df_m1_UR_1, input)
-    p1
+  output$m1_UR_waffle <- renderPlot({
+    m1_UR_render_waffle(df_m1_UR_1, input)
   })
   
   output$m1_UR_waffle_dwnbtt <- downloadHandler(

@@ -7,6 +7,7 @@ library(plotly)
 library(leaflet)
 library(sf)
 library(gridExtra)
+library(waffle)
 
 options(scipen = 999999999)  
 
