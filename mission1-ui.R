@@ -5,7 +5,7 @@ ui_m1_UR <- function(df1, df2, df3, df4){
           fluidPage(
             style = "background-color: white;margin: 20px;",
             fluidRow(
-              column(9, h3("Figure 1-1-1: Unemploymnet Rate" ))
+              column(9, h3("Figure 1-1-1: Uneremployment Rate" ))
             ),
             fluidRow(
               column(9,plotlyOutput("m1_UR_lineplot")),
@@ -31,7 +31,7 @@ ui_m1_UR <- function(df1, df2, df3, df4){
           fluidPage(
             style = "background-color: white;margin: 20px;",
             fluidRow(
-              column(9, h3("Figure 1-1-1: Unemploymnet Rate" ))
+              column(9, h3("Figure 1-1-1: Underemployment Rate" ))
             ),
             fluidRow(
               column(9,plotOutput("m1_UR_waffle")),
@@ -39,6 +39,22 @@ ui_m1_UR <- function(df1, df2, df3, df4){
                      selectInput("m1_UR_waffle_year", "Year", choices = unique(df4$Year), selected = 2010),
                      selectInput("m1_UR_waffle_geo", "GEO", choices = unique(df4$GEO), selected = "British Columbia"),
                      downloadButton("m1_UR_waffle_dwnbtt", "Download Filtered Data in CSV"))
+            )
+          ),
+          
+          #### Treemap Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-1-3: Underemployment Rate" ))
+            ),
+            fluidRow(
+              column(9,plotOutput("m1_UR_treemap")),
+              column(3,
+                     selectInput("m1_UR_treemap_year", "Year", choices = unique(df3$Year), selected = 2010),
+                     selectInput("m1_UR_treemap_geo", "GEO", choices = unique(df3$GEO), selected = "British Columbia"),
+                     selectInput("m1_UR_treemap_character", "Labour Force Characterisitics", choices = unique(df3$`Labour force characteristics`), selected = "Employment"),
+                     downloadButton("m1_UR_treemap_dwnbtt", "Download Filtered Data in CSV"))
             )
           ),
           

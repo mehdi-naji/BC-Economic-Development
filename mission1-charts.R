@@ -106,3 +106,22 @@ load_m1_UR4 <- function() {
           p1 <- grid.arrange(grobs = waffle_charts, ncol = 7)
           return(p1)
         }
+        
+        ## Tree Map----
+        
+        m1_UR_treemap_data <- function(df, geo, year, character){
+          df |>
+            filter(GEO == geo,
+                   Year == year,
+                   Labour.force.characteristics == character)
+          }
+        
+        m1_UR_render_treemap <- function(df, input){
+          df2 <- m1_UR_treemap_data(df, input$m1_UR_treemap_geo, input$m1_UR_treemap_year, input$character)
+          p <- df2 |>
+            plot_ly(
+              type = 'treemap',
+              labels = ~NAICS,
+              values = ~VALUE)
+          validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+          p}

@@ -10,7 +10,7 @@ mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, output, input){
   })
   
   output$m1_UR_lineplot_dwnbtt <- downloadHandler(
-    filename = "StrongerBC_Mission1_UnemploymnetRate_filteredData.csv",
+    filename = "StrongerBC_Mission1_UnderemploymentRate_filteredData.csv",
     content = function(file) {
       df <- m1_UR_lineplot_data(df2, input$m1_UR_lineplot_geo, input$m1_UR_lineplot_character, input$m1_UR_lineplot_age, input$m1_UR_lineplot_sex)
       write.csv(df, file)
@@ -24,9 +24,25 @@ mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, output, input){
   })
   
   output$m1_UR_waffle_dwnbtt <- downloadHandler(
-    filename = "StrongerBC_Mission1_UnemploymnetRate_filteredData.csv",
+    filename = "StrongerBC_Mission1_UnderemploymentRate_filteredData.csv",
     content = function(file) {
       df <- m1_UR_waffle_data(df4, input$m1_UR_waffle_year)
+      write.csv(df, file)
+    }
+  )
+  
+  
+  ### Tree Map Plot----
+  output$m1_UR_treemap <- renderPlot({
+    p1 <- m1_UR_render_treemap(df3, input)
+    p1
+  })
+  
+  output$m1_UR_treemap_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_UnderemploymentRate_filteredData.csv",
+    content = function(file) {
+      df <- m1_UR_treemap_data(df, input$m1_UR_treemap_geo, input$m1_UR_treemap_year, input$character)
+      
       write.csv(df, file)
     }
   )

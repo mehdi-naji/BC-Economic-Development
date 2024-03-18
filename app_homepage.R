@@ -68,7 +68,7 @@ ui <- function() {
     sidebarMenu(id = "tabs",
                 menuItem("Home", tabName = "home", icon = icon("home")),
                 menuItem("Mission 1", tabName = "mission1", icon = icon("bullseye"),
-                         menuSubItem("Unemploymnet Rate", tabName = "UR")
+                         menuSubItem("Underemployment rate", tabName = "UR")
                          ),
                 menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye"),
                          menuSubItem("Government Investment in Infrastructure", tabName = "GII")
