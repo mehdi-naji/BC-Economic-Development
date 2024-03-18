@@ -102,7 +102,7 @@ load_m1_UR4 <- function() {
           }
 
           
-          # validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+          validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
           p1 <- grid.arrange(grobs = waffle_charts, ncol = 7)
           return(p1)
         }
@@ -113,15 +113,17 @@ load_m1_UR4 <- function() {
           df |>
             filter(GEO == geo,
                    Year == year,
-                   Labour.force.characteristics == character)
+                   Character == character)
           }
         
         m1_UR_render_treemap <- function(df, input){
-          df2 <- m1_UR_treemap_data(df, input$m1_UR_treemap_geo, input$m1_UR_treemap_year, input$character)
+          df2 <- m1_UR_treemap_data(df, input$m1_UR_treemap_geo, input$m1_UR_treemap_year, input$m1_UR_treemap_character)
           p <- df2 |>
             plot_ly(
               type = 'treemap',
               labels = ~NAICS,
+              parents = "Industry",
               values = ~VALUE)
           validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-          p}
+          return(p)
+          }

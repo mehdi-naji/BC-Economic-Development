@@ -33,7 +33,7 @@ mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, output, input){
   
   
   ### Tree Map Plot----
-  output$m1_UR_treemap <- renderPlot({
+  output$m1_UR_treemap <- renderPlotly({
     p1 <- m1_UR_render_treemap(df3, input)
     p1
   })
@@ -41,7 +41,7 @@ mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, output, input){
   output$m1_UR_treemap_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission1_UnderemploymentRate_filteredData.csv",
     content = function(file) {
-      df <- m1_UR_treemap_data(df, input$m1_UR_treemap_geo, input$m1_UR_treemap_year, input$character)
+      df <- m1_UR_treemap_data(df3, input$m1_UR_treemap_geo, input$m1_UR_treemap_year, input$m1_UR_treemap_character)
       
       write.csv(df, file)
     }
