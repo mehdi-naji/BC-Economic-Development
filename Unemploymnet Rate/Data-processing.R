@@ -8,12 +8,16 @@ library(stringr)
 
 df1 <- statcan_download_data("14-10-0029-01", "eng")
 df2 <- statcan_download_data("14-10-0023-01", "eng")
+df3 <- statcan_download_data("14-10-0055-01", "eng")
 
 df1$DATE <- ymd(df1$REF_DATE)
 df1$Year <- year(df1$DATE)
 
 df2$DATE <- ymd(df2$REF_DATE)
 df2$Year <- year(df2$DATE)
+
+df3$DATE <- ymd(df3$REF_DATE)
+df3$Year <- year(df3$DATE)
 
 df1 <- df1 |>
   filter(
@@ -122,7 +126,17 @@ df2_2 <- df2 |>
   )
   
 
-
+df3_1 <- df3 |>
+  filter(
+    Year >=2000
+  ) |>
+  mutate(
+    Tenure = `Job tenure`,
+    NAICS = `North American Industry Classification System (NAICS)`
+  ) |>
+  select(
+    Year, GEO, Tenure, NAICS, Sex, VALUE  
+  )
 # write.csv(df1, "~/StrongerBC-Project/Data/Research_and_Development_1.csv", row.names = FALSE)
 # write.csv(df2, "~/StrongerBC-Project/Data/Research_and_Development_2.csv", row.names = FALSE)
 
@@ -130,3 +144,5 @@ write.csv(df1,   "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_1.csv
 write.csv(df2_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_2.csv", row.names = FALSE)
 write.csv(df2_2, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_3.csv", row.names = FALSE)
 write.csv(df1_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_4.csv", row.names = FALSE)
+write.csv(df3_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Unemployment_Rate_5.csv", row.names = FALSE)
+
