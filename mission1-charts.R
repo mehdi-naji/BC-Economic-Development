@@ -127,3 +127,36 @@ load_m1_UR4 <- function() {
           validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
           return(p)
           }
+
+        
+        ## Heat Map----
+        
+        m1_UR_heatmap_data <- function(df, geo, year, character){
+          df |>
+            filter(GEO == geo,
+                   Year == year,
+                   Character == character,
+                   Sex != "Both sexes",
+                   Age != "15 years and over")
+        }
+        
+        m1_UR_render_heatmap <- function(df, input){
+          df2 <- m1_UR_heatmap_data(df, input$m1_UR_heatmap_geo, input$m1_UR_heatmap_year, input$m1_UR_heatmap_character)
+          p1 <- plot_ly(
+            data = df2,
+            x = ~Age,
+            y = ~Sex,
+            z = ~VALUE,
+            type = "heatmap",
+            colorscale = "Plasma" )
+          validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+          
+          p1
+        }
+          
+          
+          
+          
+          
+   
+        

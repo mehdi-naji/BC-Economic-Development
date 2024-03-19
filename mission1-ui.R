@@ -58,4 +58,20 @@ ui_m1_UR <- function(df1, df2, df3, df4){
             )
           ),
           
+          #### Heatmap Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-1-4: Underemployment Rate" ))
+            ),
+            fluidRow(
+              column(9,plotlyOutput("m1_UR_heatmap")),
+              column(3,
+                     selectInput("m1_UR_heatmap_year", "Year", choices = unique(df2$Year), selected = 2010),
+                     selectInput("m1_UR_heatmap_geo", "GEO", choices = unique(df2$GEO), selected = "British Columbia"),
+                     selectInput("m1_UR_heatmap_character", "Labour Force Characterisitics", choices = unique(df2$Character), selected = "Employment"),
+                     downloadButton("m1_UR_heatmap_dwnbtt", "Download Filtered Data in CSV"))
+            )
+          ),
+          
   )}

@@ -46,6 +46,21 @@ mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, output, input){
       write.csv(df, file)
     }
   )
+  
+  ### Heat Map Plot----
+  output$m1_UR_heatmap <- renderPlotly({
+    p1 <- m1_UR_render_heatmap(df2, input)
+    p1
+  })
+  
+  output$m1_UR_heatmap_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_UnderemploymentRate_filteredData.csv",
+    content = function(file) {
+      df <- m1_UR_heatmap_data(df2, input$m1_UR_heatmap_geo, input$m1_UR_heatmap_year, input$m1_UR_heatmap_character)
+      
+      write.csv(df, file)
+    }
+  )
 
   
 }
