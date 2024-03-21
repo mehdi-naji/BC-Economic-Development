@@ -95,7 +95,7 @@ ui <- function() {
         ### Home tab ----
         ui_m6_home(),
         ### Mission1 ----
-        ui_m1_UR(df1 = df_m1_UR_1, df2 = df_m1_UR_2, df3= df_m1_UR_3, df4 = df_m1_UR_4),
+        ui_m1_UR(df1 = df_m1_UR_1, df2 = df_m1_UR_2, df3= df_m1_UR_3, df4 = df_m1_UR_4, df5 = df_m1_UR_5),
         ### Mission2 ----
         ui_m2_GII(df_m2_GII_1),
         ### Mission5 ----
