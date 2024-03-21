@@ -8,7 +8,7 @@ library(stringr)
 
 df1 <- statcan_download_data("14-10-0029-01", "eng")
 df2 <- statcan_download_data("14-10-0023-01", "eng")
-df3 <- statcan_download_data("14-10-0055-01", "eng")
+df3 <- statcan_download_data("14-10-0327-01", "eng")
 
 df1$DATE <- ymd(df1$REF_DATE)
 df1$Year <- year(df1$DATE)
@@ -122,20 +122,33 @@ df2_2 <- df2 |>
     Character = `Labour force characteristics`
   ) |>
   select(
-    Year, GEO, `Labour force characteristics`, NAICS , VALUE  
+    Year, GEO, Character, NAICS , VALUE  
   )
   
 
 df3_1 <- df3 |>
   filter(
-    Year >=2000
+    Year >=2000,
+    `Age group` %in% c(
+      "15 to 24 years",
+      "25 to 29 years",
+      "30 to 34 years",
+      "35 to 39 years",
+      "40 to 44 years",
+      "45 to 49 years",
+      "50 to 54 years",
+      "55 to 59 years",
+      "60 to 64 years",
+      "65 to 69 years",
+      "70 years and over"
+      )
   ) |>
   mutate(
-    Tenure = `Job tenure`,
-    NAICS = `North American Industry Classification System (NAICS)`
+    Character = `Labour force characteristics`,
+    Age = `Age group`
   ) |>
   select(
-    Year, GEO, Tenure, NAICS, Sex, VALUE  
+    Year, GEO, Character, Age, Sex, VALUE  
   )
 # write.csv(df1, "~/StrongerBC-Project/Data/Research_and_Development_1.csv", row.names = FALSE)
 # write.csv(df2, "~/StrongerBC-Project/Data/Research_and_Development_2.csv", row.names = FALSE)
