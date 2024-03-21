@@ -29,6 +29,13 @@ load_m1_UR4 <- function() {
   return(df)
 }
 
+load_m1_UR5 <- function() {
+  url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Unemployment_Rate_5.csv"
+  df <- read.csv(url, header = TRUE)
+  df <- na.omit(df)
+  return(df)
+}
+
 # UR Dash----
     ## Line plot----
         m1_UR_lineplot_data <- function(df, geo, character, age, sex) {
