@@ -56,9 +56,16 @@ df1_2 <- df1_2 |>
       PersonsType %in% c("Males, 18 to 64 years",    "Females, 18 to 64 years")    ~ "18 to 64 years",
       PersonsType %in% c("Males, 65 years and over", "Females, 65 years and over") ~ "65 years and over",
       .default = "ERROR"
-      
+    ))|>
+      select(
+        Year,
+        GEO,
+        Sex,
+        Age,
+        IncomeLine,
+        Statistics,
+        VALUE
     )
-  )
 
 
 write.csv(df1_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Poverty_Incidence_1.csv", row.names = FALSE)
