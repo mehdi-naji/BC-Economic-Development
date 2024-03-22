@@ -1,4 +1,13 @@
 # Mission1 ----
+Exesum_m1_PI <- HTML("
+  <ul style='text-align: justify; font-size: 20px;'>
+    <li>Poverty Incidence</li> 
+    <li>Poverty Incidence</li>
+    <li>Poverty Incidence</li>
+    <li>Poverty Incidence</li>
+  </ul>
+")
+
 Exesum_m1_UR <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>
     <li>Unemploymnet Rate</li> 

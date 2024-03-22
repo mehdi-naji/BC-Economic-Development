@@ -75,3 +75,37 @@ ui_m1_UR <- function(df1, df2, df3, df4, df5){
           ),
           
   )}
+
+
+### PI: Povery Incidence ----
+ui_m1_PI <- function(df1){
+  tabItem(tabName = "PI",
+          ##### Line Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-2-1: Poverty Incidence" ))
+            ),
+            fluidRow(
+              column(9,plotlyOutput("m1_PI_lineplot")),
+              column(3,
+                     selectInput("m1_PI_lineplot_geo", "Region", choices = unique(df1$GEO), selected = "British Columbia"),
+                     selectInput("m1_PI_lineplot_personstype", "Persons Type", choices = unique(df1$PersonsType), selected = "All persons"),
+                     selectInput("m1_PI_lineplot_incomeline", "Low income lines", choices = unique(df1$IncomeLine), selected = "Market basket measure, 2018 base"),
+                     selectInput("m1_PI_lineplot_statistics", "Statistics", choices = unique(df1$Statistics), selected = "Percentage of persons in low income"),
+                     
+                     downloadButton("m1_PI_lineplot_dwnbtt", "Download Filtered Data in CSV"))
+            )
+          ),
+          ##### EXESUM ----
+          fluidPage(
+            style = "background-color: aliceblue ; margin: 20px;",
+            fluidRow(
+              column(12, h2("Executive Summary"))
+            ),
+            fluidRow(
+              column(12, uiOutput("exesum_m1_PI"))
+            )
+          ),
+          
+  )}

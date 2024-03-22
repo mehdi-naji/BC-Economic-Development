@@ -29,4 +29,37 @@ df1_1 <- df1 |>
 df1_1 <- na.omit(df1_1)
 
 
+df1_2 <- df1_1 |>
+  filter(
+    PersonsType %in% c(
+      "Males",
+      "Males, under 18 years" ,
+      "Males, 18 to 64 years" ,
+      "Males, 65 years and over",
+      "Females",
+      "Females, under 18 years" , 
+      "Females, 18 to 64 years" ,
+      "Females, 65 years and over"
+    )
+  )
+
+df1_2 <- df1_2 |>
+  mutate(
+    Sex = case_when(
+      PersonsType %in% c("Males", "Males, under 18 years", "Males, 18 to 64 years", "Males, 65 years and over") ~ "Males",
+      PersonsType %in% c("Females", "Females, under 18 years", "Females, 18 to 64 years", "Females, 65 years and over")  ~ "Females",
+      .default = "ERROR"
+    ),
+    Age = case_when(
+      PersonsType %in% c("Males", "Females")  ~ "All ages",
+      PersonsType %in% c("Males, under 18 years",    "Females, under 18 years")    ~ "under 18 years",
+      PersonsType %in% c("Males, 18 to 64 years",    "Females, 18 to 64 years")    ~ "18 to 64 years",
+      PersonsType %in% c("Males, 65 years and over", "Females, 65 years and over") ~ "65 years and over",
+      .default = "ERROR"
+      
+    )
+  )
+
+
 write.csv(df1_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Poverty_Incidence_1.csv", row.names = FALSE)
+write.csv(df1_2, "C:/Users/MNAJI/StrongerBC-Project/Data/Poverty_Incidence_2.csv", row.names = FALSE)

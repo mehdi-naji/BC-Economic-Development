@@ -64,3 +64,23 @@ mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, df5, output, in
 
   
 }
+
+## PI----
+mission1_PI_server <- function(Exesum_m1_PI, df1, output, input){
+  ### Executive Summary----
+  output$exesum_m1_PI <- renderUI(Exesum_m1_PI)
+  ### Line Plot----
+  output$m1_PI_lineplot <- renderPlotly({
+    p1 <- m1_PI_render_lineplot(df1, input)
+    p1
+  })
+  
+  output$m1_PI_lineplot_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_PovertyIncidence_filteredData.csv",
+    content = function(file) {
+      df <- m1_PI_lineplot_data(df1, input$m1_PI_lineplot_geo, input$m1_PI_lineplot_personstype, input$m1_PI_lineplot_incomeline, input$m1_PI_lineplot_statistics)
+      
+      write.csv(df, file)
+    }
+  )
+}
