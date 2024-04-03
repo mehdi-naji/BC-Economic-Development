@@ -44,20 +44,27 @@
     return(df)
   }
   
+  load_m1_PI2 <- function() {
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Poverty_Incidence_2.csv"
+    df <- read.csv(url, header = TRUE)
+    df <- na.omit(df)
+    return(df)
+  }
+  
   
   
 # UR Dash----
     ## Line plot----
-        m1_UR_lineplot_data <- function(df, geo, character, age, sex) {
+        m1_UR_lineplot_data <- function(df) {
           df |>
-            filter(GEO == geo,
-                   Character == character,
-                   Age == age,
-                   Sex == sex)
+            filter(GEO == "British Columbia",
+                   Character == "Unemployment rate",
+                   Age == "15 years and over",
+                   Sex == "Both sexes")
         }
         
         m1_UR_render_lineplot <- function(df, input){
-          df1 <- m1_UR_lineplot_data(df, input$m1_UR_lineplot_geo, input$m1_UR_lineplot_character, input$m1_UR_lineplot_age, input$m1_UR_lineplot_sex)
+          df1 <- m1_UR_lineplot_data(df)
           p1 <- df1 |> 
             plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
             layout(xaxis = list(
@@ -180,18 +187,18 @@
     
 # PI Dash----
     ## Line plot----
-    m1_PI_lineplot_data <- function(df, geo, personstype, incomeline, statistics) {
+    m1_PI_lineplot_data <- function(df) {
       df |>
-        filter(GEO == geo,
-               PersonsType == personstype,
-               incomeline == IncomeLine,
-               Statistics == statistics
+        filter(GEO == "British Columbia",
+               PersonsType == "All persons",
+               IncomeLine == "Market basket measure, 2018 base",
+               Statistics == "Percentage of persons in low income"
         )
          
     }
     
     m1_PI_render_lineplot <- function(df, input){
-      df1 <- m1_PI_lineplot_data(df, input$m1_PI_lineplot_geo, input$m1_PI_lineplot_personstype, input$m1_PI_lineplot_incomeline, input$m1_PI_lineplot_statistics)
+      df1 <- m1_PI_lineplot_data(df)
       p1 <- df1 |> 
         plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
         layout(xaxis = list(
@@ -208,4 +215,55 @@
       return(p1)
       
     }
+    
+    ## GB : Gender Bias----
+    m1_PI_GB_data <- function(df, geo, year) {
+      df |>
+        filter(GEO == geo,
+               Year == year,
+               Age != "All ages",
+               IncomeLine == "Low income measure after tax",
+               Statistics == "Number of persons in low income"
+        )
+      
+    }
+    
+    m1_PI_render_GB <- function(df, input){
+      df1 <- m1_PI_GB_data(df, input$m1_PI_GB_geo, input$m1_PI_GB_year)
+      df1[is.na(df1)] <- 0
+      
+      wide_df1 <- pivot_wider(
+        data = df1,
+        names_from = Sex,
+        values_from = VALUE,
+        values_fill = 0
+      )
+      
+      colors <- c('Males' = "#FFA500", 'Females' = "#4384FF")
+      
+      waffle_charts <- list()
+      for (age in unique(wide_df1$Age)) {
+        Males <-  wide_df1[wide_df1$Age == age, ]$Males
+        Females <-  wide_df1[wide_df1$Age == age, ]$Females
+        total <- ifelse(Males + Females == 0, 1,Males + Females)
+        
+        parts <- c('Males' = as.integer(round((Males / total) * 25)), 
+                   'Females' = as.integer(round((Females / total) *25)))
+        
+        waffle_chart <- waffle(parts, rows = 5, colors = colors, size = 3.0) +
+          theme(legend.position = "none")+
+          labs(
+            x = age
+          )
+        
+        waffle_charts[[length(waffle_charts) + 1]] <- waffle_chart
+      }
+      
+      
+      
+      validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+      p1 <- grid.arrange(grobs = waffle_charts, ncol = 7)
+      return(p1)
+    }
+ 
     

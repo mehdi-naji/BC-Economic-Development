@@ -44,6 +44,7 @@ df_m1_UR_4 <- load_m1_UR4()
 df_m1_UR_5 <- load_m1_UR5()
 
 df_m1_PI_1 <- load_m1_PI1()
+df_m1_PI_2 <- load_m1_PI2()
 
 
 df_m2_GII_1 <- load_m2_GII1()
@@ -98,7 +99,7 @@ ui <- function() {
         ### Home tab ----
         ui_m6_home(),
         ### Mission1 ----
-        ui_m1_PI(df1 = df_m1_PI_1),
+        ui_m1_PI(df1 = df_m1_PI_1, df2 = df_m1_PI_2),
         ui_m1_UR(df1 = df_m1_UR_1, df2 = df_m1_UR_2, df3= df_m1_UR_3, df4 = df_m1_UR_4, df5 = df_m1_UR_5),
         ### Mission2 ----
         ui_m2_GII(df_m2_GII_1),
@@ -155,7 +156,7 @@ server <- function(input, output, session) {
     updateTabItems(session, "tabs", selected = "RnD")
   })
   
-  mission1_PI_server(Exesum_m1_PI, df1 = df_m1_PI_1, output, input)
+  mission1_PI_server(Exesum_m1_PI, df1 = df_m1_PI_1, df2 = df_m1_PI_2, output, input)
   mission1_UR_server(Exesum_m1_UR, df1 = df_m1_UR_1, df2 = df_m1_UR_2, df3 = df_m1_UR_3, df4 = df_m1_UR_4, df5 = df_m1_UR_5, output, input)
   
   mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)

@@ -12,7 +12,7 @@ mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, df5, output, in
   output$m1_UR_lineplot_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission1_UnderemploymentRate_filteredData.csv",
     content = function(file) {
-      df <- m1_UR_lineplot_data(df2, input$m1_UR_lineplot_geo, input$m1_UR_lineplot_character, input$m1_UR_lineplot_age, input$m1_UR_lineplot_sex)
+      df <- m1_UR_lineplot_data(df2)
       write.csv(df, file)
     }
   )
@@ -66,7 +66,7 @@ mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, df5, output, in
 }
 
 ## PI----
-mission1_PI_server <- function(Exesum_m1_PI, df1, output, input){
+mission1_PI_server <- function(Exesum_m1_PI, df1, df2, output, input){
   ### Executive Summary----
   output$exesum_m1_PI <- renderUI(Exesum_m1_PI)
   ### Line Plot----
@@ -78,7 +78,22 @@ mission1_PI_server <- function(Exesum_m1_PI, df1, output, input){
   output$m1_PI_lineplot_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission1_PovertyIncidence_filteredData.csv",
     content = function(file) {
-      df <- m1_PI_lineplot_data(df1, input$m1_PI_lineplot_geo, input$m1_PI_lineplot_personstype, input$m1_PI_lineplot_incomeline, input$m1_PI_lineplot_statistics)
+      df <- m1_PI_lineplot_data(df1)
+      
+      write.csv(df, file)
+    }
+  )
+  
+  ### GB : Gender Bias----
+  output$m1_PI_GB <- renderPlot({
+    p1 <- m1_PI_render_GB(df2, input)
+    p1
+  })
+  
+  output$m1_PI_GB_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_PovertyIncidence_filteredData.csv",
+    content = function(file) {
+      df <- m1_PI_GB_data(df2, input$m1_PI_GB_geo, input$m1_PI_GB_year)
       
       write.csv(df, file)
     }
