@@ -171,3 +171,22 @@ ui_m1_FE <- function(df1){
           ),
           
   )}
+
+### TS: Transportation Spending ----
+ui_m1_TS <- function(df1){
+  tabItem(tabName = "TS",
+          ##### Line Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-3-1: Spending on Transportation" ))
+            ),
+            fluidRow(
+              column(1),
+              column(10,plotlyOutput("m1_TS_lineplot")),
+              column(1,
+                     downloadButton("m1_TS_lineplot_dwnbtt", ""))
+            )
+          ),
+          
+  )}

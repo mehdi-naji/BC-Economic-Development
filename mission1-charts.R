@@ -74,6 +74,13 @@
     df <- na.omit(df)
     return(df)
   } 
+  ## TS----
+  load_m1_TS1 <- function() {
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Transportation_Expenditure_1.csv"
+    df <- read.csv(url, header = TRUE)
+    df <- na.omit(df)
+    return(df)
+  } 
   
   
 # UR Dash----
@@ -306,3 +313,14 @@ m1_FE_lineplot_data <- function(df) {
 
 m1_FE_render_lineplot <- function(df, input){
   dash_lineplot(m1_FE_lineplot_data, df, input)}
+
+# TS Dash----
+## Line plot----
+m1_TS_lineplot_data <- function(df) {
+  df |>
+    filter(GEO == "British Columbia") |>
+    mutate(VALUE = paste0(round(100*VALUE,2), "%"))
+}
+
+m1_TS_render_lineplot <- function(df, input){
+  dash_lineplot(m1_TS_lineplot_data, df, input)}

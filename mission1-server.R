@@ -160,3 +160,23 @@ mission1_FE_server <- function(Exesum_m1_FE, df1, output, input){
     }
   )
 }
+
+## TS----
+mission1_TS_server <- function(Exesum_m1_TS, df1, output, input){
+  ### Executive Summary----
+  output$exesum_m1_TS <- renderUI(Exesum_m1_TS)
+  ### Line Plot----
+  output$m1_TS_lineplot <- renderPlotly({
+    p1 <- m1_TS_render_lineplot(df1, input)
+    p1
+  })
+  
+  output$m1_TS_lineplot_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_FoodExpenditure_filteredData.csv",
+    content = function(file) {
+      df <- m1_TS_lineplot_data(df1)
+      
+      write.csv(df, file)
+    }
+  )
+}
