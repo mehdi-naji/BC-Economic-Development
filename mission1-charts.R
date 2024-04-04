@@ -281,7 +281,8 @@
 ## Line plot----
 m1_GC_lineplot_data <- function(df) {
   df |>
-    filter(GEO == "British Columbia",
+    filter(Year >= 2010,
+           GEO == "British Columbia",
            Income_concept == "Adjusted total income")
 }
 
