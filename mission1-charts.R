@@ -67,6 +67,13 @@
     df <- na.omit(df)
     return(df)
   }  
+  ## FE----
+  load_m1_FE1 <- function() {
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Food_Expenditure_1.csv"
+    df <- read.csv(url, header = TRUE)
+    df <- na.omit(df)
+    return(df)
+  } 
   
   
 # UR Dash----
@@ -288,3 +295,14 @@ m1_GC_lineplot_data <- function(df) {
 
 m1_GC_render_lineplot <- function(df, input){
   dash_lineplot(m1_GC_lineplot_data, df, input)}
+
+# FE Dash----
+## Line plot----
+m1_FE_lineplot_data <- function(df) {
+  df |>
+    filter(GEO == "British Columbia") |>
+    mutate(VALUE = paste0(round(100*VALUE,2), "%"))
+}
+
+m1_FE_render_lineplot <- function(df, input){
+  dash_lineplot(m1_FE_lineplot_data, df, input)}

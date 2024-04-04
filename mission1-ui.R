@@ -152,3 +152,22 @@ ui_m1_GC <- function(df1){
           ),
 
   )}
+
+### FE: Food Expenditures ----
+ui_m1_FE <- function(df1){
+  tabItem(tabName = "FE",
+          ##### Line Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-3-1: Food Expenditure" ))
+            ),
+            fluidRow(
+              column(1),
+              column(10,plotlyOutput("m1_FE_lineplot")),
+              column(1,
+                     downloadButton("m1_FE_lineplot_dwnbtt", ""))
+            )
+          ),
+          
+  )}

@@ -52,6 +52,8 @@ df_m1_CHN_1 <- load_m1_CHN1()
 
 df_m1_GC_1 <- load_m1_GC1()
 
+df_m1_FE_1 <- load_m1_FE1()
+
 df_m2_GII_1 <- load_m2_GII1()
 
 df_m5_CEG_1 <- load_m5_CEG1()
@@ -80,7 +82,9 @@ ui <- function() {
                          menuSubItem("Poverty Incidence", tabName = "PI"),
                          menuSubItem("Underemployment rate", tabName = "UR"),
                          menuSubItem("Core Housing Need", tabName = "CHN"),
-                         menuSubItem("Gini Coefficient", tabName = "GC")
+                         menuSubItem("Gini Coefficient", tabName = "GC"),
+                         menuSubItem("Food Expenditure", tabName = "FE")
+                         
                          ),
                 menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye"),
                          menuSubItem("Government Investment in Infrastructure", tabName = "GII")
@@ -110,6 +114,7 @@ ui <- function() {
         ui_m1_UR(df1 = df_m1_UR_1, df2 = df_m1_UR_2, df3= df_m1_UR_3, df4 = df_m1_UR_4, df5 = df_m1_UR_5),
         ui_m1_CHN(df1 = df_m1_CHN_1),
         ui_m1_GC(df1 = df_m1_GC_1),
+        ui_m1_FE(df1 = df_m1_FE_1),
         ### Mission2 ----
         ui_m2_GII(df_m2_GII_1),
         ### Mission5 ----
@@ -169,6 +174,7 @@ server <- function(input, output, session) {
   mission1_UR_server(Exesum_m1_UR, df1 = df_m1_UR_1, df2 = df_m1_UR_2, df3 = df_m1_UR_3, df4 = df_m1_UR_4, df5 = df_m1_UR_5, output, input)
   mission1_CHN_server(Exesum_m1_CHN, df1 = df_m1_CHN_1, output, input)
   mission1_GC_server(Exesum_m1_GC, df1 = df_m1_GC_1, output, input)
+  mission1_FE_server(Exesum_m1_FE, df1 = df_m1_FE_1, output, input)
   
   mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
   

@@ -18,17 +18,17 @@ df1_1 <- df1 |>
   filter(Statistic == "Average expenditure per household",
          Quantile == "All quintiles",
          Category %in% c("Total current consumption",
-                         "Food expenditures")
+                         "Transportation")
          ) |>
   select(
     Year, GEO, Category, UOM, VALUE
   ) |>
   pivot_wider(names_from = Category, values_from = VALUE) |>
   mutate(Total = `Total current consumption`,
-         Food = `Food expenditures` ) |>
-  mutate(VALUE = Food / Total)
+         Transportation = `Transportation` ) |>
+  mutate(VALUE = Transportation / Total)
 
 # write.csv(df1, "~/StrongerBC-Project/Data/Research_and_Development_1.csv", row.names = FALSE)
 # write.csv(df2, "~/StrongerBC-Project/Data/Research_and_Development_2.csv", row.names = FALSE)
 
-write.csv(df1_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Food_Expenditure_1.csv", row.names = FALSE)
+write.csv(df1_1, "C:/Users/MNAJI/StrongerBC-Project/Data/Transportation_Expenditure_1.csv", row.names = FALSE)
