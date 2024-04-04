@@ -13,6 +13,8 @@ options(scipen = 999999999)
 
 source_exports <- "BC Stats"
 
+source("Standard-Charts.R")
+
 source("home-ui.R")
 
 source("mission1-charts.R")

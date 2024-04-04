@@ -8,13 +8,9 @@ ui_m1_UR <- function(df1, df2, df3, df4, df5){
               column(9, h3("Figure 1-1-1: Uneremployment Rate" ))
             ),
             fluidRow(
-              column(11,plotlyOutput("m1_UR_lineplot")),
-              column(1,
-                     # selectInput("m1_UR_lineplot_geo", "Region", choices = unique(df2$GEO), selected = "British Columbia"),
-                     # selectInput("m1_UR_lineplot_character", "Labour force characteristics", choices = unique(df2$Character), selected = "Unemployment rate"),
-                     # selectInput("m1_UR_lineplot_sex", "Sex", choices = unique(df2$Sex), selected = "Both sexes"),
-                     # selectInput("m1_UR_lineplot_age", "Age group", choices = unique(df2$Age), selected = "15 years and over"),
-                     downloadButton("m1_UR_lineplot_dwnbtt", ""))
+              column(1),
+              column(10,plotlyOutput("m1_UR_lineplot")),
+              column(1, downloadButton("m1_UR_lineplot_dwnbtt", ""))
             )
           ),
           ##### EXESUM ----
@@ -87,13 +83,9 @@ ui_m1_PI <- function(df1, df2){
               column(9, h3("Figure 1-2-1: Poverty Incidence" ))
             ),
             fluidRow(
-              column(11,plotlyOutput("m1_PI_lineplot")),
+              column(1),
+              column(10,plotlyOutput("m1_PI_lineplot")),
               column(1,
-                     # selectInput("m1_PI_lineplot_geo", "Region", choices = unique(df1$GEO), selected = "British Columbia"),
-                     # selectInput("m1_PI_lineplot_personstype", "Persons Type", choices = unique(df1$PersonsType), selected = "All persons"),
-                     # selectInput("m1_PI_lineplot_incomeline", "Low income lines", choices = unique(df1$IncomeLine), selected = "Market basket measure, 2018 base"),
-                     # selectInput("m1_PI_lineplot_statistics", "Statistics", choices = unique(df1$Statistics), selected = "Percentage of persons in low income"),
-                     
                      downloadButton("m1_PI_lineplot_dwnbtt", ""))
             )
           ),

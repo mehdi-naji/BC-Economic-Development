@@ -56,31 +56,29 @@
 # UR Dash----
     ## Line plot----
         m1_UR_lineplot_data <- function(df) {
-          df |>
+         df |>
             filter(GEO == "British Columbia",
-                   Character == "Unemployment rate",
+                   Reason %in% c("Business conditions, did not look for full-time work in last month",
+                                 "Business conditions, looked for full-time work in last month",
+                                 "Could not find full-time work, looked for full-time work in last month"
+                                 ),
                    Age == "15 years and over",
-                   Sex == "Both sexes")
+                   Sex == "Both sexes") |>
+            group_by(Year) |>
+            summarise(VALUE = sum(VALUE)) |>
+           left_join(df1 |> filter(Reason == "Part-time employment, all reasons",
+                                   GEO == "British Columbia",
+                                   Age == "15 years and over",
+                                   Sex == "Both sexes"
+                                   ),
+                     by = "Year") |>
+           mutate(VALUE = (VALUE.x / VALUE.y) * 100,
+                  VALUE = paste0(round(VALUE,2), "%"))|>
+           select(Year, VALUE)
         }
         
         m1_UR_render_lineplot <- function(df, input){
-          df1 <- m1_UR_lineplot_data(df)
-          p1 <- df1 |> 
-            plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
-            layout(xaxis = list(
-              title = "", 
-              rangeslider = list(
-                visible = T,
-                thickness = 0.02,  
-                bgcolor = "darkgrey"  
-              )
-            ))
-          validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-          
-          p1 <- ggplotly(p1)
-          return(p1)
-          
-        }
+            dash_lineplot(m1_UR_lineplot_data, df, input)} 
 
     ## Waffle plot----
     m1_UR_waffle_data <- function(df, year, geo) {
@@ -198,23 +196,7 @@
     }
     
     m1_PI_render_lineplot <- function(df, input){
-      df1 <- m1_PI_lineplot_data(df)
-      p1 <- df1 |> 
-        plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
-        layout(xaxis = list(
-          title = "", 
-          rangeslider = list(
-            visible = T,
-            thickness = 0.02,  
-            bgcolor = "darkgrey"  
-          )
-        ))
-      validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-      
-      p1 <- ggplotly(p1)
-      return(p1)
-      
-    }
+      dash_lineplot(m1_PI_lineplot_data, df, input)}
     
     ## GB : Gender Bias----
     m1_PI_GB_data <- function(df, geo, year) {

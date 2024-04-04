@@ -10,31 +10,21 @@
 
 # CEG Dash----
     ## Line plot----
-    m5_CEG_lineplot_data <- function(df, geo, class, type) {
+    m5_CEG_lineplot_data <- function(df) {
       df |>
-        filter(GEO == geo,
-               Class.of.electricity.producer == class,
-               Type.of.electricity.generation == type)
+        filter(Year >= 2015,
+               GEO == "British Columbia",
+               Class.of.electricity.producer == "Total all classes of electricity producer",
+               Type.of.electricity.generation %in% c("Hydraulic turbine",
+                                                     "Tidal power turbine",
+                                                     "Wind power turbine",
+                                                     "Solar"))|>
+        group_by(Year) |>
+        summarise(VALUE = sum(VALUE))
     }
     
     m5_CEG_render_lineplot <- function(df, input){
-      df1 <- m5_CEG_lineplot_data(df, input$m5_CEG_lineplot_geo, input$m5_CEG_lineplot_class, input$m5_CEG_lineplot_type)
-      p1 <- df1 |> 
-        plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
-        layout(xaxis = list(
-          title = "", 
-          rangeslider = list(
-            visible = T,
-            thickness = 0.02,  
-            bgcolor = "darkgrey"  
-          )
-        ),
-        yaxis = list(title = paste ("Megawatt hours")))
-      validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-      
-      p1 <- ggplotly(p1)
-      return(p1)
-    }
+      dash_lineplot(m5_CEG_lineplot_data, df, input)}
     
     ##Stacked Bar Chart ----
     m5_CEG_stackbar_data <- function(df, geo, class){

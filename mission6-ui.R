@@ -9,14 +9,9 @@ ui_m6_RnD <- function(df1, df2){
               column(9, h3("Figure 6-1-1: Private sector investment in innovation " ))
             ),
             fluidRow(
-              column(9,plotlyOutput("m6_RnD_lineplot")),
-              column(3, 
-                     selectInput("m6_RnD_lineplot_geo", "Region", choices = unique(df1$GEO), selected = "British Columbia"), 
-                     selectInput("m6_RnD_lineplot_prices", "Price type", choices = unique(df1$Prices)), 
-                     selectInput("m6_RnD_lineplot_science_type", "Science Type", choices = unique(df1$Science.type)),
-                     selectInput("m6_RnD_lineplot_funder", "Funder", choices = unique(df1$Funder), selected = " business enterprise sector"),
-                     selectInput("m6_RnD_lineplot_performer", "Performer", choices = unique(df1$Performer)),
-                     downloadButton("m6_RnD_lineplot_dwnbtt", "Download Filtered Data in CSV"))
+              column(1),
+              column(10,plotlyOutput("m6_RnD_lineplot")),
+              column(1, downloadButton("m6_RnD_lineplot_dwnbtt", ""))
             )
           ),
           ##### EXESUM ----
@@ -86,10 +81,9 @@ ui_m6_VAEX <- function(df){
               column(9, h3("Figure 6-2-1: Value-added in goods and services exports" ))
             ),
             fluidRow(
-              column(9,plotlyOutput("m6_VAEX_lineplot")),
-              column(3, 
-                     selectInput("m6_VAEX_lineplot_geo", "Region", choices = unique(df$GEO), selected = "British Columbia"),
-                     downloadButton("m6_VAEX_lineplot_dwnbtt", "Download Filtered Data in CSV"))
+              column(1),
+              column(10,plotlyOutput("m6_VAEX_lineplot")),
+              column(1, downloadButton("m6_VAEX_lineplot_dwnbtt", ""))
             )
           ),
           ##### EXESUM ----
@@ -142,15 +136,9 @@ ui_m6_nRinv <- function(df){
               column(9, h3("Figure 6-3-1: Non-residential investment as a share of GDP" ))
             ),
             fluidRow(
-              column(9,plotlyOutput("m6_nRinv_lineplot")),
-              column(3, 
-                     selectInput("m6_nRinv_lineplot_geo", "Region", choices = unique(df$GEO), selected = "British Columbia"),
-                     selectInput("m6_nRinv_lineplot_item", "Item", choices = c("Non-residential structures",
-                                                                               "Machinery and equipment",
-                                                                               "Intellectual property products",
-                                                                               "Non-residential Investment"),
-                                 selected = "Non-residential Investment"),
-                     downloadButton("m6_nRinv_lineplot_dwnbtt", "Download Filtered Data in CSV"))
+              column(1),
+              column(10,plotlyOutput("m6_nRinv_lineplot")),
+              column(1, downloadButton("m6_nRinv_lineplot_dwnbtt", ""))
             )
           ),
           ##### EXESUM ----
@@ -203,13 +191,9 @@ ui_m6_lp <- function(df){
               column(9, h3("Figure 6-4-1: Labour productivity " ))
             ),
             fluidRow(
-              column(9,plotlyOutput("m6_lp_lineplot")),
-              column(3, 
-                     selectInput("m6_lp_lineplot_geo", "Region", choices = unique(df$GEO), selected = "British Columbia"),
-                     selectInput("m6_lp_lineplot_industry", "Industry", choices = unique(df$Industry)),
-                     selectInput("m6_lp_lineplot_labourtype", "Labour Productivity Measure", choices = unique(df$Labour.productivity.and.related.measures),
-                                 selected = "Labour productivity"),
-                     downloadButton("m6_lp_lineplot_dwnbtt", "Download Filtered Data in CSV")))
+              column(1),
+              column(10,plotlyOutput("m6_lp_lineplot")),
+              column(1,downloadButton("m6_lp_lineplot_dwnbtt", "")))
           ),
           ##### EXESUM ----
           fluidPage(
@@ -294,11 +278,9 @@ ui_m6_exp <- function(df1, df3){
               column(9, h3("Figure 6-5-1: Exports as a share of total Canadian exports" ))
             ),
             fluidRow(
-              column(9,plotlyOutput("m6_exp_lineplot")),
-              column(3, 
-                     selectInput("m6_exp_lineplot_geo", "Region", choices = unique(df1$GEO), selected = "British Columbia"),
-                     selectInput("m6_exp_lineplot_exptype", "Export Measuremnet", choices = unique(df1$EXP_type), selected = "Share of Canadian Export"),
-                     downloadButton("m6_exp_lineplot_dwnbtt", "Download Filtered Data in CSV"))
+              column(1),
+              column(10,plotlyOutput("m6_exp_lineplot")),
+              column(1, downloadButton("m6_exp_lineplot_dwnbtt", ""))
             )
           ),
           ##### EXESUM ----

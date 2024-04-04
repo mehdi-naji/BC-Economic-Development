@@ -89,31 +89,15 @@
     ## Line plot----
     m6_RnD_lineplot_data <- function(df, geo, funder, performer, science_type, prices) {
       df |>
-        filter(GEO == geo,
-               Funder == funder,
-               Performer == performer,
-               Science.type == science_type,
-               Prices == prices)
+        filter(GEO == "British Columbia",
+               Funder == " business enterprise sector",
+               Performer == " total, all sectors",
+               Science.type == "Total sciences",
+               Prices == "Current prices")
     }
     
     m6_RnD_render_lineplot <- function(df, input){
-      df1 <- m6_RnD_lineplot_data(df, input$m6_RnD_lineplot_geo, input$m6_RnD_lineplot_funder, input$m6_RnD_lineplot_performer, input$m6_RnD_lineplot_science_type, input$m6_RnD_lineplot_prices)
-      p1 <- df1 |> 
-        plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
-        layout(xaxis = list(
-          title = "", 
-          rangeslider = list(
-            visible = T,
-            thickness = 0.02,  
-            bgcolor = "darkgrey"  
-          )
-        ),
-        yaxis = list(title = paste ("million $")))
-      validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-      
-      p1 <- ggplotly(p1)
-      return(p1)
-    }
+      dash_lineplot(m6_RnD_lineplot_data, df, input)}
     
     ## Bar plot----
     
@@ -285,31 +269,17 @@
     
 # VAEX Dash----
     ## Line Plot ----
-    m6_VAEX_lineplot_data <- function(df, geo){
+    m6_VAEX_lineplot_data <- function(df){
       df |>
-        filter(GEO == geo,
+        filter(GEO == "British Columbia",
                Industry == "Total industries",
-               Value.added.exports.variable == "Value added exports" )
+               Value.added.exports.variable == "Value added exports" ) |>
+        mutate(VALUE = VA_EXP)
+      
     }
     
     m6_VAEX_render_lineplot <- function(df, input){
-      df1 <- m6_VAEX_lineplot_data(df, input$m6_VAEX_lineplot_geo)
-      p1 <- df1 |> 
-        plot_ly(x = ~Year, y = ~VA_EXP*1000, type = 'scatter', mode = 'lines') |>
-        layout(xaxis = list(
-                 title = "", 
-                 rangeslider = list(
-                   visible = T,
-                   thickness = 0.03,  
-                   bgcolor = "darkgrey"  
-                 )
-               ),
-               yaxis = list(title = paste ("$ ")))
-      validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-      
-      p1 <- ggplotly(p1)
-      return(p1)
-    }
+      dash_lineplot(m6_VAEX_lineplot_data, df, input)}
     
     ## Bar Plot ----
     m6_VAEX_bar_data <- function(df, year, industry){
@@ -358,31 +328,15 @@
     
 # Non residential Investment Dash----
     ## line plot ----
-    m6_nRinv_lineplot_data <- function(df, geo, item){
+    m6_nRinv_lineplot_data <- function(df){
       df |>
-        filter(GEO == geo,
-               Estimates == item,
+        filter(GEO == "British Columbia",
+               Estimates == "Non-residential Investment",
                Prices == "Current prices")
     }
     
     m6_nRinv_render_lineplot <- function(df, input){
-      df1 <- m6_nRinv_lineplot_data(df, input$m6_nRinv_lineplot_geo, input$m6_nRinv_lineplot_item)
-      p1 <- df1 |> 
-        plot_ly(x = ~Year, y = ~Estimate_per_GDP, type = 'scatter', mode = 'lines') |>
-        layout(xaxis = list(
-                 title = "", 
-                 rangeslider = list(
-                   visible = T,
-                   thickness = 0.02,  
-                   bgcolor = "darkgrey"  
-                 )
-               ),
-               yaxis = list(title = paste (input$m6_nRinv_lineplot_prices)))
-      validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-      
-      p1 <- ggplotly(p1)
-      return(p1)
-    }
+      dash_lineplot(m6_nRinv_lineplot_data, df, input)}
     
     ## lines plot data----
     m6_nRinv_lines_data <- function(df, geo, prices){
@@ -445,31 +399,16 @@
     
 # Labour Productivity Dash----
     ## line plot ----
-    m6_lp_lineplot_data <- function(df, geo, industry, labourtype){
+    m6_lp_lineplot_data <- function(df){
       df |>
-        filter(GEO == geo,
-               Industry == industry,
-               Labour.productivity.and.related.measures == labourtype)
+        filter(GEO == "British Columbia",
+               Industry == "All industries",
+               Labour.productivity.and.related.measures == "Labour productivity")
     }
     
     m6_lp_render_lineplot <- function(df, input){
-      df1 <- m6_lp_lineplot_data(df, input$m6_lp_lineplot_geo, input$m6_lp_lineplot_industry, input$m6_lp_lineplot_labourtype)
-      unit1 <- df1 |> pull(UOM) |> unique()
-      p1 <- df1 |> 
-        plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
-        layout(xaxis = list(
-                 title = "", 
-                 rangeslider = list(
-                   visible = T,
-                   thickness = 0.03,  
-                   bgcolor = "darkgrey"  
-                 )
-               ),
-               yaxis = list(title = paste (unit1)))
-      validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-      
-      p1 
-    }
+      dash_lineplot(m6_lp_lineplot_data, df, input)}
+    
     ## lines plot ----
     m6_lp_lines_data <- function(df, geo, labourtype ){
       df |>
@@ -583,28 +522,14 @@
     
 # Export Dash----
     ## line plot ----
-    m6_exp_lineplot_data <- function(df, geo, exptype){
+    m6_exp_lineplot_data <- function(df){
       df |>
-        filter(GEO == geo,
-               EXP_type == exptype)
+        filter(GEO == "British Columbia",
+               EXP_type == "Share of Canadian Export")
     }
     
     m6_exp_render_lineplot <- function(df, input){
-      df1 <- m6_exp_lineplot_data(df, input$m6_exp_lineplot_geo, input$m6_exp_lineplot_exptype)
-      p1 <- df1 |> 
-        plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
-        layout(xaxis = list(
-          title = "", 
-          rangeslider = list(
-            visible = T,
-            thickness = 0.03,  
-            bgcolor = "darkgrey"  
-          )
-        ))
-      validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-      
-      p1 
-    }
+      dash_lineplot(m6_exp_lineplot_data, df, input)}
     
     ## Heat Map----
     m6_exp_heatmap_data <- function(df){

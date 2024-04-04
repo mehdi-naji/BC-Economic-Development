@@ -5,7 +5,7 @@ mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, df5, output, in
   output$exesum_m1_UR <- renderUI(Exesum_m1_UR)
   ### Line Plot----
   output$m1_UR_lineplot <- renderPlotly({
-    p1 <- m1_UR_render_lineplot(df2, input)
+    p1 <- m1_UR_render_lineplot(df1, input)
     p1
   })
   
