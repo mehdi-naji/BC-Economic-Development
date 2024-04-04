@@ -115,3 +115,40 @@ ui_m1_PI <- function(df1, df2){
           ),
           
   )}
+
+### CHN: Core Housing Needs ----
+ui_m1_CHN <- function(df1){
+  tabItem(tabName = "CHN",
+          ##### Line Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-3-1: Core Housing Needs" ))
+            ),
+            fluidRow(
+              column(1),
+              column(10,plotlyOutput("m1_CHN_lineplot")),
+              column(1,
+                     downloadButton("m1_CHN_lineplot_dwnbtt", ""))
+            )
+          ),
+  )}
+          
+### GC: Gini Coefficient ----
+ui_m1_GC <- function(df1){
+  tabItem(tabName = "GC",
+          ##### Line Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-3-1: Gini Coefficient" ))
+            ),
+            fluidRow(
+              column(1),
+              column(10,plotlyOutput("m1_GC_lineplot")),
+              column(1,
+                     downloadButton("m1_GC_lineplot_dwnbtt", ""))
+            )
+          ),
+
+  )}

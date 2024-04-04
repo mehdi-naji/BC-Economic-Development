@@ -53,6 +53,22 @@
   
   
   
+  ## CHN----
+  load_m1_CHN1 <- function() {
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Core_Housing_Needs_1.csv"
+    df <- read.csv(url, header = TRUE)
+    df <- na.omit(df)
+    return(df)
+  }
+  ## GC----
+  load_m1_GC1 <- function() {
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Gini_Coefficient_1.csv"
+    df <- read.csv(url, header = TRUE)
+    df <- na.omit(df)
+    return(df)
+  }  
+  
+  
 # UR Dash----
     ## Line plot----
         m1_UR_lineplot_data <- function(df) {
@@ -66,7 +82,7 @@
                    Sex == "Both sexes") |>
             group_by(Year) |>
             summarise(VALUE = sum(VALUE)) |>
-           left_join(df1 |> filter(Reason == "Part-time employment, all reasons",
+           left_join(df |> filter(Reason == "Part-time employment, all reasons",
                                    GEO == "British Columbia",
                                    Age == "15 years and over",
                                    Sex == "Both sexes"
@@ -249,3 +265,25 @@
     }
  
     
+# CHN Dash----
+    ## Line plot----
+    m1_CHN_lineplot_data <- function(df) {
+      df |>
+        filter(GEO == "British Columbia",
+               Tenure == "Total, tenure",
+               Statistics == "Percentage of households in core housing need")
+    }
+    
+    m1_CHN_render_lineplot <- function(df, input){
+      dash_lineplot(m1_CHN_lineplot_data, df, input)} 
+    
+# GC Dash----
+## Line plot----
+m1_GC_lineplot_data <- function(df) {
+  df |>
+    filter(GEO == "British Columbia",
+           Income_concept == "Adjusted total income")
+}
+
+m1_GC_render_lineplot <- function(df, input){
+  dash_lineplot(m1_GC_lineplot_data, df, input)}

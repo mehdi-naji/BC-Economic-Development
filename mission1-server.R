@@ -99,3 +99,44 @@ mission1_PI_server <- function(Exesum_m1_PI, df1, df2, output, input){
     }
   )
 }
+
+
+## CHN----
+mission1_CHN_server <- function(Exesum_m1_CHN, df1, output, input){
+  ### Executive Summary----
+  output$exesum_m1_CHN <- renderUI(Exesum_m1_CHN)
+  ### Line Plot----
+  output$m1_CHN_lineplot <- renderPlotly({
+    p1 <- m1_CHN_render_lineplot(df1, input)
+    p1
+  })
+  
+  output$m1_CHN_lineplot_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_CoreHousingNeeds_filteredData.csv",
+    content = function(file) {
+      df <- m1_CHN_lineplot_data(df1)
+      
+      write.csv(df, file)
+    }
+  )
+}
+
+## GC----
+mission1_GC_server <- function(Exesum_m1_GC, df1, output, input){
+  ### Executive Summary----
+  output$exesum_m1_GC <- renderUI(Exesum_m1_GC)
+  ### Line Plot----
+  output$m1_GC_lineplot <- renderPlotly({
+    p1 <- m1_GC_render_lineplot(df1, input)
+    p1
+  })
+  
+  output$m1_GC_lineplot_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_GiniCoefficient_filteredData.csv",
+    content = function(file) {
+      df <- m1_GC_lineplot_data(df1)
+      
+      write.csv(df, file)
+    }
+  )
+}
