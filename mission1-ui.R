@@ -190,3 +190,75 @@ ui_m1_TS <- function(df1){
           ),
           
   )}
+### MI: Median Income ----
+ui_m1_MI <- function(df1){
+  tabItem(tabName = "MI",
+          ##### Line Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-3-1: Income (Median after tax)" ))
+            ),
+            fluidRow(
+              column(1),
+              column(10,plotlyOutput("m1_MI_lineplot")),
+              column(1,
+                     downloadButton("m1_MI_lineplot_dwnbtt", ""))
+            )
+          ),
+          
+  )}
+### SB: Sense of Belongings ----
+ui_m1_SB <- function(df1){
+  tabItem(tabName = "SB",
+          ##### Line Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-3-1: Sense of Belongings" ))
+            ),
+            fluidRow(
+              column(1),
+              column(10,plotlyOutput("m1_SB_lineplot")),
+              column(1,
+                     downloadButton("m1_SB_lineplot_dwnbtt", ""))
+            )
+          ),
+          
+  )}
+### LE: Life Expectancy ----
+ui_m1_LE <- function(df1){
+  tabItem(tabName = "LE",
+          ##### Line Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-3-1: Life Expectancy" ))
+            ),
+            fluidRow(
+              column(1),
+              column(10,plotlyOutput("m1_LE_lineplot")),
+              column(1,
+                     downloadButton("m1_LE_lineplot_dwnbtt", ""))
+            )
+          ),
+          
+  )}
+### MH: Mental Health ----
+ui_m1_MH <- function(df1){
+  tabItem(tabName = "MH",
+          ##### Line Plot----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 1-3-1: Mental Health" ))
+            ),
+            fluidRow(
+              column(1),
+              column(10,plotlyOutput("m1_MH_lineplot")),
+              column(1,
+                     downloadButton("m1_MH_lineplot_dwnbtt", ""))
+            )
+          ),
+          
+  )}

@@ -56,6 +56,14 @@ df_m1_FE_1 <- load_m1_FE1()
 
 df_m1_TS_1 <- load_m1_TS1()
 
+df_m1_MI_1 <- load_m1_MI1()
+
+df_m1_SB_1 <- load_m1_SB1()
+
+df_m1_LE_1 <- load_m1_LE1()
+
+df_m1_MH_1 <- load_m1_MH1()
+
 df_m2_GII_1 <- load_m2_GII1()
 
 df_m5_CEG_1 <- load_m5_CEG1()
@@ -86,9 +94,11 @@ ui <- function() {
                          menuSubItem("Core Housing Need", tabName = "CHN"),
                          menuSubItem("Gini Coefficient", tabName = "GC"),
                          menuSubItem("Food Expenditure", tabName = "FE"),
-                         menuSubItem("Spending on Transportation", tabName = "TS")
-                         
-                         
+                         menuSubItem("Spending on Transportation", tabName = "TS"),
+                         menuSubItem("Income", tabName = "MI"),
+                         menuSubItem("Sense of Belongings", tabName = "SB"),
+                         menuSubItem("Life Expectancy", tabName = "LE"),
+                         menuSubItem("Mental Health", tabName = "MH")
                          ),
                 menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye"),
                          menuSubItem("Government Investment in Infrastructure", tabName = "GII")
@@ -120,6 +130,11 @@ ui <- function() {
         ui_m1_GC(df1 = df_m1_GC_1),
         ui_m1_FE(df1 = df_m1_FE_1),
         ui_m1_TS(df1 = df_m1_TS_1),
+        ui_m1_MI(df1 = df_m1_MI_1),
+        ui_m1_SB(df1 = df_m1_SB_1),
+        ui_m1_LE(df1 = df_m1_LE_1),
+        ui_m1_MH(df1 = df_m1_MH_1),
+        
         ### Mission2 ----
         ui_m2_GII(df_m2_GII_1),
         ### Mission5 ----
@@ -181,6 +196,10 @@ server <- function(input, output, session) {
   mission1_GC_server(Exesum_m1_GC, df1 = df_m1_GC_1, output, input)
   mission1_FE_server(Exesum_m1_FE, df1 = df_m1_FE_1, output, input)
   mission1_TS_server(Exesum_m1_TS, df1 = df_m1_TS_1, output, input)
+  mission1_MI_server(Exesum_m1_MI, df1 = df_m1_MI_1, output, input)
+  mission1_SB_server(Exesum_m1_SB, df1 = df_m1_SB_1, output, input)
+  mission1_LE_server(Exesum_m1_LE, df1 = df_m1_LE_1, output, input)
+  mission1_MH_server(Exesum_m1_MH, df1 = df_m1_MH_1, output, input)
   
   mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
   

@@ -180,3 +180,79 @@ mission1_TS_server <- function(Exesum_m1_TS, df1, output, input){
     }
   )
 }
+## MI----
+mission1_MI_server <- function(Exesum_m1_MI, df1, output, input){
+  ### Executive Summary----
+  output$exesum_m1_MI <- renderUI(Exesum_m1_MI)
+  ### Line Plot----
+  output$m1_MI_lineplot <- renderPlotly({
+    p1 <- m1_MI_render_lineplot(df1, input)
+    p1
+  })
+  
+  output$m1_MI_lineplot_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_MedianIncome_filteredData.csv",
+    content = function(file) {
+      df <- m1_MI_lineplot_data(df1)
+      
+      write.csv(df, file)
+    }
+  )
+}
+## SB----
+mission1_SB_server <- function(Exesum_m1_SB, df1, output, input){
+  ### Executive Summary----
+  output$exesum_m1_SB <- renderUI(Exesum_m1_SB)
+  ### Line Plot----
+  output$m1_SB_lineplot <- renderPlotly({
+    p1 <- m1_SB_render_lineplot(df1, input)
+    p1
+  })
+  
+  output$m1_SB_lineplot_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_SenseofBelongings_filteredData.csv",
+    content = function(file) {
+      df <- m1_SB_lineplot_data(df1)
+      
+      write.csv(df, file)
+    }
+  )
+}
+## LE----
+mission1_LE_server <- function(Exesum_m1_LE, df1, output, input){
+  ### Executive Summary----
+  output$exesum_m1_LE <- renderUI(Exesum_m1_LE)
+  ### Line Plot----
+  output$m1_LE_lineplot <- renderPlotly({
+    p1 <- m1_LE_render_lineplot(df1, input)
+    p1
+  })
+  
+  output$m1_LE_lineplot_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_LifeExpectancy_filteredData.csv",
+    content = function(file) {
+      df <- m1_LE_lineplot_data(df1)
+      
+      write.csv(df, file)
+    }
+  )
+}
+## MH----
+mission1_MH_server <- function(Exesum_m1_MH, df1, output, input){
+  ### Executive Summary----
+  output$exesum_m1_MH <- renderUI(Exesum_m1_MH)
+  ### Line Plot----
+  output$m1_MH_lineplot <- renderPlotly({
+    p1 <- m1_MH_render_lineplot(df1, input)
+    p1
+  })
+  
+  output$m1_MH_lineplot_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission1_MentalHealth_filteredData.csv",
+    content = function(file) {
+      df <- m1_MH_lineplot_data(df1)
+      
+      write.csv(df, file)
+    }
+  )
+}

@@ -83,6 +83,42 @@
   } 
   
   
+  ## MI----
+  load_m1_MI1 <- function() {
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Median_Income_1.csv"
+    df <- read.csv(url, header = TRUE)
+    df <- na.omit(df)
+    return(df)
+  } 
+  
+  
+  ## SB----
+  load_m1_SB1 <- function() {
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Sense_of_Belongings_1.csv"
+    df <- read.csv(url, header = TRUE)
+    df <- na.omit(df)
+    return(df)
+  } 
+  
+  
+  ## LE----
+  load_m1_LE1 <- function() {
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Life_Expectancy_1.csv"
+    df <- read.csv(url, header = TRUE)
+    df <- na.omit(df)
+    return(df)
+  } 
+  
+  
+  ## MH----
+  load_m1_MH1 <- function() {
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Mental_Health_1.csv"
+    df <- read.csv(url, header = TRUE)
+    df <- na.omit(df)
+    return(df)
+  } 
+  
+  
 # UR Dash----
     ## Line plot----
         m1_UR_lineplot_data <- function(df) {
@@ -324,3 +360,55 @@ m1_TS_lineplot_data <- function(df) {
 
 m1_TS_render_lineplot <- function(df, input){
   dash_lineplot(m1_TS_lineplot_data, df, input)}
+# MI Dash----
+## Line plot----
+m1_MI_lineplot_data <- function(df) {
+  df |>
+    filter(Year >= 2000,
+           GEO == "British Columbia",
+           Concept == "Median after-tax income",
+           Type == "Economic families and persons not in an economic family")
+}
+
+m1_MI_render_lineplot <- function(df, input){
+  dash_lineplot(m1_MI_lineplot_data, df, input)}
+# SB Dash----
+## Line plot----
+m1_SB_lineplot_data <- function(df) {
+  df |>
+    filter(GEO == "British Columbia",
+           Age == "Total, 12 years and over",
+           Sex == "Both sexes",
+           Indicators == "Sense of belonging to local community, somewhat strong or very strong",
+           Characteristics == "Percent") |>
+    mutate(VALUE = paste0(VALUE, "%"))
+}
+
+m1_SB_render_lineplot <- function(df, input){
+  dash_lineplot(m1_SB_lineplot_data, df, input)}
+# LE Dash----
+## Line plot----
+m1_LE_lineplot_data <- function(df) {
+  df |>
+    filter(GEO == "British Columbia",
+           Age == "0 years",
+           Sex == "Both sexes",
+           Element == "Life expectancy (in years) at age x (ex)")
+}
+
+m1_LE_render_lineplot <- function(df, input){
+  dash_lineplot(m1_LE_lineplot_data, df, input)}
+
+# MH Dash----
+## Line plot----
+m1_MH_lineplot_data <- function(df) {
+  df |>
+    filter(GEO == "British Columbia",
+           Age == "Total, 12 years and over",
+           Sex == "Both sexes",
+           Indicators == "Perceived mental health, very good or excellent",
+           Characteristics == "Percent")
+}
+
+m1_MH_render_lineplot <- function(df, input){
+  dash_lineplot(m1_MH_lineplot_data, df, input)}
