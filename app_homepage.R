@@ -39,32 +39,35 @@ source("Executive_summaries.R")
 # Loading data ----
 canada_map <- load_canada_map()
 
-df_m1_UR_1 <- load_m1_UR1()
-df_m1_UR_2 <- load_m1_UR2()
-df_m1_UR_3 <- load_m1_UR3()
-df_m1_UR_4 <- load_m1_UR4()
-df_m1_UR_5 <- load_m1_UR5()
+  ## Mission 1 ----
+  df_m1_UR_1 <- load_m1_UR1()
+  df_m1_UR_2 <- load_m1_UR2()
+  df_m1_UR_3 <- load_m1_UR3()
+  df_m1_UR_4 <- load_m1_UR4()
+  df_m1_UR_5 <- load_m1_UR5()
+  
+  df_m1_PI_1 <- load_m1_PI1()
+  df_m1_PI_2 <- load_m1_PI2()
+  
+  df_m1_CHN_1 <- load_m1_CHN1()
+  
+  df_m1_GC_1 <- load_m1_GC1()
+  
+  df_m1_FE_1 <- load_m1_FE1()
+  
+  df_m1_TS_1 <- load_m1_TS1()
+  
+  df_m1_MI_1 <- load_m1_MI1()
+  
+  df_m1_SB_1 <- load_m1_SB1()
+  
+  df_m1_LE_1 <- load_m1_LE1()
+  
+  df_m1_MH_1 <- load_m1_MH1()
 
-df_m1_PI_1 <- load_m1_PI1()
-df_m1_PI_2 <- load_m1_PI2()
-
-df_m1_CHN_1 <- load_m1_CHN1()
-
-df_m1_GC_1 <- load_m1_GC1()
-
-df_m1_FE_1 <- load_m1_FE1()
-
-df_m1_TS_1 <- load_m1_TS1()
-
-df_m1_MI_1 <- load_m1_MI1()
-
-df_m1_SB_1 <- load_m1_SB1()
-
-df_m1_LE_1 <- load_m1_LE1()
-
-df_m1_MH_1 <- load_m1_MH1()
-
-df_m2_GII_1 <- load_m2_GII1()
+  ## Mission 2 ----
+  df_m2_GII_1 <- load_m2_GII1()
+  df_m2_NBO_1 <- load_m2_NBO1()
 
 df_m5_CEG_1 <- load_m5_CEG1()
 
@@ -101,7 +104,8 @@ ui <- function() {
                          menuSubItem("Mental Health", tabName = "MH")
                          ),
                 menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye"),
-                         menuSubItem("Government Investment in Infrastructure", tabName = "GII")
+                         menuSubItem("Government Investment in Infrastructure", tabName = "GII"),
+                         menuSubItem("New Business Openings", tabName = "NBO")
                          ),
                 menuItem("Mission 3", tabName = "mission3", icon = icon("bullseye")),
                 menuItem("Mission 4", tabName = "mission4", icon = icon("bullseye")),
@@ -137,6 +141,7 @@ ui <- function() {
         
         ### Mission2 ----
         ui_m2_GII(df_m2_GII_1),
+        ui_m2_NBO(df_m2_NBO_1),
         ### Mission5 ----
         ui_m5_CEG(df_m5_CEG_1),
         ### Mission6 ----
@@ -202,6 +207,8 @@ server <- function(input, output, session) {
   mission1_MH_server(Exesum_m1_MH, df1 = df_m1_MH_1, output, input)
   
   mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
+  mission2_NBO_server(Exesum_m2_NBO, df_m2_NBO_1, output, input)
+  
   
   mission5_CEG_server(Exesum_m5_CEG, df_m5_CEG_1, output, input)
   
