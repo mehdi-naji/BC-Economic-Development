@@ -14,6 +14,7 @@ df1$Year <- year(df1$DATE)
 
 df1_1 <- df1 |> 
   mutate(Measure = `Business dynamics measure`) |>
+  filter(str_detect(GEO, "^British")) |>
   select(
     Year, GEO, Industry, Measure, VALUE)
 

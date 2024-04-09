@@ -30,6 +30,15 @@ Exesum_m2_GII <- HTML("
   </ul>
 ")
 
+Exesum_m2_NBO <- HTML("
+  <ul style='text-align: justify; font-size: 20px;'>
+    <li>...</li> 
+    <li>...</li>
+    <li>...</li>
+    <li>...</li>
+  </ul>
+")
+
 # Mission5 ----
 Exesum_m5_CEG <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>

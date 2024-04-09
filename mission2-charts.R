@@ -33,8 +33,7 @@ load_m2_NBO1 <- function() {
 ## Line plot----
 m2_NBO_lineplot_data <- function(df) {
   df |>
-    filter(GEO == "British Columbia",
-           Industry == "Business sector industries [T004]",
+    filter(Industry == "Business sector industries [T004]",
            Measure == "Entrants")
 }
 
