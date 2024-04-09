@@ -94,7 +94,7 @@
   
   ## SB----
   load_m1_SB1 <- function() {
-    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Sense_of_Belongings_1.csv"
+    url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Sense_of_Belonging_1.csv"
     df <- read.csv(url, header = TRUE)
     df <- na.omit(df)
     return(df)
