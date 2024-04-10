@@ -78,7 +78,6 @@ Exesum_m6_VAEX <- HTML("
 
 Exesum_m6_nRinv <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>
-    <span style='color: blue;'>Total non-residential investment:</span>
     <li>Investment in non-residential structures, machinery and equipment, and intellectual property products increased to 13.3 percent of GDP in 2022 [most recent year], the highest level since 2000 [start year]. It increased by 0.2% from 13.2% in 2021.[previous year]. </li>
     <li>In 2022, investments in fixed non-residential capital totaled $55 billion in B.C., with the private sector accounted for 77.6 percent. Transportation and warehousing investments accounted for 26 percent of total fixed non-residential capital in 2022, the most among all sectors, followed by government sector (22%) and mining, quarrying and oil and gas extraction (14%). </li>
     <li>At 13.3 percent, B.C. has the fourth highest percentage in Canada, trailing Alberta (16.7%), Newfoundland and Labrador (15.4%) and Saskatchewan (14.3%). Non-residential structures made up most of non-residential investments in Canada. In B.C. non-residential structures accounted for around 60 percent in 2022 while intellectual property products accounting for 15 percent and machinery and equipment 25 percent. Non-residential investments in Ontario were more evenly distributed, with each category accounting for approximately 30 percent in 2022. </li>
@@ -99,7 +98,6 @@ Exesum_m6_lp <- HTML("
 
 Exesum_m6_exp <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>
-    <span style='color: blue;'>Total non-residential investment:</span>
     <li>B.C. contributed for 7.9 percent of overall Canadian exports in 2023. B.C.’s export volume was $56.5 billion in 2023, down 13.1 percent from $64.9 billion in 2022. B.C. was the fourth largest contributor to Canadian exports in 2023, behind Ontario 35.4 percent), Alberta (24.6 percent) and Quebec (16.3 percent).  </li>
     <li>Exports from B.C. to major trading partners have decreased in 2023. While the United States remained B.C.’s top exports destination, accounting for 54.6 percent of overall exports from B.C., shipments to the U.S. fell 17.57 percent, from $37.4 billion in 2022 to $30.8 billion in 2023. B.C.’s exports to Australia increased by 39.98  percent in 2023, highest among all major trading partners. </li> 
     <li>Energy product exports from B.C. totaled $20 billion in 2023, accounting for 35.4 percent of B.C.’s exports, highest among all commodities. B.C. led in wood products exports, accounting for 37.5 percent of total Canadian wood products exports. </li> 

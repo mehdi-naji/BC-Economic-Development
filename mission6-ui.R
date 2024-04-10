@@ -262,8 +262,9 @@ ui_m6_lp <- function(df){
               column(9,plotlyOutput("m6_lp_treemap")),
               column(3, 
                      selectInput("m6_lp_treemap_geo", "Region", choices = unique(df$GEO), selected = "British Columbia"),
-                     selectInput("m6_lp_treemap_year", "Year", choices = unique(df$Year), selected = 2022))
-            )
+                     selectInput("m6_lp_treemap_year", "Year", choices = unique(df$Year), selected = 2022)),
+                     downloadButton("m6_lp_treemap_dwnbtt", "Download Filtered Data in CSV"))
+            
           )
     )}
 

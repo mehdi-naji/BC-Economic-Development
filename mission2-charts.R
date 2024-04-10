@@ -21,9 +21,14 @@ load_m2_NBO1 <- function() {
     m2_GII_lineplot_data <- function(df) {
       df |>
         filter(GEO == "British Columbia",
-               Prices == "Current dollars",
-               Purchasing.industry == "Total industries",
-               Asset.function == "All functions")
+               Prices == "Constatnt dollars",
+               Purchasing.industry %in% c("Provincial government (excluding health and educational services)",
+                                          "Educational services",
+                                          "Hospitals",
+                                          "Nursing and residential care facilities"),
+               Asset.function == "All functions") |>
+        group_by(Year, GEO, Asset.function) |>
+        summarise(VALUE = sum(VALUE))
     }
     
     m2_GII_render_lineplot <- function(df, input){

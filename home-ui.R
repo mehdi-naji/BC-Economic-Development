@@ -1,4 +1,4 @@
-ui_m6_home <- function(){
+ui_home <- function(){
   ## Body ----
   style1 <- "background-color:#CAEDF8; height: 400px; padding: 10px; border-radius: 10px; border: 5px solid #ecf0f5;font-size: 16px;"
   style2 <- "background-color:#337AB7; color:white;"

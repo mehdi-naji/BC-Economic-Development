@@ -93,12 +93,12 @@ ui <- function() {
                 menuItem("Home", tabName = "home", icon = icon("home")),
                 menuItem("Mission 1", tabName = "mission1", icon = icon("bullseye"),
                          menuSubItem("Poverty Incidence", tabName = "PI"),
-                         menuSubItem("Underemployment rate", tabName = "UR"),
                          menuSubItem("Core Housing Need", tabName = "CHN"),
                          menuSubItem("Gini Coefficient", tabName = "GC"),
+                         menuSubItem("Underemployment rate", tabName = "UR"),
                          menuSubItem("Food Expenditure", tabName = "FE"),
                          menuSubItem("Spending on Transportation", tabName = "TS"),
-                         menuSubItem("Income", tabName = "MI"),
+                         # menuSubItem("Income", tabName = "MI"),
                          menuSubItem("Sense of Belongings", tabName = "SB"),
                          menuSubItem("Life Expectancy", tabName = "LE"),
                          menuSubItem("Mental Health", tabName = "MH")
@@ -126,7 +126,7 @@ ui <- function() {
     body <- dashboardBody(
       tabItems(
         ### Home tab ----
-        ui_m6_home(),
+        ui_home(),
         ### Mission1 ----
         ui_m1_PI(df1 = df_m1_PI_1, df2 = df_m1_PI_2),
         ui_m1_UR(df1 = df_m1_UR_1, df2 = df_m1_UR_2, df3= df_m1_UR_3, df4 = df_m1_UR_4, df5 = df_m1_UR_5),
@@ -190,6 +190,9 @@ ui <- function() {
 
 # Server----
 server <- function(input, output, session) {
+  observeEvent(input$button1, {
+    updateTabItems(session, "tabs", selected = "PI")
+  })
   
   observeEvent(input$button6, {
     updateTabItems(session, "tabs", selected = "RnD")

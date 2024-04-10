@@ -14,7 +14,8 @@ df1$Month <- month(df1$DATE)
 
 df1_1 <- df1 |> 
   mutate(Measure = `Business dynamics measure`) |>
-  filter(Industry == "Business sector industries [T004]") |>
+  filter(Industry == "Business sector industries [T004]",
+         str_detect(GEO, "^British")) |>
   # select(
   #   Year, GEO, Industry, Measure, VALUE) |>
   group_by(Year, GEO, Industry, Measure) |>

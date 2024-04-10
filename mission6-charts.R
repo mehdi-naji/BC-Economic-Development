@@ -497,8 +497,9 @@
           GEO, Labour.productivity.and.related.measures, Industry, VALUE 
         )}
     
-    m6_lp_render_map <- function(df, canada_map, input){
+    m6_lp_render_map <- function(df, input){
       df_map <- m6_lp_map_data(df, input$m6_lp_map_year, input$m6_lp_map_labourtype, input$m6_lp_map_industry)
+      canada_map <- load_canada_map()
       merged_df <- merge(canada_map, df_map, by.x="prov_name_en", by.y="GEO", all.x = TRUE)
       canada_map$VALUE <- merged_df$VALUE
       # Create a color palette

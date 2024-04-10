@@ -224,7 +224,7 @@ mission6_lp_server <- function(Exesum_m6_lp, df_m6_lp_1, output, input){
   
   ### map----
   output$m6_lp_map <- renderLeaflet({
-    p1 <- m6_lp_render_map(df_m6_lp_1, canada_map,input)
+    p1 <- m6_lp_render_map(df_m6_lp_1,input)
     
     p1
   })
