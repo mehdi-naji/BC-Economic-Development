@@ -139,12 +139,12 @@
                                    ),
                      by = "Year") |>
            mutate(VALUE = (VALUE.x / VALUE.y) * 100,
-                  VALUE = paste0(round(VALUE,2), "%"))|>
+                  VALUE = round(VALUE))|>
            select(Year, VALUE)
         }
         
         m1_UR_render_lineplot <- function(df, input){
-            dash_lineplot(m1_UR_lineplot_data, df, input)} 
+            dash_lineplot(m1_UR_lineplot_data, df, input, "Percentage")} 
 
     ## Waffle plot----
     m1_UR_waffle_data <- function(df, year, geo) {
@@ -262,7 +262,7 @@
     }
     
     m1_PI_render_lineplot <- function(df, input){
-      dash_lineplot(m1_PI_lineplot_data, df, input)}
+      dash_lineplot(m1_PI_lineplot_data, df, input, "Percentage")}
     
     ## GB : Gender Bias----
     m1_PI_GB_data <- function(df, geo, year) {
@@ -325,7 +325,7 @@
     }
     
     m1_CHN_render_lineplot <- function(df, input){
-      dash_lineplot(m1_CHN_lineplot_data, df, input)} 
+      dash_lineplot(m1_CHN_lineplot_data, df, input, "Percentage")} 
     
 # GC Dash----
 ## Line plot----
@@ -344,22 +344,22 @@ m1_GC_render_lineplot <- function(df, input){
 m1_FE_lineplot_data <- function(df) {
   df |>
     filter(GEO == "British Columbia") |>
-    mutate(VALUE = paste0(round(100*VALUE,2), "%"))
+    mutate(VALUE = round(100*VALUE,1))
 }
 
 m1_FE_render_lineplot <- function(df, input){
-  dash_lineplot(m1_FE_lineplot_data, df, input)}
+  dash_lineplot(m1_FE_lineplot_data, df, input, "Percentage")}
 
 # TS Dash----
 ## Line plot----
 m1_TS_lineplot_data <- function(df) {
   df |>
     filter(GEO == "British Columbia") |>
-    mutate(VALUE = paste0(round(100*VALUE,2), "%"))
+    mutate(VALUE = round(100*VALUE,1))
 }
 
 m1_TS_render_lineplot <- function(df, input){
-  dash_lineplot(m1_TS_lineplot_data, df, input)}
+  dash_lineplot(m1_TS_lineplot_data, df, input, "Percentage")}
 # MI Dash----
 ## Line plot----
 m1_MI_lineplot_data <- function(df) {
@@ -381,11 +381,11 @@ m1_SB_lineplot_data <- function(df) {
            Sex == "Both sexes",
            Indicators == "Sense of belonging to local community, somewhat strong or very strong",
            Characteristics == "Percent") |>
-    mutate(VALUE = paste0(VALUE, "%"))
+    mutate(VALUE = round(VALUE, 1))
 }
 
 m1_SB_render_lineplot <- function(df, input){
-  dash_lineplot(m1_SB_lineplot_data, df, input)}
+  dash_lineplot(m1_SB_lineplot_data, df, input, "Percentage")}
 # LE Dash----
 ## Line plot----
 m1_LE_lineplot_data <- function(df) {
@@ -393,11 +393,12 @@ m1_LE_lineplot_data <- function(df) {
     filter(GEO == "British Columbia",
            Age == "0 years",
            Sex == "Both sexes",
-           Element == "Life expectancy (in years) at age x (ex)")
+           Element == "Life expectancy (in years) at age x (ex)")|>
+    mutate(VALUE = round(VALUE,1))
 }
 
 m1_LE_render_lineplot <- function(df, input){
-  dash_lineplot(m1_LE_lineplot_data, df, input)}
+  dash_lineplot(m1_LE_lineplot_data, df, input, "Percentage")}
 
 # MH Dash----
 ## Line plot----
@@ -411,4 +412,4 @@ m1_MH_lineplot_data <- function(df) {
 }
 
 m1_MH_render_lineplot <- function(df, input){
-  dash_lineplot(m1_MH_lineplot_data, df, input)}
+  dash_lineplot(m1_MH_lineplot_data, df, input, "Years")}

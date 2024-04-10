@@ -1,5 +1,5 @@
 # Line Plot ----
-dash_lineplot <- function(data_func, df, input){
+dash_lineplot <- function(data_func, df , input, y_label=""){
   df1 <- data_func(df)
   p1 <- df1 |> 
     plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
@@ -12,7 +12,7 @@ dash_lineplot <- function(data_func, df, input){
       )
     ),
     yaxis = list(
-      title = ""
+      title = y_label
     ),
     annotations = list(
       list(
@@ -35,3 +35,4 @@ dash_lineplot <- function(data_func, df, input){
   return(p1)
   
 }
+

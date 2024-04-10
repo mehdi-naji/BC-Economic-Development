@@ -27,7 +27,8 @@
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/VA_Exporsts_1.csv"
       df <- read.csv(url, header = TRUE)
       df <- na.omit(df)
-      df <- df |>   mutate(Industry = str_remove(Industry, "\\s\\[.*\\]$"))
+      df <- df |>   mutate(Industry = str_remove(Industry, "\\s\\[.*\\]$"),
+                           VALUE = round(VA_EXP/1000000,1))
     
       return(df)
     }
@@ -54,7 +55,7 @@
     load_m6_exp1 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_1.csv"
       df <- read.csv(url, header = TRUE)
-      df <- df|> filter(EXP_type != "Export Percent Change")
+      df <- df|> filter(EXP_type != "Export Percent Change") 
       return(df)
     }
     
@@ -97,7 +98,7 @@
     }
     
     m6_RnD_render_lineplot <- function(df, input){
-      dash_lineplot(m6_RnD_lineplot_data, df, input)}
+      dash_lineplot(m6_RnD_lineplot_data, df, input, "$ Millions")}
     
     ## Bar plot----
     
@@ -273,13 +274,12 @@
       df |>
         filter(GEO == "British Columbia",
                Industry == "Total industries",
-               Value.added.exports.variable == "Value added exports" ) |>
-        mutate(VALUE = VA_EXP)
+               Value.added.exports.variable == "Value added exports" ) 
       
     }
     
     m6_VAEX_render_lineplot <- function(df, input){
-      dash_lineplot(m6_VAEX_lineplot_data, df, input)}
+      dash_lineplot(m6_VAEX_lineplot_data, df, input, "$ Billions")}
     
     ## Bar Plot ----
     m6_VAEX_bar_data <- function(df, year, industry){
@@ -330,13 +330,15 @@
     ## line plot ----
     m6_nRinv_lineplot_data <- function(df){
       df |>
-        filter(GEO == "British Columbia",
+        filter(YEAR >= 2000,
+               GEO == "British Columbia",
                Estimates == "Non-residential Investment",
-               Prices == "Current prices")
+               Prices == "Current prices") |>
+        mutate(VALUE = Estimate_per_GDP)
     }
     
     m6_nRinv_render_lineplot <- function(df, input){
-      dash_lineplot(m6_nRinv_lineplot_data, df, input)}
+      dash_lineplot(m6_nRinv_lineplot_data, df, input, "Percentage")}
     
     ## lines plot data----
     m6_nRinv_lines_data <- function(df, geo, prices){
@@ -407,7 +409,7 @@
     }
     
     m6_lp_render_lineplot <- function(df, input){
-      dash_lineplot(m6_lp_lineplot_data, df, input)}
+      dash_lineplot(m6_lp_lineplot_data, df, input, "$ per hour")}
     
     ## lines plot ----
     m6_lp_lines_data <- function(df, geo, labourtype ){
@@ -525,12 +527,14 @@
     ## line plot ----
     m6_exp_lineplot_data <- function(df){
       df |>
-        filter(GEO == "British Columbia",
-               EXP_type == "Share of Canadian Export")
+        filter(Year >= 2000,
+               GEO == "British Columbia",
+               EXP_type == "Share of Canadian Export") |>
+        mutate(VALUE = round(as.numeric(str_sub(VALUE, end=-2)),1))
     }
     
     m6_exp_render_lineplot <- function(df, input){
-      dash_lineplot(m6_exp_lineplot_data, df, input)}
+      dash_lineplot(m6_exp_lineplot_data, df, input, "Percentage")}
     
     ## Heat Map----
     m6_exp_heatmap_data <- function(df){
