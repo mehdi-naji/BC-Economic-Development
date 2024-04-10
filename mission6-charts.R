@@ -330,7 +330,7 @@
     ## line plot ----
     m6_nRinv_lineplot_data <- function(df){
       df |>
-        filter(YEAR >= 2000,
+        filter(Year >= 2000,
                GEO == "British Columbia",
                Estimates == "Non-residential Investment",
                Prices == "Current prices") |>
