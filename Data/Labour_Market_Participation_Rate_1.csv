@@ -1,0 +1,265 @@
+"Year","GEO","VALUE"
+2000,"Canada",65.8
+2000,"Newfoundland and Labrador",55.5
+2000,"Prince Edward Island",66.8
+2000,"Nova Scotia",61.2
+2000,"New Brunswick",61.6
+2000,"Quebec",63.1
+2000,"Ontario",67
+2000,"Manitoba",67.9
+2000,"Saskatchewan",66.7
+2000,"Alberta",72.2
+2000,"British Columbia",64.8
+2001,"Canada",65.9
+2001,"Newfoundland and Labrador",56.8
+2001,"Prince Edward Island",67.1
+2001,"Nova Scotia",62
+2001,"New Brunswick",61.9
+2001,"Quebec",63.6
+2001,"Ontario",67.3
+2001,"Manitoba",67.7
+2001,"Saskatchewan",65.6
+2001,"Alberta",72.3
+2001,"British Columbia",64
+2002,"Canada",66.9
+2002,"Newfoundland and Labrador",58.2
+2002,"Prince Edward Island",67.6
+2002,"Nova Scotia",62.6
+2002,"New Brunswick",63.3
+2002,"Quebec",65.2
+2002,"Ontario",67.8
+2002,"Manitoba",68.9
+2002,"Saskatchewan",66.9
+2002,"Alberta",72.9
+2002,"British Columbia",65
+2003,"Canada",67.6
+2003,"Newfoundland and Labrador",59.1
+2003,"Prince Edward Island",67.8
+2003,"Nova Scotia",63
+2003,"New Brunswick",63.1
+2003,"Quebec",66.1
+2003,"Ontario",68.5
+2003,"Manitoba",68.6
+2003,"Saskatchewan",67.8
+2003,"Alberta",73.5
+2003,"British Columbia",65.5
+2004,"Canada",67.5
+2004,"Newfoundland and Labrador",59.1
+2004,"Prince Edward Island",67.9
+2004,"Nova Scotia",63.9
+2004,"New Brunswick",63.8
+2004,"Quebec",65.9
+2004,"Ontario",68.4
+2004,"Manitoba",68.9
+2004,"Saskatchewan",67.8
+2004,"Alberta",73.5
+2004,"British Columbia",65.3
+2005,"Canada",67.1
+2005,"Newfoundland and Labrador",58.7
+2005,"Prince Edward Island",68.1
+2005,"Nova Scotia",63.4
+2005,"New Brunswick",63.2
+2005,"Quebec",65.6
+2005,"Ontario",68
+2005,"Manitoba",68.4
+2005,"Saskatchewan",67.9
+2005,"Alberta",72.7
+2005,"British Columbia",65.4
+2006,"Canada",67.2
+2006,"Newfoundland and Labrador",59.3
+2006,"Prince Edward Island",68.6
+2006,"Nova Scotia",62.8
+2006,"New Brunswick",63.5
+2006,"Quebec",65.4
+2006,"Ontario",67.7
+2006,"Manitoba",68.5
+2006,"Saskatchewan",68.8
+2006,"Alberta",73.6
+2006,"British Columbia",65.8
+2007,"Canada",67.5
+2007,"Newfoundland and Labrador",59.4
+2007,"Prince Edward Island",67.8
+2007,"Nova Scotia",63.5
+2007,"New Brunswick",63.8
+2007,"Quebec",65.6
+2007,"Ontario",67.7
+2007,"Manitoba",69.1
+2007,"Saskatchewan",69.7
+2007,"Alberta",74.5
+2007,"British Columbia",66.2
+2008,"Canada",67.6
+2008,"Newfoundland and Labrador",59.7
+2008,"Prince Edward Island",68.4
+2008,"Nova Scotia",63.9
+2008,"New Brunswick",65
+2008,"Quebec",65.6
+2008,"Ontario",67.6
+2008,"Manitoba",69.4
+2008,"Saskatchewan",70.1
+2008,"Alberta",74.8
+2008,"British Columbia",66.4
+2009,"Canada",67.3
+2009,"Newfoundland and Labrador",59.2
+2009,"Prince Edward Island",67.9
+2009,"Nova Scotia",64.5
+2009,"New Brunswick",64.7
+2009,"Quebec",65.3
+2009,"Ontario",67.1
+2009,"Manitoba",69.2
+2009,"Saskatchewan",70.6
+2009,"Alberta",74.6
+2009,"British Columbia",66.2
+2010,"Canada",67.1
+2010,"Newfoundland and Labrador",60.3
+2010,"Prince Edward Island",68
+2010,"Nova Scotia",64.5
+2010,"New Brunswick",64.2
+2010,"Quebec",65.3
+2010,"Ontario",67
+2010,"Manitoba",69.5
+2010,"Saskatchewan",70.6
+2010,"Alberta",73.2
+2010,"British Columbia",65.8
+2011,"Canada",66.9
+2011,"Newfoundland and Labrador",60.8
+2011,"Prince Edward Island",68.6
+2011,"Nova Scotia",64.1
+2011,"New Brunswick",63.6
+2011,"Quebec",65.2
+2011,"Ontario",66.7
+2011,"Manitoba",69.4
+2011,"Saskatchewan",70
+2011,"Alberta",73.9
+2011,"British Columbia",65.3
+2012,"Canada",66.8
+2012,"Newfoundland and Labrador",62.1
+2012,"Prince Edward Island",69
+2012,"Nova Scotia",64.7
+2012,"New Brunswick",63.5
+2012,"Quebec",65.3
+2012,"Ontario",66.4
+2012,"Manitoba",69
+2012,"Saskatchewan",70
+2012,"Alberta",73.9
+2012,"British Columbia",65.4
+2013,"Canada",66.8
+2013,"Newfoundland and Labrador",61.7
+2013,"Prince Edward Island",70.2
+2013,"Nova Scotia",64.3
+2013,"New Brunswick",63.9
+2013,"Quebec",65.5
+2013,"Ontario",66.5
+2013,"Manitoba",68.9
+2013,"Saskatchewan",70.3
+2013,"Alberta",73.4
+2013,"British Columbia",65
+2014,"Canada",66.3
+2014,"Newfoundland and Labrador",61.4
+2014,"Prince Edward Island",68.9
+2014,"Nova Scotia",63.4
+2014,"New Brunswick",63.5
+2014,"Quebec",65
+2014,"Ontario",66
+2014,"Manitoba",68.3
+2014,"Saskatchewan",69.7
+2014,"Alberta",72.9
+2014,"British Columbia",64.3
+2015,"Canada",66.2
+2015,"Newfoundland and Labrador",61.8
+2015,"Prince Edward Island",68.2
+2015,"Nova Scotia",62.7
+2015,"New Brunswick",62.9
+2015,"Quebec",65
+2015,"Ontario",65.5
+2015,"Manitoba",68.8
+2015,"Saskatchewan",70
+2015,"Alberta",73.4
+2015,"British Columbia",64.3
+2016,"Canada",65.9
+2016,"Newfoundland and Labrador",60.7
+2016,"Prince Edward Island",66.8
+2016,"Nova Scotia",61.9
+2016,"New Brunswick",62.9
+2016,"Quebec",64.7
+2016,"Ontario",65.2
+2016,"Manitoba",68
+2016,"Saskatchewan",69.7
+2016,"Alberta",72.4
+2016,"British Columbia",65.3
+2017,"Canada",66
+2017,"Newfoundland and Labrador",59.5
+2017,"Prince Edward Island",67
+2017,"Nova Scotia",62
+2017,"New Brunswick",62
+2017,"Quebec",65
+2017,"Ontario",65.3
+2017,"Manitoba",67.5
+2017,"Saskatchewan",69.2
+2017,"Alberta",72.1
+2017,"British Columbia",66.1
+2018,"Canada",65.8
+2018,"Newfoundland and Labrador",59.1
+2018,"Prince Edward Island",67.4
+2018,"Nova Scotia",61.6
+2018,"New Brunswick",61.8
+2018,"Quebec",65
+2018,"Ontario",64.9
+2018,"Manitoba",67.6
+2018,"Saskatchewan",68.9
+2018,"Alberta",71.8
+2018,"British Columbia",65.7
+2019,"Canada",66.1
+2019,"Newfoundland and Labrador",58.7
+2019,"Prince Edward Island",67
+2019,"Nova Scotia",62.3
+2019,"New Brunswick",61.6
+2019,"Quebec",65.2
+2019,"Ontario",65.3
+2019,"Manitoba",67.2
+2019,"Saskatchewan",69.1
+2019,"Alberta",71.7
+2019,"British Columbia",66.3
+2020,"Canada",64.3
+2020,"Newfoundland and Labrador",56.4
+2020,"Prince Edward Island",64.8
+2020,"Nova Scotia",60.4
+2020,"New Brunswick",60.8
+2020,"Quebec",63.8
+2020,"Ontario",63.7
+2020,"Manitoba",65.7
+2020,"Saskatchewan",67.3
+2020,"Alberta",68.9
+2020,"British Columbia",64.2
+2021,"Canada",65.4
+2021,"Newfoundland and Labrador",57.6
+2021,"Prince Edward Island",65.9
+2021,"Nova Scotia",62.3
+2021,"New Brunswick",61.5
+2021,"Quebec",64.1
+2021,"Ontario",65.2
+2021,"Manitoba",66.7
+2021,"Saskatchewan",67.6
+2021,"Alberta",69.7
+2021,"British Columbia",65.6
+2022,"Canada",65.4
+2022,"Newfoundland and Labrador",58.4
+2022,"Prince Edward Island",65.5
+2022,"Nova Scotia",61.7
+2022,"New Brunswick",60.6
+2022,"Quebec",64.3
+2022,"Ontario",65.4
+2022,"Manitoba",66.7
+2022,"Saskatchewan",67.8
+2022,"Alberta",69.8
+2022,"British Columbia",65.1
+2023,"Canada",65.6
+2023,"Newfoundland and Labrador",57.8
+2023,"Prince Edward Island",66.4
+2023,"Nova Scotia",61.5
+2023,"New Brunswick",60.5
+2023,"Quebec",65
+2023,"Ontario",65.5
+2023,"Manitoba",67.1
+2023,"Saskatchewan",67.3
+2023,"Alberta",69.6
+2023,"British Columbia",65.2

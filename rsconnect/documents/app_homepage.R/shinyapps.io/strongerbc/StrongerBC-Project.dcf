@@ -5,7 +5,7 @@ account: strongerbc
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11334491
-bundleId: 8335543
+bundleId: 8478163
 url: https://strongerbc.shinyapps.io/StrongerBC-Project/
 version: 1
 asMultiple: FALSE
