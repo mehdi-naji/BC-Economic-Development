@@ -8,7 +8,7 @@
           }
           ## HA----
           load_m2_HA1 <- function() {
-            url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Housing_Availity_1.csv"
+            url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Housing_Availability_1.csv"
             df <- read.csv(url, header = TRUE)
             df <- na.omit(df)
             return(df)
@@ -36,7 +36,7 @@
           }            
           ## PRHC----
           load_m2_PRHC1 <- function() {
-            url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Police_Reported_Hate_Crime_1.csv"
+            url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Police_Reported_Hate_Crime_1.csv"
             df <- read.csv(url, header = TRUE)
             df <- na.omit(df)
             return(df)
@@ -45,18 +45,24 @@
           
 # NBO Dash----
           ## Line plot----
-m2_NBO_lineplot_data <- function(df) {
-  df |>
-    filter(Industry == "Business sector industries [T004]",
-           Measure == "Entrants")
-}
-
-m2_NBO_render_lineplot <- function(df, input){
-  dash_lineplot(m2_NBO_lineplot_data, df, input)}
+          m2_NBO_lineplot_data <- function(df) {
+            df |>
+              filter(Industry == "Business sector industries [T004]",
+                     Measure == "Entrants")
+          }
+          
+          m2_NBO_render_lineplot <- function(df, input){
+            dash_lineplot(m2_NBO_lineplot_data, df, input)}
           
 
 # HA Dash----
           ## Line plot----
+          m2_HA_lineplot_data <- function(df) {
+            df 
+          }
+          
+          m2_HA_render_lineplot <- function(df, input){
+            dash_lineplot(m2_HA_lineplot_data, df, input)}
 
 # LMPR Dash----
           ## Line plot----
@@ -93,7 +99,8 @@ m2_NBO_render_lineplot <- function(df, input){
 # PRHC Dash----
           ## Line plot----
     m2_PRHC_lineplot_data <- function(df) {
-      df }
+      df|>
+        filter(GEO == "British Columbia")}
     
     m2_PRHC_render_lineplot <- function(df, input){
       dash_lineplot(m2_PRHC_lineplot_data, df, input)}

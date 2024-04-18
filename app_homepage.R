@@ -67,10 +67,10 @@ canada_map <- load_canada_map()
 
   ## Mission 2 ----
   df_m2_NBO_1 <- load_m2_NBO1()
-  # df_m2_HA_1 <- load_m2_HA1()
+  df_m2_HA_1 <- load_m2_HA1()
   df_m2_LMPR_1 <- load_m2_LMPR1()
   df_m2_OVC_1 <- load_m2_OVC1()
-  # df_m2_PRHM_1 <- load_m2_PRHM1()
+  df_m2_PRHC_1 <- load_m2_PRHC1()
   df_m2_GII_1 <- load_m2_GII1()
   
   
@@ -224,10 +224,10 @@ server <- function(input, output, session) {
   mission1_MH_server(Exesum_m1_MH, df1 = df_m1_MH_1, output, input)
   
   mission2_NBO_server(Exesum_m2_NBO, df_m2_NBO_1, output, input)
-  # mission2_HA_server(Exesum_m2_HA, df_m2_HA_1, output, input)
+  mission2_HA_server(Exesum_m2_HA, df_m2_HA_1, output, input)
   mission2_LMPR_server(Exesum_m2_LMPR, df_m2_LMPR_1, output, input)
   mission2_OVC_server(Exesum_m2_OVC, df_m2_OVC_1, output, input)
-  # mission2_PRHC_server(Exesum_m2_PRHC, df_m2_PRHC_1, output, input)
+  mission2_PRHC_server(Exesum_m2_PRHC, df_m2_PRHC_1, output, input)
   mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
   
   mission5_CEG_server(Exesum_m5_CEG, df_m5_CEG_1, output, input)
