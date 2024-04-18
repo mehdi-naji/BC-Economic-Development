@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-df1 <- statcan_download_data("33-10-0270-01", "eng")
+df1 <- statcan_download_data("??", "eng")
 
 df1$DATE <- ymd(df1$REF_DATE)
 df1$Year <- year(df1$DATE)

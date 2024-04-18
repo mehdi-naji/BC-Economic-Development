@@ -21,6 +21,43 @@ Exesum_m1_UR <- HTML("
 
 
 # Mission2 ----
+Exesum_m2_NBO <- HTML("
+  <ul style='text-align: justify; font-size: 20px;'>
+    <li>...</li> 
+    <li>...</li>
+    <li>...</li>
+    <li>...</li>
+  </ul>
+")
+
+Exesum_m2_HA <- HTML("
+  <ul style='text-align: justify; font-size: 20px;'>
+    <li>...</li> 
+    <li>...</li>
+    <li>...</li>
+    <li>...</li>
+  </ul>
+")
+
+Exesum_m2_LMPR <- HTML("
+  <ul style='text-align: justify; font-size: 20px;'>
+    <li>...</li> 
+    <li>...</li>
+    <li>...</li>
+    <li>...</li>
+  </ul>
+")
+
+Exesum_m2_OVC <- HTML("
+  <ul style='text-align: justify; font-size: 20px;'>
+    <li>...</li> 
+    <li>...</li>
+    <li>...</li>
+    <li>...</li>
+  </ul>
+")
+
+
 Exesum_m2_GII <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>
     <li>Government investments in infrastructure in B.C. reached $5.269 billion in 2022, with an increase of 42.3 percent from $3.679 billion in 2021.</li> 
@@ -30,7 +67,8 @@ Exesum_m2_GII <- HTML("
   </ul>
 ")
 
-Exesum_m2_NBO <- HTML("
+
+Exesum_m2_PRHC <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>
     <li>...</li> 
     <li>...</li>
@@ -38,6 +76,7 @@ Exesum_m2_NBO <- HTML("
     <li>...</li>
   </ul>
 ")
+
 
 # Mission5 ----
 Exesum_m5_CEG <- HTML("

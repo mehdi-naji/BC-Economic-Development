@@ -66,9 +66,14 @@ canada_map <- load_canada_map()
   df_m1_MH_1 <- load_m1_MH1()
 
   ## Mission 2 ----
-  df_m2_GII_1 <- load_m2_GII1()
   df_m2_NBO_1 <- load_m2_NBO1()
-
+  # df_m2_HA_1 <- load_m2_HA1()
+  df_m2_LMPR_1 <- load_m2_LMPR1()
+  df_m2_OVC_1 <- load_m2_OVC1()
+  # df_m2_PRHM_1 <- load_m2_PRHM1()
+  df_m2_GII_1 <- load_m2_GII1()
+  
+  
 df_m5_CEG_1 <- load_m5_CEG1()
 
 df_m6_RnD_1 <- load_m6_RnD1()
@@ -104,8 +109,12 @@ ui <- function() {
                          menuSubItem("Mental Health", tabName = "MH")
                          ),
                 menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye"),
+                         menuSubItem("New Business Openings", tabName = "NBO"),
+                         menuSubItem("Housing Availability", tabName = "HA"),
+                         menuSubItem("Labour Market Participation Rate", tabName = "LMPR"),
+                         menuSubItem("Occurances of Violent Crime", tabName = "OVC"),
                          menuSubItem("Government Investment in Infrastructure", tabName = "GII"),
-                         menuSubItem("New Business Openings", tabName = "NBO")
+                         menuSubItem("Police_reported Hate Crime", tabName = "PRHC")
                          ),
                 menuItem("Mission 3", tabName = "mission3", icon = icon("bullseye")),
                 menuItem("Mission 4", tabName = "mission4", icon = icon("bullseye")),
@@ -140,8 +149,13 @@ ui <- function() {
         ui_m1_MH(df1 = df_m1_MH_1),
         
         ### Mission2 ----
-        ui_m2_GII(df_m2_GII_1),
         ui_m2_NBO(df_m2_NBO_1),
+        ui_m2_HA(df_m2_HA_1),
+        ui_m2_LMPR(df_m2_LMPR_1),
+        ui_m2_OVC(df_m2_OVC_1),
+        ui_m2_PRHC(df_m2_PRHC_1),
+        ui_m2_GII(df_m2_GII_1),
+        
         ### Mission5 ----
         ui_m5_CEG(df_m5_CEG_1),
         ### Mission6 ----
@@ -209,9 +223,12 @@ server <- function(input, output, session) {
   mission1_LE_server(Exesum_m1_LE, df1 = df_m1_LE_1, output, input)
   mission1_MH_server(Exesum_m1_MH, df1 = df_m1_MH_1, output, input)
   
-  mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
   mission2_NBO_server(Exesum_m2_NBO, df_m2_NBO_1, output, input)
-  
+  # mission2_HA_server(Exesum_m2_HA, df_m2_HA_1, output, input)
+  mission2_LMPR_server(Exesum_m2_LMPR, df_m2_LMPR_1, output, input)
+  mission2_OVC_server(Exesum_m2_OVC, df_m2_OVC_1, output, input)
+  # mission2_PRHC_server(Exesum_m2_PRHC, df_m2_PRHC_1, output, input)
+  mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
   
   mission5_CEG_server(Exesum_m5_CEG, df_m5_CEG_1, output, input)
   
