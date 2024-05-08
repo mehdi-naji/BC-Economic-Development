@@ -15,7 +15,11 @@ tabItem(tabName = "home",
           column(width = 4,
                  style = style1, 
                  h3(strong("MISSION 1:"), br(), "Supporting people and families"),
-                 img(src = "mission1.jpg", height = 300, width = 300),  
+                 img(src = "mission1.svg", height = 50, width = 50),  
+                 img(src = 'https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/bc_logo.svg', height = 50, width = 50),  
+                 img(src = 'https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/bc_logo.svg', title = "StrongerBC", height = "40px", alt = "British Columbia - StrongerBC"),
+                 
+                 
                  p (
                    HTML("
                               <li>Investing in people and families to make life more affordable </li>
