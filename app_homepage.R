@@ -1,4 +1,3 @@
-
 ## load libraries ----
 library(tidyverse)
 library(shiny)
@@ -16,7 +15,8 @@ source_exports <- "BC Stats"
 
 source("Standard-Charts.R")
 
-source("home-ui.R")
+
+source("home-ui1.R")
 
 source("mission1-charts.R")
 source("mission1-ui.R")
