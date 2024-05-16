@@ -1,7 +1,7 @@
 
 ### Home ----
 ui_m1_home <- function(df_m1_PI, df_m1_CHN, df_m1_GC, df_m1_UR, df_m1_FE, df_m1_TS, df_m1_SB, df_m1_LE, df_m1_MH){
-  style2 <- "background-color:white; height: 120px; padding: 2px; border-radius: 15px; border: 6px solid #ecf0f5;font-size: 18px;text-align: center;"
+  style2 <- "background-color:white; height: 130px; padding: 2px; border-radius: 15px; border: 6px solid #ecf0f5;font-size: 18px;text-align: center;"
   style1 <- "background-color:#156082; color:white; height: 80px; width:98%; padding: 6px; border-radius: 15px; border: 6px solid white;font-size: 24px; text-align: center;margin: 0 auto;"
   tabItem(tabName = "m1_home",
           fluidPage(
@@ -55,8 +55,8 @@ ui_m1_home <- function(df_m1_PI, df_m1_CHN, df_m1_GC, df_m1_UR, df_m1_FE, df_m1_
             fluidRow(
                   style = "border: 20px solid #ecf0f5;",
                   column(3,
-                         fluidRow(h2(HTML("SUPPORTING<br/>PEOPLE<br/>FAMILIES"))),
-                         style = "background-color:#156082; color:white; height:300px; padding: 10px 20px; border-radius: 5px; border: 4px solid #ecf0f5;font-size: 36px;text-align: right;"
+                         fluidRow(h2(HTML("MISSION1:<br/>SUPPORTING<br/>PEOPLE<br/>FAMILIES"))),
+                         style = "background-color:#156082; color:white; height:400px; padding: 10px 20px; border-radius: 15px; border: 4px solid #ecf0f5;font-size: 36px;text-align: center;"
                   ), 
                   column(3, style = style2,
                          actionButton("m1_SB_Button", 

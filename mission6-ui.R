@@ -1,3 +1,61 @@
+### Home ----
+ui_m6_home <- function(df_m6_RnD, df_m6_VAEX, df_m6_nRinv, df_m6_LP, df_m6_EXP){
+  style2 <- "background-color:white; height: 130px; padding: 2px; border-radius: 15px; border: 6px solid #ecf0f5;font-size: 18px;text-align: center;"
+  style1 <- "background-color:#156082; color:white; height: 80px; width:98%; padding: 6px; border-radius: 15px; border: 6px solid white;font-size: 24px; text-align: center;margin: 0 auto;"
+  tabItem(tabName = "m6_home",
+          fluidPage(
+            fluidRow(
+              style = "border: 20px solid #ecf0f5;",
+              column(3,
+                     style = "height:100px;"
+              ), 
+              column(3, style = style2,
+                     actionButton("m6_RnD_Button", 
+                                  label = HTML(Extract_Status(df_m6_RnD, "%")), 
+                                  style = style1),
+                     "Poverty Incidence"
+              ),
+              column(3, style = style2,
+                     actionButton("m6_VAEX_Button", 
+                                  label = HTML(Extract_Status(df_m6_VAEX, "%")), 
+                                  style = style1),
+                     "Core Housing Need"
+              ),
+              column(3, style = style2,
+                     actionButton("m6_nRinv_Button", 
+                                  label = HTML(Extract_Status(df_m6_nRinv, "")), 
+                                  style = style1),
+                     "Gini Coefficinet"
+              )),
+            fluidRow(
+              style = "border: 20px solid #ecf0f5;",
+              column(3,
+                     style = "height:100px;"
+              ), 
+              column(3, style = style2,
+                     actionButton("m6_LP_Button", 
+                                  label = HTML(Extract_Status(df_m6_LP, "")), 
+                                  style = style1),
+                     "Underemployment Rate"
+              ),
+              column(3, style = style2,
+                     actionButton("m6_EXP_Button", 
+                                  label = HTML(Extract_Status(df_m6_EXP, "%")), 
+                                  style = style1),
+                     "Food Expenditure"
+              )
+            ),
+            fluidRow(
+              style = "border: 20px solid #ecf0f5;",
+              column(3,
+                     fluidRow(h2(HTML("MISSION1:<br/>SUPPORTING<br/>PEOPLE<br/>FAMILIES"))),
+                     style = "background-color:#156082; color:white; height:400px; padding: 10px 20px; border-radius: 15px; border: 4px solid #ecf0f5;font-size: 36px;text-align: right;"
+              ), 
+              column(3),
+              column(3),
+              column(3)
+            )
+          ))}
 
 #### RnD ----
 ui_m6_RnD <- function(df1, df2){

@@ -26,19 +26,19 @@ source("mission2-charts.R")
 source("mission2-ui.R")
 source("mission2-server.R")
 
-# source("mission5-charts.R")
-# source("mission5-ui.R")
-# source("mission5-server.R")
+source("mission5-charts.R")
+source("mission5-ui.R")
+source("mission5-server.R")
 # 
-# source("mission6-charts.R")
-# source("mission6-ui.R")
-# source("mission6-server.R")
+source("mission6-charts.R")
+source("mission6-ui.R")
+source("mission6-server.R")
 
 source("Executive_summaries.R")
 
 
 # Loading data ----
-# canada_map <- load_canada_map()
+canada_map <- load_canada_map()
 
   ## Mission 1 ----
   df_m1_UR_1 <- load_m1_UR1()
@@ -68,24 +68,24 @@ source("Executive_summaries.R")
 
   ## Mission 2 ----
   df_m2_NBO_1 <- load_m2_NBO1()
-#   df_m2_HA_1 <- load_m2_HA1()
-#   df_m2_LMPR_1 <- load_m2_LMPR1()
-#   df_m2_OVC_1 <- load_m2_OVC1()
-#   df_m2_PRHC_1 <- load_m2_PRHC1()
-#   df_m2_GII_1 <- load_m2_GII1()
+  df_m2_HA_1 <- load_m2_HA1()
+  df_m2_LMPR_1 <- load_m2_LMPR1()
+  df_m2_OVC_1 <- load_m2_OVC1()
+  df_m2_PRHC_1 <- load_m2_PRHC1()
+  df_m2_GII_1 <- load_m2_GII1()
 #   
 #   
-# df_m5_CEG_1 <- load_m5_CEG1()
-# 
-# df_m6_RnD_1 <- load_m6_RnD1()
-# df_m6_RnD_2 <- load_m6_RnD2()
-# df_m6_VAEX_1 <- load_m6_VAEX1()
-# df_m6_nRinv_1 <- load_m6_nRinv1()
-# df_m6_lp_1 <- load_m6_lp1()
-# df_m6_exp_1 <- load_m6_exp1()
-# df_m6_exp_2 <- load_m6_exp2()
-# df_m6_exp_3 <- load_m6_exp3()
-# df_m6_exp_4 <- load_m6_exp4()
+df_m5_CEG_1 <- load_m5_CEG1()
+
+df_m6_RnD_1 <- load_m6_RnD1()
+df_m6_RnD_2 <- load_m6_RnD2()
+df_m6_VAEX_1 <- load_m6_VAEX1()
+df_m6_nRinv_1 <- load_m6_nRinv1()
+df_m6_lp_1 <- load_m6_lp1()
+df_m6_exp_1 <- load_m6_exp1()
+df_m6_exp_2 <- load_m6_exp2()
+df_m6_exp_3 <- load_m6_exp3()
+df_m6_exp_4 <- load_m6_exp4()
 
 
 
@@ -111,7 +111,7 @@ ui <- function() {
                          menuSubItem("Mental Health", tabName = "MH")
                          ),
                 menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye"),
-                         menuSubItem("mission1", tabName = "m2_home"),
+                         menuSubItem("mission2", tabName = "m2_home"),
                          menuSubItem("New Business Openings", tabName = "NBO"),
                          menuSubItem("Housing Availability", tabName = "HA"),
                          menuSubItem("Labour Market Participation Rate", tabName = "LMPR"),
@@ -125,6 +125,7 @@ ui <- function() {
                          menuSubItem("Clean Energy Generated", tabName = "CEG")
                          ),
                 menuItem("Mission 6", tabName = "mission6", icon = icon("bullseye"),
+                         menuSubItem("mission6", tabName = "m6_home"),
                          menuSubItem("Investment in Innovation", tabName = "RnD"),
                          menuSubItem("Value-added Export", tabName = "VAEX"),
                          menuSubItem("Non-residential Investment", tabName = "nRinv"),
@@ -135,6 +136,7 @@ ui <- function() {
                 
     )
   )
+  
     body <- dashboardBody(
       tabItems(
         ### Home tab ----
@@ -162,23 +164,33 @@ ui <- function() {
         ui_m1_MH(df1 = df_m1_MH_1),
         
         ### Mission2 ----
-        ui_m2_home(m2_NBO_lineplot_data(df_m2_NBO_1)),
+        ui_m2_home(m2_NBO_lineplot_data(df_m2_NBO_1),
+                   m2_HA_lineplot_data(df_m2_HA_1),
+                   m2_LMPR_lineplot_data(df_m2_LMPR_1),
+                   m2_OVC_lineplot_data(df_m2_OVC_1),
+                   m2_GII_lineplot_data(df_m2_GII_1),
+                   m2_PRHC_lineplot_data(df_m2_PRHC_1)),
+                   
+        ui_m2_NBO(df_m2_NBO_1),
+        ui_m2_HA(df_m2_HA_1),
+        ui_m2_LMPR(df_m2_LMPR_1),
+        ui_m2_OVC(df_m2_OVC_1),
+        ui_m2_PRHC(df_m2_PRHC_1),
+        ui_m2_GII(df_m2_GII_1),
         
-        # ui_m2_NBO(df_m2_NBO_1),
-        # ui_m2_HA(df_m2_HA_1),
-        # ui_m2_LMPR(df_m2_LMPR_1),
-        # ui_m2_OVC(df_m2_OVC_1),
-        # ui_m2_PRHC(df_m2_PRHC_1),
-        # ui_m2_GII(df_m2_GII_1),
-        
-        ### Mission5 ----
-        # ui_m5_CEG(df_m5_CEG_1),
-        ### Mission6 ----
-        # ui_m6_RnD(df_m6_RnD_1, df_m6_RnD_2),
-        # ui_m6_VAEX(df_m6_VAEX_1),
-        # ui_m6_nRinv(df_m6_nRinv_1),
-        # ui_m6_lp(df_m6_lp_1),
-        # ui_m6_exp(df1 = df_m6_exp_1, df3 = df_m6_exp_3),
+        ## Mission5 ----
+        ui_m5_CEG(df_m5_CEG_1),
+        ## Mission6 ----
+        ui_m6_home(m6_RnD_lineplot_data(df_m6_RnD_1),
+                   m6_VAEX_lineplot_data(df_m6_VAEX_1),
+                   m6_nRinv_lineplot_data(df_m6_nRinv_1),
+                   m6_lp_lineplot_data(df_m6_lp_1),
+                   m6_exp_lineplot_data(df_m6_exp_1)),
+        ui_m6_RnD(df_m6_RnD_1, df_m6_RnD_2),
+        ui_m6_VAEX(df_m6_VAEX_1),
+        ui_m6_nRinv(df_m6_nRinv_1),
+        ui_m6_lp(df_m6_lp_1),
+        ui_m6_exp(df1 = df_m6_exp_1, df3 = df_m6_exp_3),
        #### Data Source Tab----
         tabItem(tabName = "data_source",
                 h3("Data Sources & Permissions", style="margin-left:15px;margin-bottom:20px")
@@ -235,7 +247,7 @@ server <- function(input, output, session) {
     updateTabItems(session, "tabs", selected = "mission5")
   })
   observeEvent(input$button6, {
-    updateTabItems(session, "tabs", selected = "RnD")
+    updateTabItems(session, "tabs", selected = "m6_home")
   })
   
   observeEvent(input$m1_PI_Button, {
@@ -285,20 +297,63 @@ server <- function(input, output, session) {
   mission1_LE_server(Exesum_m1_LE, df1 = df_m1_LE_1, output, input)
   mission1_MH_server(Exesum_m1_MH, df1 = df_m1_MH_1, output, input)
   # 
-  # mission2_NBO_server(Exesum_m2_NBO, df_m2_NBO_1, output, input)
-  # mission2_HA_server(Exesum_m2_HA, df_m2_HA_1, output, input)
-  # mission2_LMPR_server(Exesum_m2_LMPR, df_m2_LMPR_1, output, input)
-  # mission2_OVC_server(Exesum_m2_OVC, df_m2_OVC_1, output, input)
-  # mission2_PRHC_server(Exesum_m2_PRHC, df_m2_PRHC_1, output, input)
-  # mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
+  
+  
+  observeEvent(input$m2_NBO_Button, {
+    updateTabItems(session, "tabs", selected = "NBO")
+  })
+  
+  observeEvent(input$m2_HA_Button, {
+    updateTabItems(session, "tabs", selected = "HA")
+  })
+  
+  observeEvent(input$m2_LMPR_Button, {
+    updateTabItems(session, "tabs", selected = "LMPR")
+  })
+  
+  observeEvent(input$m2_OVC_Button, {
+    updateTabItems(session, "tabs", selected = "OVC")
+  })
+  
+  observeEvent(input$m2_PRHC_Button, {
+    updateTabItems(session, "tabs", selected = "PRHC")
+  })
+  
+  observeEvent(input$m2_GII_Button, {
+    updateTabItems(session, "tabs", selected = "GII")
+  })
+
+  mission2_NBO_server(Exesum_m2_NBO, df_m2_NBO_1, output, input)
+  mission2_HA_server(Exesum_m2_HA, df_m2_HA_1, output, input)
+  mission2_LMPR_server(Exesum_m2_LMPR, df_m2_LMPR_1, output, input)
+  mission2_OVC_server(Exesum_m2_OVC, df_m2_OVC_1, output, input)
+  mission2_PRHC_server(Exesum_m2_PRHC, df_m2_PRHC_1, output, input)
+  mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
   # 
   # mission5_CEG_server(Exesum_m5_CEG, df_m5_CEG_1, output, input)
   # 
-  # mission6_RnD_server(Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input)
-  # mission6_VAEX_server(Exesum_m6_VAEX, df_m6_VAEX_1, output, input)
-  # mission6_nRinv_server(Exesum_m6_nRinv, df_m6_nRinv_1, output, input)
-  # mission6_lp_server(Exesum_m6_lp, df_m6_lp_1, output, input)
-  # mission6_exp_server(Exesum_m6_exp, df_m6_exp_1, df_m6_exp_2, df_m6_exp_3, df_m6_exp_4, output, input)
+  observeEvent(input$m6_RnD_Button, {
+    updateTabItems(session, "tabs", selected = "RnD")
+  })
+  observeEvent(input$m6_VAEX_Button, {
+    updateTabItems(session, "tabs", selected = "VAEX")
+  })
+  observeEvent(input$m6_nRinv_Button, {
+    updateTabItems(session, "tabs", selected = "nRinv")
+  })
+  observeEvent(input$m6_LP_Button, {
+    updateTabItems(session, "tabs", selected = "LP")
+  })
+  observeEvent(input$m6_EXP_Button, {
+    updateTabItems(session, "tabs", selected = "EXP")
+  })
+  
+  
+  mission6_RnD_server(Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input)
+  mission6_VAEX_server(Exesum_m6_VAEX, df_m6_VAEX_1, output, input)
+  mission6_nRinv_server(Exesum_m6_nRinv, df_m6_nRinv_1, output, input)
+  mission6_lp_server(Exesum_m6_lp, df_m6_lp_1, output, input)
+  mission6_exp_server(Exesum_m6_exp, df_m6_exp_1, df_m6_exp_2, df_m6_exp_3, df_m6_exp_4, output, input)
 
 }
 shinyApp(ui, server)

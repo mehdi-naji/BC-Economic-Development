@@ -1,33 +1,66 @@
 ### Home ----
-ui_m2_home <- function(df2){
-  extra_css <- "
-          .info-box {
-            height: 200px; /* Adjust the height as needed */
-          }
-          "
+ui_m2_home <- function(df_m2_NBO, df_m2_HA, df_m2_LMPR, df_m2_OVC, df_m2_GII, df_m2_PRHC){
+  style2 <- "background-color:white; height: 130px; padding: 2px; border-radius: 15px; border: 6px solid #ecf0f5;font-size: 18px;text-align: center;"
+  style1 <- "background-color:#156082; color:white; height: 80px; width:98%; padding: 6px; border-radius: 15px; border: 6px solid white;font-size: 24px; text-align: center;margin: 0 auto;"
   tabItem(tabName = "m2_home",
-          h3("Building resilient communities") ,
-          fluidRow(
-            infoBox("Childcare availability", "$1000", icon = icon("balance-scale"), color = "purple", width = 3, href = "page1"),
-            infoBox("New business openings",  Extract_Status(df2, "People"), icon = icon("industry", class = "glyphicon-large"), color = "blue", width = 3, href = "NBO"),
-            infoBox("Industry diversification", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1")
-          ),
-          fluidRow(
-            infoBox("Housing availability", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1") ,
-            infoBox("Government investment in infrastructure", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1") ,
-            infoBox("BlGBox", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1")
-          ),
-          fluidRow(
-            infoBox("Labour underutilization rate", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1") ,
-            infoBox("Labour market participation rate", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1") ,
-            infoBox("Occurrences of violent crime", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1"),
-            infoBox("Valid human rights complaints", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1"),
-            infoBox("Police-reported hate crime", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1"),
-            infoBox("Public transit ridership", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1")
+          fluidPage(
+            fluidRow(
+              style = "border: 20px solid #ecf0f5;",
+              column(3,
+                     style = "height:100px;"
+              ), 
+              column(3, style = style2,
+                     actionButton("m2_NBO_Button", 
+                                  label = HTML(Extract_Status(df_m2_NBO, "%")), 
+                                  style = style1),
+                     "New Business Openings"
+              ),
+              column(3, style = style2,
+                     actionButton("m2_HA_Button", 
+                                  label = HTML(Extract_Status(df_m2_HA, "%")), 
+                                  style = style1),
+                     "Housing Availability"
+              ),
+              column(3, style = style2,
+                     actionButton("m2_LMPR_Button", 
+                                  label = HTML(Extract_Status(df_m2_LMPR, "")), 
+                                  style = style1),
+                     "Labour Market Participation Rate"
+              )),
+            fluidRow(
+              style = "border: 20px solid #ecf0f5;",
+              column(3,
+                     style = "height:100px;"
+              ),
+              column(3, style = style2,
+                     actionButton("m2_OVC_Button", 
+                                  label = HTML(Extract_Status(df_m2_OVC, "%")), 
+                                  style = style1),
+                     "Occurances of Violent Crime"
+              ),
+              column(3, style = style2,
+                     actionButton("m2_GII_Button", 
+                                  label = HTML(Extract_Status(df_m2_GII, "%")), 
+                                  style = style1),
+                     "Government Investment in Infrastructure"
+              )
+            ),
+            fluidRow(
+              style = "border: 20px solid #ecf0f5;",
+              column(3,
+                     fluidRow(h2(HTML("MISSION2:<br/>BUILDING<br/>RESILIENT<br/>COMMUNITIES"))),
+                     style = "background-color:#156082; color:white; height:400px; padding: 10px 20px; border-radius: 15px; border: 4px solid #ecf0f5;font-size: 36px;text-align: center;"
+              ), 
+              column(3, style = style2,
+                     actionButton("m2_PRHC_Button", 
+                                  label = HTML(Extract_Status(df_m2_PRHC, "%")), 
+                                  style = style1),
+                     "Police_reported Hate Crime"
+              )
+              
             )
-          )
-}
-          
+          ))}
+
 
 
 
