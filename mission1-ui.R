@@ -1,4 +1,85 @@
 
+### Home ----
+ui_m1_home <- function(df_m1_PI, df_m1_CHN, df_m1_GC, df_m1_UR, df_m1_FE, df_m1_TS, df_m1_SB, df_m1_LE, df_m1_MH){
+  style2 <- "background-color:white; height: 120px; padding: 2px; border-radius: 15px; border: 6px solid #ecf0f5;font-size: 18px;text-align: center;"
+  style1 <- "background-color:#156082; color:white; height: 80px; width:98%; padding: 6px; border-radius: 15px; border: 6px solid white;font-size: 24px; text-align: center;margin: 0 auto;"
+  tabItem(tabName = "m1_home",
+          fluidPage(
+            fluidRow(
+                style = "border: 20px solid #ecf0f5;",
+                column(3,
+                       style = "height:100px;"
+                ), 
+                column(3, style = style2,
+                       actionButton("m1_PI_Button", 
+                                    label = HTML(Extract_Status(df_m1_PI, "%")), 
+                                    style = style1),
+                       "Poverty Incidence"
+                ),
+                column(3, style = style2,
+                       actionButton("m1_CHN_Button", 
+                                    label = HTML(Extract_Status(df_m1_CHN, "%")), 
+                                    style = style1),
+                       "Core Housing Need"
+                ),
+                column(3, style = style2,
+                       actionButton("m1_GC_Button", 
+                                    label = HTML(Extract_Status(df_m1_GC, "")), 
+                                    style = style1),
+                       "Gini Coefficinet"
+                )),
+              fluidRow(
+                  style = "border: 20px solid #ecf0f5;",
+                  column(3,
+                         style = "height:100px;"
+                  ), 
+                  column(3, style = style2,
+                         actionButton("m1_UR_Button", 
+                                      label = HTML(Extract_Status(df_m1_UR, "")), 
+                                      style = style1),
+                         "Underemployment Rate"
+                  ),
+                  column(3, style = style2,
+                         actionButton("m1_FE_Button", 
+                                      label = HTML(Extract_Status(df_m1_FE, "%")), 
+                                      style = style1),
+                         "Food Expenditure"
+                  ),
+                  column(3, style = style2,
+                         actionButton("m1_TS_Button", 
+                                      label = HTML(Extract_Status(df_m1_TS, "%")), 
+                                      style = style1),
+                         "Spending on Transportation"
+                  )
+                ),
+            fluidRow(
+                  style = "border: 20px solid #ecf0f5;",
+                  column(3,
+                         fluidRow(h2(HTML("SUPPORTING<br/>PEOPLE<br/>FAMILIES"))),
+                         style = "background-color:#156082; color:white; height:300px; padding: 10px 20px; border-radius: 5px; border: 4px solid #ecf0f5;font-size: 36px;text-align: right;"
+                  ), 
+                  column(3, style = style2,
+                         actionButton("m1_SB_Button", 
+                                      label = HTML(Extract_Status(df_m1_SB, "%")), 
+                                      style = style1),
+                         "Sense of Belongings"
+                  ),
+                  column(3, style = style2,
+                         actionButton("m1_LE_Button", 
+                                      label = HTML(Extract_Status(df_m1_LE, "years")), 
+                                      style = style1),
+                         "Life Expectancy"
+                  ),
+                  column(3, style = style2,
+                         actionButton("m1_MH_Button", 
+                                      label = HTML(Extract_Status(df_m1_MH, "%")), 
+                                      style = style1), "Mental Health"
+                  )
+                )
+            ))}
+
+
+
 ### PI: Povery Incidence ----
 ui_m1_PI <- function(df1, df2){
   tabItem(tabName = "PI",

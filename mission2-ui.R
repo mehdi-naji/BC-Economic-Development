@@ -1,3 +1,36 @@
+### Home ----
+ui_m2_home <- function(df2){
+  extra_css <- "
+          .info-box {
+            height: 200px; /* Adjust the height as needed */
+          }
+          "
+  tabItem(tabName = "m2_home",
+          h3("Building resilient communities") ,
+          fluidRow(
+            infoBox("Childcare availability", "$1000", icon = icon("balance-scale"), color = "purple", width = 3, href = "page1"),
+            infoBox("New business openings",  Extract_Status(df2, "People"), icon = icon("industry", class = "glyphicon-large"), color = "blue", width = 3, href = "NBO"),
+            infoBox("Industry diversification", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1")
+          ),
+          fluidRow(
+            infoBox("Housing availability", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1") ,
+            infoBox("Government investment in infrastructure", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1") ,
+            infoBox("BlGBox", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1")
+          ),
+          fluidRow(
+            infoBox("Labour underutilization rate", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1") ,
+            infoBox("Labour market participation rate", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1") ,
+            infoBox("Occurrences of violent crime", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1"),
+            infoBox("Valid human rights complaints", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1"),
+            infoBox("Police-reported hate crime", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1"),
+            infoBox("Public transit ridership", "$1000", icon = icon("info"), color = "purple", width = 6, href = "page1")
+            )
+          )
+}
+          
+
+
+
 ### NBO ----
 ui_m2_NBO <- function(df1){
   tabItem(tabName = "NBO",
