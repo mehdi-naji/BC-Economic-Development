@@ -1,4 +1,3 @@
-
 ## load libraries ----
 library(tidyverse)
 library(shiny)
@@ -16,7 +15,8 @@ source_exports <- "BC Stats"
 
 source("Standard-Charts.R")
 
-source("home-ui.R")
+
+source("home-ui1.R")
 
 source("mission1-charts.R")
 source("mission1-ui.R")
@@ -29,7 +29,7 @@ source("mission2-server.R")
 source("mission5-charts.R")
 source("mission5-ui.R")
 source("mission5-server.R")
-
+# 
 source("mission6-charts.R")
 source("mission6-ui.R")
 source("mission6-server.R")
@@ -46,24 +46,24 @@ canada_map <- load_canada_map()
   df_m1_UR_3 <- load_m1_UR3()
   df_m1_UR_4 <- load_m1_UR4()
   df_m1_UR_5 <- load_m1_UR5()
-  
+  # 
   df_m1_PI_1 <- load_m1_PI1()
   df_m1_PI_2 <- load_m1_PI2()
-  
+  # 
   df_m1_CHN_1 <- load_m1_CHN1()
-  
+  # 
   df_m1_GC_1 <- load_m1_GC1()
-  
+  # 
   df_m1_FE_1 <- load_m1_FE1()
-  
+  # 
   df_m1_TS_1 <- load_m1_TS1()
-  
+  # 
   df_m1_MI_1 <- load_m1_MI1()
-  
+  # 
   df_m1_SB_1 <- load_m1_SB1()
-  
+  # 
   df_m1_LE_1 <- load_m1_LE1()
-  
+  # 
   df_m1_MH_1 <- load_m1_MH1()
 
   ## Mission 2 ----
@@ -73,8 +73,8 @@ canada_map <- load_canada_map()
   df_m2_OVC_1 <- load_m2_OVC1()
   df_m2_PRHC_1 <- load_m2_PRHC1()
   df_m2_GII_1 <- load_m2_GII1()
-  
-  
+#   
+#   
 df_m5_CEG_1 <- load_m5_CEG1()
 
 df_m6_RnD_1 <- load_m6_RnD1()
@@ -98,6 +98,7 @@ ui <- function() {
     sidebarMenu(id = "tabs",
                 menuItem("Home", tabName = "home", icon = icon("home")),
                 menuItem("Mission 1", tabName = "mission1", icon = icon("bullseye"),
+                         menuSubItem("mission1", tabName = "m1_home"),
                          menuSubItem("Poverty Incidence", tabName = "PI"),
                          menuSubItem("Core Housing Need", tabName = "CHN"),
                          menuSubItem("Gini Coefficient", tabName = "GC"),
@@ -110,6 +111,7 @@ ui <- function() {
                          menuSubItem("Mental Health", tabName = "MH")
                          ),
                 menuItem("Mission 2", tabName = "mission2", icon = icon("bullseye"),
+                         menuSubItem("mission2", tabName = "m2_home"),
                          menuSubItem("New Business Openings", tabName = "NBO"),
                          menuSubItem("Housing Availability", tabName = "HA"),
                          menuSubItem("Labour Market Participation Rate", tabName = "LMPR"),
@@ -123,6 +125,7 @@ ui <- function() {
                          menuSubItem("Clean Energy Generated", tabName = "CEG")
                          ),
                 menuItem("Mission 6", tabName = "mission6", icon = icon("bullseye"),
+                         menuSubItem("mission6", tabName = "m6_home"),
                          menuSubItem("Investment in Innovation", tabName = "RnD"),
                          menuSubItem("Value-added Export", tabName = "VAEX"),
                          menuSubItem("Non-residential Investment", tabName = "nRinv"),
@@ -133,11 +136,22 @@ ui <- function() {
                 
     )
   )
+  
     body <- dashboardBody(
       tabItems(
         ### Home tab ----
         ui_home(),
         ### Mission1 ----
+        ui_m1_home(m1_PI_lineplot_data(df_m1_PI_1),
+                   m1_CHN_lineplot_data(df_m1_CHN_1),
+                   m1_GC_lineplot_data(df_m1_GC_1),
+                   m1_UR_lineplot_data(df_m1_UR_1),
+                   m1_FE_lineplot_data(df_m1_FE_1),
+                   m1_TS_lineplot_data(df_m1_TS_1),
+                   m1_SB_lineplot_data(df_m1_SB_1),
+                   m1_LE_lineplot_data(df_m1_LE_1),
+                   m1_MH_lineplot_data(df_m1_MH_1)),
+                   
         ui_m1_PI(df1 = df_m1_PI_1, df2 = df_m1_PI_2),
         ui_m1_UR(df1 = df_m1_UR_1, df2 = df_m1_UR_2, df3= df_m1_UR_3, df4 = df_m1_UR_4, df5 = df_m1_UR_5),
         ui_m1_CHN(df1 = df_m1_CHN_1),
@@ -150,6 +164,13 @@ ui <- function() {
         ui_m1_MH(df1 = df_m1_MH_1),
         
         ### Mission2 ----
+        ui_m2_home(m2_NBO_lineplot_data(df_m2_NBO_1),
+                   m2_HA_lineplot_data(df_m2_HA_1),
+                   m2_LMPR_lineplot_data(df_m2_LMPR_1),
+                   m2_OVC_lineplot_data(df_m2_OVC_1),
+                   m2_GII_lineplot_data(df_m2_GII_1),
+                   m2_PRHC_lineplot_data(df_m2_PRHC_1)),
+                   
         ui_m2_NBO(df_m2_NBO_1),
         ui_m2_HA(df_m2_HA_1),
         ui_m2_LMPR(df_m2_LMPR_1),
@@ -157,9 +178,14 @@ ui <- function() {
         ui_m2_PRHC(df_m2_PRHC_1),
         ui_m2_GII(df_m2_GII_1),
         
-        ### Mission5 ----
+        ## Mission5 ----
         ui_m5_CEG(df_m5_CEG_1),
-        ### Mission6 ----
+        ## Mission6 ----
+        ui_m6_home(m6_RnD_lineplot_data(df_m6_RnD_1),
+                   m6_VAEX_lineplot_data(df_m6_VAEX_1),
+                   m6_nRinv_lineplot_data(df_m6_nRinv_1),
+                   m6_lp_lineplot_data(df_m6_lp_1),
+                   m6_exp_lineplot_data(df_m6_exp_1)),
         ui_m6_RnD(df_m6_RnD_1, df_m6_RnD_2),
         ui_m6_VAEX(df_m6_VAEX_1),
         ui_m6_nRinv(df_m6_nRinv_1),
@@ -175,10 +201,10 @@ ui <- function() {
     ## UI environment ----
     ui <- tagList(
       tags$header(class="header", style="background-color:#003366; border-bottom:2px solid #fcba19;
-              padding:0 0px 0 0px; display:flex; height:80px;width:100%;",
+              padding:0 0px 0 0px; display:flex; height:60px;width:100%;",
                   tags$div(class="banner", style="display:flex; justify-content:flex-start; align-items:center;  margin: 0 10px 0 10px",
                            a(href="https://www2.gov.bc.ca/gov/content/data/about-data-management/bc-stats",
-                             img(src = 'https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/bc_logo.svg', title = "StrongerBC", height = "40px", alt = "British Columbia - StrongerBC"),
+                             img(src = 'https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/bc_logo.svg', title = "StrongerBC", height = "10px", alt = "British Columbia - StrongerBC"),
                              onclick="gtag"
                            ),
                            h1("StrongerBC Indicators", style = "font-weight:400; color:white; margin: 5px 5px 0 18px;"),
@@ -206,11 +232,58 @@ ui <- function() {
 # Server----
 server <- function(input, output, session) {
   observeEvent(input$button1, {
+    updateTabItems(session, "tabs", selected = "m1_home")
+  })
+  observeEvent(input$button2, {
+    updateTabItems(session, "tabs", selected = "m2_home")
+  })
+  observeEvent(input$button3, {
+    updateTabItems(session, "tabs", selected = "mission3")
+  })
+  observeEvent(input$button4, {
+    updateTabItems(session, "tabs", selected = "mission4")
+  })
+  observeEvent(input$button5, {
+    updateTabItems(session, "tabs", selected = "mission5")
+  })
+  observeEvent(input$button6, {
+    updateTabItems(session, "tabs", selected = "m6_home")
+  })
+  
+  observeEvent(input$m1_PI_Button, {
     updateTabItems(session, "tabs", selected = "PI")
   })
   
-  observeEvent(input$button6, {
-    updateTabItems(session, "tabs", selected = "RnD")
+  observeEvent(input$m1_CHN_Button, {
+    updateTabItems(session, "tabs", selected = "CHN")
+  })
+  
+  observeEvent(input$m1_GC_Button, {
+    updateTabItems(session, "tabs", selected = "GC")
+  })
+  
+  observeEvent(input$m1_UR_Button, {
+    updateTabItems(session, "tabs", selected = "UR")
+  })
+  
+  observeEvent(input$m1_FE_Button, {
+    updateTabItems(session, "tabs", selected = "FE")
+  })
+  
+  observeEvent(input$m1_TS_Button, {
+    updateTabItems(session, "tabs", selected = "TS")
+  })
+  
+  observeEvent(input$m1_SB_Button, {
+    updateTabItems(session, "tabs", selected = "SB")
+  })
+  
+  observeEvent(input$m1_LE_Button, {
+    updateTabItems(session, "tabs", selected = "LE")
+  })
+  
+  observeEvent(input$m1_MH_Button, {
+    updateTabItems(session, "tabs", selected = "MH")
   })
   
   mission1_PI_server(Exesum_m1_PI, df1 = df_m1_PI_1, df2 = df_m1_PI_2, output, input)
@@ -223,15 +296,58 @@ server <- function(input, output, session) {
   mission1_SB_server(Exesum_m1_SB, df1 = df_m1_SB_1, output, input)
   mission1_LE_server(Exesum_m1_LE, df1 = df_m1_LE_1, output, input)
   mission1_MH_server(Exesum_m1_MH, df1 = df_m1_MH_1, output, input)
+  # 
   
+  
+  observeEvent(input$m2_NBO_Button, {
+    updateTabItems(session, "tabs", selected = "NBO")
+  })
+  
+  observeEvent(input$m2_HA_Button, {
+    updateTabItems(session, "tabs", selected = "HA")
+  })
+  
+  observeEvent(input$m2_LMPR_Button, {
+    updateTabItems(session, "tabs", selected = "LMPR")
+  })
+  
+  observeEvent(input$m2_OVC_Button, {
+    updateTabItems(session, "tabs", selected = "OVC")
+  })
+  
+  observeEvent(input$m2_PRHC_Button, {
+    updateTabItems(session, "tabs", selected = "PRHC")
+  })
+  
+  observeEvent(input$m2_GII_Button, {
+    updateTabItems(session, "tabs", selected = "GII")
+  })
+
   mission2_NBO_server(Exesum_m2_NBO, df_m2_NBO_1, output, input)
   mission2_HA_server(Exesum_m2_HA, df_m2_HA_1, output, input)
   mission2_LMPR_server(Exesum_m2_LMPR, df_m2_LMPR_1, output, input)
   mission2_OVC_server(Exesum_m2_OVC, df_m2_OVC_1, output, input)
   mission2_PRHC_server(Exesum_m2_PRHC, df_m2_PRHC_1, output, input)
   mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)
+  # 
+  # mission5_CEG_server(Exesum_m5_CEG, df_m5_CEG_1, output, input)
+  # 
+  observeEvent(input$m6_RnD_Button, {
+    updateTabItems(session, "tabs", selected = "RnD")
+  })
+  observeEvent(input$m6_VAEX_Button, {
+    updateTabItems(session, "tabs", selected = "VAEX")
+  })
+  observeEvent(input$m6_nRinv_Button, {
+    updateTabItems(session, "tabs", selected = "nRinv")
+  })
+  observeEvent(input$m6_LP_Button, {
+    updateTabItems(session, "tabs", selected = "LP")
+  })
+  observeEvent(input$m6_EXP_Button, {
+    updateTabItems(session, "tabs", selected = "EXP")
+  })
   
-  mission5_CEG_server(Exesum_m5_CEG, df_m5_CEG_1, output, input)
   
   mission6_RnD_server(Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input)
   mission6_VAEX_server(Exesum_m6_VAEX, df_m6_VAEX_1, output, input)
