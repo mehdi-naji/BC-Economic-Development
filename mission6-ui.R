@@ -11,21 +11,21 @@ ui_m6_home <- function(df_m6_RnD, df_m6_VAEX, df_m6_nRinv, df_m6_LP, df_m6_EXP){
               ), 
               column(3, style = style2,
                      actionButton("m6_RnD_Button", 
-                                  label = HTML(Extract_Status(df_m6_RnD, "%")), 
+                                  label = HTML(Extract_Status(df_m6_RnD, "$ Millions")), 
                                   style = style1),
-                     "Poverty Incidence"
+                     "Investment in Innovation"
               ),
               column(3, style = style2,
                      actionButton("m6_VAEX_Button", 
-                                  label = HTML(Extract_Status(df_m6_VAEX, "%")), 
+                                  label = HTML(Extract_Status(df_m6_VAEX, "$ Billions")), 
                                   style = style1),
-                     "Core Housing Need"
+                     "Value added export"
               ),
               column(3, style = style2,
                      actionButton("m6_nRinv_Button", 
-                                  label = HTML(Extract_Status(df_m6_nRinv, "")), 
+                                  label = HTML(Extract_Status(df_m6_nRinv, "%")), 
                                   style = style1),
-                     "Gini Coefficinet"
+                     "Non-residential Investment"
               )),
             fluidRow(
               style = "border: 20px solid #ecf0f5;",
@@ -34,22 +34,22 @@ ui_m6_home <- function(df_m6_RnD, df_m6_VAEX, df_m6_nRinv, df_m6_LP, df_m6_EXP){
               ), 
               column(3, style = style2,
                      actionButton("m6_LP_Button", 
-                                  label = HTML(Extract_Status(df_m6_LP, "")), 
+                                  label = HTML(Extract_Status(df_m6_LP, "$ per hour")), 
                                   style = style1),
-                     "Underemployment Rate"
+                     "Labour productivity"
               ),
               column(3, style = style2,
                      actionButton("m6_EXP_Button", 
                                   label = HTML(Extract_Status(df_m6_EXP, "%")), 
                                   style = style1),
-                     "Food Expenditure"
+                     "Export"
               )
             ),
             fluidRow(
               style = "border: 20px solid #ecf0f5;",
               column(3,
-                     fluidRow(h2(HTML("MISSION1:<br/>SUPPORTING<br/>PEOPLE<br/>FAMILIES"))),
-                     style = "background-color:#156082; color:white; height:400px; padding: 10px 20px; border-radius: 15px; border: 4px solid #ecf0f5;font-size: 36px;text-align: right;"
+                     fluidRow(h2(HTML("MISSION6:<br/>FORESTING<br/>INNOVATION<br/>ACROSS<br/>ECONOMY"))),
+                     style = "background-color:#156082; color:white; height:400px; padding: 10px 20px; border-radius: 15px; border: 4px solid #ecf0f5;font-size: 36px;text-align: center;"
               ), 
               column(3),
               column(3),
