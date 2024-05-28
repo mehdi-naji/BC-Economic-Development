@@ -4,7 +4,9 @@ dash_lineplot <- function(data_func, df , input, y_label=""){
   p1 <- df1 |> 
     plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines') |>
     layout(xaxis = list(
-      title = "", 
+      title = "",
+      tickvals = df1$Year,
+      ticktext = df1$Year,
       rangeslider = list(
         visible = T,
         thickness = 0.02,  
@@ -56,8 +58,16 @@ Extract_Status <- function(df, input){
   growth <- round((most_recent_value - previous) / previous * 100,1)
   abs_growth <- abs(growth)
   
+  
   HTML(paste(HTML(paste("<span style='font-size: larger;'><b>", most_recent_value," ", input, "  " , get_growth_arrow(growth), "</b></span>")),
              HTML(paste("<span style='font-size: small;'><i>", "in", most_recent_year, "</i></span>"))
+             
+  # HTML(
+  #   paste(
+  #     HTML(paste("<span style='font-size: larger;'><b>", most_recent_value," ", "</b></span>")),
+  #     HTML(paste("<span style='font-size:  large;'><b>", input, "</b></span>" )),
+  #     HTML(paste("<span style='font-size: larger;'><b>", get_growth_arrow(growth))),
+  #     HTML(paste("<span style='font-size: small;'><i>", "in", most_recent_year, "</i></span>"))
              
              ))
 }

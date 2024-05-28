@@ -90,7 +90,8 @@
     ## Line plot----
     m6_RnD_lineplot_data <- function(df, geo, funder, performer, science_type, prices) {
       df |>
-        filter(GEO == "British Columbia",
+        filter(Year >= 2000,
+               GEO == "British Columbia",
                Funder == " business enterprise sector",
                Performer == " total, all sectors",
                Science.type == "Total sciences",
@@ -333,7 +334,7 @@
         filter(Year >= 2000,
                GEO == "British Columbia",
                Estimates == "Non-residential Investment",
-               Prices == "Current prices") |>
+               Prices == "Chained (2017) dollars") |>
         mutate(VALUE = Estimate_per_GDP)
     }
     
@@ -403,7 +404,8 @@
     ## line plot ----
     m6_lp_lineplot_data <- function(df){
       df |>
-        filter(GEO == "British Columbia",
+        filter(Year >= 2000,
+               GEO == "British Columbia",
                Industry == "All industries",
                Labour.productivity.and.related.measures == "Labour productivity")
     }
