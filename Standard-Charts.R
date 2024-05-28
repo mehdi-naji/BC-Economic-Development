@@ -47,7 +47,7 @@ get_growth_arrow <- function(value) {
   } else if (value < 0) {
     return(HTML("<span style='color: #e74c3c;font-size:36px; '>&#9660;</span>"))  # Downward triangle
   } else {
-    return("")  
+    return(HTML("<span style='font-size:36px; '>---</span>"))  
   }
 }
 

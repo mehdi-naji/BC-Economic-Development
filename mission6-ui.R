@@ -10,15 +10,6 @@ ui_m6_home <- function(df_m6_RnD, df_m6_VAEX, df_m6_nRinv, df_m6_LP, df_m6_EXP){
                      fluidRow(h2(HTML("MISSION6:<br/>FORESTING<br/>INNOVATION<br/>ACROSS<br/>ECONOMY"))),
                      style = "background-color:#156082; color:white; height:400px; padding: 10px 20px; border-radius: 15px; border: 4px solid #ecf0f5;font-size: 36px;text-align: center;"
               ), 
-              # 
-              # 
-              # 
-              # 
-              # 
-              # style = "border: 20px solid #ecf0f5;",
-              # column(3,
-              #        style = "height:100px;"
-              # ), 
               column(3, style = style2,
                      actionButton("m6_RnD_Button", 
                                   label = HTML(Extract_Status(df_m6_RnD, "Million Dollars")), 
@@ -36,15 +27,10 @@ ui_m6_home <- function(df_m6_RnD, df_m6_VAEX, df_m6_nRinv, df_m6_LP, df_m6_EXP){
                                   label = HTML(Extract_Status(df_m6_nRinv, "%")), 
                                   style = style1),
                      "Non-residential Investment"
-              )),
-            fluidRow(
-              style = "border: 20px solid #ecf0f5;",
-              column(3,
-                     style = "height:100px;"
-              ), 
+              ),
               column(3, style = style2,
-                     actionButton("m6_LP_Button", 
-                                  label = HTML(Extract_Status(df_m6_LP, "$ per hour")), 
+                     actionButton("m6_LP_Button",
+                                  label = HTML(Extract_Status(df_m6_LP, "$ per hour")),
                                   style = style1),
                      "Labour productivity"
               ),
@@ -54,16 +40,6 @@ ui_m6_home <- function(df_m6_RnD, df_m6_VAEX, df_m6_nRinv, df_m6_LP, df_m6_EXP){
                                   style = style1),
                      "Export"
               )
-            # ),
-            # fluidRow(
-            #   style = "border: 20px solid #ecf0f5;",
-            #   column(3,
-            #          fluidRow(h2(HTML("MISSION6:<br/>FORESTING<br/>INNOVATION<br/>ACROSS<br/>ECONOMY"))),
-            #          style = "background-color:#156082; color:white; height:400px; padding: 10px 20px; border-radius: 15px; border: 4px solid #ecf0f5;font-size: 36px;text-align: center;"
-            #   ), 
-            #   column(3),
-            #   column(3),
-            #   column(3)
             )
           ))}
 
