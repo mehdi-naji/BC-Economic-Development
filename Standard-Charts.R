@@ -59,7 +59,9 @@ Extract_Status <- function(df, input){
   abs_growth <- abs(growth)
   
   
-  HTML(paste(HTML(paste("<span style='font-size: larger;'><b>", most_recent_value," ", input, "  " , get_growth_arrow(growth), "</b></span>")),
+  HTML(paste(HTML(paste("<span style='font-size: larger;'><b>" , get_growth_arrow(growth), "</b></span>")),
+             HTML(paste("<span style='font-size: larger;'><i>", most_recent_value, "</i></span>")),
+             HTML(paste("<span style='font-size: large;'><i>", input, "</i></span>")),
              HTML(paste("<span style='font-size: small;'><i>", "in", most_recent_year, "</i></span>"))
              
   # HTML(
