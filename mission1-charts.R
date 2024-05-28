@@ -139,7 +139,7 @@
                                    ),
                      by = "Year") |>
            mutate(VALUE = (VALUE.x / VALUE.y) * 100,
-                  VALUE = round(VALUE))|>
+                  VALUE = round(VALUE,1))|>
            select(Year, VALUE)
         }
         
@@ -390,7 +390,8 @@ m1_SB_render_lineplot <- function(df, input){
 ## Line plot----
 m1_LE_lineplot_data <- function(df) {
   df |>
-    filter(GEO == "British Columbia",
+    filter(Year >= 2000,
+           GEO == "British Columbia",
            Age == "0 years",
            Sex == "Both sexes",
            Element == "Life expectancy (in years) at age x (ex)")|>

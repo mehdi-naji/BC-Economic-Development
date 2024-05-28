@@ -14,7 +14,8 @@ tabItem(tabName = "home",
         fluidRow(
           column(width = 4,
                  style = style1, 
-                 h3(strong("MISSION 1:"), br(), "Supporting people and families"),
+                 h3(style = "text-align: center;",
+                    strong("MISSION 1:"), br(), "Supporting people and families"),
                  p (
                    HTML("
                               <li>Investing in people and families to make life more affordable </li>
@@ -28,7 +29,8 @@ tabItem(tabName = "home",
           ),
           column(width = 4, 
                  style = style1,
-                 h3(strong("MISSION 2:"), br(), "Building resilient communities"),
+                 h3(style = "text-align: center;",
+                    strong("MISSION 2:"), br(), "Building resilient communities"),
                  p (
                    HTML("
                               <li>Helping communities thrive with modern infrastructure resilient to changes in the climate and the economy </li>
@@ -42,7 +44,8 @@ tabItem(tabName = "home",
           ),
           column(width = 4,
                  style = style1,
-                 h3(strong("MISSION 3:"), br(), "Advancing true, lasting and meaningful reconciliation with Indigenous Peoples"),
+                 h3(style = "text-align: center;",
+                    strong("MISSION 3:"), br(), "Advancing true, lasting and meaningful reconciliation with Indigenous Peoples"),
                  p (
                    HTML("
                               <li>Working to advance our commitments to reconciliation with Indigenous Peoples</li>
@@ -64,7 +67,8 @@ tabItem(tabName = "home",
         fluidRow(
           column(width =4,
                  style=style3,
-                 h3(strong("MISSION 4:"), br(), "Meeting B.C.’s climate commitments"),
+                 h3(style = "text-align: center;",
+                    strong("MISSION 4:"), br(), "Meeting B.C.’s climate commitments"),
                  p (
                    HTML("
                               <li>Delivering on B.C.’s commitment to reduce climate pollution and build a cleaner B.C.</li>
@@ -79,7 +83,8 @@ tabItem(tabName = "home",
           ),
           column (width=4,
                   style=style3,
-                  h3(strong("MISSION 5:"), br(), "Leading on environmental and social responsibility"),
+                  h3(style = "text-align: center;",
+                     strong("MISSION 5:"), br(), "Leading on environmental and social responsibility"),
                   p (
                     HTML("
                               <li>Helping develop, promote, and market environmentally and socially responsible goods and services </li>
@@ -94,7 +99,8 @@ tabItem(tabName = "home",
           ),
           column (width=4,
                   style=style3,
-                  h3(strong("MISSION 6:"), br(), "Fostering Innovation across Economy"),
+                  h3(style = "text-align: center;",
+                     strong("MISSION 6:"), br(), "Fostering Innovation across Economy"),
                   p (
                     HTML("
                               <li>Helping B.C.’s high-tech sector find talent and scale-up</li>

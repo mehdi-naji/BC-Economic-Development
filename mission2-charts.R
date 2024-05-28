@@ -83,7 +83,7 @@
           }
 
           m2_OVC_render_lineplot <- function(df, input){
-            dash_lineplot(m2_OVC_lineplot_data, df, input)}
+            dash_lineplot(m2_OVC_lineplot_data, df, input, y_label="Per 100,000 population")}
 
 
 # GII Dash----
@@ -92,7 +92,7 @@
       df }
     
     m2_GII_render_lineplot <- function(df, input){
-      dash_lineplot(m2_GII_lineplot_data, df, input)}
+      dash_lineplot(m2_GII_lineplot_data, df, input, y_label="$ billion")}
     
 
 

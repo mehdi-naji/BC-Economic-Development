@@ -36,7 +36,7 @@ ui_m2_home <- function(df_m2_NBO, df_m2_HA, df_m2_LMPR, df_m2_OVC, df_m2_GII, df
                      actionButton("m2_OVC_Button", 
                                   label = HTML(Extract_Status(df_m2_OVC, "%")), 
                                   style = style1),
-                     "Occurances of Violent Crime"
+                     "Occurrences of Violent Crime"
               ),
               column(3, style = style2,
                      actionButton("m2_GII_Button", 
@@ -159,7 +159,7 @@ ui_m2_OVC <- function(df1){
           fluidPage(
             style = "background-color: white;margin: 20px;",
             fluidRow(
-              column(9, h3("Figure 2-4-1: Occurance of Violent Crime" ))
+              column(9, h3("Figure 2-4-1: Occurrences of Violent Crime" ))
             ),
             fluidRow(
               column(1),

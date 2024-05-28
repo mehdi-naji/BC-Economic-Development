@@ -167,7 +167,7 @@ ui_m1_UR <- function(df1, df2, df3, df4, df5){
           fluidPage(
             style = "background-color: white;margin: 20px;",
             fluidRow(
-              column(9, h3("Figure 1-4-1: Uneremployment Rate" ))
+              column(9, h3("Figure 1-4-1: Underemployment Rate" ))
             ),
             fluidRow(
               column(1),

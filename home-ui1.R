@@ -16,7 +16,8 @@ tabItem(tabName = "home",
         fluidRow(
           column(width = 4,
                  style = style1, 
-                 h4(strong("MISSION 1:"), br(), "Supporting people and families", br()),
+                 h4(style = "text-align: center;",
+                    strong("MISSION 1:"), br(), "Supporting people and families", br()),
                  div(
                    style = "display: flex; 
                             justify-content: center; 
@@ -33,7 +34,8 @@ tabItem(tabName = "home",
             ),
             column(width = 4, 
                  style = style1,
-                 h4(strong("MISSION 2:"), br(), "Building resilient communities", br()),
+                 h4(style = "text-align: center;",
+                    strong("MISSION 2:"), br(), "Building resilient communities", br()),
                  div(
                    style = "display: flex; 
                             justify-content: center; 
@@ -50,7 +52,8 @@ tabItem(tabName = "home",
             ),
             column(width = 4,
                  style = style1,
-                 h4(strong("MISSION 3:"), br(), "Advancing true, lasting and meaningful reconciliation with Indigenous Peoples"),
+                 h4(style = "text-align: center;",
+                    strong("MISSION 3:"), br(), "Advancing true, lasting and meaningful reconciliation with Indigenous Peoples"),
                  div(
                    style = "display: flex; 
                             justify-content: center; 
@@ -73,7 +76,7 @@ tabItem(tabName = "home",
         fluidRow(
           column(width =4,
                  style=style3,
-                 h4(strong("MISSION 4:"), br(), "Meeting B.C.’s climate commitments"),
+                 h4(style = "text-align: center;",strong("MISSION 4:"), br(), "Meeting B.C.’s climate commitments"),
                  div(
                    style = "display: flex; 
                             justify-content: center; 
@@ -90,7 +93,7 @@ tabItem(tabName = "home",
            ),
            column (width=4,
                   style=style3,
-                  h4(strong("MISSION 5:"), br(), "Leading on environmental and social responsibility"),
+                  h4(style = "text-align: center;",strong("MISSION 5:"), br(), "Leading on environmental and social responsibility"),
                   div(
                     style = "display: flex; 
                             justify-content: center; 
@@ -107,7 +110,8 @@ tabItem(tabName = "home",
             ),
             column (width=4,
                   style=style3,
-                  h4(strong("MISSION 6:"), br(), "Fostering Innovation across Economy"),
+                  h4(style = "text-align: center;",
+                     strong("MISSION 6:"), br(), "Fostering Innovation across Economy"),
                   div(
                     style = "display: flex; 
                             justify-content: center; 
@@ -122,4 +126,4 @@ tabItem(tabName = "home",
                     )
                   )
               )
-)))}
+        )))}

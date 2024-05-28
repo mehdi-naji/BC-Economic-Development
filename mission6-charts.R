@@ -44,7 +44,7 @@
     load_m6_lp1 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Labour_Productivity_1.csv"
       df <- read.csv(url, header = TRUE)
-      df <- na.omit(df)
+      # df <- na.omit(df)
       df<- df |> filter(
         Labour.productivity.and.related.measures %in% c("Total number of jobs",
                                                         "Labour productivity"))
