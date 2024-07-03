@@ -2,7 +2,7 @@
 # Loading data----
     ## Canada Map----
     load_canada_map <- function(){
-      canada_url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/canada-with-provinces_795.geojson"
+      canada_file <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/canada-with-provinces_795.geojson"
       # canada_file <- "C:/Users/MNAJI/StrongerBC-Project/supplementary materials/canada-with-provinces_795.geojson"
       # geojson_content <- httr::GET(canada_url, httr::write_disk(tf <- tempfile(fileext = ".geojson"), overwrite = TRUE))
       # sf::st_read(dsn = tf, quiet = TRUE)
