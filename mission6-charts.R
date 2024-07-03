@@ -2,9 +2,14 @@
 # Loading data----
     ## Canada Map----
     load_canada_map <- function(){
-      canada_url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/canada-with-provinces_795.geojson"
-      geojson_content <- httr::GET(canada_url, httr::write_disk(tf <- tempfile(fileext = ".geojson"), overwrite = TRUE))
-      sf::st_read(dsn = tf, quiet = TRUE)
+      # canada_url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/canada-with-provinces_795.geojson"
+      canada_file <- "C:/Users/MNAJI/StrongerBC-Project/supplementary materials/canada-with-provinces_795.geojson"
+      # geojson_content <- httr::GET(canada_url, httr::write_disk(tf <- tempfile(fileext = ".geojson"), overwrite = TRUE))
+      # sf::st_read(dsn = tf, quiet = TRUE)
+      
+      canada_data <- sf::st_read(canada_file, quiet = TRUE)
+      
+      return(canada_data)
     }
     
     ## RnD----
@@ -415,24 +420,67 @@
     
     ## lines plot ----
     m6_lp_lines_data <- function(df, geo, labourtype ){
+      
+      short_titles <- c(
+        "Business sector industries" = "Business sector",
+        "Energy sector" = "Energy sector",
+        "Information and communication sector" = "Info & Comm sector",
+        "Finance and insurance, and holding companies [BS5B]" = "Finance & Insurance sector",
+        "Industrial production" = "Industrial Production",
+        "Non-business sector industries" = "Non-Business sector"
+      )
+      
+      # Filter and rename the industries
       df |>
         filter(
           GEO == geo,
           Labour.productivity.and.related.measures == labourtype,
-          Industry %in% c("Business sector industries",
-                          "Energy sector",
-                          "Information and communication sector",
-                          "Finance and insurance, and holding companies [BS5B]",
-                          "Industrial production",
-                          "Non-business sector industries")
-        )
+          Industry %in% names(short_titles)
+        ) |>
+        mutate(Industry = short_titles[Industry])
     }
     
     m6_lp_render_lines <- function(df, input){
       df2 <- m6_lp_lines_data(df, input$m6_lp_lines_geo, input$m6_lp_lines_labourtype)
-      p <- df2 |>
-        plot_ly(x = ~Year, y =~Y1_growth, color = ~Industry, type = 'scatter', mode = 'lines') |>
-        layout(legend = list(orientation = 'h', x = 0.5, xanchor = 'center', y = -0.3, yanchor = 'top'))
+      
+      # Create an empty plotly object
+      p <- plot_ly(height = 250)
+      
+      # Loop through each industry to add traces
+      for(industry in unique(df2$Industry)){
+        p <- p |> add_trace(
+          data = df2[df2$Industry == industry, ],
+          x = ~Year,
+          y = ~Y1_growth,
+          type = 'scatter',
+          mode = 'lines',
+          color = ~Industry,
+          visible = ifelse(industry %in% c("Energy sector", "Info & Comm sector"), TRUE, "legendonly")
+        )
+      }
+      
+      # Add layout configurations
+      p <- p |> layout(
+        plot_bgcolor = '#F2F2F2',
+        paper_bgcolor = '#F2F2F2',
+        legend = list(
+          orientation = 'h',  
+          x = 0.5,            
+          xanchor = 'center', 
+          y = -0.1 ),
+        xaxis = list(
+          title = ""  
+        ),
+        yaxis = list(
+          title = ""  
+        ),
+        margin = list(
+          l = 100,     
+          r = 50,
+          t = 20,
+          b = 0
+        )
+      )
       p
     }
     
@@ -458,22 +506,45 @@
           labels = ~Industry,
           parents = ~parent,
           values = ~per_val)
+      
+      # Add layout configurations
+      p <- p |> layout(
+        plot_bgcolor = '#F2F2F2',
+        paper_bgcolor = '#F2F2F2',
+        legend = list(
+          orientation = 'h',  
+          x = 0.5,            
+          xanchor = 'center', 
+          y = -0.1 ),
+        xaxis = list(
+          title = ""  
+        ),
+        yaxis = list(
+          title = ""  
+        ),
+        margin = list(
+          l = 100,     
+          r = 50,
+          t = 20,
+          b = 0
+        )
+      )
       validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
       p}
     
     ## table----
     m6_lp_table_data <- function(df, year, labourtype, industry){
-      df |>
+       df |>
         filter(
           Year == year,
           Labour.productivity.and.related.measures == labourtype,
           Industry == industry,
           GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada"))|>
         select (GEO, Y1_growth, Y3_growht, Y5_growth) |>
-        mutate(GEO = factor(GEO, levels = c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada")),
-               Y1_growth = paste0(round(Y1_growth,1),"%"),
-               Y3_growht = paste0(round(Y3_growht,1),"%"),
-               Y5_growth = paste0(round(Y5_growth,1),"%"))|>
+        mutate(GEO = factor(GEO, levels = c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada")))|>
+               # Y1_growth = paste0(round(Y1_growth,1),"%"),
+               # Y3_growht = paste0(round(Y3_growht,1),"%"),
+               # Y5_growth = paste0(round(Y5_growth,1),"%"))|>
         arrange(GEO)|>
         rename(Region = GEO) |>
         rename_with(~paste0("one-year growth <br>(", as.numeric(as.character(year))-1, "-", as.numeric(as.character(year)) ,")") , Y1_growth)|>
@@ -488,6 +559,40 @@
                                                       style = "font-family: Arial; font-size: 12px;"))
     }
     
+    m6_lp_render_growthsectors <- function(df, input){
+      data <- m6_lp_table_data(df, input$m6_lp_table_year, input$m6_lp_table_labourtype, input$m6_lp_table_industry)
+      data_long <- reshape2::melt(data, id.vars = "Region")
+
+      # Create an empty plotly object
+      p2 <- plot_ly(width = 700, height = 250)
+      p2 <- data_long |> 
+        plot_ly(x = ~value,y=~Region, name=~variable, type = 'bar', 
+                orientation = 'h', text = ~paste(round(value,1),"%")) |>
+        layout(yaxis = list(title = ""),
+               xaxis = list(title = ""),
+               bargap = 0.1,
+        legend = list(y = 0, x=0, orientation = 'h'),
+        autosize = TRUE)
+
+        
+      
+      # Add layout configurations
+      p2 <- p2 |> layout(
+        plot_bgcolor = '#F2F2F2',
+        paper_bgcolor = '#F2F2F2',
+        margin = list(
+          l = 100,
+          r = 50,
+          t = 20,
+          b = 0
+        )
+      )
+      
+      validate(need(nrow(data) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
+      return(p2)
+    }
+
+    
     ## map ----
     m6_lp_map_data <- function(df, year, labourtype, industry){
       df |> 
@@ -500,16 +605,17 @@
         select(
           GEO, Labour.productivity.and.related.measures, Industry, VALUE 
         )}
-    
+      
     m6_lp_render_map <- function(df, input){
       df_map <- m6_lp_map_data(df, input$m6_lp_map_year, input$m6_lp_map_labourtype, input$m6_lp_map_industry)
       canada_map <- load_canada_map()
       merged_df <- merge(canada_map, df_map, by.x="prov_name_en", by.y="GEO", all.x = TRUE)
       canada_map$VALUE <- merged_df$VALUE
       # Create a color palette
-      pal <- colorNumeric(palette = "viridis", domain = canada_map$VALUE)
-      
-      p2 <- leaflet(data = canada_map) %>%
+      pal <- colorNumeric(palette = "YlGnBu", domain = canada_map$VALUE)
+
+      p2 <- leaflet(data = canada_map, options = leafletOptions(minZoom = 2, maxZoom = 2)) %>%
+        # setView(lng = -95, lat = 60, zoom = 2) %>%
         addProviderTiles(providers$CartoDB.Positron) %>%
         addPolygons(fillColor = ~pal(canada_map$VALUE),
                     fillOpacity = 0.8,
@@ -518,10 +624,36 @@
                     popup = ~paste0("<b>", prov_name_en, "</b><br>Value: ", round(canada_map$VALUE, 2))) |>
         leaflet::addLegend(pal = pal,
                            values = canada_map$VALUE,
-                           title = "Value",
-                           position = "bottomleft")
-      
+                           # title = "Value",
+                           labFormat = labelFormat(suffix = ""),
+                           position = "topleft",
+                           className = "custom-legend")%>%
+        # Remove zoom controls
+        leaflet::addControl(html = "", position = "topright", className = "leaflet-control-zoom") %>%
+        leaflet::addControl(html = "", position = "topleft", className = "leaflet-control-zoom")
+
       validate(need(nrow(df_map) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
+      
+      # Specify the size of the leaflet map
+      p2 <- p2 %>% htmlwidgets::onRender("
+    function(el, x) {
+      el.style.width = '300px';
+      el.style.height = '300px';
+      // Remove zoom controls
+      var zoomControl = document.getElementsByClassName('leaflet-control-zoom')[0];
+      zoomControl.parentNode.removeChild(zoomControl);
+
+      var css = '.custom-legend .legend-scale { font-size: 5px; } .custom-legend .legend-labels { font-size: 5px; padding: 4px; }';
+      var style = document.createElement('style');
+      if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(document.createTextNode(css));
+      }
+      document.head.appendChild(style);
+    }
+  ")
+      
       p2
     }
     

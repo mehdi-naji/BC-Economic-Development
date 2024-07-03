@@ -1,6 +1,8 @@
 # m1 ----
 ## UR----
-mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, df5, output, input){
+mission1_UR_server <- function(Exesum_m1_UR_main, Exesum_m1_UR, df1, df2, df3, df4, df5, output, input){
+  output$Exesum_m1_UR_main <- renderUI(Exesum_m1_UR_main)
+  
   ### Executive Summary----
   output$exesum_m1_UR <- renderUI(Exesum_m1_UR)
   ### Line Plot----
@@ -66,7 +68,9 @@ mission1_UR_server <- function(Exesum_m1_UR, df1, df2, df3, df4, df5, output, in
 }
 
 ## PI----
-mission1_PI_server <- function(Exesum_m1_PI, df1, df2, output, input){
+mission1_PI_server <- function(Exesum_m1_PI_main, Exesum_m1_PI, df1, df2, output, input){
+  output$Exesum_m1_PI_main <- renderUI(Exesum_m1_PI_main)
+  
   ### Executive Summary----
   output$exesum_m1_PI <- renderUI(Exesum_m1_PI)
   ### Line Plot----
@@ -102,7 +106,9 @@ mission1_PI_server <- function(Exesum_m1_PI, df1, df2, output, input){
 
 
 ## CHN----
-mission1_CHN_server <- function(Exesum_m1_CHN, df1, output, input){
+mission1_CHN_server <- function(Exesum_m1_CHN_main, Exesum_m1_CHN, df1, output, input){
+  output$Exesum_m1_CHN_main <- renderUI(Exesum_m1_CHN_main)
+  
   ### Executive Summary----
   output$exesum_m1_CHN <- renderUI(Exesum_m1_CHN)
   ### Line Plot----
@@ -122,7 +128,9 @@ mission1_CHN_server <- function(Exesum_m1_CHN, df1, output, input){
 }
 
 ## GC----
-mission1_GC_server <- function(Exesum_m1_GC, df1, output, input){
+mission1_GC_server <- function(Exesum_m1_GC_main, Exesum_m1_GC, df1, output, input){
+  output$Exesum_m1_GC_main <- renderUI(Exesum_m1_GC_main)
+  
   ### Executive Summary----
   output$exesum_m1_GC <- renderUI(Exesum_m1_GC)
   ### Line Plot----
@@ -142,7 +150,9 @@ mission1_GC_server <- function(Exesum_m1_GC, df1, output, input){
 }
 
 ## FE----
-mission1_FE_server <- function(Exesum_m1_FE, df1, output, input){
+mission1_FE_server <- function(Exesum_m1_FE_main, Exesum_m1_FE, df1, output, input){
+  output$Exesum_m1_FE_main <- renderUI(Exesum_m1_FE_main)
+  
   ### Executive Summary----
   output$exesum_m1_FE <- renderUI(Exesum_m1_FE)
   ### Line Plot----
@@ -162,7 +172,9 @@ mission1_FE_server <- function(Exesum_m1_FE, df1, output, input){
 }
 
 ## TS----
-mission1_TS_server <- function(Exesum_m1_TS, df1, output, input){
+mission1_TS_server <- function(Exesum_m1_TS_main, Exesum_m1_TS, df1, output, input){
+  output$Exesum_m1_TS_main <- renderUI(Exesum_m1_TS_main)
+  
   ### Executive Summary----
   output$exesum_m1_TS <- renderUI(Exesum_m1_TS)
   ### Line Plot----
@@ -181,7 +193,9 @@ mission1_TS_server <- function(Exesum_m1_TS, df1, output, input){
   )
 }
 ## MI----
-mission1_MI_server <- function(Exesum_m1_MI, df1, output, input){
+mission1_MI_server <- function(Exesum_m1_MI_main, Exesum_m1_MI, df1, output, input){
+  output$Exesum_m1_MI_main <- renderUI(Exesum_m1_MI_main)
+  
   ### Executive Summary----
   output$exesum_m1_MI <- renderUI(Exesum_m1_MI)
   ### Line Plot----
@@ -200,7 +214,9 @@ mission1_MI_server <- function(Exesum_m1_MI, df1, output, input){
   )
 }
 ## SB----
-mission1_SB_server <- function(Exesum_m1_SB, df1, output, input){
+mission1_SB_server <- function(Exesum_m1_SB_main, Exesum_m1_SB, df1, output, input){
+  output$Exesum_m1_SB_main <- renderUI(Exesum_m1_SB_main)
+  
   ### Executive Summary----
   output$exesum_m1_SB <- renderUI(Exesum_m1_SB)
   ### Line Plot----
@@ -219,7 +235,9 @@ mission1_SB_server <- function(Exesum_m1_SB, df1, output, input){
   )
 }
 ## LE----
-mission1_LE_server <- function(Exesum_m1_LE, df1, output, input){
+mission1_LE_server <- function(Exesum_m1_LE_main, Exesum_m1_LE, df1, output, input){
+  output$Exesum_m1_LE_main <- renderUI(Exesum_m1_LE_main)
+  
   ### Executive Summary----
   output$exesum_m1_LE <- renderUI(Exesum_m1_LE)
   ### Line Plot----
@@ -238,7 +256,9 @@ mission1_LE_server <- function(Exesum_m1_LE, df1, output, input){
   )
 }
 ## MH----
-mission1_MH_server <- function(Exesum_m1_MH, df1, output, input){
+mission1_MH_server <- function(Exesum_m1_MH_main, Exesum_m1_MH, df1, output, input){
+  output$Exesum_m1_MH_main <- renderUI(Exesum_m1_MH_main)
+  
   ### Executive Summary----
   output$exesum_m1_MH <- renderUI(Exesum_m1_MH)
   ### Line Plot----

@@ -1,6 +1,8 @@
 # m6 ----
 ## RnD----
-mission6_RnD_server <- function(Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input){
+mission6_RnD_server <- function(Exesum_m6_RnD_main, Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input){
+  output$Exesum_m6_RnD_main <- renderUI(Exesum_m6_RnD_main)
+  
   ### Executive Summary----
   output$exesum_m6_RnD <- renderUI(Exesum_m6_RnD)
   ### Line Plot----
@@ -62,7 +64,8 @@ mission6_RnD_server <- function(Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output,
 
 ## VAEX----
 
-mission6_VAEX_server <- function(Exesum_m6_VAEX, df_m6_VAEX_1, output, input){
+mission6_VAEX_server <- function(Exesum_m6_VAEX_main, Exesum_m6_VAEX, df_m6_VAEX_1, output, input){
+  output$Exesum_m6_VAEX_main <- renderUI(Exesum_m6_VAEX_main)
   
   ### Executive Summary----
   output$Exesum_m6_VAEX <- renderUI(Exesum_m6_VAEX)
@@ -111,8 +114,9 @@ mission6_VAEX_server <- function(Exesum_m6_VAEX, df_m6_VAEX_1, output, input){
 }
 ## non-residential Investment----
 
-mission6_nRinv_server <- function(Exesum_m6_nRinv, df_m6_nRinv_1, output, input){
-    
+mission6_nRinv_server <- function(Exesum_m6_nRiv_main, Exesum_m6_nRinv, df_m6_nRinv_1, output, input){
+  output$Exesum_m6_nRinv_main <- renderUI(Exesum_m6_nRinv_main)
+  
   ### Executive Summary----
   output$Exesum_m6_nRinv <- renderUI(Exesum_m6_nRinv)
   ### Line plot----
@@ -161,7 +165,9 @@ mission6_nRinv_server <- function(Exesum_m6_nRinv, df_m6_nRinv_1, output, input)
 }
 
 ## labour Productivity----
-mission6_lp_server <- function(Exesum_m6_lp, df_m6_lp_1, output, input){
+mission6_lp_server <- function(Exesum_m6_lp_main, Exesum_m6_lp, df_m6_lp_1, output, input){
+  
+  output$Exesum_m6_lp_main <- renderUI(Exesum_m6_lp_main)
   
   ### Executive Summary----
   output$Exesum_m6_lp <- renderUI(Exesum_m6_lp)
@@ -213,6 +219,14 @@ mission6_lp_server <- function(Exesum_m6_lp, df_m6_lp_1, output, input){
     p1 <- m6_lp_render_table(df_m6_lp_1, input)
     p1
   })
+  
+  
+  output$m6_lp_growthsectors <- renderPlotly({
+    p1 <- m6_lp_render_growthsectors(df_m6_lp_1, input)
+    p1
+  })
+  
+  
   output$m6_lp_table_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission6_LabourProductivity_filteredData.csv",
     content = function(file) {
@@ -240,7 +254,9 @@ mission6_lp_server <- function(Exesum_m6_lp, df_m6_lp_1, output, input){
 }
 
 ## EXPORT----
-mission6_exp_server <- function(Exesum_m6_exp, df_m6_exp_1, df_m6_exp_2, df_m6_exp_3, df_m6_exp_4, output, input){
+mission6_exp_server <- function(Exesum_m6_exp_main, Exesum_m6_exp, df_m6_exp_1, df_m6_exp_2, df_m6_exp_3, df_m6_exp_4, output, input){
+  output$Exesum_m6_exp_main <- renderUI(Exesum_m6_exp_main)
+  
   ### Executive Summary----
   output$Exesum_m6_exp <- renderUI(Exesum_m6_exp)
   ### Line plot----

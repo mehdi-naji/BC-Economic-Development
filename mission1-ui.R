@@ -84,18 +84,11 @@ ui_m1_home <- function(df_m1_PI, df_m1_CHN, df_m1_GC, df_m1_UR, df_m1_FE, df_m1_
 ui_m1_PI <- function(df1, df2){
   tabItem(tabName = "PI",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 1-1-1: Poverty Incidence" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m1_PI_lineplot")),
-              column(1,
-                     downloadButton("m1_PI_lineplot_dwnbtt", ""))
-            )
-          ),
+          ui_main_chart(title = "Poverty Incidence", 
+                        chart_name = "m1_PI_lineplot", 
+                        button_name = "m1_PI_lineplot_dwnbtt", 
+                        source = "Statistics Canada, Table 36-10-0480-01", 
+                        summary = "Exesum_m1_PI_main"), 
           ##### EXESUM ----
           fluidPage(
             style = "background-color: aliceblue ; margin: 20px;",
@@ -127,54 +120,33 @@ ui_m1_PI <- function(df1, df2){
 ui_m1_CHN <- function(df1){
   tabItem(tabName = "CHN",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 1-2-1: Core Housing Needs" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m1_CHN_lineplot")),
-              column(1,
-                     downloadButton("m1_CHN_lineplot_dwnbtt", ""))
-            )
-          ),
+          ui_main_chart(title = "Core Housing Needs", 
+                        chart_name = "m1_CHN_lineplot", 
+                        button_name = "m1_CHN_lineplot_dwnbtt", 
+                        source = "Statistics Canada, Table 36-10-0480-01", 
+                        summary = "Exesum_m1_CHN_main")
   )}
           
 ### GC: Gini Coefficient ----
 ui_m1_GC <- function(df1){
   tabItem(tabName = "GC",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 1-3-1: Gini Coefficient" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m1_GC_lineplot")),
-              column(1,
-                     downloadButton("m1_GC_lineplot_dwnbtt", ""))
-            )
-          ),
-
+          ui_main_chart(title = "Gini Coefficient", 
+                        chart_name = "m1_GC_lineplot", 
+                        button_name = "m1_GC_lineplot_dwnbtt", 
+                        source = "Statistics Canada, Table 36-10-0480-01", 
+                        summary = "Exesum_m1_GC_main"),
   )}
 
 ### UR: Underemploymnet Rate ----
 ui_m1_UR <- function(df1, df2, df3, df4, df5){
   tabItem(tabName = "UR",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 1-4-1: Underemployment Rate" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m1_UR_lineplot")),
-              column(1, downloadButton("m1_UR_lineplot_dwnbtt", ""))
-            )
-          ),
+          ui_main_chart(title = "Underemployment Rate", 
+                        chart_name = "m1_UR_lineplot", 
+                        button_name = "m1_UR_lineplot_dwnbtt", 
+                        source = "Statistics Canada, Table 36-10-0480-01", 
+                        summary = "Exesum_m1_UR_main"), 
           ##### EXESUM ----
           fluidPage(
             style = "background-color: aliceblue ; margin: 20px;",
@@ -239,108 +211,63 @@ ui_m1_UR <- function(df1, df2, df3, df4, df5){
 ui_m1_FE <- function(df1){
   tabItem(tabName = "FE",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 1-5-1: Food Expenditure" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m1_FE_lineplot")),
-              column(1,
-                     downloadButton("m1_FE_lineplot_dwnbtt", ""))
-            )
-          ),
-          
+          ui_main_chart(title = "Food Expenditures", 
+                        chart_name = "m1_FE_lineplot", 
+                        button_name = "m1_FE_lineplot_dwnbtt", 
+                        source = "Statistics Canada, Table 36-10-0480-01", 
+                        summary = "Exesum_m1_FE_main"),
   )}
 
 ### TS: Transportation Spending ----
 ui_m1_TS <- function(df1){
   tabItem(tabName = "TS",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 1-6-1: Spending on Transportation" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m1_TS_lineplot")),
-              column(1,
-                     downloadButton("m1_TS_lineplot_dwnbtt", ""))
-            )
-          ),
-          
+          ui_main_chart(title = "Transportation Spending", 
+                        chart_name = "m1_TS_lineplot", 
+                        button_name = "m1_TS_lineplot_dwnbtt", 
+                        source = "Statistics Canada, Table 36-10-0480-01", 
+                        summary = "Exesum_m1_TS_main"),
   )}
 ### SB: Sense of Belongings ----
 ui_m1_SB <- function(df1){
   tabItem(tabName = "SB",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 1-7-1: Sense of Belongings" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m1_SB_lineplot")),
-              column(1,
-                     downloadButton("m1_SB_lineplot_dwnbtt", ""))
-            )
-          ),
-          
+          ui_main_chart(title = "Sense of Belongings", 
+                        chart_name = "m1_SB_lineplot", 
+                        button_name = "m1_SB_lineplot_dwnbtt", 
+                        source = "Statistics Canada, Table 36-10-0480-01", 
+                        summary = "Exesum_m1_SB_main"),
   )}
 ### LE: Life Expectancy ----
 ui_m1_LE <- function(df1){
   tabItem(tabName = "LE",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 1-8-1: Life Expectancy" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m1_LE_lineplot")),
-              column(1,
-                     downloadButton("m1_LE_lineplot_dwnbtt", ""))
-            )
-          ),
+          ui_main_chart(title = "Life Expectancy", 
+                        chart_name = "m1_LE_lineplot", 
+                        button_name = "m1_LE_lineplot_dwnbtt", 
+                        source = "Statistics Canada, Table 36-10-0480-01", 
+                        summary = "Exesum_m1_LE_main"),
           
   )}
 ### MI: Median Income ----
 ui_m1_MI <- function(df1){
   tabItem(tabName = "MI",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 1-3-1: Income (Median after tax)" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m1_MI_lineplot")),
-              column(1,
-                     downloadButton("m1_MI_lineplot_dwnbtt", ""))
-            )
-          ),
+          ui_main_chart(title = "Median Income", 
+                        chart_name = "m1_MI_lineplot", 
+                        button_name = "m1_MI_lineplot_dwnbtt", 
+                        source = "Statistics Canada, Table 36-10-0480-01", 
+                        summary = "Exesum_m1_MI_main"), 
           
   )}
 ### MH: Mental Health ----
 ui_m1_MH <- function(df1){
   tabItem(tabName = "MH",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 1-10-1: Mental Health" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m1_MH_lineplot")),
-              column(1,
-                     downloadButton("m1_MH_lineplot_dwnbtt", ""))
-            )
-          ),
+          ui_main_chart(title = "Mental Health", 
+                        chart_name = "m1_MH_lineplot", 
+                        button_name = "m1_MH_lineplot_dwnbtt", 
+                        source = "Statistics Canada, Table 36-10-0480-01", 
+                        summary = "Exesum_m1_MH_main"),
           
   )}
