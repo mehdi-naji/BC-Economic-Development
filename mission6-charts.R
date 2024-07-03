@@ -444,7 +444,7 @@
       df2 <- m6_lp_lines_data(df, input$m6_lp_lines_geo, input$m6_lp_lines_labourtype)
       
       # Create an empty plotly object
-      p <- plot_ly(height = 250)
+      p <- plot_ly()
       
       # Loop through each industry to add traces
       for(industry in unique(df2$Industry)){
@@ -564,7 +564,7 @@
       data_long <- reshape2::melt(data, id.vars = "Region")
 
       # Create an empty plotly object
-      p2 <- plot_ly(width = 700, height = 250)
+      p2 <- plot_ly()
       p2 <- data_long |> 
         plot_ly(x = ~value,y=~Region, name=~variable, type = 'bar', 
                 orientation = 'h', text = ~paste(round(value,1),"%")) |>

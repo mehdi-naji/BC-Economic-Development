@@ -237,7 +237,7 @@ Exesum_m6_nRinv <- HTML("
 ")
 
 Exesum_m6_lp_main <- HTML("
-  <ul style='text-align: justify; font-size: 12px;padding: 20px;'>
+  <ul style='text-align: justify; font-size: 15px;padding: 15px;'>
     <li>B.C.’s labour productivity in 2023 was $64.6 per hour, ramaining at the same level of 2022.</li>
     <hr style='border: 1px solid #d3d3d3;' />
     <li>At $64.6, B.C. ranked second among large provinces, and was the only large provinces that did not see a drop in labour productivity in 2023. Labour productivity was $77.1 per hour in Alberta, $62.2 per hour in Ontario and $58.8 per hour in Quebec in 2023.</li>
@@ -246,7 +246,7 @@ Exesum_m6_lp_main <- HTML("
 ")
 
 Exesum_m6_lp <- HTML("
-  <ul style='text-align: justify; font-size: 15px;'>
+  <ul style='text-align: justify; font-size: 20px;'>
     <div><span style='color: #FEB70D;'>Labour productivity growth rate:</span> Labour productivity has been improving over the last two decades, peaking at $68 per hour in 2020. B.C.’s labour productivity grew by 5.7 percent over the last five years, highest among large provinces. Quebec grew by 3.5 percent while Ontario dropped by 0.5 percent and Alberta by 2.0 percent over the last five years.  </div>
     <div><span style='color: #FEB70D;'>Industry breakdown:</span> Labour productivity in the information and communication sector in B.C. has been fast-growing in the past two years. It grew by 8.9 percent in 2022 and 3.5 percent in 2023. At $281.8 per hour, energy sector has the highest labour productivity among all sectors in B.C. </div>
   </ul>
