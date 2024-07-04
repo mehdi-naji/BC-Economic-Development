@@ -444,7 +444,7 @@
       df2 <- m6_lp_lines_data(df, input$m6_lp_lines_geo, input$m6_lp_lines_labourtype)
       
       # Create an empty plotly object
-      p <- plot_ly()
+      p <- plot_ly(height = 250)
       
       # Loop through each industry to add traces
       for(industry in unique(df2$Industry)){
@@ -522,6 +522,7 @@
         yaxis = list(
           title = ""  
         ),
+        height = 250,
         margin = list(
           l = 100,     
           r = 50,
@@ -567,12 +568,15 @@
       p2 <- plot_ly()
       p2 <- data_long |> 
         plot_ly(x = ~value,y=~Region, name=~variable, type = 'bar', 
-                orientation = 'h', text = ~paste(round(value,1),"%")) |>
+                orientation = 'h', 
+                visible = ~ifelse(variable == unique(variable)[1], "legendonly", TRUE),
+                text = ~paste(round(value,1),"%")
+                ) |>
         layout(yaxis = list(title = ""),
                xaxis = list(title = ""),
                bargap = 0.1,
         legend = list(y = 0, x=0, orientation = 'h'),
-        autosize = TRUE)
+        autosize = FALSE)
 
         
       
@@ -580,6 +584,7 @@
       p2 <- p2 |> layout(
         plot_bgcolor = '#F2F2F2',
         paper_bgcolor = '#F2F2F2',
+        height = 250,
         margin = list(
           l = 100,
           r = 50,

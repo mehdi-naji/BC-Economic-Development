@@ -255,9 +255,9 @@ ui_m6_lp <- function(df){
                                 summary = "Exesum_m6_lp_main"))),
           
         ##### Deep DIve----
-        fluidRow(h3(""), style = "margin: 60px; height: 80px;"),
+        # fluidRow(h3("Deep dive"), style = "margin: 60px; height: 80px;"),
         fluidPage(
-          # fluidRow(h1("Deep-Dive Charts"), style = "padding-left: 10px;"),
+          fluidRow(h1("Deep-Dive Charts"), style = "padding-left: 10px;"),
           style = "background-color : white; margin-left: 65px; margin-right:65px; margin-top:40px; ",
           div(class = "content-container",
               ###### Fixed Panel----
@@ -368,7 +368,7 @@ ui_m6_lp <- function(df){
                       ####### Lines Plot----
                       fluidRow(
                               div(
-                                style = "position: relative; margin-buttom:40px; margin-right: 100px; margin-left: 50px;",
+                                style = "position: relative; margin-buttom:40px; height:250px; margin-right: 100px; margin-left: 50px;",
                                 plotlyOutput("m6_lp_lines"),
                                 div(
                                   icon("search", "fa-4x"),
@@ -413,7 +413,7 @@ ui_m6_lp <- function(df){
                       ####### Bar Plot----
                         fluidRow(
                           div(
-                            style = "position: relative; margin-right: 100px; margin-left: 50px;",
+                            style = "position: relative; margin-right: 100px; margin-left: 50px; height:250px;",
                             plotlyOutput("m6_lp_growthsectors"),
                             div(
                               icon("line-chart", "fa-4x"),
@@ -460,7 +460,7 @@ ui_m6_lp <- function(df){
                       ####### Treemap----
                        fluidRow(
                          div(
-                           style = "position: relative; margin-right: 100px; margin-left: 50px;",
+                           style = "position: relative; margin-right: 100px; margin-left: 50px;height:250px;",
                            plotlyOutput("m6_lp_treemap"),
                            div(
                              icon("area-chart", "fa-4x"),
@@ -498,6 +498,7 @@ ui_m6_lp <- function(df){
                          ),
                          
                        ),
+                       fluidRow(style = "height : 200px;")
                   #----
                   )
 
