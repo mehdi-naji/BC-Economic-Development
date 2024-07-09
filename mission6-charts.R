@@ -496,42 +496,96 @@
         ungroup()|>
         mutate(per_val = (VALUE / total_value) * parent_val)
     }
-    
-    m6_lp_render_treemap <- function(df, input){
+    m6_lp_render_treemap <- function(df, input) {
       df2 <- m6_lp_treemap_data(df, input$m6_lp_treemap_geo, input$m6_lp_treemap_year)
+      
+      # Define colors for parents
+      parent_colors <- c(c(c(c("#F2F2F2"), c("#4EA72E")),c(),c(),c(),c()),c("brown"))
+      
       p <- df2 |>
         plot_ly(
           type = 'treemap',
           branchvalues = "total",
           labels = ~Industry,
           parents = ~parent,
-          values = ~per_val)
+          values = ~per_val,
+          marker = list(
+            colors = parent_colors
+          )
+        )
       
       # Add layout configurations
       p <- p |> layout(
         plot_bgcolor = '#F2F2F2',
         paper_bgcolor = '#F2F2F2',
         legend = list(
-          orientation = 'h',  
-          x = 0.5,            
-          xanchor = 'center', 
-          y = -0.1 ),
+          orientation = 'h',
+          x = 0.5,
+          xanchor = 'center',
+          y = -0.1
+        ),
         xaxis = list(
-          title = ""  
+          title = ""
         ),
         yaxis = list(
-          title = ""  
+          title = ""
         ),
-        height = 250,
+        height = 290,
         margin = list(
-          l = 100,     
-          r = 50,
+          l = 50,
+          r = 30,
           t = 20,
-          b = 0
+          b = 15
         )
       )
+      
       validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
-      p}
+      
+      return(p)
+    }
+    
+    
+    # m6_lp_render_treemap <- function(df, input) {
+    #   df2 <- m6_lp_treemap_data(df, input$m6_lp_treemap_geo, input$m6_lp_treemap_year)
+    #   colors <- c("#FE9900", "#7DDA58", "#CC6CE7", "#060270", "#DFC57B")
+    #   p <- df2 |>
+    #     plot_ly(
+    #       type = 'treemap',
+    #       branchvalues = "total",
+    #       labels = ~Industry,
+    #       parents = ~parent,
+    #       values = ~per_val,
+    #       colors = colors
+    #     )
+    #   
+    #   # Add layout configurations
+    #   p <- p |> layout(
+    #     plot_bgcolor = '#F2F2F2',
+    #     paper_bgcolor = '#F2F2F2',
+    #     legend = list(
+    #       orientation = 'h',
+    #       x = 0.5,
+    #       xanchor = 'center',
+    #       y = -0.1 ),
+    #     xaxis = list(
+    #       title = ""
+    #     ),
+    #     yaxis = list(
+    #       title = ""
+    #     ),
+    #     height = 290,
+    #     margin = list(
+    #       l = 50,
+    #       r = 30,
+    #       t = 20,
+    #       b = 15
+    #     )
+    #   )
+    #   
+    #   validate(need(nrow(df2) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
+    #   
+    #   return(p)
+    # }
     
     ## table----
     m6_lp_table_data <- function(df, year, labourtype, industry){
@@ -585,6 +639,7 @@
         plot_bgcolor = '#F2F2F2',
         paper_bgcolor = '#F2F2F2',
         height = 250,
+        width = 810,
         margin = list(
           l = 100,
           r = 50,
@@ -600,7 +655,7 @@
     
     ## map ----
     m6_lp_map_data <- function(df, year, labourtype, industry){
-      df |> 
+      df |>
         filter(
           GEO != "Canada",
           Year == year,
@@ -608,45 +663,57 @@
           Industry == industry
         ) |>
         select(
-          GEO, Labour.productivity.and.related.measures, Industry, VALUE 
+          GEO, Labour.productivity.and.related.measures, Industry, VALUE
         )}
-      
+    
+    
     m6_lp_render_map <- function(df, input){
       df_map <- m6_lp_map_data(df, input$m6_lp_map_year, input$m6_lp_map_labourtype, input$m6_lp_map_industry)
       canada_map <- load_canada_map()
       merged_df <- merge(canada_map, df_map, by.x="prov_name_en", by.y="GEO", all.x = TRUE)
       canada_map$VALUE <- merged_df$VALUE
+      
       # Create a color palette
-      pal <- colorNumeric(palette = "YlGnBu", domain = canada_map$VALUE)
-
-      p2 <- leaflet(data = canada_map, options = leafletOptions(minZoom = 2, maxZoom = 2)) %>%
-        # setView(lng = -95, lat = 60, zoom = 2) %>%
-        addProviderTiles(providers$CartoDB.Positron) %>%
+      # pal <- colorNumeric(palette = "YlOrBr", domain = canada_map$VALUE)
+      library(RColorBrewer)
+      
+      # Define the color palette from light yellow to dark yellow
+      colors <- colorRampPalette(c("#FFFCE6", "#D4AF37"))(n = 20)
+      
+      # Create a colorNumeric function with the defined colors and your data range
+      pal <- colorNumeric(
+        palette = colors,
+        domain = c(min(canada_map$VALUE, na.rm = TRUE), max(canada_map$VALUE, na.rm = TRUE))
+      )
+      
+      
+      p2 <- leaflet(data = canada_map, 
+                    options = leafletOptions(minZoom = 1.6, maxZoom = 1.6, dragging = FALSE, zoomControl = FALSE, scrollWheelZoom = FALSE, doubleClickZoom = FALSE, boxZoom = FALSE, attributionControl = FALSE)) %>%
+        # Add a white background by adding a blank tile layer
+        addProviderTiles("Stamen.TonerLite") %>%
         addPolygons(fillColor = ~pal(canada_map$VALUE),
                     fillOpacity = 0.8,
-                    color = "#BDBDC3",
+                    color = "#003366",
                     weight = 1,
-                    popup = ~paste0("<b>", prov_name_en, "</b><br>Value: ", round(canada_map$VALUE, 2))) |>
-        leaflet::addLegend(pal = pal,
-                           values = canada_map$VALUE,
-                           # title = "Value",
-                           labFormat = labelFormat(suffix = ""),
-                           position = "topleft",
-                           className = "custom-legend")%>%
+                    popup = ~paste0("<b>", prov_name_en, "</b><br>Value: ", round(canada_map$VALUE, 2))) %>%
         # Remove zoom controls
         leaflet::addControl(html = "", position = "topright", className = "leaflet-control-zoom") %>%
         leaflet::addControl(html = "", position = "topleft", className = "leaflet-control-zoom")
-
+      
       validate(need(nrow(df_map) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
       
       # Specify the size of the leaflet map
       p2 <- p2 %>% htmlwidgets::onRender("
     function(el, x) {
-      el.style.width = '300px';
-      el.style.height = '300px';
+      el.style.width = '300px'; 
+      el.style.height = '250px'; 
+      el.style.backgroundColor = 'rgb(0, 51, 102)';
+
       // Remove zoom controls
       var zoomControl = document.getElementsByClassName('leaflet-control-zoom')[0];
-      zoomControl.parentNode.removeChild(zoomControl);
+      if (zoomControl) {
+        zoomControl.parentNode.removeChild(zoomControl);
+      }
 
       var css = '.custom-legend .legend-scale { font-size: 5px; } .custom-legend .legend-labels { font-size: 5px; padding: 4px; }';
       var style = document.createElement('style');
@@ -659,8 +726,61 @@
     }
   ")
       
-      p2
+      return(p2)
     }
+    
+
+  #   m6_lp_render_map <- function(df, input){
+  #     df_map <- m6_lp_map_data(df, input$m6_lp_map_year, input$m6_lp_map_labourtype, input$m6_lp_map_industry)
+  #     canada_map <- load_canada_map()
+  #     merged_df <- merge(canada_map, df_map, by.x="prov_name_en", by.y="GEO", all.x = TRUE)
+  #     canada_map$VALUE <- merged_df$VALUE
+  #     # Create a color palette
+  #     pal <- colorNumeric(palette = "YlGnBu", domain = canada_map$VALUE)
+  # 
+  #     p2 <- leaflet(data = canada_map, 
+  #                   options = leafletOptions(minZoom = 1.6, maxZoom = 1.6, dragging = FALSE, zoomControl = FALSE, scrollWheelZoom = FALSE, doubleClickZoom = FALSE, boxZoom = FALSE, attributionControl = FALSE)) %>%
+  #       # setView(lng = -95, lat = 60, zoom = 2) %>%
+  #       addProviderTiles(providers$CartoDB.Positron) %>%
+  #       addPolygons(fillColor = ~pal(canada_map$VALUE),
+  #                   fillOpacity = 0.8,
+  #                   color = "#BDBDC3",
+  #                   weight = 1,
+  #                   popup = ~paste0("<b>", prov_name_en, "</b><br>Value: ", round(canada_map$VALUE, 2))) |>
+  #       # leaflet::addLegend(pal = pal,
+  #       #                    values = canada_map$VALUE,
+  #       #                    # title = "Value",
+  #       #                    labFormat = labelFormat(suffix = ""),
+  #       #                    position = "topleft",
+  #       #                    className = "custom-legend")%>%
+  #       # Remove zoom controls
+  #       leaflet::addControl(html = "", position = "topright", className = "leaflet-control-zoom") %>%
+  #       leaflet::addControl(html = "", position = "topleft", className = "leaflet-control-zoom")
+  # 
+  #     validate(need(nrow(df_map) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
+  #     
+  #     # Specify the size of the leaflet map
+  #     p2 <- p2 %>% htmlwidgets::onRender("
+  #   function(el, x) {
+  #     el.style.width = '230px';
+  #     el.style.height = '250px';
+  #     // Remove zoom controls
+  #     var zoomControl = document.getElementsByClassName('leaflet-control-zoom')[0];
+  #     zoomControl.parentNode.removeChild(zoomControl);
+  # 
+  #     var css = '.custom-legend .legend-scale { font-size: 5px; } .custom-legend .legend-labels { font-size: 5px; padding: 4px; }';
+  #     var style = document.createElement('style');
+  #     if (style.styleSheet) {
+  #       style.styleSheet.cssText = css;
+  #     } else {
+  #       style.appendChild(document.createTextNode(css));
+  #     }
+  #     document.head.appendChild(style);
+  #   }
+  # ")
+  #     
+  #     p2
+  #   }
     
 # Export Dash----
     ## line plot ----

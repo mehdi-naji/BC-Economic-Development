@@ -32,6 +32,7 @@ df2 <- df2 |>
 df2 <- df2 |>
   group_by(Year, GEO, `Labour productivity and related measures`) |>
   mutate(
+    measure = `Labour productivity and related measures`,
     parent_val = case_when(
       sector_code == 1 ~ VALUE[Industry == "All industries"],
       sector_code %in% c(2, 297) ~ VALUE[Industry == "All industries"],
@@ -43,10 +44,10 @@ df2 <- df2 |>
       TRUE ~ 0)) |>
   ungroup()
 
-df2 <- df2 |> select(Year, GEO, `Labour productivity and related measures`, UOM, Industry, VALUE, parent, parent_val)
+df2 <- df2 |> select(Year, GEO, measure , UOM, Industry, VALUE, parent, parent_val)
 
 df2 <- df2 |> 
-  group_by(GEO, `Labour productivity and related measures`, UOM, Industry) |>
+  group_by(GEO, measure, UOM, Industry) |>
   arrange(Year) |>
   mutate(Y1_growth = ((VALUE / lag(VALUE, n=1))-1)*100,
          Y3_growht = ((VALUE / lag(VALUE, n=3))-1)*100,
