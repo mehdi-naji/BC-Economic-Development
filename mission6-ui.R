@@ -315,7 +315,6 @@ ui_m6_lp <- function(df){
                         .btn-custom {
                           background-color: transparent;
                           border: none;
-                          color: white;
                         }
                         .btn-custom .fa-cloud-download-alt {
                           color: white;
@@ -337,22 +336,22 @@ ui_m6_lp <- function(df){
                                        ),
                                        column(4,
                                               div(class = "blue-dropdown",
-                                              selectInput("m6_lp_map_labourtype", "", choices = unique(df$Labour.productivity.and.related.measures),
+                                              selectInput("m6_lp_map_labourtype", "", choices = unique(df$measure),
                                               selected = "Labour productivity"))
                                        ),
                                        column(4,
                                               div(class = "blue-dropdown",
                                               selectInput("m6_lp_map_industry", "", choices = unique(df$Industry))),
                                        ),
-                                       tags$style(HTML(".btn-custom {
-                          background-color: transparent;
-                          border: none;
-                          color: white;
-                        }
-                        .btn-custom .fa-cloud-download-alt {
-                          color: white;
-                        }
-        ")),
+        #                                tags$style(HTML(".btn-custom {
+        #                   background-color: transparent;
+        #                   border: none;
+        #                   color: white;
+        #                 }
+        #                 .btn-custom .fa-cloud-download-alt {
+        #                   color: white;
+        #                 }
+        # ")),
                                        column(2, style = "padding-top: 20px; padding-right: 30px;",
                                               downloadButton("m6_lp_map_dwnbtt" , label = NULL, class = "btn-custom", icon = icon("cloud-download-alt"))
                                        )
@@ -401,7 +400,7 @@ ui_m6_lp <- function(df){
                            )),
                            column(4,
                                   div(class = "grey-dropdown",
-                                  selectInput("m6_lp_lines_labourtype", "", choices = unique(df$Labour.productivity.and.related.measures),selected = "Labour productivity"),
+                                  selectInput("m6_lp_lines_labourtype", "", choices = unique(df$measure),selected = "Labour productivity"),
                            )),
                            column(2),
                            column(2,
@@ -446,7 +445,7 @@ ui_m6_lp <- function(df){
                                    )),
                             column(4,
                                    div(class = "grey-dropdown",
-                                   selectInput("m6_lp_table_labourtype", "", choices = unique(df$Labour.productivity.and.related.measures), selected = "Labour productivity"),
+                                   selectInput("m6_lp_table_labourtype", "", choices = unique(df$measure), selected = "Labour productivity"),
                                    )),
                             column(4,
                                    div(class = "grey-dropdown",

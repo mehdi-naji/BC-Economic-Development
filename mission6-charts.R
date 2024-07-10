@@ -45,14 +45,13 @@
       df <- na.omit(df)
       return(df)
     }
-    ## LabourProductivity
+    ## LabourProductivity----
     load_m6_lp1 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Labour_Productivity_1.csv"
       df <- read.csv(url, header = TRUE)
       # df <- na.omit(df)
       df<- df |> filter(
-        Labour.productivity.and.related.measures %in% c("Total number of jobs",
-                                                        "Labour productivity"))
+        measure %in% c("Total number of jobs", "Labour productivity"))
       return(df)
     }
     
@@ -412,7 +411,7 @@
         filter(Year >= 2000,
                GEO == "British Columbia",
                Industry == "All industries",
-               Labour.productivity.and.related.measures == "Labour productivity")
+               measure == "Labour productivity")
     }
     
     m6_lp_render_lineplot <- function(df, input){
@@ -434,7 +433,7 @@
       df |>
         filter(
           GEO == geo,
-          Labour.productivity.and.related.measures == labourtype,
+          measure == labourtype,
           Industry %in% names(short_titles)
         ) |>
         mutate(Industry = short_titles[Industry])
@@ -489,7 +488,7 @@
       df |>
         filter(GEO == geo,
                Year == year,
-               Labour.productivity.and.related.measures == "Total number of jobs",
+               measure == "Total number of jobs",
                parent != "NONE") |>
         group_by(parent) |>
         mutate(total_value = sum(VALUE))|>
@@ -500,7 +499,46 @@
       df2 <- m6_lp_treemap_data(df, input$m6_lp_treemap_geo, input$m6_lp_treemap_year)
       
       # Define colors for parents
-      parent_colors <- c(c(c(c("#F2F2F2"), c("#4EA72E")),c(),c(),c(),c()),c("brown"))
+      parent_colors <- c("#F2F2F2", 
+                         "green",
+                         "#32cd32", 
+                         "lightgreen", #cc
+                         "lightgreen", 
+                         "lightgreen",
+                         "lightgreen", 
+                         "lightgreen",
+                         "#32cd32",  #fff
+                         "lightgreen",
+                         "lightgreen",
+                         "lightgreen", 
+                         "lightgreen",
+                         "lightgreen", 
+                         "lightgreen",
+                         "lightgreen",
+                         "lightgreen", 
+                         "lightgreen",
+                         "lightgreen", 
+                         "lightgreen",
+                         "lightgreen", 
+                         "lightgreen",
+                         "lightgreen",
+                         "lightgreen", 
+                         "#ed872d", # keep this
+                         "#efcc00", #dark orange
+                         "#efcc00", 
+                         "#fff8dc", 
+                         "#fff8dc",
+                         "#fff8dc",
+                         "#fff8dc",
+                         "#fff8dc", 
+                         "#fff8dc",
+                         "#fff8dc", 
+                         "#fff8dc",
+                         "#fff8dc", 
+                         "#fff8dc",
+                         "#fff8dc",  
+                         "#fff8dc",
+                         "#fff8dc")
       
       p <- df2 |>
         plot_ly(
@@ -592,7 +630,7 @@
        df |>
         filter(
           Year == year,
-          Labour.productivity.and.related.measures == labourtype,
+          measure == labourtype,
           Industry == industry,
           GEO %in% c("British Columbia", "Ontario", "Quebec", "Alberta", "Canada"))|>
         select (GEO, Y1_growth, Y3_growht, Y5_growth) |>
@@ -659,11 +697,11 @@
         filter(
           GEO != "Canada",
           Year == year,
-          Labour.productivity.and.related.measures == labourtype,
+          measure == labourtype,
           Industry == industry
         ) |>
         select(
-          GEO, Labour.productivity.and.related.measures, Industry, VALUE
+          GEO, measure, Industry, VALUE
         )}
     
     
@@ -679,13 +717,13 @@
       
       # Define the color palette from light yellow to dark yellow
       colors <- colorRampPalette(c("#FFFCE6", "#D4AF37"))(n = 20)
-      
+
       # Create a colorNumeric function with the defined colors and your data range
       pal <- colorNumeric(
         palette = colors,
         domain = c(min(canada_map$VALUE, na.rm = TRUE), max(canada_map$VALUE, na.rm = TRUE))
       )
-      
+
       
       p2 <- leaflet(data = canada_map, 
                     options = leafletOptions(minZoom = 1.6, maxZoom = 1.6, dragging = FALSE, zoomControl = FALSE, scrollWheelZoom = FALSE, doubleClickZoom = FALSE, boxZoom = FALSE, attributionControl = FALSE)) %>%
