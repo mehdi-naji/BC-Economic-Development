@@ -279,7 +279,8 @@
       df |>
         filter(GEO == "British Columbia",
                Industry == "Total industries",
-               Value.added.exports.variable == "Value added exports" ) 
+               Value.added.exports.variable == "Value added exports" ) |>
+        mutate(VALUE = Value.added.exports.variable)
       
     }
     
@@ -292,7 +293,8 @@
         filter (Year == year,
                 Industry == industry,
                 Value.added.exports.variable == "Value added exports")|>
-        mutate (EXP_GDP = 100 * VA_EXP / (GDP*1000))
+        mutate (EXP_GDP = 100 * VA_EXP / (GDP*1000),
+                VALUE = Value.added.exports.variable)
     }
     
     m6_VAEX_render_barplot <- function(df, input){

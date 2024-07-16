@@ -1,4 +1,25 @@
 # m6 ----
+
+# Homepage----
+mission6_homepage_server <- function(df_m6_RnD_1, df_m6_lp_1, df_m6_VAEX_1, output, input){
+  output$m6_homepage_worm_RnD <- renderPlot({
+    wormchart(m6_RnD_lineplot_data(df_m6_RnD_1),"GGG")
+  })
+  output$m6_homepage_worm_LP <- renderPlot({
+      wormchart(m6_lp_lineplot_data(df_m6_lp_1), "HHH")
+  })    
+    
+  output$m6_homepage_worm_VAEX <- renderPlot({
+    wormchart(m6_VAEX_lineplot_data(df_m6_VAEX_1), "ffff")
+  })    
+    
+      }
+    
+    
+    
+
+
+
 ## RnD----
 mission6_RnD_server <- function(Exesum_m6_RnD_main, Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input){
   output$Exesum_m6_RnD_main <- renderUI(Exesum_m6_RnD_main)

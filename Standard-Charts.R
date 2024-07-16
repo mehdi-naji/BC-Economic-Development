@@ -300,3 +300,29 @@ Extract_Status <- function(df, input){
 #     )
 #     )
 #   )}
+
+# wormcharts
+wormchart <- function(data, label) {
+  
+  add_data_labels <- function(data, variable) {
+    data$label <- ifelse(data$Year == max(data$Year), round(data[[variable]], 2), NA)
+    data
+  }
+  plot_data <- add_data_labels(data, "VALUE")
+  ggplot(plot_data, aes(x = Year, y = VALUE)) +
+    geom_line(color = "#003366", size = 1.5) +
+    geom_point(data = subset(plot_data, !is.na(label)), aes(x = Year, y = VALUE), color = "#003366", size = 3) +
+    geom_text(data = subset(plot_data, !is.na(label)), aes(label = label), 
+              hjust = 1.2, vjust = 1, size = 6, color = "black",
+              family = "Aptos(Body)", fontface = "bold") +  # Set font and make it bold
+    geom_segment(data = subset(plot_data, !is.na(label)), aes(x = Year, xend = Year, y = VALUE, yend = label), color = "#003366", size = 0.5) +
+    labs(title = NULL, x = NULL, y = NULL) +
+    theme_void() +
+    theme(
+      plot.background = element_rect(fill = "#f2f2f2", color = NA),
+      plot.margin = margin(0, 0, 0, 0, "cm")
+    )
+  
+}
+  
+  
