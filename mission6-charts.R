@@ -279,9 +279,7 @@
       df |>
         filter(GEO == "British Columbia",
                Industry == "Total industries",
-               Value.added.exports.variable == "Value added exports" ) |>
-        mutate(VALUE = Value.added.exports.variable)
-      
+               Value.added.exports.variable == "Value added exports" )
     }
     
     m6_VAEX_render_lineplot <- function(df, input){

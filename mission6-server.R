@@ -3,15 +3,15 @@
 # Homepage----
 mission6_homepage_server <- function(df_m6_RnD_1, df_m6_lp_1, df_m6_VAEX_1, output, input){
   output$m6_homepage_worm_RnD <- renderPlot({
-    wormchart(m6_RnD_lineplot_data(df_m6_RnD_1),"GGG")
+    wormchart(m6_RnD_lineplot_data(df_m6_RnD_1))
   })
   output$m6_homepage_worm_LP <- renderPlot({
-      wormchart(m6_lp_lineplot_data(df_m6_lp_1), "HHH")
+      wormchart(m6_lp_lineplot_data(df_m6_lp_1))
   })    
     
   output$m6_homepage_worm_VAEX <- renderPlot({
-    wormchart(m6_VAEX_lineplot_data(df_m6_VAEX_1), "ffff")
-  })    
+    wormchart(m6_VAEX_lineplot_data(df_m6_VAEX_1))
+  })          
     
       }
     
