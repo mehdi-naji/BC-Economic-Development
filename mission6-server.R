@@ -110,50 +110,58 @@ mission6_RnD_server <- function(Exesum_m6_RnD_main, Exesum_m6_RnD, df_m6_RnD_1, 
     content = function(file) {
       df <- m6_RnD_lineplot_data(df_m6_RnD_1, input$m6_RnD_lineplot_geo, input$m6_RnD_lineplot_funder, input$m6_RnD_lineplot_performer, input$m6_RnD_lineplot_science_type, input$m6_RnD_lineplot_prices)
       write.csv(df, file)
-    }
-  )
+    })
   
-  ### Bar Plot----
-  output$m6_RnD_barplot <- renderPlotly({
-    p1 <- m6_RnD_render_barplot(df_m6_RnD_2, input)
+  output$m6_RnD_map <- renderLeaflet({
+    p1 <- m6_RnD_render_map(df_m6_RnD_2,input)
+    
     p1
   })
+    
   
-  output$m6_RnD_barplot_dwnbtt <- downloadHandler(
-    filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
-    content = function(file) {
-      df <- m6_RnD_barplot_data(df_m6_RnD_1, input$m6_RnD_barplot_year)
-      write.csv(df, file)
-    }
-  )
-  ### Table----
-  output$m6_RnD_table <- DT::renderDataTable({
-    p1 <- m6_RnD_render_table(df_m6_RnD_1, input)
-    p1
-  })
   
-  output$m6_RnD_table_dwnbtt <- downloadHandler(
-    filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
-    content = function(file) {
-      df <- m6_RnD_table_data(df_m6_RnD_1, input$m6_RnD_table_year, input$m6_RnD_table_funder, input$m6_RnD_table_performer, input$m6_RnD_table_science_type, input$m6_RnD_table_prices ) 
-      write.csv(df, file)
-    }
-  )
   
-  ### Sankey Plot----
-  output$m6_RnD_sankey <- renderPlotly({
-    p1 <- m6_RnD_render_sankey(df_m6_RnD_1, input)
-    p1
-  })
-  
-  output$m6_RnD_sankey_dwnbtt <- downloadHandler(
-    filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
-    content = function(file) {
-      df <- m6_RnD_sankey_data(df_m6_RnD_1, input$m6_RnD_sankey_year, input$m6_RnD_sankey_geo, input$m6_RnD_sankey_science_type)
-      
-      write.csv(df, file)
-    }
-  )
+  # ### Bar Plot----
+  # output$m6_RnD_barplot <- renderPlotly({
+  #   p1 <- m6_RnD_render_barplot(df_m6_RnD_2, input)
+  #   p1
+  # })
+  # 
+  # output$m6_RnD_barplot_dwnbtt <- downloadHandler(
+  #   filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
+  #   content = function(file) {
+  #     df <- m6_RnD_barplot_data(df_m6_RnD_1, input$m6_RnD_barplot_year)
+  #     write.csv(df, file)
+  #   }
+  # )
+  # ### Table----
+  # output$m6_RnD_table <- DT::renderDataTable({
+  #   p1 <- m6_RnD_render_table(df_m6_RnD_1, input)
+  #   p1
+  # })
+  # 
+  # output$m6_RnD_table_dwnbtt <- downloadHandler(
+  #   filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
+  #   content = function(file) {
+  #     df <- m6_RnD_table_data(df_m6_RnD_1, input$m6_RnD_table_year, input$m6_RnD_table_funder, input$m6_RnD_table_performer, input$m6_RnD_table_science_type, input$m6_RnD_table_prices ) 
+  #     write.csv(df, file)
+  #   }
+  # )
+  # 
+  # ### Sankey Plot----
+  # output$m6_RnD_sankey <- renderPlotly({
+  #   p1 <- m6_RnD_render_sankey(df_m6_RnD_1, input)
+  #   p1
+  # })
+  # 
+  # output$m6_RnD_sankey_dwnbtt <- downloadHandler(
+  #   filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
+  #   content = function(file) {
+  #     df <- m6_RnD_sankey_data(df_m6_RnD_1, input$m6_RnD_sankey_year, input$m6_RnD_sankey_geo, input$m6_RnD_sankey_science_type)
+  #     
+  #     write.csv(df, file)
+  #   }
+  # )
 }
 
 ## VAEX----

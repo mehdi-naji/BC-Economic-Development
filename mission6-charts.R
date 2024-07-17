@@ -27,6 +27,7 @@
       return(df)
     }
     
+    
     ## VAEX----
     load_m6_VAEX1 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/VA_Exporsts_1.csv"
@@ -274,10 +275,10 @@
     }
     ## RnD Map ----
     
-    m6_lp_map_data <- function(df, year){
+    m6_RnD_map_data <- function(df, year){
       df |>
         filter(
-          GEO != "Canada",
+          # GEO  c("British Columbia", ),
           Year == year,
         ) |>
         select(

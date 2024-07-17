@@ -35,7 +35,7 @@ source("home-ui1.R")
 # 
 source("mission6-charts.R")
 source("mission6-ui.R")
-source("ui_m6_RnD")
+source("ui_m6_RnD.R")
 source("mission6-server.R")
 
 source("Executive_summaries.R")
