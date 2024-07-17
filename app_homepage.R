@@ -35,6 +35,7 @@ source("home-ui1.R")
 # 
 source("mission6-charts.R")
 source("mission6-ui.R")
+source("ui_m6_RnD")
 source("mission6-server.R")
 
 source("Executive_summaries.R")
@@ -352,7 +353,7 @@ server <- function(input, output, session) {
   # })
   
   
-  mission6_homepage_server(df_m6_RnD_1, df_m6_lp_1, df_m6_VAEX_1, output, input)
+  mission6_homepage_server(df_m6_RnD_1, df_m6_lp_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_exp_1, output, input, session)
   
   mission6_RnD_server( Exesum_m6_RnD_main,Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input)
   mission6_VAEX_server(Exesum_m6_VAEX_main, Exesum_m6_VAEX, df_m6_VAEX_1, output, input)

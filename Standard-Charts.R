@@ -101,50 +101,6 @@ dash_lineplot <- function(data_func, df , input, y_label=""){
 }
 
 
-## Summary number----
-get_growth_arrow <- function(value) {
-  if (value > 0) {
-    return(HTML("<span style='color:#2ecc71;font-size:36px;'>&#9650;</span>"))  # Upward triangle
-  } else if (value < 0) {
-    return(HTML("<span style='color: #e74c3c;font-size:36px; '>&#9660;</span>"))  # Downward triangle
-  } else {
-    return(HTML("<span style='color:#f1c40f; font-size:36px; '>&#8213;</span>"))  
-  }
-}
-
-Extract_Status <- function(df, input){
-  most_recent_value <- df$VALUE[nrow(df)]
-  most_recent_year <- df$Year[nrow(df)]
-  previous <- df$VALUE[nrow(df) - 1]
-  growth <- round((most_recent_value - previous) / previous * 100,1)
-  abs_growth <- abs(growth)
-  
-  
-  HTML(paste(HTML(paste("<span style='font-size: larger;'><b>" , get_growth_arrow(growth), "</b></span>")),
-             HTML(paste("<span style='font-size: larger;'><i>", most_recent_value, "</i></span>")),
-             HTML(paste("<span style='font-size: large;'><i>", input, "</i></span>")),
-             HTML(paste("<span style='font-size: small;'><i>", "in", most_recent_year, "</i></span>"))
-             
-  # HTML(
-  #   paste(
-  #     HTML(paste("<span style='font-size: larger;'><b>", most_recent_value," ", "</b></span>")),
-  #     HTML(paste("<span style='font-size:  large;'><b>", input, "</b></span>" )),
-  #     HTML(paste("<span style='font-size: larger;'><b>", get_growth_arrow(growth))),
-  #     HTML(paste("<span style='font-size: small;'><i>", "in", most_recent_year, "</i></span>"))
-             
-             ))
-}
-
-
-# actionButton("m6_RnD_Button",
-#              label = HTML(Extract_Status(df_m6_RnD, "Million Dollars")),
-#              style = style1),
-# "Investment in Innovation"
-# ),
-
-
-
-
 # Mission Homepage UI----
 # # mission-homepage-ui("m6_home", "Fostering Innovation Across the Economy")
 # mission-homepage-ui <- function(tabname, maintitle,  ){
@@ -325,4 +281,180 @@ wormchart <- function(data, label) {
   
 }
   
+
+
+# ---- 
+
+wormchart_ui <- function(df, button,  title, worm, triangle){
+  column(width = 4,
+         actionButton(
+           inputId = button,
+           div(
+             class = "custom-box",
+             h4(title , class = "custom-title"),
+             div(class = "indicator-content",
+                 plotOutput(worm, height = "100px", width = "70%"),  # Plot output directly in the box
+                 div(class = "year-label", max(df$Year)),
+                 uiOutput(triangle)
+             )
+           
+         )
+  ))}
+
+
+get_triangle_class <- function(Sign) {
+  if (Sign == -1) {
+    return("trend-triangle red-triangle")
+  } else if (Sign == 1) {
+    return("trend-triangle green-triangle")
+  } else {
+    return("trend-triangle yellow-triangle")
+  }
+}
+
+
+
+
+ui_indicatorpage_generalcss <- function(){
+
+            tags$head(
+                tags$style(HTML("
+                        .chart-container {
+                          height: 400px;
+                          background-color: #f0f0f0;
+                        }
+                        .content-container {
+                          display: flex;
+                          position: relative;
+                          overflow: hidden; /* Hide scrolling for the content container */
+                          overflow-y: scroll; /* Allow scrolling for the content container */
+                          height: calc(120vh - 120px); /* Adjust height as needed */
+                        }
+                        .fixed-box {
+                          position: -webkit-sticky; /* For Safari */
+                          position: sticky;
+                          top: 0;
+                          width: 400px;
+                          /*background-color: white;*/
+                          padding: 10px;
+                          z-index: 1; /* Ensure the fixed box is above the moving boxes */
+                        }
+                        .scrollable-boxes {
+                          /*flex-grow: 1;*/
+                          padding: 10px;
+                          width: 1000px;
+                           /*background-color: #e9ecef;*/
+                          /*margin-left: 80px; Ensure space for fixed box */
+                        }
+                        
+                              .selectize-input, .selectize-dropdown {
+                          background-color: #003366 !important;
+                          color: white !important;
+                          border-color: #003366 !important;
+                        }
+                        .selectize-dropdown-content .option {
+                          color: white !important;
+                        }
+                        .selectize-input::after {
+                          display: none !important;
+                        }
+                        .blue-dropdown .selectize-input, .blue-dropdown .selectize-dropdown {
+                          background-color: #003366 !important;
+                          color: white !important;
+                          padding : 5px;
+                          font-size : 10px;
+                          border-color: #003366 !important;
+                        }
+                        .blue-dropdown .selectize-dropdown-content .option {
+                          color: white !important;
+                        }
+                        .grey-dropdown .selectize-input, .grey-dropdown .selectize-dropdown {
+                          background-color: #f2f2f2 !important;
+                          color: black !important;
+                          border-color: #f2f2f2 !important;
+                        }
+                        .grey-dropdown .selectize-dropdown-content .option {
+                          color: black !important;
+                        }
+                        .btn-custom {
+                          background-color: transparent;
+                          border: none;
+                        }
+                        .btn-custom .fa-cloud-download-alt {
+                          color: white;
+                        }
+                        .btn-custom-black {
+                          background-color: transparent;
+                          border: none;
+                          color: black;
+                        }
+                        .btn-custom-black .fa-cloud-download-alt {
+                          color: black;
+                        }
+
+                            "))
+            ) }
+
+
+# Map chart----
+mapchart <- function(df_map, input){
+  canada_map <- load_canada_map()
   
+  merged_df <- merge(canada_map, df_map, by.x="prov_name_en", by.y="GEO", all.x = TRUE)
+  canada_map$VALUE <- merged_df$VALUE
+  
+  # Create a color palette
+  # pal <- colorNumeric(palette = "YlOrBr", domain = canada_map$VALUE)
+  library(RColorBrewer)
+  
+  # Define the color palette from light yellow to dark yellow
+  colors <- colorRampPalette(c("#FFFCE6", "#D4AF37"))(n = 20)
+  
+  # Create a colorNumeric function with the defined colors and your data range
+  pal <- colorNumeric(
+    palette = colors,
+    domain = c(min(canada_map$VALUE, na.rm = TRUE), max(canada_map$VALUE, na.rm = TRUE))
+  )
+  
+  
+  p2 <- leaflet(data = canada_map, 
+                options = leafletOptions(minZoom = 1.6, maxZoom = 1.6, dragging = FALSE, zoomControl = FALSE, scrollWheelZoom = FALSE, doubleClickZoom = FALSE, boxZoom = FALSE, attributionControl = FALSE)) %>%
+    # Add a white background by adding a blank tile layer
+    addProviderTiles("Stamen.TonerLite") %>%
+    addPolygons(fillColor = ~pal(canada_map$VALUE),
+                fillOpacity = 0.8,
+                color = "#003366",
+                weight = 1,
+                popup = ~paste0("<b>", prov_name_en, "</b><br>Value: ", round(canada_map$VALUE, 2))) %>%
+    # Remove zoom controls
+    leaflet::addControl(html = "", position = "topright", className = "leaflet-control-zoom") %>%
+    leaflet::addControl(html = "", position = "topleft", className = "leaflet-control-zoom")
+  
+  validate(need(nrow(df_map) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
+  
+  # Specify the size of the leaflet map
+  p2 <- p2 %>% htmlwidgets::onRender("
+    function(el, x) {
+      el.style.width = '300px'; 
+      el.style.height = '250px'; 
+      el.style.backgroundColor = 'rgb(0, 51, 102)';
+
+      // Remove zoom controls
+      var zoomControl = document.getElementsByClassName('leaflet-control-zoom')[0];
+      if (zoomControl) {
+        zoomControl.parentNode.removeChild(zoomControl);
+      }
+
+      var css = '.custom-legend .legend-scale { font-size: 5px; } .custom-legend .legend-labels { font-size: 5px; padding: 4px; }';
+      var style = document.createElement('style');
+      if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(document.createTextNode(css));
+      }
+      document.head.appendChild(style);
+    }
+  ")
+  
+  return(p2)
+}

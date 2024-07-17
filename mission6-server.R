@@ -1,20 +1,93 @@
 # m6 ----
 
 # Homepage----
-mission6_homepage_server <- function(df_m6_RnD_1, df_m6_lp_1, df_m6_VAEX_1, output, input){
+mission6_homepage_server <- function(df_m6_RnD_1, 
+                                     df_m6_lp_1, 
+                                     df_m6_VAEX_1, 
+                                     df_m6_nRinv_1, 
+                                     df_m6_exp_1, 
+                                     output, input, session){
+  
+  
   output$m6_homepage_worm_RnD <- renderPlot({
     wormchart(m6_RnD_lineplot_data(df_m6_RnD_1))
   })
+  
+  observeEvent(input$m6_homepage_button_RnD, {
+    updateTabItems(session, "tabs", selected = "RnD")
+  })
+  
+  output$m6_homepage_triangle_RnD <- renderUI({
+    
+    Sign <- sign(unique(df_m6_RnD_1$Year)[length(unique(df_m6_RnD_1$Year))] - unique(df_m6_RnD_1$Year)[length(unique(df_m6_RnD_1$Year))-1]) 
+    div(class = get_triangle_class(Sign))
+  })
+  
+  
+  
+  
+  
   output$m6_homepage_worm_LP <- renderPlot({
       wormchart(m6_lp_lineplot_data(df_m6_lp_1))
   })    
-    
+  
+  
+  observeEvent(input$m6_homepage_button_lp, {
+    updateTabItems(session, "tabs", selected = "LP")
+  })
+  
+  output$m6_homepage_triangle_lp <- renderUI({
+
+    Sign <- sign(unique(df_m6_lp_1$Year)[length(unique(df_m6_lp_1$Year))] - unique(df_m6_lp_1$Year)[length(unique(df_m6_lp_1$Year))-1])
+    div(class = get_triangle_class(Sign))
+  })
+  
+  
+  
+  
   output$m6_homepage_worm_VAEX <- renderPlot({
     wormchart(m6_VAEX_lineplot_data(df_m6_VAEX_1))
-  })          
+  })
+  observeEvent(input$m6_homepage_button_VAEX, {
+    updateTabItems(session, "tabs", selected = "VAEX")
+  })
+
+  output$m6_homepage_triangle_VAEX <- renderUI({
+    Sign <- sign(unique(df_m6_VAEX_1$Year)[length(unique(df_m6_VAEX_1$Year))] - unique(df_m6_VAEX_1$Year)[length(unique(df_m6_VAEX_1$Year))-1]) 
+    div(class = get_triangle_class(Sign))
+  })
+  
+  
+  
+  
     
-      }
+  output$m6_homepage_worm_nRinv <- renderPlot({
+    wormchart(m6_nRinv_lineplot_data(df_m6_nRinv_1))
+  })   
+  observeEvent(input$m6_homepage_button_nRinv, {
+    updateTabItems(session, "tabs", selected = "nRinv")
+  })
+  
+  output$m6_homepage_triangle_nRinv <- renderUI({
+    Sign <- sign(unique(df_m6_nRinv_1$Year)[length(unique(df_m6_nRinv_1$Year))] - unique(df_m6_nRinv_1$Year)[length(unique(df_m6_nRinv_1$Year))-1]) 
+    div(class = get_triangle_class(Sign))
+  })
+  
+  
+  output$m6_homepage_worm_exp <- renderPlot({
+    wormchart(m6_exp_lineplot_data(df_m6_exp_1))
+  })   
+  observeEvent(input$m6_homepage_button_exp, {
+    updateTabItems(session, "tabs", selected = "exp")
+  })
+  
+  output$m6_homepage_triangle_exp <- renderUI({
+    Sign <- sign(unique(df_m6_exp_1$Year)[length(unique(df_m6_exp_1$Year))] - unique(df_m6_exp_1$Year)[length(unique(df_m6_exp_1$Year))-1]) 
+    div(class = get_triangle_class(Sign))
+  })
+
     
+}
     
     
 
