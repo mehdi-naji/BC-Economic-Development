@@ -180,7 +180,7 @@ Exesum_m5_CEG <- HTML("
 # Mission6 ----
 
 Exesum_m6_RnD_main <- HTML("
-  <ul style='text-align: justify; font-size: 12px;padding: 20px;'>
+  <ul style='text-align: justify; font-size: 15px;padding: 15px;'>
     <li>B.C.’s labour productivity in 2023 was $64.6 per hour, ramaining at the same level of 2022.</li>
     <hr style='border: 1px solid #d3d3d3;' />
     <li>At $64.6, B.C. ranked second among large provinces, and was the only large provinces that did not see a drop in labour productivity in 2023. Labour productivity was $77.1 per hour in Alberta, $62.2 per hour in Ontario and $58.8 per hour in Quebec in 2023.</li>
@@ -189,12 +189,9 @@ Exesum_m6_RnD_main <- HTML("
 ")
 
 Exesum_m6_RnD <- HTML("
-  <ul style='text-align: justify; font-size: 20px;'>
-    <li>Private sector investment in innovation reached <b>$3.028 billion</b> in 2021, with an increase of <b>263 percent</b> from $835 million in 2000.</li> 
-    <li>B.C.’s private sector has seen a sharp increase in R&D spending in 2018, with an annual growth rate of <b>26.1 percent</b>, the highest in the past 20 years.</li>
-    <li>Private sector accounted for <b>50.5 percent</b> of overall R&D spending in the province in 2021, the highest in Canada.</li>
-    <li>B.C. surpassed Alberta in private sector R&D spending in 2016 and has remained third in Canada, following Ontario and Quebec.</li>
-    <li>Canada’s R&D intensity remained at <b>1.9 percent</b>, below the G7 average (2.6) in 2020. In 2020, B.C.’s R&D spending was 1.7 percent of its GDP, placing it third in Canada.</li>
+  <ul style='text-align: justify; font-size: 15px;'>
+    <div><span style='color: #FEB70D;'>Labour productivity growth rate:</span> Labour productivity has been improving over the last two decades, peaking at $68 per hour in 2020. B.C.’s labour productivity grew by 5.7 percent over the last five years, highest among large provinces. Quebec grew by 3.5 percent while Ontario dropped by 0.5 percent and Alberta by 2.0 percent over the last five years.  </div>
+    <div><span style='color: #FEB70D;'>Industry breakdown:</span> Labour productivity in the information and communication sector in B.C. has been fast-growing in the past two years. It grew by 8.9 percent in 2022 and 3.5 percent in 2023. At $281.8 per hour, energy sector has the highest labour productivity among all sectors in B.C. </div>
   </ul>
 ")
 

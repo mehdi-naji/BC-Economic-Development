@@ -302,6 +302,42 @@ wormchart_ui <- function(df, button,  title, worm, triangle){
   ))}
 
 
+
+get_growth_arrow <- function(value) {
+  if (value > 0) {
+    return(HTML("<span style='color:#2ecc71;font-size:36px;'>&#9650;</span>"))  # Upward triangle
+  } else if (value < 0) {
+    return(HTML("<span style='color: #e74c3c;font-size:36px; '>&#9660;</span>"))  # Downward triangle
+  } else {
+    return(HTML("<span style='color:#f1c40f; font-size:36px; '>&#8213;</span>"))  
+  }
+}
+
+Extract_Status <- function(df, input){
+  most_recent_value <- df$VALUE[nrow(df)]
+  most_recent_year <- df$Year[nrow(df)]
+  previous <- df$VALUE[nrow(df) - 1]
+  growth <- round((most_recent_value - previous) / previous * 100,1)
+  abs_growth <- abs(growth)
+  
+  HTML(paste(HTML(paste("<span style='font-size: larger;'><b>" , get_growth_arrow(growth), "</b></span>")),
+             HTML(paste("<span style='font-size: larger;'><i>", most_recent_value, "</i></span>")),
+             HTML(paste("<span style='font-size: large;'><i>", input, "</i></span>")),
+             HTML(paste("<span style='font-size: small;'><i>", "in", most_recent_year, "</i></span>"))
+             # HTML(
+             #   paste(
+             #     HTML(paste("<span style='font-size: larger;'><b>", most_recent_value," ", "</b></span>")),
+             #     HTML(paste("<span style='font-size:  large;'><b>", input, "</b></span>" )),
+             #     HTML(paste("<span style='font-size: larger;'><b>", get_growth_arrow(growth))),
+             #     HTML(paste("<span style='font-size: small;'><i>", "in", most_recent_year, "</i></span>"))
+  ))
+}
+
+
+
+
+
+
 get_triangle_class <- function(Sign) {
   if (Sign == -1) {
     return("trend-triangle red-triangle")

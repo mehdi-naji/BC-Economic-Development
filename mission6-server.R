@@ -1,7 +1,7 @@
 # m6 ----
 
 # Homepage----
-mission6_homepage_server <- function(df_m6_RnD_1, 
+server_m6_home <- function(df_m6_RnD_1, 
                                      df_m6_lp_1, 
                                      df_m6_VAEX_1, 
                                      df_m6_nRinv_1, 
@@ -10,83 +10,44 @@ mission6_homepage_server <- function(df_m6_RnD_1,
   
   
   output$m6_homepage_worm_RnD <- renderPlot({
-    wormchart(m6_RnD_lineplot_data(df_m6_RnD_1))
-  })
-  
+    wormchart(m6_RnD_lineplot_data(df_m6_RnD_1))})
   observeEvent(input$m6_homepage_button_RnD, {
-    updateTabItems(session, "tabs", selected = "RnD")
-  })
-  
+    updateTabItems(session, "tabs", selected = "RnD")})
   output$m6_homepage_triangle_RnD <- renderUI({
-    
     Sign <- sign(unique(df_m6_RnD_1$Year)[length(unique(df_m6_RnD_1$Year))] - unique(df_m6_RnD_1$Year)[length(unique(df_m6_RnD_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))
-  })
-  
-  
-  
-  
+    div(class = get_triangle_class(Sign))})
   
   output$m6_homepage_worm_LP <- renderPlot({
-      wormchart(m6_lp_lineplot_data(df_m6_lp_1))
-  })    
-  
-  
+      wormchart(m6_lp_lineplot_data(df_m6_lp_1))})    
   observeEvent(input$m6_homepage_button_lp, {
-    updateTabItems(session, "tabs", selected = "LP")
-  })
-  
+    updateTabItems(session, "tabs", selected = "LP")})
   output$m6_homepage_triangle_lp <- renderUI({
-
     Sign <- sign(unique(df_m6_lp_1$Year)[length(unique(df_m6_lp_1$Year))] - unique(df_m6_lp_1$Year)[length(unique(df_m6_lp_1$Year))-1])
-    div(class = get_triangle_class(Sign))
-  })
-  
-  
-  
+    div(class = get_triangle_class(Sign))})
   
   output$m6_homepage_worm_VAEX <- renderPlot({
-    wormchart(m6_VAEX_lineplot_data(df_m6_VAEX_1))
-  })
+    wormchart(m6_VAEX_lineplot_data(df_m6_VAEX_1))})
   observeEvent(input$m6_homepage_button_VAEX, {
-    updateTabItems(session, "tabs", selected = "VAEX")
-  })
-
+    updateTabItems(session, "tabs", selected = "VAEX")})
   output$m6_homepage_triangle_VAEX <- renderUI({
     Sign <- sign(unique(df_m6_VAEX_1$Year)[length(unique(df_m6_VAEX_1$Year))] - unique(df_m6_VAEX_1$Year)[length(unique(df_m6_VAEX_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))
-  })
+    div(class = get_triangle_class(Sign))})
   
-  
-  
-  
-    
   output$m6_homepage_worm_nRinv <- renderPlot({
-    wormchart(m6_nRinv_lineplot_data(df_m6_nRinv_1))
-  })   
+    wormchart(m6_nRinv_lineplot_data(df_m6_nRinv_1))})   
   observeEvent(input$m6_homepage_button_nRinv, {
-    updateTabItems(session, "tabs", selected = "nRinv")
-  })
-  
+    updateTabItems(session, "tabs", selected = "nRinv")})
   output$m6_homepage_triangle_nRinv <- renderUI({
     Sign <- sign(unique(df_m6_nRinv_1$Year)[length(unique(df_m6_nRinv_1$Year))] - unique(df_m6_nRinv_1$Year)[length(unique(df_m6_nRinv_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))
-  })
-  
+    div(class = get_triangle_class(Sign))})
   
   output$m6_homepage_worm_exp <- renderPlot({
-    wormchart(m6_exp_lineplot_data(df_m6_exp_1))
-  })   
+    wormchart(m6_exp_lineplot_data(df_m6_exp_1))})   
   observeEvent(input$m6_homepage_button_exp, {
-    updateTabItems(session, "tabs", selected = "exp")
-  })
-  
+    updateTabItems(session, "tabs", selected = "exp")})
   output$m6_homepage_triangle_exp <- renderUI({
     Sign <- sign(unique(df_m6_exp_1$Year)[length(unique(df_m6_exp_1$Year))] - unique(df_m6_exp_1$Year)[length(unique(df_m6_exp_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))
-  })
-
-    
+    div(class = get_triangle_class(Sign))})
 }
     
     
@@ -96,9 +57,9 @@ mission6_homepage_server <- function(df_m6_RnD_1,
 ## RnD----
 mission6_RnD_server <- function(Exesum_m6_RnD_main, Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input){
   output$Exesum_m6_RnD_main <- renderUI(Exesum_m6_RnD_main)
-  
+
   ### Executive Summary----
-  output$exesum_m6_RnD <- renderUI(Exesum_m6_RnD)
+  output$Exesum_m6_RnD <- renderUI(Exesum_m6_RnD)
   ### Line Plot----
   output$m6_RnD_lineplot <- renderPlotly({
     p1 <- m6_RnD_render_lineplot(df_m6_RnD_1, input)
@@ -121,47 +82,47 @@ mission6_RnD_server <- function(Exesum_m6_RnD_main, Exesum_m6_RnD, df_m6_RnD_1, 
   
   
   
-  # ### Bar Plot----
-  # output$m6_RnD_barplot <- renderPlotly({
-  #   p1 <- m6_RnD_render_barplot(df_m6_RnD_2, input)
-  #   p1
-  # })
-  # 
-  # output$m6_RnD_barplot_dwnbtt <- downloadHandler(
-  #   filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
-  #   content = function(file) {
-  #     df <- m6_RnD_barplot_data(df_m6_RnD_1, input$m6_RnD_barplot_year)
-  #     write.csv(df, file)
-  #   }
-  # )
-  # ### Table----
-  # output$m6_RnD_table <- DT::renderDataTable({
-  #   p1 <- m6_RnD_render_table(df_m6_RnD_1, input)
-  #   p1
-  # })
-  # 
-  # output$m6_RnD_table_dwnbtt <- downloadHandler(
-  #   filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
-  #   content = function(file) {
-  #     df <- m6_RnD_table_data(df_m6_RnD_1, input$m6_RnD_table_year, input$m6_RnD_table_funder, input$m6_RnD_table_performer, input$m6_RnD_table_science_type, input$m6_RnD_table_prices ) 
-  #     write.csv(df, file)
-  #   }
-  # )
-  # 
-  # ### Sankey Plot----
-  # output$m6_RnD_sankey <- renderPlotly({
-  #   p1 <- m6_RnD_render_sankey(df_m6_RnD_1, input)
-  #   p1
-  # })
-  # 
-  # output$m6_RnD_sankey_dwnbtt <- downloadHandler(
-  #   filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
-  #   content = function(file) {
-  #     df <- m6_RnD_sankey_data(df_m6_RnD_1, input$m6_RnD_sankey_year, input$m6_RnD_sankey_geo, input$m6_RnD_sankey_science_type)
-  #     
-  #     write.csv(df, file)
-  #   }
-  # )
+  ### Bar Plot----
+  output$m6_RnD_barplot <- renderPlotly({
+    p1 <- m6_RnD_render_barplot(df_m6_RnD_2, input)
+    p1
+  })
+
+  output$m6_RnD_barplot_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
+    content = function(file) {
+      df <- m6_RnD_barplot_data(df_m6_RnD_1, input$m6_RnD_barplot_year)
+      write.csv(df, file)
+    }
+  )
+  ### Table----
+  output$m6_RnD_table <- DT::renderDataTable({
+    p1 <- m6_RnD_render_table(df_m6_RnD_1, input)
+    p1
+  })
+
+  output$m6_RnD_table_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
+    content = function(file) {
+      df <- m6_RnD_table_data(df_m6_RnD_1, input$m6_RnD_table_year, input$m6_RnD_table_funder, input$m6_RnD_table_performer, input$m6_RnD_table_science_type, input$m6_RnD_table_prices )
+      write.csv(df, file)
+    }
+  )
+
+  ### Sankey Plot----
+  output$m6_RnD_sankey <- renderPlotly({
+    p1 <- m6_RnD_render_sankey(df_m6_RnD_1, input)
+    p1
+  })
+
+  output$m6_RnD_sankey_dwnbtt <- downloadHandler(
+    filename = "StrongerBC_Mission6_ResearchandDevelopment_filteredData.csv",
+    content = function(file) {
+      df <- m6_RnD_sankey_data(df_m6_RnD_1, input$m6_RnD_sankey_year, input$m6_RnD_sankey_geo, input$m6_RnD_sankey_science_type)
+
+      write.csv(df, file)
+    }
+  )
 }
 
 ## VAEX----

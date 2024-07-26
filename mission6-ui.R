@@ -103,7 +103,7 @@ ui_m6_home <- function(df_m6_RnD_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_lp_1, df_
                    worm = "m6_homepage_worm_RnD",
                    triangle = "m6_homepage_triangle_RnD"),
       
-      wormchart_ui(df = df_m6_RnD_1, 
+      wormchart_ui(df = df_m6_lp_1, 
                    button = "m6_homepage_button_lp",
                    title = "Labour Productivity",
                    worm = "m6_homepage_worm_LP",
@@ -133,81 +133,81 @@ ui_m6_home <- function(df_m6_RnD_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_lp_1, df_
 
 
 
-#### RnD ----
-# ui_m6_RnD <- function(df1, df2){
-#   tabItem(tabName = "RnD",
-#           ##### Line Plot----
-#           ui_main_chart(title = "Private sector investment in innovation", 
-#                         chart_name = "m6_RnD_lineplot", 
-#                         button_name = "m6_RnD_lineplot_dwnbtt", 
-#                         source = "Statistics Canada, Table 36-10-0480-01", 
-#                         summary = "Exesum_m6_RnD_main"), 
-#           ##### EXESUM ----
-#           fluidPage(
-#             style = "background-color: aliceblue ; margin: 20px;",
-#             fluidRow(
-#               column(12, h2("Executive Summary"))
-#             ),
-#             fluidRow(
-#               column(12, uiOutput("exesum_m6_RnD"))
-#             )
-#           ),
-#           ##### Sankey Plot ----
-#           fluidPage(
-#             style = "background-color: white;margin: 20px;",
-#             fluidRow(
-#               column(9, h3("Figure 6-1-2: R&D funding flows" ))
-#             ),
-#             fluidRow(
-#               column(9,plotlyOutput("m6_RnD_sankey")),
-#               column(3, 
-#                      selectInput("m6_RnD_sankey_geo", "Region", choices = unique(df1$GEO), selected = "British Columbia"), 
-#                      selectInput("m6_RnD_sankey_science_type", "Science Type", choices = unique(df1$Science.type)),
-#                      selectInput("m6_RnD_sankey_year", "Year", choices = unique(df1$Year), selected = 2021),
-#                      downloadButton("m6_RnD_sankey_dwnbtt", "Download Filtered Data in CSV"))
-#             )
-#           ),
-#           ##### Table ----
-#           fluidPage(
-#             style = "background-color: white;margin: 20px;",
-#             fluidRow(
-#               column(9, h3("Figure 6-1-3: Research and Development Spending Growth" ))
-#             ),
-#             fluidRow(
-#               column(9,DT::dataTableOutput("m6_RnD_table")),
-#               column(3, 
-#                      selectInput("m6_RnD_table_prices", "Price type", choices = unique(df1$Prices)), 
-#                      selectInput("m6_RnD_table_science_type", "Science Type", choices = unique(df1$Science.type)),
-#                      selectInput("m6_RnD_table_funder", "Funder", choices = unique(df1$Funder), selected = " business enterprise sector"),
-#                      selectInput("m6_RnD_table_performer", "Performer", choices = unique(df1$Performer)),
-#                      selectInput("m6_RnD_table_year", "Year", choices = unique(df1$Year), selected = 2021)
-#               )
-#             )
-#           ),
-#           ##### Bar Plot ----
-#           fluidPage(
-#             style = "background-color: white;margin: 20px;",
-#             fluidRow(
-#               column(9, h3("Figure 6-1-4: R&D intensity" ))
-#             ),
-#             fluidRow(
-#               column(9,plotlyOutput("m6_RnD_barplot")),
-#               column(3, 
-#                      selectInput("m6_RnD_barplot_year", "Year", choices = unique(df2$Year), selected = 2020),
-#                      downloadButton("m6_RnD_barplot_dwnbtt", "Download Filtered Data in CSV"))
-#             )
-#           )
-#   )}
+### RnD ----
+ui_m6_RnD <- function(df1, df2){
+  tabItem(tabName = "RnD",
+          ##### Line Plot----
+          ui_main_chart(title = "Private sector investment in innovation",
+                        chart_name = "m6_RnD_lineplot",
+                        button_name = "m6_RnD_lineplot_dwnbtt",
+                        source = "Statistics Canada, Table 36-10-0480-01",
+                        summary = "Exesum_m6_RnD_main"),
+          ##### EXESUM ----
+          fluidPage(
+            style = "background-color: aliceblue ; margin: 20px;",
+            fluidRow(
+              column(12, h2("Executive Summary"))
+            ),
+            fluidRow(
+              column(12, uiOutput("exesum_m6_RnD"))
+            )
+          ),
+          ##### Sankey Plot ----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 6-1-2: R&D funding flows" ))
+            ),
+            fluidRow(
+              column(9,plotlyOutput("m6_RnD_sankey")),
+              column(3,
+                     selectInput("m6_RnD_sankey_geo", "Region", choices = unique(df1$GEO), selected = "British Columbia"),
+                     selectInput("m6_RnD_sankey_science_type", "Science Type", choices = unique(df1$Science.type)),
+                     selectInput("m6_RnD_sankey_year", "Year", choices = unique(df1$Year), selected = 2021),
+                     downloadButton("m6_RnD_sankey_dwnbtt", "Download Filtered Data in CSV"))
+            )
+          ),
+          ##### Table ----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 6-1-3: Research and Development Spending Growth" ))
+            ),
+            fluidRow(
+              column(9,DT::dataTableOutput("m6_RnD_table")),
+              column(3,
+                     selectInput("m6_RnD_table_prices", "Price type", choices = unique(df1$Prices)),
+                     selectInput("m6_RnD_table_science_type", "Science Type", choices = unique(df1$Science.type)),
+                     selectInput("m6_RnD_table_funder", "Funder", choices = unique(df1$Funder), selected = " business enterprise sector"),
+                     selectInput("m6_RnD_table_performer", "Performer", choices = unique(df1$Performer)),
+                     selectInput("m6_RnD_table_year", "Year", choices = unique(df1$Year), selected = 2021)
+              )
+            )
+          ),
+          ##### Bar Plot ----
+          fluidPage(
+            style = "background-color: white;margin: 20px;",
+            fluidRow(
+              column(9, h3("Figure 6-1-4: R&D intensity" ))
+            ),
+            fluidRow(
+              column(9,plotlyOutput("m6_RnD_barplot")),
+              column(3,
+                     selectInput("m6_RnD_barplot_year", "Year", choices = unique(df2$Year), selected = 2020),
+                     downloadButton("m6_RnD_barplot_dwnbtt", "Download Filtered Data in CSV"))
+            )
+          )
+  )}
 
 ui_m6_VAEX <- function(df){
 #### VAEX ----
   tabItem(tabName = "VAEX",
           ##### Line Plot----
-          ui_main_chart(title = "Value-added in goods and services exports", 
-                        chart_name = "m6_VAEX_lineplot", 
-                        button_name = "m6_VAEX_lineplot_dwnbtt", 
-                        source = "Statistics Canada, Table 36-10-0480-01", 
-                        summary = "Exesum_m6_VAEX_main"), 
+          ui_main_chart(title = "Value-added in goods and services exports",
+                        chart_name = "m6_VAEX_lineplot",
+                        button_name = "m6_VAEX_lineplot_dwnbtt",
+                        source = "Statistics Canada, Table 36-10-0480-01",
+                        summary = "Exesum_m6_VAEX_main"),
           ##### EXESUM ----
           fluidPage(
             style = "background-color: aliceblue ; margin: 20px;",
@@ -226,11 +226,11 @@ ui_m6_VAEX <- function(df){
             ),
             fluidRow(
               column(9,plotlyOutput("m6_VAEX_pie")),
-              column(3, 
+              column(3,
                      selectInput("m6_VAEX_pie_geo", "Region", choices = unique(df$GEO), selected = "British Columbia"),
                      selectInput("m6_VAEX_pie_year", "Year", choices = unique(df$Year), selected = 2019),
                      downloadButton("m6_VAEX_pie_dwnbtt", "Download Filtered Data in CSV"))
-            )    
+            )
           ),
           ##### Bar Plot ----
           fluidPage(
@@ -240,10 +240,10 @@ ui_m6_VAEX <- function(df){
             ),
             fluidRow(
               column(9,plotlyOutput("m6_VAEX_barplot")),
-              column(3, 
+              column(3,
                      selectInput("m6_VAEX_barplot_year", "Year", choices = unique(df$Year), selected = 2019),
                      selectInput("m6_VAEX_barplot_industry", "Industry", choices = unique(df$Industry), selected = "Total industries")
-              )    
+              )
             )
           )
   )}
