@@ -47,7 +47,7 @@
       return(df)
     }
     ## LabourProductivity----
-    load_m6_lp1 <- function() {
+    load_m6_LP1 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Labour_Productivity_1.csv"
       df <- read.csv(url, header = TRUE)
       # df <- na.omit(df)
@@ -424,7 +424,7 @@
     
 # Labour Productivity Dash----
     ## line plot ----
-    m6_lp_lineplot_data <- function(df){
+    m6_LP_lineplot_data <- function(df){
       df |>
         filter(Year >= 2000,
                GEO == "British Columbia",
@@ -432,11 +432,11 @@
                measure == "Labour productivity")
     }
     
-    m6_lp_render_lineplot <- function(df, input){
-      dash_lineplot(m6_lp_lineplot_data, df, input, "$ per hour")}
+    m6_LP_render_lineplot <- function(df, input){
+      dash_lineplot(m6_LP_lineplot_data, df, input, "$ per hour")}
     
     ## lines plot ----
-    m6_lp_lines_data <- function(df, geo, labourtype ){
+    m6_LP_lines_data <- function(df, geo, labourtype ){
       
       short_titles <- c(
         "Business sector industries" = "Business sector",
@@ -457,8 +457,8 @@
         mutate(Industry = short_titles[Industry])
     }
     
-    m6_lp_render_lines <- function(df, input){
-      df2 <- m6_lp_lines_data(df, input$m6_lp_lines_geo, input$m6_lp_lines_labourtype)
+    m6_LP_render_lines <- function(df, input){
+      df2 <- m6_LP_lines_data(df, input$m6_LP_lines_geo, input$m6_LP_lines_labourtype)
       
       # Create an empty plotly object
       p <- plot_ly(height = 250)
@@ -502,7 +502,7 @@
     }
     
     ## Treemap ----
-    m6_lp_treemap_data <- function(df, geo, year){
+    m6_LP_treemap_data <- function(df, geo, year){
       df |>
         filter(GEO == geo,
                Year == year,
@@ -513,8 +513,8 @@
         ungroup()|>
         mutate(per_val = (VALUE / total_value) * parent_val)
     }
-    m6_lp_render_treemap <- function(df, input) {
-      df2 <- m6_lp_treemap_data(df, input$m6_lp_treemap_geo, input$m6_lp_treemap_year)
+    m6_LP_render_treemap <- function(df, input) {
+      df2 <- m6_LP_treemap_data(df, input$m6_LP_treemap_geo, input$m6_LP_treemap_year)
       
       # Define colors for parents
       parent_colors <- c("#F2F2F2", 
@@ -601,8 +601,8 @@
     }
     
     
-    # m6_lp_render_treemap <- function(df, input) {
-    #   df2 <- m6_lp_treemap_data(df, input$m6_lp_treemap_geo, input$m6_lp_treemap_year)
+    # m6_LP_render_treemap <- function(df, input) {
+    #   df2 <- m6_LP_treemap_data(df, input$m6_LP_treemap_geo, input$m6_LP_treemap_year)
     #   colors <- c("#FE9900", "#7DDA58", "#CC6CE7", "#060270", "#DFC57B")
     #   p <- df2 |>
     #     plot_ly(
@@ -644,7 +644,7 @@
     # }
     
     ## table----
-    m6_lp_table_data <- function(df, year, labourtype, industry){
+    m6_LP_table_data <- function(df, year, labourtype, industry){
        df |>
         filter(
           Year == year,
@@ -663,15 +663,15 @@
         rename_with(~paste0("5-year growth <br>(", as.numeric(as.character(year))-5, "-", as.numeric(as.character(year)) ,")") , Y5_growth)
     }
     
-    m6_lp_render_table <- function(df, input){
-      data <- m6_lp_table_data(df, input$m6_lp_table_year, input$m6_lp_table_labourtype, input$m6_lp_table_industry)
+    m6_LP_render_table <- function(df, input){
+      data <- m6_LP_table_data(df, input$m6_LP_table_year, input$m6_LP_table_labourtype, input$m6_LP_table_industry)
       DT::datatable(data, options = list(dom = 't'), escape = FALSE, rownames = FALSE, 
                     caption = htmltools::tags$caption("",
                                                       style = "font-family: Arial; font-size: 12px;"))
     }
     
-    m6_lp_render_growthsectors <- function(df, input){
-      data <- m6_lp_table_data(df, input$m6_lp_table_year, input$m6_lp_table_labourtype, input$m6_lp_table_industry)
+    m6_LP_render_growthsectors <- function(df, input){
+      data <- m6_LP_table_data(df, input$m6_LP_table_year, input$m6_LP_table_labourtype, input$m6_LP_table_industry)
       data_long <- reshape2::melt(data, id.vars = "Region")
 
       # Create an empty plotly object
@@ -710,7 +710,7 @@
 
     
     ## map ----
-    m6_lp_map_data <- function(df, year, labourtype, industry){
+    m6_LP_map_data <- function(df, year, labourtype, industry){
       df |>
         filter(
           GEO != "Canada",
@@ -722,13 +722,13 @@
           GEO, measure, Industry, VALUE
         )}
     
-    m6_lp_render_map <- function(df, input){
-          df_map <- m6_lp_map_data(df, input$m6_lp_map_year, input$m6_lp_map_labourtype, input$m6_lp_map_industry)
+    m6_LP_render_map <- function(df, input){
+          df_map <- m6_LP_map_data(df, input$m6_LP_map_year, input$m6_LP_map_labourtype, input$m6_LP_map_industry)
           mapchart(df_map, input)
     }
     
-  #   m6_lp_render_map <- function(df, input){
-  #     df_map <- m6_lp_map_data(df, input$m6_lp_map_year, input$m6_lp_map_labourtype, input$m6_lp_map_industry)
+  #   m6_LP_render_map <- function(df, input){
+  #     df_map <- m6_LP_map_data(df, input$m6_LP_map_year, input$m6_LP_map_labourtype, input$m6_LP_map_industry)
   #     canada_map <- load_canada_map()
   #     merged_df <- merge(canada_map, df_map, by.x="prov_name_en", by.y="GEO", all.x = TRUE)
   #     canada_map$VALUE <- merged_df$VALUE
@@ -790,8 +790,8 @@
   #   }
     
 
-  #   m6_lp_render_map <- function(df, input){
-  #     df_map <- m6_lp_map_data(df, input$m6_lp_map_year, input$m6_lp_map_labourtype, input$m6_lp_map_industry)
+  #   m6_LP_render_map <- function(df, input){
+  #     df_map <- m6_LP_map_data(df, input$m6_LP_map_year, input$m6_LP_map_labourtype, input$m6_LP_map_industry)
   #     canada_map <- load_canada_map()
   #     merged_df <- merge(canada_map, df_map, by.x="prov_name_en", by.y="GEO", all.x = TRUE)
   #     canada_map$VALUE <- merged_df$VALUE

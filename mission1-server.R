@@ -4,79 +4,15 @@ server_m1_home <- function(df_m1_PI_1, df_m1_CHN_1,df_m1_GC_1,
                            df_m1_UR_1, df_m1_FE_1, df_m1_TS_1,
                            df_m1_SB_1, df_m1_LE_1, df_m1_MH_1, 
                            output, input, session){
-  
-  
-  output$m1_homepage_worm_PI <- renderPlot({
-    wormchart(m1_PI_lineplot_data(df_m1_PI_1))})
-  observeEvent(input$m1_homepage_button_PI, {
-    updateTabItems(session, "tabs", selected = "PI")})
-  output$m1_homepage_triangle_PI <- renderUI({
-    Sign <- sign(unique(df_m1_PI_1$Year)[length(unique(df_m1_PI_1$Year))] - unique(df_m1_PI_1$Year)[length(unique(df_m1_PI_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m1_homepage_worm_CHN <- renderPlot({
-    wormchart(m1_CHN_lineplot_data(df_m1_CHN_1))})    
-  observeEvent(input$m1_homepage_button_CHN, {
-    updateTabItems(session, "tabs", selected = "CHN")})
-  output$m1_homepage_triangle_CHN <- renderUI({
-    Sign <- sign(unique(df_m1_CHN_1$Year)[length(unique(df_m1_CHN_1$Year))] - unique(df_m1_CHN_1$Year)[length(unique(df_m1_CHN_1$Year))-1])
-    div(class = get_triangle_class(Sign))})
-  
-  output$m1_homepage_worm_GC <- renderPlot({
-    wormchart(m1_GC_lineplot_data(df_m1_GC_1))})
-  observeEvent(input$m1_homepage_button_GC, {
-    updateTabItems(session, "tabs", selected = "GC")})
-  output$m1_homepage_triangle_GC <- renderUI({
-    Sign <- sign(unique(df_m1_GC_1$Year)[length(unique(df_m1_GC_1$Year))] - unique(df_m1_GC_1$Year)[length(unique(df_m1_GC_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m1_homepage_worm_UR <- renderPlot({
-    wormchart(m1_UR_lineplot_data(df_m1_UR_1))})   
-  observeEvent(input$m1_homepage_button_UR, {
-    updateTabItems(session, "tabs", selected = "UR")})
-  output$m1_homepage_triangle_UR <- renderUI({
-    Sign <- sign(unique(df_m1_UR_1$Year)[length(unique(df_m1_UR_1$Year))] - unique(df_m1_UR_1$Year)[length(unique(df_m1_UR_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m1_homepage_worm_FE <- renderPlot({
-    wormchart(m1_FE_lineplot_data(df_m1_FE_1))})   
-  observeEvent(input$m1_homepage_button_FE, {
-    updateTabItems(session, "tabs", selected = "FE")})
-  output$m1_homepage_triangle_FE <- renderUI({
-    Sign <- sign(unique(df_m1_FE_1$Year)[length(unique(df_m1_FE_1$Year))] - unique(df_m1_FE_1$Year)[length(unique(df_m1_FE_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m1_homepage_worm_TS <- renderPlot({
-    wormchart(m1_TS_lineplot_data(df_m1_TS_1))})   
-  observeEvent(input$m1_homepage_button_TS, {
-    updateTabItems(session, "tabs", selected = "TS")})
-  output$m1_homepage_triangle_TS <- renderUI({
-    Sign <- sign(unique(df_m1_TS_1$Year)[length(unique(df_m1_TS_1$Year))] - unique(df_m1_TS_1$Year)[length(unique(df_m1_TS_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m1_homepage_worm_SB <- renderPlot({
-    wormchart(m1_SB_lineplot_data(df_m1_SB_1))})   
-  observeEvent(input$m1_homepage_button_SB, {
-    updateTabItems(session, "tabs", selected = "SB")})
-  output$m1_homepage_triangle_SB <- renderUI({
-    Sign <- sign(unique(df_m1_SB_1$Year)[length(unique(df_m1_SB_1$Year))] - unique(df_m1_SB_1$Year)[length(unique(df_m1_SB_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m1_homepage_worm_LE <- renderPlot({
-    wormchart(m1_LE_lineplot_data(df_m1_LE_1))})   
-  observeEvent(input$m1_homepage_button_LE, {
-    updateTabItems(session, "tabs", selected = "LE")})
-  output$m1_homepage_triangle_LE <- renderUI({
-    Sign <- sign(unique(df_m1_LE_1$Year)[length(unique(df_m1_LE_1$Year))] - unique(df_m1_LE_1$Year)[length(unique(df_m1_LE_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m1_homepage_worm_MH <- renderPlot({
-    wormchart(m1_MH_lineplot_data(df_m1_MH_1))})   
-  observeEvent(input$m1_homepage_button_MH, {
-    updateTabItems(session, "tabs", selected = "MH")})
-  output$m1_homepage_triangle_MH <- renderUI({
-    Sign <- sign(unique(df_m1_MH_1$Year)[length(unique(df_m1_MH_1$Year))] - unique(df_m1_MH_1$Year)[length(unique(df_m1_MH_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
+  plot_and_triangle(df_m1_PI_1, m1_PI_lineplot_data, "m1_homepage_worm_PI", "m1_homepage_button_PI", "PI", "m1_homepage_triangle_PI", output, input, session)
+  plot_and_triangle(df_m1_CHN_1, m1_CHN_lineplot_data, "m1_homepage_worm_CHN", "m1_homepage_button_CHN", "CHN", "m1_homepage_triangle_CHN", output, input, session)
+  plot_and_triangle(df_m1_GC_1, m1_GC_lineplot_data, "m1_homepage_worm_GC", "m1_homepage_button_GC", "GC", "m1_homepage_triangle_GC", output, input, session)
+  plot_and_triangle(df_m1_UR_1, m1_UR_lineplot_data, "m1_homepage_worm_UR", "m1_homepage_button_UR", "UR", "m1_homepage_triangle_UR", output, input, session)
+  plot_and_triangle(df_m1_FE_1, m1_FE_lineplot_data, "m1_homepage_worm_FE", "m1_homepage_button_FE", "FE", "m1_homepage_triangle_FE", output, input, session)
+  plot_and_triangle(df_m1_TS_1, m1_TS_lineplot_data, "m1_homepage_worm_TS", "m1_homepage_button_TS", "TS", "m1_homepage_triangle_TS", output, input, session)
+  plot_and_triangle(df_m1_SB_1, m1_SB_lineplot_data, "m1_homepage_worm_SB", "m1_homepage_button_SB", "SB", "m1_homepage_triangle_SB", output, input, session)
+  plot_and_triangle(df_m1_LE_1, m1_LE_lineplot_data, "m1_homepage_worm_LE", "m1_homepage_button_LE", "LE", "m1_homepage_triangle_LE", output, input, session)
+  plot_and_triangle(df_m1_MH_1, m1_MH_lineplot_data, "m1_homepage_worm_MH", "m1_homepage_button_MH", "MH", "m1_homepage_triangle_MH", output, input, session)
 }
 
 

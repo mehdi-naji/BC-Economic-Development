@@ -110,7 +110,7 @@ if (active_tabs$mission6) {
   df_m6_RnD_2 <- load_m6_RnD2()
   df_m6_VAEX_1 <- load_m6_VAEX1()
   df_m6_nRinv_1 <- load_m6_nRinv1()
-  df_m6_lp_1 <- load_m6_lp1()
+  df_m6_LP_1 <- load_m6_LP1()
   df_m6_exp_1 <- load_m6_exp1()
   df_m6_exp_2 <- load_m6_exp2()
   df_m6_exp_3 <- load_m6_exp3()
@@ -223,12 +223,12 @@ ui <- function() {
       ui_m6_home(m6_RnD_lineplot_data(df_m6_RnD_1),
                  m6_VAEX_lineplot_data(df_m6_VAEX_1),
                  m6_nRinv_lineplot_data(df_m6_nRinv_1),
-                 m6_lp_lineplot_data(df_m6_lp_1),
+                 m6_LP_lineplot_data(df_m6_LP_1),
                  m6_exp_lineplot_data(df_m6_exp_1)) else NULL,
       if (active_tabs$mission6 * active_tabs$m6_RnD ) ui_m6_RnD(df_m6_RnD_1, df_m6_RnD_2) else NULL,
       if (active_tabs$mission6 * active_tabs$m6_VAEX ) ui_m6_VAEX(df_m6_VAEX_1) else NULL,
       if (active_tabs$mission6 * active_tabs$m6_nRinv ) ui_m6_nRinv(df_m6_nRinv_1) else NULL,
-      if (active_tabs$mission6 * active_tabs$m6_LP ) ui_m6_lp(df_m6_lp_1) else NULL,
+      if (active_tabs$mission6 * active_tabs$m6_LP ) ui_m6_LP(df_m6_LP_1) else NULL,
       if (active_tabs$mission6 * active_tabs$m6_EXP ) ui_m6_exp(df_m6_exp_1, df_m6_exp_3) else NULL,
       #### Data Source Tab----
       tabItem(tabName = "data_source",
@@ -361,11 +361,11 @@ server <- function(input, output, session) {
   observeEvent(input$m6_EXP_Button, {
     updateTabItems(session, "tabs", selected = "EXP")})
   
-  server_m6_home(df_m6_RnD_1, df_m6_lp_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_exp_1, output, input, session)
+  server_m6_home(df_m6_RnD_1, df_m6_LP_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_exp_1, output, input, session)
   mission6_RnD_server( Exesum_m6_RnD_main,Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input)
   mission6_VAEX_server(Exesum_m6_VAEX_main, Exesum_m6_VAEX, df_m6_VAEX_1, output, input)
   mission6_nRinv_server(Exesum_m6_nRinv_main, Exesum_m6_nRinv, df_m6_nRinv_1, output, input)
-  mission6_lp_server(Exesum_m6_lp_main, Exesum_m6_lp, df_m6_lp_1, output, input)
+  mission6_LP_server(Exesum_m6_LP_main, Exesum_m6_LP, df_m6_LP_1, output, input)
   mission6_exp_server(Exesum_m6_exp_main, Exesum_m6_exp, df_m6_exp_1, df_m6_exp_2, df_m6_exp_3, df_m6_exp_4, output, input)
   }}
   

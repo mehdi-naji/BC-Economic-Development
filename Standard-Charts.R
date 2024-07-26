@@ -42,8 +42,21 @@ ui_main_chart <- function(title, chart_name, button_name, source, summary  ){
     )
   )}
 
-
-
+# boxes in mission pages ----
+plot_and_triangle <- function(data, plot_data_func, plot_output_id, button_input_id, tab_name, triangle_output_id, output, input, session) {
+  output[[plot_output_id]] <- renderPlot({
+    wormchart(plot_data_func(data))
+  })
+  
+  observeEvent(input[[button_input_id]], {
+    updateTabItems(session, "tabs", selected = tab_name)
+  })
+  
+  output[[triangle_output_id]] <- renderUI({
+    Sign <- sign(unique(data$Year)[length(unique(data$Year))] - unique(data$Year)[length(unique(data$Year))-1])
+    div(class = get_triangle_class(Sign))
+  })
+}
 
 # Line Plot ----
 dash_lineplot <- function(data_func, df , input, y_label=""){

@@ -1,56 +1,26 @@
 # m6 ----
 
 # Homepage----
+
 server_m6_home <- function(df_m6_RnD_1, 
-                                     df_m6_lp_1, 
-                                     df_m6_VAEX_1, 
-                                     df_m6_nRinv_1, 
-                                     df_m6_exp_1, 
-                                     output, input, session){
+                           df_m6_LP_1, 
+                           df_m6_VAEX_1, 
+                           df_m6_nRinv_1, 
+                           df_m6_exp_1, 
+                           output, input, session) {
   
-  
-  output$m6_homepage_worm_RnD <- renderPlot({
-    wormchart(m6_RnD_lineplot_data(df_m6_RnD_1))})
-  observeEvent(input$m6_homepage_button_RnD, {
-    updateTabItems(session, "tabs", selected = "RnD")})
-  output$m6_homepage_triangle_RnD <- renderUI({
-    Sign <- sign(unique(df_m6_RnD_1$Year)[length(unique(df_m6_RnD_1$Year))] - unique(df_m6_RnD_1$Year)[length(unique(df_m6_RnD_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m6_homepage_worm_LP <- renderPlot({
-      wormchart(m6_lp_lineplot_data(df_m6_lp_1))})    
-  observeEvent(input$m6_homepage_button_lp, {
-    updateTabItems(session, "tabs", selected = "LP")})
-  output$m6_homepage_triangle_lp <- renderUI({
-    Sign <- sign(unique(df_m6_lp_1$Year)[length(unique(df_m6_lp_1$Year))] - unique(df_m6_lp_1$Year)[length(unique(df_m6_lp_1$Year))-1])
-    div(class = get_triangle_class(Sign))})
-  
-  output$m6_homepage_worm_VAEX <- renderPlot({
-    wormchart(m6_VAEX_lineplot_data(df_m6_VAEX_1))})
-  observeEvent(input$m6_homepage_button_VAEX, {
-    updateTabItems(session, "tabs", selected = "VAEX")})
-  output$m6_homepage_triangle_VAEX <- renderUI({
-    Sign <- sign(unique(df_m6_VAEX_1$Year)[length(unique(df_m6_VAEX_1$Year))] - unique(df_m6_VAEX_1$Year)[length(unique(df_m6_VAEX_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m6_homepage_worm_nRinv <- renderPlot({
-    wormchart(m6_nRinv_lineplot_data(df_m6_nRinv_1))})   
-  observeEvent(input$m6_homepage_button_nRinv, {
-    updateTabItems(session, "tabs", selected = "nRinv")})
-  output$m6_homepage_triangle_nRinv <- renderUI({
-    Sign <- sign(unique(df_m6_nRinv_1$Year)[length(unique(df_m6_nRinv_1$Year))] - unique(df_m6_nRinv_1$Year)[length(unique(df_m6_nRinv_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m6_homepage_worm_exp <- renderPlot({
-    wormchart(m6_exp_lineplot_data(df_m6_exp_1))})   
-  observeEvent(input$m6_homepage_button_exp, {
-    updateTabItems(session, "tabs", selected = "exp")})
-  output$m6_homepage_triangle_exp <- renderUI({
-    Sign <- sign(unique(df_m6_exp_1$Year)[length(unique(df_m6_exp_1$Year))] - unique(df_m6_exp_1$Year)[length(unique(df_m6_exp_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
+
+  plot_and_triangle(df_m6_RnD_1, m6_RnD_lineplot_data, "m6_homepage_worm_RnD", "m6_homepage_button_RnD", "RnD", "m6_homepage_triangle_RnD", output, input, session)
+  plot_and_triangle(df_m6_LP_1, m6_LP_lineplot_data, "m6_homepage_worm_LP", "m6_homepage_button_LP", "LP", "m6_homepage_triangle_LP", output, input, session)
+  plot_and_triangle(df_m6_VAEX_1, m6_VAEX_lineplot_data, "m6_homepage_worm_VAEX", "m6_homepage_button_VAEX", "VAEX", "m6_homepage_triangle_VAEX", output, input, session)
+  plot_and_triangle(df_m6_nRinv_1, m6_nRinv_lineplot_data, "m6_homepage_worm_nRinv", "m6_homepage_button_nRinv", "nRinv", "m6_homepage_triangle_nRinv", output, input, session)
+  plot_and_triangle(df_m6_exp_1, m6_exp_lineplot_data, "m6_homepage_worm_exp", "m6_homepage_button_exp", "exp", "m6_homepage_triangle_exp", output, input, session)
 }
-    
-    
+
+
+
+
+
 
 
 
@@ -228,88 +198,88 @@ mission6_nRinv_server <- function(Exesum_m6_nRiv_main, Exesum_m6_nRinv, df_m6_nR
 }
 
 ## labour Productivity----
-mission6_lp_server <- function(Exesum_m6_lp_main, Exesum_m6_lp, df_m6_lp_1, output, input){
+mission6_LP_server <- function(Exesum_m6_LP_main, Exesum_m6_LP, df_m6_LP_1, output, input){
   
-  output$Exesum_m6_lp_main <- renderUI(Exesum_m6_lp_main)
+  output$Exesum_m6_LP_main <- renderUI(Exesum_m6_LP_main)
   
   ### Executive Summary----
-  output$Exesum_m6_lp <- renderUI(Exesum_m6_lp)
+  output$Exesum_m6_LP <- renderUI(Exesum_m6_LP)
   ### Line plot----
-  output$m6_lp_lineplot <- renderPlotly({
-    p1 <- m6_lp_render_lineplot(df_m6_lp_1, input)
+  output$m6_LP_lineplot <- renderPlotly({
+    p1 <- m6_LP_render_lineplot(df_m6_LP_1, input)
     p1
   })
   
-  output$m6_lp_lineplot_dwnbtt <- downloadHandler(
+  output$m6_LP_lineplot_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission6_LabourProductivity_filteredData.csv",
     content = function(file) {
-      df <- m6_lp_lineplot_data(df_m6_lp_1, input$m6_lp_lineplot_geo, input$m6_lp_lineplot_industry, input$m6_lp_lineplot_labourtype)
+      df <- m6_LP_lineplot_data(df_m6_LP_1, input$m6_LP_lineplot_geo, input$m6_LP_lineplot_industry, input$m6_LP_lineplot_labourtype)
       
       write.csv(df, file)
     }
   )
   
   ### Lines plot----
-  output$m6_lp_lines <- renderPlotly({
-    p1 <- m6_lp_render_lines(df_m6_lp_1, input)
+  output$m6_LP_lines <- renderPlotly({
+    p1 <- m6_LP_render_lines(df_m6_LP_1, input)
     p1
   })
   
-  output$m6_lp_lines_dwnbtt <- downloadHandler(
+  output$m6_LP_lines_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission6_LabourProductivity_filteredData.csv",
     content = function(file) {
-      df <- m6_lp_lines_data(df_m6_lp_1, input$m6_lp_lines_geo, input$m6_lp_lines_labourtype)
+      df <- m6_LP_lines_data(df_m6_LP_1, input$m6_LP_lines_geo, input$m6_LP_lines_labourtype)
       
       write.csv(df, file)
     }
   )
   ### Treemap plot----
-  output$m6_lp_treemap <- renderPlotly({
-    p1 <- m6_lp_render_treemap(df_m6_lp_1, input)
+  output$m6_LP_treemap <- renderPlotly({
+    p1 <- m6_LP_render_treemap(df_m6_LP_1, input)
     p1
   })
   
-  output$m6_lp_treemap_dwnbtt <- downloadHandler(
+  output$m6_LP_treemap_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission6_LabourProductivity_filteredData.csv",
     content = function(file) {
-      df <- m6_lp_treemap_data(df_m6_lp_1, input$m6_lp_treemap_geo, input$m6_lp_treemap_year)
+      df <- m6_LP_treemap_data(df_m6_LP_1, input$m6_LP_treemap_geo, input$m6_LP_treemap_year)
       
       write.csv(df, file)
     }
   )
   ### table----
-  output$m6_lp_table <- DT::renderDataTable({
-    p1 <- m6_lp_render_table(df_m6_lp_1, input)
+  output$m6_LP_table <- DT::renderDataTable({
+    p1 <- m6_LP_render_table(df_m6_LP_1, input)
     p1
   })
   
   
-  output$m6_lp_growthsectors <- renderPlotly({
-    p1 <- m6_lp_render_growthsectors(df_m6_lp_1, input)
+  output$m6_LP_growthsectors <- renderPlotly({
+    p1 <- m6_LP_render_growthsectors(df_m6_LP_1, input)
     p1
   })
   
   
-  output$m6_lp_table_dwnbtt <- downloadHandler(
+  output$m6_LP_table_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission6_LabourProductivity_filteredData.csv",
     content = function(file) {
-      df <- m6_lp_table_data(df_m6_lp_1, input$m6_lp_table_year, input$m6_lp_table_labourtype, input$m6_lp_table_industry)
+      df <- m6_LP_table_data(df_m6_LP_1, input$m6_LP_table_year, input$m6_LP_table_labourtype, input$m6_LP_table_industry)
       
       write.csv(df, file)
     }
   )
   
   ### map----
-  output$m6_lp_map <- renderLeaflet({
-    p1 <- m6_lp_render_map(df_m6_lp_1,input)
+  output$m6_LP_map <- renderLeaflet({
+    p1 <- m6_LP_render_map(df_m6_LP_1,input)
     
     p1
   })
   
-  output$m6_lp_map_dwnbtt <- downloadHandler(
+  output$m6_LP_map_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission6_LabourProductivity_filteredData.csv",
     content = function(file) {
-      df <-  m6_lp_map_data(df_m6_lp_1, input$m6_lp_map_year, input$m6_lp_map_labourtype, input$m6_lp_map_industry)
+      df <-  m6_LP_map_data(df_m6_LP_1, input$m6_LP_map_year, input$m6_LP_map_labourtype, input$m6_LP_map_industry)
       
       write.csv(df, file)
     }

@@ -1,5 +1,5 @@
 ### Home ----
-ui_m6_home <- function(df_m6_RnD_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_lp_1, df_m6_exp_1){
+ui_m6_home <- function(df_m6_RnD_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_LP_1, df_m6_exp_1){
   tabItem(tabName = "m6_home",
   fluidPage(
     #CSS Code ----
@@ -103,11 +103,11 @@ ui_m6_home <- function(df_m6_RnD_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_lp_1, df_
                    worm = "m6_homepage_worm_RnD",
                    triangle = "m6_homepage_triangle_RnD"),
       
-      wormchart_ui(df = df_m6_lp_1, 
-                   button = "m6_homepage_button_lp",
+      wormchart_ui(df = df_m6_LP_1, 
+                   button = "m6_homepage_button_LP",
                    title = "Labour Productivity",
                    worm = "m6_homepage_worm_LP",
-                   triangle = "m6_homepage_triangle_lp"),
+                   triangle = "m6_homepage_triangle_LP"),
       
       wormchart_ui(df = df_m6_VAEX_1, 
                    button = "m6_homepage_button_VAEX",
@@ -298,7 +298,7 @@ ui_m6_nRinv <- function(df){
 
 
 #### Labour Productivity ----
-ui_m6_lp <- function(df){
+ui_m6_LP <- function(df){
     tabItem(
         tabName = "LP",
         fluidPage(
@@ -308,10 +308,10 @@ ui_m6_lp <- function(df){
                 div(class = "chart-container", 
                 ui_main_chart(
                     title = "Labour productivity",
-                    chart_name = "m6_lp_lineplot",
-                    button_name = "m6_lp_lineplot_dwnbtt",
+                    chart_name = "m6_LP_lineplot",
+                    button_name = "m6_LP_lineplot_dwnbtt",
                     source = " Statistics Canada, Table 36-10-0480-01",
-                    summary = "Exesum_m6_lp_main"))),
+                    summary = "Exesum_m6_LP_main"))),
           
         ##### Deep DIve----
         # fluidRow(h3("Deep dive"), style = "margin: 60px; height: 80px;"),
@@ -328,7 +328,7 @@ ui_m6_lp <- function(df){
                                      ),
                                     fluidRow(
                                       align = "center",
-                                      leafletOutput("m6_lp_map")
+                                      leafletOutput("m6_LP_map")
                                        ),
                          fluidRow(
                            column(2),
@@ -340,25 +340,25 @@ ui_m6_lp <- function(df){
                                      fluidRow(
                                        column(2,
                                               div(class = "blue-dropdown",
-                                              selectInput("m6_lp_map_year", "", choices = unique(df$Year), selected = 2020))
+                                              selectInput("m6_LP_map_year", "", choices = unique(df$Year), selected = 2020))
                                        ),
                                        column(4,
                                               div(class = "blue-dropdown",
-                                              selectInput("m6_lp_map_labourtype", "", choices = unique(df$measure),
+                                              selectInput("m6_LP_map_labourtype", "", choices = unique(df$measure),
                                               selected = "Labour productivity"))
                                        ),
                                        column(4,
                                               div(class = "blue-dropdown",
-                                              selectInput("m6_lp_map_industry", "", choices = unique(df$Industry))),
+                                              selectInput("m6_LP_map_industry", "", choices = unique(df$Industry))),
                                        ),
                                        column(2, style = "padding-top: 20px; padding-right: 30px;",
-                                              downloadButton("m6_lp_map_dwnbtt" , label = NULL, class = "btn-custom", icon = icon("cloud-download-alt"))
+                                              downloadButton("m6_LP_map_dwnbtt" , label = NULL, class = "btn-custom", icon = icon("cloud-download-alt"))
                                        )
                                        ),
                          fluidRow(
                              style = "padding-left: 40px; padding-right: 40px;",
                              h2("Highlights"),
-                             uiOutput("Exesum_m6_lp")
+                             uiOutput("Exesum_m6_LP")
                              )
                                      )
                               ),
@@ -370,7 +370,7 @@ ui_m6_lp <- function(df){
                       fluidRow(
                               div(
                                 style = "position: relative; margin-buttom:40px; height:250px; margin-right: 100px; margin-left: 50px;",
-                                plotlyOutput("m6_lp_lines"),
+                                plotlyOutput("m6_LP_lines"),
                                 div(
                                   icon("search", "fa-4x"),
                                   style = "color: white;
@@ -395,16 +395,16 @@ ui_m6_lp <- function(df){
                            style = "margin-right: 85px; margin-left: 35px; background-color: #f2f2f2;",
                            column(4,
                                   div(class = "grey-dropdown",
-                                  selectInput("m6_lp_lines_geo", "", choices = unique(df$GEO), selected = "British Columbia"),
+                                  selectInput("m6_LP_lines_geo", "", choices = unique(df$GEO), selected = "British Columbia"),
                            )),
                            column(4,
                                   div(class = "grey-dropdown",
-                                  selectInput("m6_lp_lines_labourtype", "", choices = unique(df$measure),selected = "Labour productivity"),
+                                  selectInput("m6_LP_lines_labourtype", "", choices = unique(df$measure),selected = "Labour productivity"),
                            )),
                            column(2),
                            column(2,
                               style = "background-color: #f2f2f2; height: 20px; padding-top : 40px; display: flex; justify-content: center; align-items: center;",
-                                            downloadButton("m6_lp_lines_dwnbtt" , label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt"))
+                                            downloadButton("m6_LP_lines_dwnbtt" , label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt"))
                               ),
 
                               
@@ -415,7 +415,7 @@ ui_m6_lp <- function(df){
                         fluidRow(
                           div(
                             style = "position: relative; margin-right: 100px; margin-left: 50px; height:250px;",
-                            plotlyOutput("m6_lp_growthsectors"),
+                            plotlyOutput("m6_LP_growthsectors"),
                             div(
                               icon("line-chart", "fa-4x"),
                               style = "color: white;
@@ -440,19 +440,19 @@ ui_m6_lp <- function(df){
                             style = "margin-right: 85px; margin-left:35px; background-color: #f2f2f2;",
                             column(2,
                                    div(class = "grey-dropdown",
-                                   selectInput("m6_lp_table_year", "", choices = unique(df$Year), selected = 2022),
+                                   selectInput("m6_LP_table_year", "", choices = unique(df$Year), selected = 2022),
                                    )),
                             column(4,
                                    div(class = "grey-dropdown",
-                                   selectInput("m6_lp_table_labourtype", "", choices = unique(df$measure), selected = "Labour productivity"),
+                                   selectInput("m6_LP_table_labourtype", "", choices = unique(df$measure), selected = "Labour productivity"),
                                    )),
                             column(4,
                                    div(class = "grey-dropdown",
-                                   selectInput("m6_lp_table_industry", "", choices = unique(df$Industry)),  
+                                   selectInput("m6_LP_table_industry", "", choices = unique(df$Industry)),  
                                    )),
                             column(2,
                                    style = "background-color: #f2f2f2; height: 20px; padding-top : 40px; display: flex; justify-content: center; align-items: center;",
-                                   downloadButton("m6_lp_table_dwnbtt" , label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt"))
+                                   downloadButton("m6_LP_table_dwnbtt" , label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt"))
                             ),
         
                           ),
@@ -462,7 +462,7 @@ ui_m6_lp <- function(df){
                        fluidRow(
                          div(
                            style = "position: relative; margin-right: 100px; margin-left: 50px;height:250px;",
-                           plotlyOutput("m6_lp_treemap"),
+                           plotlyOutput("m6_LP_treemap"),
                            div(
                              icon("area-chart", "fa-4x"),
                              style = "color: white;
@@ -487,15 +487,15 @@ ui_m6_lp <- function(df){
                          style = "margin-right: 85px; margin-left:35px; background-color: #f2f2f2;",
                          column(4,
                                 div(class = "grey-dropdown",
-                                    selectInput("m6_lp_treemap_geo", "", choices = unique(df$GEO), selected = "British Columbia"),                          )),
+                                    selectInput("m6_LP_treemap_geo", "", choices = unique(df$GEO), selected = "British Columbia"),                          )),
                          column(4,
                                 div(class = "grey-dropdown",
-                                    selectInput("m6_lp_treemap_year", "", choices = unique(df$Year), selected = 2022)),
+                                    selectInput("m6_LP_treemap_year", "", choices = unique(df$Year), selected = 2022)),
                                 ),
                          column(2),
                          column(2,
                                 style = "background-color: #f2f2f2; height: 20px; padding-top : 40px; display: flex; justify-content: center; align-items: center;",
-                                downloadButton("m6_lp_treemap_dwnbtt" , label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt"))
+                                downloadButton("m6_LP_treemap_dwnbtt" , label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt"))
                          ),
                          
                        ),

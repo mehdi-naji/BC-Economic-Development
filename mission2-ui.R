@@ -99,19 +99,19 @@ ui_m2_home <- function(df_m2_NBO_1, df_m2_HA_1, df_m2_LMPR_1,
             fluidRow(
               wormchart_ui(df = df_m2_NBO_1, 
                            button = "m2_homepage_button_NBO",
-                           title = "Poverty Incidence",
+                           title = "New Business Openings",
                            worm = "m2_homepage_worm_NBO",
                            triangle = "m2_homepage_triangle_NBO"),
               
               wormchart_ui(df = df_m2_HA_1, 
                            button = "m2_homepage_button_HA",
-                           title = "Core Housing Needs",
+                           title = "Housing Availability",
                            worm = "m2_homepage_worm_HA",
                            triangle = "m2_homepage_triangle_HA"),
               
               wormchart_ui(df = df_m2_LMPR_1, 
                            button = "m2_homepage_button_LMPR",
-                           title = "Gini Coefficient",
+                           title = "Labour Market Participation Rate",
                            worm = "m2_homepage_worm_LMPR",
                            triangle = "m2_homepage_triangle_LMPR"),
             ),
@@ -119,19 +119,19 @@ ui_m2_home <- function(df_m2_NBO_1, df_m2_HA_1, df_m2_LMPR_1,
             fluidRow(
               wormchart_ui(df = df_m2_OVC_1, 
                            button = "m2_homepage_button_OVC",
-                           title = "Underemployment Rate",
+                           title = "Occurances of Violent Crime",
                            worm = "m2_homepage_worm_OVC",
                            triangle = "m2_homepage_triangle_OVC"),
               
               wormchart_ui(df = df_m2_GII_1, 
                            button = "m2_homepage_button_GII",
-                           title = "Food Expenditure",
+                           title = "Government Investment in Infrastructure",
                            worm = "m2_homepage_worm_GII",
                            triangle = "m2_homepage_triangle_GII"),
               
               wormchart_ui(df = df_m2_PRHC_1, 
                            button = "m2_homepage_button_PRHC",
-                           title = "Spending on Transportation",
+                           title = "Police_reported Hate Crime",
                            worm = "m2_homepage_worm_PRHC",
                            triangle = "m2_homepage_triangle_PRHC"),
             )
@@ -206,17 +206,11 @@ ui_m2_home <- function(df_m2_NBO_1, df_m2_HA_1, df_m2_LMPR_1,
 ui_m2_NBO <- function(df1){
   tabItem(tabName = "NBO",
           ##### Line Plot----
-          fluidPage(
-            style = "background-color: white;margin: 20px;",
-            fluidRow(
-              column(9, h3("Figure 2-1-1: New Business Openings" ))
-            ),
-            fluidRow(
-              column(1),
-              column(10,plotlyOutput("m2_NBO_lineplot")),
-              column(1, downloadButton("m2_NBO_lineplot_dwnbtt", ""))
-            )
-          ),
+          ui_main_chart(title = "New Business Openings",
+                        chart_name = "m2_NBO_lineplot",
+                        button_name = "m2_NBO_lineplot_dwnbtt",
+                        source = "Statistics Canada, Table 36-10-0480-01",
+                        summary = "Exesum_m2_NBO_main"),
           ##### EXESUM ----
           fluidPage(
             style = "background-color: aliceblue ; margin: 20px;",

@@ -5,54 +5,12 @@ server_m2_home <- function(df_m2_NBO_1, df_m2_HA_1, df_m2_LMPR_1,
                            df_m2_OVC_1, df_m2_GII_1, df_m2_PRHC_1, 
                            output, input, session){
   
-  
-  output$m2_homepage_worm_NBO <- renderPlot({
-    wormchart(m2_NBO_lineplot_data(df_m2_NBO_1))})
-  observeEvent(input$m2_homepage_button_NBO, {
-    updateTabItems(session, "tabs", selected = "NBO")})
-  output$m2_homepage_triangle_NBO <- renderUI({
-    Sign <- sign(unique(df_m2_NBO_1$Year)[length(unique(df_m2_NBO_1$Year))] - unique(df_m2_NBO_1$Year)[length(unique(df_m2_NBO_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m2_homepage_worm_HA <- renderPlot({
-    wormchart(m2_HA_lineplot_data(df_m2_HA_1))})    
-  observeEvent(input$m2_homepage_button_HA, {
-    updateTabItems(session, "tabs", selected = "HA")})
-  output$m2_homepage_triangle_HA <- renderUI({
-    Sign <- sign(unique(df_m2_HA_1$Year)[length(unique(df_m2_HA_1$Year))] - unique(df_m2_HA_1$Year)[length(unique(df_m2_HA_1$Year))-1])
-    div(class = get_triangle_class(Sign))})
-  
-  output$m2_homepage_worm_LMPR <- renderPlot({
-    wormchart(m2_LMPR_lineplot_data(df_m2_LMPR_1))})
-  observeEvent(input$m2_homepage_button_LMPR, {
-    updateTabItems(session, "tabs", selected = "LMPR")})
-  output$m2_homepage_triangle_LMPR <- renderUI({
-    Sign <- sign(unique(df_m2_LMPR_1$Year)[length(unique(df_m2_LMPR_1$Year))] - unique(df_m2_LMPR_1$Year)[length(unique(df_m2_LMPR_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m2_homepage_worm_OVC <- renderPlot({
-    wormchart(m2_OVC_lineplot_data(df_m2_OVC_1))})   
-  observeEvent(input$m2_homepage_button_OVC, {
-    updateTabItems(session, "tabs", selected = "OVC")})
-  output$m2_homepage_triangle_OVC <- renderUI({
-    Sign <- sign(unique(df_m2_OVC_1$Year)[length(unique(df_m2_OVC_1$Year))] - unique(df_m2_OVC_1$Year)[length(unique(df_m2_OVC_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m2_homepage_worm_GII <- renderPlot({
-    wormchart(m2_GII_lineplot_data(df_m2_GII_1))})   
-  observeEvent(input$m2_homepage_button_GII, {
-    updateTabItems(session, "tabs", selected = "GII")})
-  output$m2_homepage_triangle_GII <- renderUI({
-    Sign <- sign(unique(df_m2_GII_1$Year)[length(unique(df_m2_GII_1$Year))] - unique(df_m2_GII_1$Year)[length(unique(df_m2_GII_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
-  
-  output$m2_homepage_worm_PRHC <- renderPlot({
-    wormchart(m2_PRHC_lineplot_data(df_m2_PRHC_1))})   
-  observeEvent(input$m2_homepage_button_PRHC, {
-    updateTabItems(session, "tabs", selected = "PRHC")})
-  output$m2_homepage_triangle_PRHC <- renderUI({
-    Sign <- sign(unique(df_m2_PRHC_1$Year)[length(unique(df_m2_PRHC_1$Year))] - unique(df_m2_PRHC_1$Year)[length(unique(df_m2_PRHC_1$Year))-1]) 
-    div(class = get_triangle_class(Sign))})
+  plot_and_triangle(df_m2_NBO_1, m2_NBO_lineplot_data, "m2_homepage_worm_NBO", "m2_homepage_button_NBO", "NBO", "m2_homepage_triangle_NBO", output, input, session)
+  plot_and_triangle(df_m2_HA_1, m2_HA_lineplot_data, "m2_homepage_worm_HA", "m2_homepage_button_HA", "HA", "m2_homepage_triangle_HA", output, input, session)
+  plot_and_triangle(df_m2_LMPR_1, m2_LMPR_lineplot_data, "m2_homepage_worm_LMPR", "m2_homepage_button_LMPR", "LMPR", "m2_homepage_triangle_LMPR", output, input, session)
+  plot_and_triangle(df_m2_OVC_1, m2_OVC_lineplot_data, "m2_homepage_worm_OVC", "m2_homepage_button_OVC", "OVC", "m2_homepage_triangle_OVC", output, input, session)
+  plot_and_triangle(df_m2_GII_1, m2_GII_lineplot_data, "m2_homepage_worm_GII", "m2_homepage_button_GII", "GII", "m2_homepage_triangle_GII", output, input, session)
+  plot_and_triangle(df_m2_PRHC_1, m2_PRHC_lineplot_data, "m2_homepage_worm_PRHC", "m2_homepage_button_PRHC", "PRHC", "m2_homepage_triangle_PRHC", output, input, session)
 }
 
 
