@@ -1,0 +1,12 @@
+name: StrongerBC-Project
+title: StrongerBC-Project
+username: esb-dashboard
+account: esb-dashboard
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12380338
+bundleId: 8920638
+url: https://esb-dashboard.shinyapps.io/StrongerBC-Project/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

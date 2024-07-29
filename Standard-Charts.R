@@ -6,8 +6,9 @@ ui_main_chart <- function(title, chart_name, button_name, source, summary  ){
       column(9,
              style = "background-color: #003366; color:white;",
              fluidRow(
-               h1(title, style = "margin-left: 45px; font-family: 'Century Gothic'; font-size: 40px; font-weight: bold;")
-             ),
+                 h1(title, style = "margin-left: 45px; font-family: 'Century Gothic'; font-size: 40px; font-weight: bold;")
+               ),
+               
              fluidRow(
                plotlyOutput(chart_name)
              ),
@@ -506,4 +507,19 @@ mapchart <- function(df_map, input){
   ")
   
   return(p2)
+}
+
+
+
+
+go_to_mission6_page <- function(name, label) {
+  actionButton(name , label = lable, 
+    style = "color: white; background-color: #003366; height: 30px; width: 100px; font-size: 20px; "
+  )
+}
+
+go_to_homepage <- function() {
+  actionButton( name, label = lebel, 
+    style = "color: white; background-color: #003366; height: 30px; width: 100px; font-size: 20px;  "
+  )
 }

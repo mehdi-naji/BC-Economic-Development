@@ -92,8 +92,7 @@ ui_m6_home <- function(df_m6_RnD_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_LP_1, df_
     ),
     #----
     div(
-      class = "main-title",
-      "Fostering Innovation Across the Economy"
+      actionButton("m6_to_homepage", label = "Fostering Innovation Across the Economy", class = "main-title")
     ),
     div(style = "height: 20px;"),  # Space between title and first row of boxes
     fluidRow(
@@ -136,6 +135,11 @@ ui_m6_home <- function(df_m6_RnD_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_LP_1, df_
 ### RnD ----
 ui_m6_RnD <- function(df1, df2){
   tabItem(tabName = "RnD",
+          fluidRow(
+            column(10),
+            column(1, go_to_mission6_page()),
+            column(1, go_to_homepage())
+          ),
           ##### Line Plot----
           ui_main_chart(title = "Private sector investment in innovation",
                         chart_name = "m6_RnD_lineplot",
@@ -202,6 +206,11 @@ ui_m6_RnD <- function(df1, df2){
 ui_m6_VAEX <- function(df){
 #### VAEX ----
   tabItem(tabName = "VAEX",
+          fluidRow(
+            column(10),
+            column(1, go_to_mission6_page()),
+            column(1, go_to_homepage())
+          ),
           ##### Line Plot----
           ui_main_chart(title = "Value-added in goods and services exports",
                         chart_name = "m6_VAEX_lineplot",
@@ -251,6 +260,11 @@ ui_m6_VAEX <- function(df){
 #### Non residential investment ----
 ui_m6_nRinv <- function(df){
   tabItem(tabName = "nRinv",
+          fluidRow(
+            column(10),
+            column(1, go_to_mission6_page()),
+            column(1, go_to_homepage())
+          ),
           ##### Line Plot----
           ui_main_chart(title = "Non-residential investment as a share of GDP", 
                         chart_name = "m6_nRinv_lineplot", 
@@ -299,8 +313,12 @@ ui_m6_nRinv <- function(df){
 
 #### Labour Productivity ----
 ui_m6_LP <- function(df){
-    tabItem(
-        tabName = "LP",
+    tabItem(tabName = "LP",
+            fluidRow(
+              column(10),
+              column(1, go_to_mission6_page()),
+              column(1, go_to_homepage())
+            ),
         fluidPage(
         ##### Main Plot----
         ui_indicatorpage_generalcss(),
@@ -512,6 +530,11 @@ ui_m6_LP <- function(df){
 ui_m6_exp <- function(df1, df3){
   
   tabItem(tabName = "EXP",
+          fluidRow(
+            column(10),
+            column(1, go_to_mission6_page()),
+            column(1, go_to_homepage())
+          ),
           ##### Line Plot----
           ui_main_chart(title= "Exports as a share of total Canadian exports",
                         chart_name = "m6_exp_lineplot", 

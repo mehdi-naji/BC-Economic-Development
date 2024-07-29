@@ -93,8 +93,7 @@ ui_m2_home <- function(df_m2_NBO_1, df_m2_HA_1, df_m2_LMPR_1,
             ),
             #----
             div(
-              class = "main-title",
-              "Building Resilient Communities"),
+              actionButton("m2_to_homepage", label = "Building Resilient Communities", class = "main-title")),
             div(style = "height: 20px;"),  
             fluidRow(
               wormchart_ui(df = df_m2_NBO_1, 
@@ -136,71 +135,6 @@ ui_m2_home <- function(df_m2_NBO_1, df_m2_HA_1, df_m2_LMPR_1,
                            triangle = "m2_homepage_triangle_PRHC"),
             )
           ))}
-
-# ui_m2_home <- function(df_m2_NBO, df_m2_HA, df_m2_LMPR, df_m2_OVC, df_m2_GII, df_m2_PRHC){
-#   style2 <- "background-color:white; height: 130px; padding: 2px; border-radius: 15px; border: 6px solid #ecf0f5;font-size: 18px;text-align: center;"
-#   style1 <- "background-color:#156082; color:white; height: 80px; width:98%; padding: 6px; border-radius: 15px; border: 6px solid white;font-size: 24px; text-align: center;margin: 0 auto;"
-#   tabItem(tabName = "m2_home",
-#           fluidPage(
-#             fluidRow(
-#               style = "border: 20px solid #ecf0f5;",
-#               column(3,
-#                      style = "height:100px;"
-#               ), 
-#               column(3, style = style2,
-#                      actionButton("m2_NBO_Button", 
-#                                   label = HTML(Extract_Status(df_m2_NBO, "%")), 
-#                                   style = style1),
-#                      "New Business Openings"
-#               ),
-#               column(3, style = style2,
-#                      actionButton("m2_HA_Button", 
-#                                   label = HTML(Extract_Status(df_m2_HA, "%")), 
-#                                   style = style1),
-#                      "Housing Availability"
-#               ),
-#               column(3, style = style2,
-#                      actionButton("m2_LMPR_Button", 
-#                                   label = HTML(Extract_Status(df_m2_LMPR, "")), 
-#                                   style = style1),
-#                      "Labour Market Participation Rate"
-#               )),
-#             fluidRow(
-#               style = "border: 20px solid #ecf0f5;",
-#               column(3,
-#                      style = "height:100px;"
-#               ),
-#               column(3, style = style2,
-#                      actionButton("m2_OVC_Button", 
-#                                   label = HTML(Extract_Status(df_m2_OVC, "%")), 
-#                                   style = style1),
-#                      "Occurrences of Violent Crime"
-#               ),
-#               column(3, style = style2,
-#                      actionButton("m2_GII_Button", 
-#                                   label = HTML(Extract_Status(df_m2_GII, "%")), 
-#                                   style = style1),
-#                      "Government Investment in Infrastructure"
-#               )
-#             ),
-#             fluidRow(
-#               style = "border: 20px solid #ecf0f5;",
-#               column(3,
-#                      fluidRow(h2(HTML("MISSION2:<br/>BUILDING<br/>RESILIENT<br/>COMMUNITIES"))),
-#                      style = "background-color:#156082; color:white; height:400px; padding: 10px 20px; border-radius: 15px; border: 4px solid #ecf0f5;font-size: 36px;text-align: center;"
-#               ), 
-#               column(3, style = style2,
-#                      actionButton("m2_PRHC_Button", 
-#                                   label = HTML(Extract_Status(df_m2_PRHC, "%")), 
-#                                   style = style1),
-#                      "Police_reported Hate Crime"
-#               )
-#               
-#             )
-#           ))}
-
-
-
 
 ### NBO ----
 ui_m2_NBO <- function(df1){

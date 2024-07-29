@@ -94,8 +94,7 @@ ui_m1_home <- function(df_m1_PI_1, df_m1_CHN_1,df_m1_GC_1,
             ),
             #----
             div(
-              class = "main-title",
-              "Supporting Poeple Families"),
+              actionButton("m1_to_homepage", label = "Supporting Poeple Families", class = "main-title")),
             div(style = "height: 20px;"),  # Space between title and first row of boxes
             fluidRow(
               wormchart_ui(df = df_m1_PI_1, 

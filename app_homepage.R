@@ -1,26 +1,26 @@
 active_tabs <- list(
   mission1 = TRUE,
-              m1_PI =  TRUE,
-              m1_CHN = TRUE,
-              m1_GC =  TRUE,
-              m1_UR =  TRUE,
-              m1_FE =  TRUE,
-              m1_TS =  TRUE,
-              m1_MI =  TRUE,
-              m1_SB =  TRUE,
-              m1_LE =  TRUE,
-              m1_MH =  TRUE,
+              m1_PI =  FALSE,
+              m1_CHN = FALSE,
+              m1_GC =  FALSE,
+              m1_UR =  FALSE,
+              m1_FE =  FALSE,
+              m1_TS =  FALSE,
+              m1_MI =  FALSE,
+              m1_SB =  FALSE,
+              m1_LE =  FALSE,
+              m1_MH =  FALSE,
   mission2 = TRUE,
-              m2_NBO = TRUE,
-              m2_HA  = TRUE,
-              m2_LMPR= TRUE,
-              m2_OVC = TRUE,
-              m2_GII = TRUE,
-              m2_PRHC= TRUE,
+              m2_NBO = FALSE,
+              m2_HA  = FALSE,
+              m2_LMPR= FALSE,
+              m2_OVC = FALSE,
+              m2_GII = FALSE,
+              m2_PRHC= FALSE,
   mission3 = TRUE,
   mission4 = TRUE,
   mission5 = TRUE,
-              m5_CEG = TRUE,
+              m5_CEG = FALSE,
   mission6 = TRUE,
               m6_RnD = TRUE,
               m6_VAEX= TRUE,
@@ -237,18 +237,23 @@ ui <- function() {
   )) # This closes dashboard body
   
   ## UI environment ----
+  
   ui <- tagList(
     tags$header(class="header", style="background-color:#003366; border-bottom:2px solid #fcba19;
-              padding:0 0px 0 0px; display:flex; height:60px;width:100%;",
+              padding:0 0px 0 0px; display:flex; height:60px;width:100%; justify-content:space-between; align-items:center;",
                 tags$div(class="banner", style="display:flex; justify-content:flex-start; align-items:center;  margin: 0 10px 0 10px",
                          a(href="https://www2.gov.bc.ca/gov/content/data/about-data-management/bc-stats",
-                           img(src = 'https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/bc_logo.svg', title = "StrongerBC", height = "10px", alt = "British Columbia - StrongerBC"),
+                           img(src = 'https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/bc_logo.svg', title = "StrongerBC", height = "30px", alt = "British Columbia - StrongerBC"),
                            onclick="gtag"
                          ),
                          h1("StrongerBC Indicators", style = "font-weight:400; color:white; margin: 5px 5px 0 18px;"),
                          h2("Work in progress, subject to change!", style = "font-size: 16px; color: white; margin: 0 5px 5px 18px;")
+                ),
+                tags$div(style="margin-right:10px;",
+                         a(href="https://mehdinaji.shinyapps.io/GDP-Labour-industries/", class="btn btn-primary", style="color:white; background-color:#fcba19; border:none;", "BC Economy Snapshot")
                 )
     ),
+
     dashboardPage(header = header, sidebar = sidebar, body = body, skin = "blue"),
     column(width = 12,
            style = "background-color:#003366; border-top:2px solid #fcba19;",
@@ -270,6 +275,13 @@ ui <- function() {
 # Server----
 server <- function(input, output, session) {
   ##HOMEPAGE----
+  observeEvent(input$m1_to_homepage, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$m2_to_homepage, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$m6_to_homepage, {updateTabItems(session, "tabs", "home")})
+  
+  observeEvent(input$Home_btt, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$Mission6_btt, {updateTabItems(session, "tabs", "m6_home")})
+  
   observeEvent(input$button1, {
     updateTabItems(session, "tabs", selected = "m1_home")})
   observeEvent(input$button2, {
