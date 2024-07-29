@@ -48,21 +48,19 @@
           m2_NBO_lineplot_data <- function(df) {
             df |>
               filter(Industry == "Business sector industries [T004]",
-                     Measure == "Entrants")
-          }
+                     Measure == "Entrants")}
           
           m2_NBO_render_lineplot <- function(df, input){
             dash_lineplot(m2_NBO_lineplot_data, df, input)}
           
-
 # HA Dash----
           ## Line plot----
           m2_HA_lineplot_data <- function(df) {
-            df 
-          }
+            df }
           
           m2_HA_render_lineplot <- function(df, input){
             dash_lineplot(m2_HA_lineplot_data, df, input)}
+
 
 # LMPR Dash----
           ## Line plot----
@@ -94,8 +92,6 @@
     m2_GII_render_lineplot <- function(df, input){
       dash_lineplot(m2_GII_lineplot_data, df, input, y_label="$ billion")}
     
-
-
 # PRHC Dash----
           ## Line plot----
     m2_PRHC_lineplot_data <- function(df) {

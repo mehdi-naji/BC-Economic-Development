@@ -339,12 +339,12 @@ server <- function(input, output, session) {
   server_m2_home(df_m2_NBO_1, df_m2_HA_1, df_m2_LMPR_1, 
                  df_m2_OVC_1, df_m2_GII_1, df_m2_PRHC_1, 
                  output, input, session)
-  mission2_NBO_server(Exesum_m2_NBO, df_m2_NBO_1, output, input)
-  mission2_HA_server(Exesum_m2_HA, df_m2_HA_1, output, input)
-  mission2_LMPR_server(Exesum_m2_LMPR, df_m2_LMPR_1, output, input)
-  mission2_OVC_server(Exesum_m2_OVC, df_m2_OVC_1, output, input)
-  mission2_PRHC_server(Exesum_m2_PRHC, df_m2_PRHC_1, output, input)
-  mission2_GII_server(Exesum_m2_GII, df_m2_GII_1, output, input)}
+  mission2_NBO_server(Exesum_m2_NBO_main, Exesum_m2_NBO, df_m2_NBO_1, output, input)
+  mission2_HA_server(Exesum_m2_HA_main, Exesum_m2_HA, df_m2_HA_1, output, input)
+  mission2_LMPR_server(Exesum_m2_LMPR_main, Exesum_m2_LMPR, df_m2_LMPR_1, output, input)
+  mission2_OVC_server(Exesum_m2_OVC_main, Exesum_m2_OVC, df_m2_OVC_1, output, input)
+  mission2_PRHC_server(Exesum_m2_PRHC_main, Exesum_m2_PRHC, df_m2_PRHC_1, output, input)
+  mission2_GII_server(Exesum_m2_GII_main, Exesum_m2_GII, df_m2_GII_1, output, input)}
 
   if (active_tabs$mission5){
   mission5_CEG_server(Exesum_m5_CEG, df_m5_CEG_1, output, input)}
