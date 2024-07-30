@@ -139,6 +139,7 @@ ui_m2_home <- function(df_m2_NBO_1, df_m2_HA_1, df_m2_LMPR_1,
 ### NBO ----
 ui_m2_NBO <- function(df1){
   tabItem(tabName = "NBO",
+          go_to_button("NBO_mission2", "Mission 2", "NBO_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "New Business Openings",
                         chart_name = "m2_NBO_lineplot",
@@ -162,6 +163,7 @@ ui_m2_NBO <- function(df1){
 ### HA ----
 ui_m2_HA <- function(df1){
   tabItem(tabName = "HA",
+          go_to_button("HA_mission2", "Mission 2", "HA_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Housing Availability",
                         chart_name = "m2_HA_lineplot",
@@ -186,6 +188,7 @@ ui_m2_HA <- function(df1){
 ### LMPR ----
 ui_m2_LMPR <- function(df1){
   tabItem(tabName = "LMPR",
+          go_to_button("LMPR_mission2", "Mission 2", "LMPR_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Labour Market Participation Rate",
                         chart_name = "m2_LMPR_lineplot",
@@ -211,6 +214,7 @@ ui_m2_LMPR <- function(df1){
 ### OVC ----
 ui_m2_OVC <- function(df1){
   tabItem(tabName = "OVC",
+          go_to_button("OVC_mission2", "Mission 2", "OVC_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Occurrences of Violent Crime",
                         chart_name = "m2_OVC_lineplot",
@@ -236,6 +240,7 @@ ui_m2_OVC <- function(df1){
 ### GII ----
 ui_m2_GII <- function(df1){
   tabItem(tabName = "GII",
+          go_to_button("GII_mission2", "Mission 2", "GII_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Government investments in infrastructure",
                         chart_name = "m2_GII_lineplot",
@@ -258,6 +263,7 @@ ui_m2_GII <- function(df1){
 ### PRHC ----
 ui_m2_PRHC <- function(df1){
   tabItem(tabName = "PRHC",
+          go_to_button("PRHC_mission2", "Mission 2", "PRHC_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Police-reported Hate Crime",
                         chart_name = "m2_PRHC_lineplot",

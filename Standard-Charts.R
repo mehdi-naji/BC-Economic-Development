@@ -111,7 +111,6 @@ dash_lineplot <- function(data_func, df , input, y_label=""){
   
   p1 <- ggplotly(p1)
   return(p1)
-  
 }
 
 
@@ -282,9 +281,9 @@ wormchart <- function(data, label) {
   ggplot(plot_data, aes(x = Year, y = VALUE)) +
     geom_line(color = "#003366", size = 1.5) +
     geom_point(data = subset(plot_data, !is.na(label)), aes(x = Year, y = VALUE), color = "#003366", size = 3) +
-    geom_text(data = subset(plot_data, !is.na(label)), aes(label = label), 
-              hjust = 1.2, vjust = 1, size = 6, color = "black",
-              family = "Aptos(Body)", fontface = "bold") +  # Set font and make it bold
+    # geom_text(data = subset(plot_data, !is.na(label)), aes(label = label),
+    #           hjust = 1.2, vjust = -0.5, size = 8, color =  "#FEB70D",
+    #           family = "Aptos(Body)") +  # Set font and make it bold
     geom_segment(data = subset(plot_data, !is.na(label)), aes(x = Year, xend = Year, y = VALUE, yend = label), color = "#003366", size = 0.5) +
     labs(title = NULL, x = NULL, y = NULL) +
     theme_void() +
@@ -512,14 +511,14 @@ mapchart <- function(df_map, input){
 
 
 
-go_to_mission6_page <- function(name, label) {
-  actionButton(name , label = lable, 
-    style = "color: white; background-color: #003366; height: 30px; width: 100px; font-size: 20px; "
-  )
-}
+go_to_button <- function(name1, label1, name2, label2) {
+  style1 <- "color: white; background-color: #003366; height: 30px; width: 120px; font-size: 20px; margin:10px; "
+  fluidRow(
+    column(9),
+    column(1, actionButton(name1, label1, style = style1)),
+    column(1, actionButton(name2, label2, style = style1 )),
+    column(1)
+)}
+  
 
-go_to_homepage <- function() {
-  actionButton( name, label = lebel, 
-    style = "color: white; background-color: #003366; height: 30px; width: 100px; font-size: 20px;  "
-  )
-}
+

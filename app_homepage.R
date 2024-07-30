@@ -1,26 +1,26 @@
 active_tabs <- list(
   mission1 = TRUE,
-              m1_PI =  FALSE,
-              m1_CHN = FALSE,
-              m1_GC =  FALSE,
-              m1_UR =  FALSE,
-              m1_FE =  FALSE,
-              m1_TS =  FALSE,
-              m1_MI =  FALSE,
-              m1_SB =  FALSE,
-              m1_LE =  FALSE,
-              m1_MH =  FALSE,
+              m1_PI =  TRUE,
+              m1_CHN = TRUE,
+              m1_GC =  TRUE,
+              m1_UR =  TRUE,
+              m1_FE =  TRUE,
+              m1_TS =  TRUE,
+              m1_MI =  TRUE,
+              m1_SB =  TRUE,
+              m1_LE =  TRUE,
+              m1_MH =  TRUE,
   mission2 = TRUE,
-              m2_NBO = FALSE,
-              m2_HA  = FALSE,
-              m2_LMPR= FALSE,
-              m2_OVC = FALSE,
-              m2_GII = FALSE,
-              m2_PRHC= FALSE,
+              m2_NBO = TRUE,
+              m2_HA  = TRUE,
+              m2_LMPR= TRUE,
+              m2_OVC = TRUE,
+              m2_GII = TRUE,
+              m2_PRHC= TRUE,
   mission3 = TRUE,
   mission4 = TRUE,
   mission5 = TRUE,
-              m5_CEG = FALSE,
+              m5_CEG = TRUE,
   mission6 = TRUE,
               m6_RnD = TRUE,
               m6_VAEX= TRUE,
@@ -43,6 +43,7 @@ library(gridExtra)
 library(waffle)
 library(ggplot2)
 library(htmlwidgets)
+library(ggrepel)
 
 
 options(scipen = 999999999)  
@@ -246,7 +247,7 @@ ui <- function() {
                            img(src = 'https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/bc_logo.svg', title = "StrongerBC", height = "30px", alt = "British Columbia - StrongerBC"),
                            onclick="gtag"
                          ),
-                         h1("StrongerBC Indicators", style = "font-weight:400; color:white; margin: 5px 5px 0 18px;"),
+                         h1("BC Sustainable Economy Indicators", style = "font-weight:400; color:white; margin: 5px 5px 0 18px;"),
                          h2("Work in progress, subject to change!", style = "font-size: 16px; color: white; margin: 0 5px 5px 18px;")
                 ),
                 tags$div(style="margin-right:10px;",
@@ -275,12 +276,58 @@ ui <- function() {
 # Server----
 server <- function(input, output, session) {
   ##HOMEPAGE----
+  observeEvent(input$RnD_mission6, {updateTabItems(session, "tabs", "m6_home")})
+  observeEvent(input$VAEX_mission6, {updateTabItems(session, "tabs", "m6_home")})
+  observeEvent(input$nRinv_mission6, {updateTabItems(session, "tabs", "m6_home")})
+  observeEvent(input$LP_mission6, {updateTabItems(session, "tabs", "m6_home")})
+  observeEvent(input$EXP_mission6, {updateTabItems(session, "tabs", "m6_home")})
+  
+  observeEvent(input$PI_mission1, {updateTabItems(session, "tabs", "m1_home")})
+  observeEvent(input$CHN_mission1, {updateTabItems(session, "tabs", "m1_home")})
+  observeEvent(input$GC_mission1, {updateTabItems(session, "tabs", "m1_home")})
+  observeEvent(input$UR_mission1, {updateTabItems(session, "tabs", "m1_home")})
+  observeEvent(input$FE_mission1, {updateTabItems(session, "tabs", "m1_home")})
+  observeEvent(input$TS_mission1, {updateTabItems(session, "tabs", "m1_home")})
+  observeEvent(input$SB_mission1, {updateTabItems(session, "tabs", "m1_home")})
+  observeEvent(input$LE_mission1, {updateTabItems(session, "tabs", "m1_home")})
+  observeEvent(input$MI_mission1, {updateTabItems(session, "tabs", "m1_home")})
+  observeEvent(input$MH_mission1, {updateTabItems(session, "tabs", "m1_home")})
+  
+  observeEvent(input$NBO_mission2, {updateTabItems(session, "tabs", "m2_home")})
+  observeEvent(input$HA_mission2, {updateTabItems(session, "tabs", "m2_home")})
+  observeEvent(input$LMPR_mission2, {updateTabItems(session, "tabs", "m2_home")})
+  observeEvent(input$OVC_mission2, {updateTabItems(session, "tabs", "m2_home")})
+  observeEvent(input$GII_mission2, {updateTabItems(session, "tabs", "m2_home")})
+  observeEvent(input$PRHC_mission2, {updateTabItems(session, "tabs", "m2_home")})
+  
+  observeEvent(input$RnD_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$VAEX_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$nRinv_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$LP_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$EXP_home, {updateTabItems(session, "tabs", "home")})
+  
+  observeEvent(input$PI_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$CHN_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$GC_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$UR_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$FE_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$TS_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$SB_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$LE_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$MI_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$MH_home, {updateTabItems(session, "tabs", "home")})
+
+  observeEvent(input$NBO_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$HA_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$LMPR_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$OVC_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$GII_home, {updateTabItems(session, "tabs", "home")})
+  observeEvent(input$PRHC_home, {updateTabItems(session, "tabs", "home")})
+  
   observeEvent(input$m1_to_homepage, {updateTabItems(session, "tabs", "home")})
   observeEvent(input$m2_to_homepage, {updateTabItems(session, "tabs", "home")})
   observeEvent(input$m6_to_homepage, {updateTabItems(session, "tabs", "home")})
   
-  observeEvent(input$Home_btt, {updateTabItems(session, "tabs", "home")})
-  observeEvent(input$Mission6_btt, {updateTabItems(session, "tabs", "m6_home")})
   
   observeEvent(input$button1, {
     updateTabItems(session, "tabs", selected = "m1_home")})

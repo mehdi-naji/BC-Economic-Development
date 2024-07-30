@@ -94,7 +94,7 @@ ui_m1_home <- function(df_m1_PI_1, df_m1_CHN_1,df_m1_GC_1,
             ),
             #----
             div(
-              actionButton("m1_to_homepage", label = "Supporting Poeple Families", class = "main-title")),
+              actionButton("m1_to_homepage", label = "Supporting People Families", class = "main-title")),
             div(style = "height: 20px;"),  # Space between title and first row of boxes
             fluidRow(
               wormchart_ui(df = df_m1_PI_1, 
@@ -242,6 +242,7 @@ ui_m1_home <- function(df_m1_PI_1, df_m1_CHN_1,df_m1_GC_1,
 ### PI: Povery Incidence ----
 ui_m1_PI <- function(df1, df2){
   tabItem(tabName = "PI",
+          go_to_button("PI_mission1", "Mission 1", "PI_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Poverty Incidence", 
                         chart_name = "m1_PI_lineplot", 
@@ -278,6 +279,7 @@ ui_m1_PI <- function(df1, df2){
 ### CHN: Core Housing Needs ----
 ui_m1_CHN <- function(df1){
   tabItem(tabName = "CHN",
+          go_to_button("CHN_mission1", "Mission 1", "CHN_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Core Housing Needs", 
                         chart_name = "m1_CHN_lineplot", 
@@ -289,6 +291,7 @@ ui_m1_CHN <- function(df1){
 ### GC: Gini Coefficient ----
 ui_m1_GC <- function(df1){
   tabItem(tabName = "GC",
+          go_to_button("GC_mission1", "Mission 1", "GC_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Gini Coefficient", 
                         chart_name = "m1_GC_lineplot", 
@@ -300,6 +303,7 @@ ui_m1_GC <- function(df1){
 ### UR: Underemploymnet Rate ----
 ui_m1_UR <- function(df1, df2, df3, df4, df5){
   tabItem(tabName = "UR",
+          go_to_button("UR_mission1", "Mission 1", "UR_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Underemployment Rate", 
                         chart_name = "m1_UR_lineplot", 
@@ -369,6 +373,7 @@ ui_m1_UR <- function(df1, df2, df3, df4, df5){
 ### FE: Food Expenditures ----
 ui_m1_FE <- function(df1){
   tabItem(tabName = "FE",
+          go_to_button("FE_mission1", "Mission 1", "FE_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Food Expenditures", 
                         chart_name = "m1_FE_lineplot", 
@@ -380,6 +385,7 @@ ui_m1_FE <- function(df1){
 ### TS: Transportation Spending ----
 ui_m1_TS <- function(df1){
   tabItem(tabName = "TS",
+          go_to_button("TS_mission1", "Mission 1", "TS_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Transportation Spending", 
                         chart_name = "m1_TS_lineplot", 
@@ -390,6 +396,7 @@ ui_m1_TS <- function(df1){
 ### SB: Sense of Belongings ----
 ui_m1_SB <- function(df1){
   tabItem(tabName = "SB",
+          go_to_button("SB_mission1", "Mission 1", "SB_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Sense of Belongings", 
                         chart_name = "m1_SB_lineplot", 
@@ -400,6 +407,7 @@ ui_m1_SB <- function(df1){
 ### LE: Life Expectancy ----
 ui_m1_LE <- function(df1){
   tabItem(tabName = "LE",
+          go_to_button("LE_mission1", "Mission 1", "LE_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Life Expectancy", 
                         chart_name = "m1_LE_lineplot", 
@@ -411,6 +419,8 @@ ui_m1_LE <- function(df1){
 ### MI: Median Income ----
 ui_m1_MI <- function(df1){
   tabItem(tabName = "MI",
+          go_to_button("MI_mission1", "Mission 1", "MI_home", "Home Page"),
+          
           ##### Line Plot----
           ui_main_chart(title = "Median Income", 
                         chart_name = "m1_MI_lineplot", 
@@ -422,6 +432,7 @@ ui_m1_MI <- function(df1){
 ### MH: Mental Health ----
 ui_m1_MH <- function(df1){
   tabItem(tabName = "MH",
+          go_to_button("MH_mission1", "Mission 1", "MH_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title = "Mental Health", 
                         chart_name = "m1_MH_lineplot", 
