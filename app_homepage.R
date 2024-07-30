@@ -1,26 +1,26 @@
 active_tabs <- list(
-  mission1 = TRUE,
-              m1_PI =  TRUE,
-              m1_CHN = TRUE,
-              m1_GC =  TRUE,
-              m1_UR =  TRUE,
-              m1_FE =  TRUE,
-              m1_TS =  TRUE,
-              m1_MI =  TRUE,
-              m1_SB =  TRUE,
-              m1_LE =  TRUE,
-              m1_MH =  TRUE,
-  mission2 = TRUE,
-              m2_NBO = TRUE,
-              m2_HA  = TRUE,
-              m2_LMPR= TRUE,
-              m2_OVC = TRUE,
-              m2_GII = TRUE,
-              m2_PRHC= TRUE,
-  mission3 = TRUE,
-  mission4 = TRUE,
-  mission5 = TRUE,
-              m5_CEG = TRUE,
+  mission1 = FALSE,
+              m1_PI =  FALSE,
+              m1_CHN = FALSE,
+              m1_GC =  FALSE,
+              m1_UR =  FALSE,
+              m1_FE =  FALSE,
+              m1_TS =  FALSE,
+              m1_MI =  FALSE,
+              m1_SB =  FALSE,
+              m1_LE =  FALSE,
+              m1_MH =  FALSE,
+  mission2 = FALSE,
+              m2_NBO = FALSE,
+              m2_HA  = FALSE,
+              m2_LMPR= FALSE,
+              m2_OVC = FALSE,
+              m2_GII = FALSE,
+              m2_PRHC= FALSE,
+  mission3 = FALSE,
+  mission4 = FALSE,
+  mission5 = FALSE,
+              m5_CEG = FALSE,
   mission6 = TRUE,
               m6_RnD = TRUE,
               m6_VAEX= TRUE,
@@ -112,10 +112,10 @@ if (active_tabs$mission6) {
   df_m6_VAEX_1 <- load_m6_VAEX1()
   df_m6_nRinv_1 <- load_m6_nRinv1()
   df_m6_LP_1 <- load_m6_LP1()
-  df_m6_exp_1 <- load_m6_exp1()
-  df_m6_exp_2 <- load_m6_exp2()
-  df_m6_exp_3 <- load_m6_exp3()
-  df_m6_exp_4 <- load_m6_exp4()}
+  df_m6_EXP_1 <- load_m6_EXP1()
+  df_m6_EXP_2 <- load_m6_EXP2()
+  df_m6_EXP_3 <- load_m6_EXP3()
+  df_m6_EXP_4 <- load_m6_EXP4()}
 
 
 
@@ -225,12 +225,12 @@ ui <- function() {
                  m6_VAEX_lineplot_data(df_m6_VAEX_1),
                  m6_nRinv_lineplot_data(df_m6_nRinv_1),
                  m6_LP_lineplot_data(df_m6_LP_1),
-                 m6_exp_lineplot_data(df_m6_exp_1)) else NULL,
+                 m6_EXP_lineplot_data(df_m6_EXP_1)) else NULL,
       if (active_tabs$mission6 * active_tabs$m6_RnD ) ui_m6_RnD(df_m6_RnD_1, df_m6_RnD_2) else NULL,
       if (active_tabs$mission6 * active_tabs$m6_VAEX ) ui_m6_VAEX(df_m6_VAEX_1) else NULL,
       if (active_tabs$mission6 * active_tabs$m6_nRinv ) ui_m6_nRinv(df_m6_nRinv_1) else NULL,
       if (active_tabs$mission6 * active_tabs$m6_LP ) ui_m6_LP(df_m6_LP_1) else NULL,
-      if (active_tabs$mission6 * active_tabs$m6_EXP ) ui_m6_exp(df_m6_exp_1, df_m6_exp_3) else NULL,
+      if (active_tabs$mission6 * active_tabs$m6_EXP ) ui_m6_EXP(df_m6_EXP_1, df_m6_EXP_3) else NULL,
       #### Data Source Tab----
       tabItem(tabName = "data_source",
               h3("Data Sources & Permissions", style="margin-left:15px;margin-bottom:20px"))
@@ -247,7 +247,7 @@ ui <- function() {
                            img(src = 'https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/bc_logo.svg', title = "StrongerBC", height = "30px", alt = "British Columbia - StrongerBC"),
                            onclick="gtag"
                          ),
-                         h1("BC Sustainable Economy Indicators", style = "font-weight:400; color:white; margin: 5px 5px 0 18px;"),
+                         h1("BC Economic Development Indicators", style = "font-weight:400; color:white; margin: 5px 5px 0 18px;"),
                          h2("Work in progress, subject to change!", style = "font-size: 16px; color: white; margin: 0 5px 5px 18px;")
                 ),
                 tags$div(style="margin-right:10px;",
@@ -420,12 +420,12 @@ server <- function(input, output, session) {
   observeEvent(input$m6_EXP_Button, {
     updateTabItems(session, "tabs", selected = "EXP")})
   
-  server_m6_home(df_m6_RnD_1, df_m6_LP_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_exp_1, output, input, session)
+  server_m6_home(df_m6_RnD_1, df_m6_LP_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_EXP_1, output, input, session)
   mission6_RnD_server( Exesum_m6_RnD_main,Exesum_m6_RnD, df_m6_RnD_1, df_m6_RnD_2, output, input)
   mission6_VAEX_server(Exesum_m6_VAEX_main, Exesum_m6_VAEX, df_m6_VAEX_1, output, input)
   mission6_nRinv_server(Exesum_m6_nRinv_main, Exesum_m6_nRinv, df_m6_nRinv_1, output, input)
   mission6_LP_server(Exesum_m6_LP_main, Exesum_m6_LP, df_m6_LP_1, output, input)
-  mission6_exp_server(Exesum_m6_exp_main, Exesum_m6_exp, df_m6_exp_1, df_m6_exp_2, df_m6_exp_3, df_m6_exp_4, output, input)
+  mission6_EXP_server(Exesum_m6_EXP_main, Exesum_m6_EXP, df_m6_EXP_1, df_m6_EXP_2, df_m6_EXP_3, df_m6_EXP_4, output, input)
   }}
   
 shinyApp(ui, server)

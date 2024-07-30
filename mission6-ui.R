@@ -1,5 +1,5 @@
 ### Home ----
-ui_m6_home <- function(df_m6_RnD_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_LP_1, df_m6_exp_1){
+ui_m6_home <- function(df_m6_RnD_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_LP_1, df_m6_EXP_1){
   tabItem(tabName = "m6_home",
   fluidPage(
     #CSS Code ----
@@ -122,11 +122,11 @@ ui_m6_home <- function(df_m6_RnD_1, df_m6_VAEX_1, df_m6_nRinv_1, df_m6_LP_1, df_
                    worm = "m6_homepage_worm_nRinv",
                    triangle = "m6_homepage_triangle_nRinv"),
       
-      wormchart_ui(df = df_m6_exp_1, 
-                   button = "m6_homepage_button_exp",
+      wormchart_ui(df = df_m6_EXP_1,
+                   button = "m6_homepage_button_EXP",
                    title = "Exports Share",
-                   worm = "m6_homepage_worm_exp",
-                   triangle = "m6_homepage_triangle_exp"),
+                   worm = "m6_homepage_worm_EXP",
+                   triangle = "m6_homepage_triangle_EXP"),
     )
   ))}
 
@@ -513,16 +513,16 @@ ui_m6_LP <- function(df){
     )}
 
   #### EXP ----
-ui_m6_exp <- function(df1, df3){
+ui_m6_EXP <- function(df1, df3){
   
   tabItem(tabName = "EXP",
           go_to_button("EXP_mission6", "Mission 6", "EXP_home", "Home Page"),
           ##### Line Plot----
           ui_main_chart(title= "Exports as a share of total Canadian exports",
-                        chart_name = "m6_exp_lineplot", 
-                        button_name= "m6_exp_lineplot_dwnbtt",
+                        chart_name = "m6_EXP_lineplot", 
+                        button_name= "m6_EXP_lineplot_dwnbtt",
                         source= "Statistics Canada, Table 36-10-0480-01",
-                        summary = "Exesum_m6_exp_main"), 
+                        summary = "Exesum_m6_EXP_main"), 
   
           ##### EXESUM ----
           fluidPage(
@@ -531,7 +531,7 @@ ui_m6_exp <- function(df1, df3){
               column(12, h2("Executive Summary"))
             ),
             fluidRow(
-              column(12, uiOutput("Exesum_m6_exp"))
+              column(12, uiOutput("Exesum_m6_EXP"))
             )
           ),
           ##### Heatmap Plot----
@@ -541,9 +541,9 @@ ui_m6_exp <- function(df1, df3){
               column(9, h3("Figure 6-5-2: Exports as a share of total Canadian exports by commodity types " ))
             ),
             fluidRow(
-              column(9,plotlyOutput("m6_exp_heatmap")),
+              column(9,plotlyOutput("m6_EXP_heatmap")),
               column(3, 
-                     downloadButton("m6_exp_heatmap_dwnbtt", "Download Filtered Data in CSV"))
+                     downloadButton("m6_EXP_heatmap_dwnbtt", "Download Filtered Data in CSV"))
             )
           ),
           ##### Stacked Bar----
@@ -553,10 +553,10 @@ ui_m6_exp <- function(df1, df3){
               column(9, h3("Figure 6-5-4: Environmental and clean technology products exports  " ))
             ),
             fluidRow(
-              column(9,plotlyOutput("m6_exp_stackbar")),
+              column(9,plotlyOutput("m6_EXP_stackbar")),
               column(3, 
-                     selectInput("m6_exp_stackbar_year", "Year", choices = unique(df3$Year), selected = 2022),
-                     downloadButton("m6_exp_stackbar_dwnbtt", "Download Filtered Data in CSV"))
+                     selectInput("m6_EXP_stackbar_year", "Year", choices = unique(df3$Year), selected = 2022),
+                     downloadButton("m6_EXP_stackbar_dwnbtt", "Download Filtered Data in CSV"))
             )
           ),
           ##### Bubble plot----
@@ -566,9 +566,9 @@ ui_m6_exp <- function(df1, df3){
               column(9, h3("Figure 6-5-5: Exports by destinations" ))
             ),
             fluidRow(
-              column(9,plotlyOutput("m6_exp_bubble")),
+              column(9,plotlyOutput("m6_EXP_bubble")),
               column(3,
-                     downloadButton("m6_exp_bubble_dwnbtt", "Download Filtered Data in CSV"))
+                     downloadButton("m6_EXP_bubble_dwnbtt", "Download Filtered Data in CSV"))
             )
           )
           

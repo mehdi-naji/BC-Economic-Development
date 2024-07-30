@@ -57,20 +57,20 @@
     }
     
     ## Export----
-    load_m6_exp1 <- function() {
+    load_m6_EXP1 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_1.csv"
       df <- read.csv(url, header = TRUE)
       df <- df|> filter(EXP_type != "Export Percent Change") 
       return(df)
     }
     
-    load_m6_exp2 <- function() {
+    load_m6_EXP2 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_2.csv"
       df <- read.csv(url, header = TRUE)
       return(df)
     }
     
-    load_m6_exp3 <- function() {
+    load_m6_EXP3 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_3.csv"
       df <- read.csv(url, header = TRUE)
       df <- df |> 
@@ -82,7 +82,7 @@
       return(df)
     }
     
-    load_m6_exp4 <- function() {
+    load_m6_EXP4 <- function() {
       url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_4.csv"
       df <- read.csv(url, header = TRUE)
       df <- na.omit(df)
@@ -844,7 +844,7 @@
     
 # Export Dash----
     ## line plot ----
-    m6_exp_lineplot_data <- function(df){
+    m6_EXP_lineplot_data <- function(df){
       df |>
         filter(Year >= 2000,
                GEO == "British Columbia",
@@ -852,16 +852,16 @@
         mutate(VALUE = round(as.numeric(str_sub(VALUE, end=-2)),1))
     }
     
-    m6_exp_render_lineplot <- function(df, input){
-      dash_lineplot(m6_exp_lineplot_data, df, input, "Percentage")}
+    m6_EXP_render_lineplot <- function(df, input){
+      dash_lineplot(m6_EXP_lineplot_data, df, input, "Percentage")}
     
     ## Heat Map----
-    m6_exp_heatmap_data <- function(df){
+    m6_EXP_heatmap_data <- function(df){
       return(df)
     }
     
-    m6_exp_render_heatmap <- function(df, input){
-      df1 <- m6_exp_heatmap_data(df)
+    m6_EXP_render_heatmap <- function(df, input){
+      df1 <- m6_EXP_heatmap_data(df)
       df1$Value <- as.numeric(sub("%", "", df1$Value))
       
       p1 <- plot_ly(
@@ -875,13 +875,13 @@
       p1
     }
     ##Stacked Bar Chart ----
-    m6_exp_stackbar_data <- function(df, year){
+    m6_EXP_stackbar_data <- function(df, year){
       df |>
         filter(Year == year)
     }
     
-    m6_exp_render_stackbar <- function(df, input){
-      df1 <- m6_exp_stackbar_data(df, input$m6_exp_stackbar_year)
+    m6_EXP_render_stackbar <- function(df, input){
+      df1 <- m6_EXP_stackbar_data(df, input$m6_EXP_stackbar_year)
       
       p1 <- plot_ly(data = df1, 
                     y = ~GEO, 
@@ -894,12 +894,12 @@
       p1
     }
     ##Bubble  chart----
-    m6_exp_bubble_data <- function(df){
+    m6_EXP_bubble_data <- function(df){
       df 
     }
     
-    m6_exp_render_bubble <- function(df, input){
-      data <- m6_exp_bubble_data(df)
+    m6_EXP_render_bubble <- function(df, input){
+      data <- m6_EXP_bubble_data(df)
       data$GDP <- as.numeric(data$GDP)
       data$growth_change <- as.numeric(data$growth_change)
       data$growth <- as.numeric(data$growth)

@@ -5,7 +5,7 @@ account: esb-dashboard
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 12381624
-bundleId: 8921647
+bundleId: 8921949
 url: https://esb-dashboard.shinyapps.io/ESB-Dashboard/
 version: 1
 asMultiple: FALSE

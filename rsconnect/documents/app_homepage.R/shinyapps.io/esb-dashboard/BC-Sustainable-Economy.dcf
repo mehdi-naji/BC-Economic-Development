@@ -1,0 +1,12 @@
+name: BC-Sustainable-Economy
+title: BC-Sustainable-Economy
+username: esb-dashboard
+account: esb-dashboard
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12382328
+bundleId: 8922005
+url: https://esb-dashboard.shinyapps.io/BC-Sustainable-Economy/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

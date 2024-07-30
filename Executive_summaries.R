@@ -348,7 +348,7 @@ Exesum_m6_LP <- HTML("
   </ul>
 ")
 
-Exesum_m6_exp_main <- HTML("
+Exesum_m6_EXP_main <- HTML("
   <ul style='text-align: justify; font-size: 12px;padding: 20px;'>
     <li>B.C.’s labour productivity in 2023 was $64.6 per hour, ramaining at the same level of 2022.</li>
     <hr style='border: 1px solid #d3d3d3;' />
@@ -357,7 +357,7 @@ Exesum_m6_exp_main <- HTML("
   </ul>
 ")
 
-Exesum_m6_exp <- HTML("
+Exesum_m6_EXP <- HTML("
   <ul style='text-align: justify; font-size: 20px;'>
     <li>B.C. contributed for 7.9 percent of overall Canadian exports in 2023. B.C.’s export volume was $56.5 billion in 2023, down 13.1 percent from $64.9 billion in 2022. B.C. was the fourth largest contributor to Canadian exports in 2023, behind Ontario 35.4 percent), Alberta (24.6 percent) and Quebec (16.3 percent).  </li>
     <li>Exports from B.C. to major trading partners have decreased in 2023. While the United States remained B.C.’s top exports destination, accounting for 54.6 percent of overall exports from B.C., shipments to the U.S. fell 17.57 percent, from $37.4 billion in 2022 to $30.8 billion in 2023. B.C.’s exports to Australia increased by 39.98  percent in 2023, highest among all major trading partners. </li> 
