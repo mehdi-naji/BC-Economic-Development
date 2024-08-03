@@ -1,0 +1,60 @@
+---
+title: "Labour Productivity in British Columbia"
+author: "Economic Strategy Branch"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  html_document:
+    css: styles_reports.css
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+library(ggplot2)
+library(plotly)
+library(shiny)
+library(htmltools)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+```
+
+# Introduction
+
+Labour productivity is a key indicator of economic performance and efficiency. It measures the amount of economic output produced per hour of labour and is crucial for understanding the health and growth of an economy. Labour productivity growth is essential for improving living standards, increasing wages, and enhancing economic stability. It reflects how efficiently labor is utilized to produce goods and services and is influenced by factors such as technological advancements, capital investments, and workforce skills.
+
+British Columbia, known for its diverse economy and rich natural resources, has experienced various economic shifts over the years. Analyzing labour productivity helps us understand the efficiency and competitiveness of the province's industries.
+
+The data used in this report is sourced from the Statistics Canada,  Table 36-10-0480-01.
+
+# Overall Labour Productivity Trends
+
+The graph below illustrates the labour productivity trends in British Columbia from 2000 to 2023. The overall upward trend indicates improvements in efficiency and output over time, despite some fluctuations in certain years. The consistent increase in labour productivity underscores the province's progress in enhancing economic performance.
+
+Even though the chart shows a consistent increase in labour productivity, it contains varying growth rates. The highest growth occurred in the period from 2020 to 2021, likely influenced by economic adjustments during and post-COVID-19 pandemic, where certain industries might have experienced efficiency gains due to shifts in work patterns and technological adoption.
+
+The slight slowdown in growth rates in 2022 indicates potential stabilization after the rapid gains in the previous years. However, the overall upward trajectory suggests that British Columbia has continued to improve its labour productivity, contributing positively to the province's economic health.
+
+
+```{r short-term-trends, fig.height=4, fig.width=9.5, message=FALSE, warning=FALSE}
+# Load data and plot overall labour productivity trends
+source("Standard-Charts.R")
+source("mission6-charts.R")
+
+# Your data loading function
+df1 <- load_m6_LP1()
+
+# Define the plot function
+dash_lineplot(m6_LP_lineplot_data, df1, input = NULL, y_label = "$ per hour")
+
+```
+
+
+# Detailed Analysis by Industry
+##Business Sector
+The business sector encompasses a wide range of industries, each contributing to the overall productivity of BC. Below, we explore the productivity trends within the business sector.
+

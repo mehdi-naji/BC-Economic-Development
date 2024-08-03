@@ -1,0 +1,12 @@
+name: BC-Economic-Development
+title: BC-Economic-Development
+username: esb-dashboard
+account: esb-dashboard
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12386543
+bundleId: 8930628
+url: https://esb-dashboard.shinyapps.io/BC-Economic-Development/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

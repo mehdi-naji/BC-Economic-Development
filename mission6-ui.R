@@ -301,218 +301,142 @@ ui_m6_nRinv <- function(df){
   )}
 
 
-#### Labour Productivity ----
+
+
+# #### Labour Productivity ----
 ui_m6_LP <- function(df){
-    tabItem(tabName = "LP",
-            go_to_button("LP_mission6", "Mission 6", "LP_home", "Home Page"),
-        fluidPage(
-        ##### Main Plot----
-        ui_indicatorpage_generalcss(),
+  tabItem(tabName = "LP",
+          go_to_button("LP_mission6", "Mission 6", "LP_home", "Home Page"),
           fluidPage(
-                div(class = "chart-container", 
+            ##### Main Plot----
+            ui_indicatorpage_generalcss(),
+            div(class = "chart-container", 
                 ui_main_chart(
-                    title = "Labour productivity",
-                    chart_name = "m6_LP_lineplot",
-                    button_name = "m6_LP_lineplot_dwnbtt",
-                    source = " Statistics Canada, Table 36-10-0480-01",
-                    summary = "Exesum_m6_LP_main"))),
-          
-        ##### Deep DIve----
-        # fluidRow(h3("Deep dive"), style = "margin: 60px; height: 80px;"),
-        fluidPage(
-          fluidRow(h1("Deep-Dive Charts"), style = "padding-left: 10px;"),
-          style = "background-color : white; margin-left: 65px; margin-right:65px; margin-top:40px; ",
-          div(class = "content-container",
-              ###### Fixed Panel----
-              div(class = "fixed-box", 
-                  column(12,
-                                    style = "background-color: #003366; color:white; ",
-                                    fluidRow(
-                                        h3("Labour productivity across Canada", style="padding-left: 10px;" )
-                                     ),
-                                    fluidRow(
-                                      align = "center",
-                                      leafletOutput("m6_LP_map")
-                                       ),
-                         fluidRow(
-                           column(2),
-                           column(8,
-                                  style = "height: 20px; font-size: 10px;",
-                                  "Source: Statistics Canada, Table 36-10-0480-01"
-                                  ),
-                           column(2)),
-                                     fluidRow(
-                                       column(2,
-                                              div(class = "blue-dropdown",
-                                              selectInput("m6_LP_map_year", "", choices = unique(df$Year), selected = 2020))
-                                       ),
-                                       column(4,
-                                              div(class = "blue-dropdown",
-                                              selectInput("m6_LP_map_labourtype", "", choices = unique(df$measure),
-                                              selected = "Labour productivity"))
-                                       ),
-                                       column(4,
-                                              div(class = "blue-dropdown",
-                                              selectInput("m6_LP_map_industry", "", choices = unique(df$Industry))),
-                                       ),
-                                       column(2, style = "padding-top: 20px; padding-right: 30px;",
-                                              downloadButton("m6_LP_map_dwnbtt" , label = NULL, class = "btn-custom", icon = icon("cloud-download-alt"))
-                                       )
-                                       ),
-                         fluidRow(
-                             style = "padding-left: 40px; padding-right: 40px;",
-                             h2("Highlights"),
-                             uiOutput("Exesum_m6_LP")
+                  title = "Labour productivity",
+                  chart_name = "m6_LP_lineplot",
+                  button_name = "m6_LP_lineplot_dwnbtt",
+                  source = "Statistics Canada, Table 36-10-0480-01",
+                  summary = "Exesum_m6_LP_main")),
+            
+            ##### Deep Dive----
+            fluidRow(),
+            fluidPage(
+              fluidRow(h1("Deep-Dive Charts"), style = "padding-left: 10px;"),
+              style = "background-color: white; margin-left: 65px; margin-right: 65px; margin-top: 40px;",
+              div(class = "content-container",
+                  ###### Fixed Panel----
+                  div(class = "fixed-box", 
+                      column(12,
+                             style = "background-color: #003366; color: white;",
+                             fluidRow(h3("", style = "padding-left: 10px;")),
+                             fluidRow(align = "center", leafletOutput("m6_LP_map")),
+                             fluidRow(
+                               column(2),
+                               column(8, style = "height: 20px; font-size: 10px;", "Source: Statistics Canada, Table 36-10-0480-01"),
+                               column(2)),
+                             fluidRow(
+                               column(3, div(class = "blue-dropdown", selectInput("m6_LP_map_year", "", choices = unique(df$Year), selected = 2020))),
+                               column(4, div(class = "blue-dropdown", selectInput("m6_LP_map_labourtype", "", choices = unique(df$measure), selected = "Labour productivity"))),
+                               column(3, div(class = "blue-dropdown", selectInput("m6_LP_map_industry", "", choices = unique(df$Industry)))),
+                               column(2, style = "padding-top: 20px;" , downloadButton("m6_LP_map_dwnbtt", label = NULL, class = "btn-custom", icon = icon("cloud-download-alt")))
+                             ),
+                             fluidRow(
+                               style = "padding-left: 10px; padding-right: 40px;",
+                               h2("Highlights"),
+                               div(style = "width: 100%; overflow-wrap: break-word;", uiOutput("Exesum_m6_LP"))
                              )
-                                     )
-                              ),
-              ###### Scrolling Panel----
-              div(class = "scrollable-boxes",
-                      style = "padding-left: 60px; ",
+                      )),
+                  ###### Scrolling Panel----
+                  div(class = "scrollable-boxes", style = "padding-left: 60px;",
                       h3("Labour productivity growth rate"),
                       ####### Lines Plot----
                       fluidRow(
-                              div(
-                                style = "position: relative; margin-buttom:40px; height:250px; margin-right: 100px; margin-left: 50px;",
-                                plotlyOutput("m6_LP_lines"),
-                                div(
-                                  icon("search", "fa-4x"),
-                                  style = "color: white;
-                         position: absolute;
-                         top: 0px;
-                         left: -35px;
-                         background-color: #FEB70D;
-                         border-bottom-left-radius: 10px;
-                         border-bottom-right-radius: 10px;
-                         padding: 10px;
-                         z-index: 10;"
-                                )
-                              )
-                            ),
-                     # Source
-                      fluidRow(
-                        style = "background-color: #f2f2f2; padding-left: 100px; padding-right:40px; margin-right: 85px; margin-left: 35px; height: 20px; font-size: 12px;",
-                        "Source: Statistics Canada, Table 36-10-0480-01"
-                      ),
-                     # inputs
-                     fluidRow(
-                           style = "margin-right: 85px; margin-left: 35px; background-color: #f2f2f2;",
-                           column(4,
-                                  div(class = "grey-dropdown",
-                                  selectInput("m6_LP_lines_geo", "", choices = unique(df$GEO), selected = "British Columbia"),
-                           )),
-                           column(4,
-                                  div(class = "grey-dropdown",
-                                  selectInput("m6_LP_lines_labourtype", "", choices = unique(df$measure),selected = "Labour productivity"),
-                           )),
-                           column(2),
-                           column(2,
-                              style = "background-color: #f2f2f2; height: 20px; padding-top : 40px; display: flex; justify-content: center; align-items: center;",
-                                            downloadButton("m6_LP_lines_dwnbtt" , label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt"))
-                              ),
-
-                              
-                           ),
-
-                        h1(""),
-                      ####### Bar Plot----
-                        fluidRow(
+                        tags$head(
+                          tags$style(HTML("
+                            .popover {
+                              max-width: 300px; /* Adjust the max-width as needed */
+                              width: 300px; /* Set the width */
+                            }
+                            .popover-content {
+                              color: black;
+                            }
+                            .popover-title {
+                              color: black;
+                            }
+                          "))),
+                        div(
+                          style = "position: relative; margin-bottom: 0px; height: 250px; margin-right: 100px; margin-left: 50px;",
+                          plotlyOutput("m6_LP_lines"),
                           div(
-                            style = "position: relative; margin-right: 100px; margin-left: 50px; height:250px;",
+                            actionButton("search_btn", label = icon("search", "fa-4x"), style = "color: white; background-color: #FEB70D; border: none;"),
+                            bsPopover(id = "search_btn", title = "Popover Title", content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.", 
+                                      placement = "right", trigger = "click"),
+                            style = "color: white; position: absolute; top: 0px; left: -35px; background-color: #FEB70D; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 10px; z-index: 10;"
+                          )
+                        )
+                      ),
+                      # Source
+                      fluidRow(style = "background-color: #f2f2f2; padding-left: 100px; padding-right: 40px; margin-right: 85px; margin-left: 35px; height: 20px; font-size: 12px;", "Source: Statistics Canada, Table 36-10-0480-01"),
+                      # inputs
+                      fluidRow(style = "margin-right: 85px; margin-left: 35px; background-color: #f2f2f2;",
+                               column(4, div(class = "grey-dropdown", selectInput("m6_LP_lines_geo", "", choices = unique(df$GEO), selected = "British Columbia"))),
+                               column(4, div(class = "grey-dropdown", selectInput("m6_LP_lines_labourtype", "", choices = unique(df$measure), selected = "Labour productivity"))),
+                               column(2),
+                               column(2, style = "background-color: #f2f2f2; height: 20px; padding-top: 40px; display: flex; justify-content: center; align-items: center;", downloadButton("m6_LP_lines_dwnbtt", label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt")))),
+                      h3(""),
+                      ####### Bar Plot----
+                      fluidRow(
+                        div(style = "position: relative; margin-bottom: 0px; height: 250px; margin-right: 100px; margin-left: 50px;",
                             plotlyOutput("m6_LP_growthsectors"),
                             div(
-                              icon("line-chart", "fa-4x"),
-                              style = "color: white;
-                           position: absolute;
-                           top: 0px;
-                           left: -35px;
-                           background-color: #FEB70D;
-                           border-bottom-left-radius: 10px;
-                           border-bottom-right-radius: 10px;
-                           padding: 10px;
-                           z-index: 10;"
-                                  )
-                                )
-                              ),
-                          #Source
-                          fluidRow(
-                            style = "background-color: #f2f2f2; padding-left: 60px; padding-right:40px; margin-left: 35px; margin-right: 85px; height: 20px; font-size: 12px;",
-                            "Source: Statistics Canada, Table 36-10-0480-01"
-                          ),
-                         # input
-                          fluidRow(
-                            style = "margin-right: 85px; margin-left:35px; background-color: #f2f2f2;",
-                            column(2,
-                                   div(class = "grey-dropdown",
-                                   selectInput("m6_LP_table_year", "", choices = unique(df$Year), selected = 2022),
-                                   )),
-                            column(4,
-                                   div(class = "grey-dropdown",
-                                   selectInput("m6_LP_table_labourtype", "", choices = unique(df$measure), selected = "Labour productivity"),
-                                   )),
-                            column(4,
-                                   div(class = "grey-dropdown",
-                                   selectInput("m6_LP_table_industry", "", choices = unique(df$Industry)),  
-                                   )),
-                            column(2,
-                                   style = "background-color: #f2f2f2; height: 20px; padding-top : 40px; display: flex; justify-content: center; align-items: center;",
-                                   downloadButton("m6_LP_table_dwnbtt" , label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt"))
-                            ),
-        
-                          ),
-                 
-                          h3("Total number of jobs by sector"),
+                              actionButton("linecahrt_btn", label = icon("line-chart", "fa-4x"), style = "color: white; background-color: #FEB70D; border: none;"),
+                              bsPopover(id = "linecahrt_btn", title = "Popover Title", content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.", 
+                                        placement = "right", trigger = "click"),
+                              style = "color: white; position: absolute; top: 0px; left: -35px; background-color: #FEB70D; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 10px; z-index: 10;"
+                            )
+                        )),
+                      #Source
+                      fluidRow(style = "background-color: #f2f2f2; padding-left: 60px; padding-right: 40px; margin-left: 35px; margin-right: 85px; height: 20px; font-size: 12px;", "Source: Statistics Canada, Table 36-10-0480-01"),
+                      # input
+                      fluidRow(style = "margin-right: 85px; margin-left: 35px; background-color: #f2f2f2;",
+                               column(2, div(class = "grey-dropdown", selectInput("m6_LP_table_year", "", choices = unique(df$Year), selected = 2022))),
+                               column(4, div(class = "grey-dropdown", selectInput("m6_LP_table_labourtype", "", choices = unique(df$measure), selected = "Labour productivity"))),
+                               column(4, div(class = "grey-dropdown", selectInput("m6_LP_table_industry", "", choices = unique(df$Industry)))),
+                               column(2, style = "background-color: #f2f2f2; height: 20px; padding-top: 40px; display: flex; justify-content: center; align-items: center;", downloadButton("m6_LP_table_dwnbtt", label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt")))),
+                      h3("Total number of jobs by sector"),
                       ####### Treemap----
-                       fluidRow(
-                         div(
-                           style = "position: relative; margin-right: 100px; margin-left: 50px;height:250px;",
-                           plotlyOutput("m6_LP_treemap"),
-                           div(
-                             icon("area-chart", "fa-4x"),
-                             style = "color: white;
-                     position: absolute;
-                     top: 0px;
-                     left: -35px;
-                     background-color: #FEB70D;
-                     border-bottom-left-radius: 10px;
-                     border-bottom-right-radius: 10px;
-                     padding: 10px;
-                     z-index: 10;"
-                           )
-                         )
-                       ),
+                      fluidRow(
+                        div(style = "position: relative; margin-bottom: 0px; height: 250px; margin-right: 100px; margin-left: 50px;",
+                            plotlyOutput("m6_LP_treemap"),
+                            div(
+                              actionButton("areachart_btn", label = icon("area-chart", "fa-4x"), style = "color: white; background-color: #FEB70D; border: none;"),
+                              bsPopover(id = "areachart_btn", title = "Popover Title", content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.", 
+                                        placement = "right", trigger = "click"),
+                              style = "color: white; position: absolute; top: 0px; left: -35px; background-color: #FEB70D; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 10px; z-index: 10;"
+                            ))),
                       #source
-                       fluidRow(
-                         style = "background-color: #f2f2f2; padding-left: 60px; padding-right:40px; margin-left: 35px; margin-right: 85px; height: 20px; font-size: 12px;",
-                         "Source: Statistics Canada, Table 36-10-0480-01"
-                       ),
-                       # input
-                       fluidRow(
-                         style = "margin-right: 85px; margin-left:35px; background-color: #f2f2f2;",
-                         column(4,
-                                div(class = "grey-dropdown",
-                                    selectInput("m6_LP_treemap_geo", "", choices = unique(df$GEO), selected = "British Columbia"),                          )),
-                         column(4,
-                                div(class = "grey-dropdown",
-                                    selectInput("m6_LP_treemap_year", "", choices = unique(df$Year), selected = 2022)),
-                                ),
-                         column(2),
-                         column(2,
-                                style = "background-color: #f2f2f2; height: 20px; padding-top : 40px; display: flex; justify-content: center; align-items: center;",
-                                downloadButton("m6_LP_treemap_dwnbtt" , label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt"))
-                         ),
-                         
-                       ),
-                       fluidRow(style = "height : 200px;")
-                  #----
-                  )
-
+                      fluidRow(style = "background-color: #f2f2f2; padding-left: 60px; padding-right: 40px; margin-left: 35px; margin-right: 85px; height: 20px; font-size: 12px;", "Source: Statistics Canada, Table 36-10-0480-01"),
+                      # input
+                      fluidRow(style = "margin-right: 85px; margin-left: 35px; background-color: #f2f2f2;",
+                               column(4, div(class = "grey-dropdown", selectInput("m6_LP_treemap_geo", "", choices = unique(df$GEO), selected = "British Columbia"))),
+                               column(4, div(class = "grey-dropdown", selectInput("m6_LP_treemap_year", "", choices = unique(df$Year), selected = 2022))),
+                               column(2),
+                               column(2, style = "background-color: #f2f2f2; height: 20px; padding-top: 40px; display: flex; justify-content: center; align-items: center;", downloadButton("m6_LP_treemap_dwnbtt", label = NULL, class = "btn-custom-black", icon = icon("cloud-download-alt")))),
+                      fluidRow(style = "height: 100px;"),
+                      fluidRow(
+                               column(4),
+                               column(4,
+                                  downloadButton("m6_LP_report", label = "Download pdf Report", style = "color: white; background-color: #FEB70D; border: none;"),
+                               ),
+                               column(4)
+                  ))
+              )
             )
-          ) 
-)
-    )}
+          )
+  )
+}
 
-  #### EXP ----
+#### EXP ----
 ui_m6_EXP <- function(df1, df3){
   
   tabItem(tabName = "EXP",

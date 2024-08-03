@@ -22,11 +22,11 @@ active_tabs <- list(
   mission5 = FALSE,
               m5_CEG = FALSE,
   mission6 = TRUE,
-              m6_RnD = TRUE,
-              m6_VAEX= TRUE,
-              m6_nRinv= TRUE,
+              m6_RnD = FALSE,
+              m6_VAEX= FALSE,
+              m6_nRinv= FALSE,
               m6_LP = TRUE,
-              m6_EXP = TRUE
+              m6_EXP = FALSE
 )
 
 
@@ -36,6 +36,8 @@ library(tidyverse)
 library(shiny)
 library(shinydashboard)
 library(shinyWidgets)
+library(shinyBS)
+
 library(plotly)
 library(leaflet)
 library(sf)
@@ -124,6 +126,7 @@ ui <- function() {
   header <- dashboardHeader()
   ## Sidebar ----
   sidebar <- dashboardSidebar(
+    disable = TRUE,
     collapsed = TRUE,
     sidebarMenu(id = "tabs",
                 menuItem("Home", tabName = "home", icon = icon("home")),
@@ -168,8 +171,8 @@ ui <- function() {
                          if (active_tabs$m6_LP) menuSubItem("Labour productivity", tabName = "LP"),
                          if (active_tabs$m6_EXP) menuSubItem("Export", tabName = "EXP"))},
                 menuItem("Data Source", tabName = "data_source", icon = icon("database"))
-                
-                
+
+
     )
   )
   
@@ -251,11 +254,14 @@ ui <- function() {
                          h2("Work in progress, subject to change!", style = "font-size: 16px; color: white; margin: 0 5px 5px 18px;")
                 ),
                 tags$div(style="margin-right:10px;",
-                         a(href="https://mehdinaji.shinyapps.io/GDP-Labour-industries/", class="btn btn-primary", style="color:white; background-color:#fcba19; border:none;", "BC Economy Snapshot")
+                         a(href="https://mehdinaji.shinyapps.io/BC-Economy-Snapshot/", class="btn btn-primary", style="color:white; background-color:#fcba19; border:none;", "BC Economy Snapshot")
                 )
     ),
 
-    dashboardPage(header = header, sidebar = sidebar, body = body, skin = "blue"),
+    dashboardPage(header = header, 
+                  sidebar = sidebar,
+                  body = body, 
+                  skin = "blue"),
     column(width = 12,
            style = "background-color:#003366; border-top:2px solid #fcba19;",
            tags$footer(class="footer",
@@ -427,5 +433,7 @@ server <- function(input, output, session) {
   mission6_LP_server(Exesum_m6_LP_main, Exesum_m6_LP, df_m6_LP_1, output, input)
   mission6_EXP_server(Exesum_m6_EXP_main, Exesum_m6_EXP, df_m6_EXP_1, df_m6_EXP_2, df_m6_EXP_3, df_m6_EXP_4, output, input)
   }}
-  
+
+
+
 shinyApp(ui, server)

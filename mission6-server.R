@@ -213,7 +213,7 @@ mission6_LP_server <- function(Exesum_m6_LP_main, Exesum_m6_LP, df_m6_LP_1, outp
   output$m6_LP_lineplot_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission6_LabourProductivity_filteredData.csv",
     content = function(file) {
-      df <- m6_LP_lineplot_data(df_m6_LP_1, input$m6_LP_lineplot_geo, input$m6_LP_lineplot_industry, input$m6_LP_lineplot_labourtype)
+      df <- m6_LP_lineplot_data(df_m6_LP_1)
       
       write.csv(df, file)
     }
@@ -284,6 +284,19 @@ mission6_LP_server <- function(Exesum_m6_LP_main, Exesum_m6_LP, df_m6_LP_1, outp
       write.csv(df, file)
     }
   )
+  
+  ### Report----
+  output$m6_LP_report <- downloadHandler(
+    filename = function() {
+      "Mission6_LabourProductivity_Report.pdf"
+    },
+    content = function(file) {
+      download.file("https://raw.githubusercontent.com/mehdi-naji/StrongerBC-Project/main/pdf_reports/pdf_sample.pdf", file, mode = "wb")
+                    # https://github.com/mehdi-naji/BC-Economic-Development/blob/main/pdf_reports/pdf_sample.pdf", file, mode = "wb")
+    }
+  )
+  
+  
 }
 
 ## EXPORT----
@@ -301,7 +314,7 @@ mission6_EXP_server <- function(Exesum_m6_EXP_main, Exesum_m6_EXP, df_m6_EXP_1, 
   output$m6_EXP_lineplot_dwnbtt <- downloadHandler(
     filename = "StrongerBC_Mission6_EXPort_filteredData.csv",
     content = function(file) {
-      df <-  m6_EXP_lineplot_data(df_m6_EXP_1, input$m6_EXP_lineplot_geo, input$m6_EXP_lineplot_EXPtype)
+      df <-  m6_EXP_lineplot_data(df_m6_EXP_1)
       
       write.csv(df, file)
     }

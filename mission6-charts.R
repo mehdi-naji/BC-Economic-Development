@@ -2,8 +2,8 @@
 # Loading data----
     ## Canada Map----
     load_canada_map <- function(){
-      canada_file <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/supplementary%20materials/canada-with-provinces_795.geojson"
-      # canada_file <- "C:/Users/MNAJI/StrongerBC-Project/supplementary materials/canada-with-provinces_795.geojson"
+      canada_file <- "https://github.com/mehdi-naji/BC-Economic-Development/raw/main/supplementary%20materials/canada-with-provinces_795.geojson"
+      # canada_file <- "C:/Users/MNAJI/BC-Economic-Development/supplementary materials/canada-with-provinces_795.geojson"
       # geojson_content <- httr::GET(canada_url, httr::write_disk(tf <- tempfile(fileext = ".geojson"), overwrite = TRUE))
       # sf::st_read(dsn = tf, quiet = TRUE)
       
@@ -14,14 +14,14 @@
     
     ## RnD----
     load_m6_RnD1 <- function() {
-      url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_1.csv"
+      url <- "https://github.com/mehdi-naji/BC-Economic-Development/raw/main/Data/Research_and_Development_1.csv"
       df <- read.csv(url, header = TRUE)
       df <- na.omit(df)
       return(df)
     }
     
     load_m6_RnD2 <- function() {
-      url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Research_and_Development_3.csv"
+      url <- "https://github.com/mehdi-naji/BC-Economic-Development/raw/main/Data/Research_and_Development_3.csv"
       df <- read.csv(url, header = TRUE)
       df <- na.omit(df)
       return(df)
@@ -30,7 +30,7 @@
     
     ## VAEX----
     load_m6_VAEX1 <- function() {
-      url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/VA_Exporsts_1.csv"
+      url <- "https://github.com/mehdi-naji/BC-Economic-Development/raw/main/Data/VA_Exporsts_1.csv"
       df <- read.csv(url, header = TRUE)
       df <- na.omit(df)
       df <- df |>   mutate(Industry = str_remove(Industry, "\\s\\[.*\\]$"),
@@ -41,14 +41,14 @@
     
     ## Non-residential Investment----
     load_m6_nRinv1 <- function() {
-      url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Non_Residential_Investment_1.csv"
+      url <- "https://github.com/mehdi-naji/BC-Economic-Development/raw/main/Data/Non_Residential_Investment_1.csv"
       df <- read.csv(url, header = TRUE)
       df <- na.omit(df)
       return(df)
     }
     ## LabourProductivity----
     load_m6_LP1 <- function() {
-      url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Labour_Productivity_1.csv"
+      url <- "https://github.com/mehdi-naji/BC-Economic-Development/raw/main/Data/Labour_Productivity_1.csv"
       df <- read.csv(url, header = TRUE)
       # df <- na.omit(df)
       df<- df |> filter(
@@ -58,20 +58,20 @@
     
     ## Export----
     load_m6_EXP1 <- function() {
-      url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_1.csv"
+      url <- "https://github.com/mehdi-naji/BC-Economic-Development/raw/main/Data/Export_1.csv"
       df <- read.csv(url, header = TRUE)
       df <- df|> filter(EXP_type != "Export Percent Change") 
       return(df)
     }
     
     load_m6_EXP2 <- function() {
-      url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_2.csv"
+      url <- "https://github.com/mehdi-naji/BC-Economic-Development/raw/main/Data/Export_2.csv"
       df <- read.csv(url, header = TRUE)
       return(df)
     }
     
     load_m6_EXP3 <- function() {
-      url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_3.csv"
+      url <- "https://github.com/mehdi-naji/BC-Economic-Development/raw/main/Data/Export_3.csv"
       df <- read.csv(url, header = TRUE)
       df <- df |> 
         select(Year, GEO, Type, Value)
@@ -83,7 +83,7 @@
     }
     
     load_m6_EXP4 <- function() {
-      url <- "https://github.com/mehdi-naji/StrongerBC-Project/raw/main/Data/Export_4.csv"
+      url <- "https://github.com/mehdi-naji/BC-Economic-Development/raw/main/Data/Export_4.csv"
       df <- read.csv(url, header = TRUE)
       df <- na.omit(df)
       
@@ -501,6 +501,7 @@
       p
     }
     
+
     ## Treemap ----
     m6_LP_treemap_data <- function(df, geo, year){
       df |>
@@ -567,6 +568,7 @@
           values = ~per_val,
           marker = list(
             colors = parent_colors
+            
           )
         )
       
@@ -675,7 +677,7 @@
       data_long <- reshape2::melt(data, id.vars = "Region")
 
       # Create an empty plotly object
-      p2 <- plot_ly()
+      p2 <- plot_ly(height = 250)
       p2 <- data_long |> 
         plot_ly(x = ~value,y=~Region, name=~variable, type = 'bar', 
                 orientation = 'h', 
@@ -694,13 +696,24 @@
       p2 <- p2 |> layout(
         plot_bgcolor = '#F2F2F2',
         paper_bgcolor = '#F2F2F2',
-        height = 250,
-        width = 810,
+        legend = list(
+          orientation = 'h',
+          x = 0.5,
+          xanchor = 'center',
+          y = -0.1
+        ),
+        xaxis = list(
+          title = ""
+        ),
+        yaxis = list(
+          title = ""
+        ),
+        height = 290,
         margin = list(
-          l = 100,
-          r = 50,
+          l = 50,
+          r = 30,
           t = 20,
-          b = 0
+          b = 15
         )
       )
       

@@ -1,4 +1,6 @@
 # Main Chart UI----
+
+
 ui_main_chart <- function(title, chart_name, button_name, source, summary  ){
   fluidPage(
     fluidRow(
@@ -54,62 +56,69 @@ plot_and_triangle <- function(data, plot_data_func, plot_output_id, button_input
   })
   
   output[[triangle_output_id]] <- renderUI({
-    Sign <- sign(unique(data$Year)[length(unique(data$Year))] - unique(data$Year)[length(unique(data$Year))-1])
+    dff <- plot_data_func(data)
+    Sign <- sign(dff$VALUE[dff$Year == unique(dff$Year)[length(unique(dff$Year))]] - dff$VALUE[dff$Year == unique(dff$Year)[length(unique(dff$Year))-1]])
     div(class = get_triangle_class(Sign))
   })
 }
 
 # Line Plot ----
-dash_lineplot <- function(data_func, df , input, y_label=""){
+
+dash_lineplot <- function(data_func, df, input, y_label = "") {
   df1 <- data_func(df)
   tickvals <- seq(from = 2000, to = max(df1$Year), by = 5)
   
-  p1 <- df1 |> 
-    plot_ly(x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines',
-            line = list(color = "#FEB70D", width = 4)) |>
-    layout(xaxis = list(
-      title = "",
-      tickvals = tickvals,
-      ticktext = tickvals,
-      rangeslider = list(
-        visible = T,
-        thickness = 0.02,  
-        bgcolor = "white"  
+  p1 <- plot_ly(data = df1, x = ~Year, y = ~VALUE, type = 'scatter', mode = 'lines',
+                line = list(color = "#FEB70D", width = 4)) %>%
+    layout(
+      xaxis = list(
+        title = "",
+        tickvals = tickvals,
+        ticktext = tickvals,
+        rangeslider = list(
+          visible = TRUE,
+          thickness = 0.02,
+          bgcolor = "white"
+        ),
+        tickfont = list(color = "white"),
+        showgrid = FALSE,
+        gridcolor = "white"
       ),
-      tickfont = list(color = "white"),
-      showgrid = FALSE,
-      gridcolor = "white"
-    ),
-    yaxis = list(
-      title = y_label,
-      titlefont = list(color = "white"), 
-      tickfont = list(color = "white"),
-      gridcolor = "white"
-    ),
-    annotations = list(
-      list(
-        x = df1$Year[1],
-        y = df1$VALUE[1],
-        text = paste(format(df1$VALUE[1], big.mark=",")),
-        showarrow = TRUE,
-        arrowcolor = "white",
-        font = list(color = "white")
+      yaxis = list(
+        title = "$ per hour",
+        titlefont = list(color = "white"),
+        tickfont = list(color = "white"),
+        gridcolor = "white"
       ),
-      list(
-        x = df1$Year[length(df1$Year)],
-        y = df1$VALUE[length(df1$VALUE)],
-        text = paste(format(df1$VALUE[length(df1$VALUE)], big.mark=","), "\n" , "<span style='font-size:7px;'>(" , df1$Year[length(df1$VALUE)], ")", "</span>"),
-        showarrow = TRUE,
-        arrowcolor = "white",
-        font = list(color = "white")
-      )
-    ),
-    plot_bgcolor = 'rgba(0,0,0,0)',  
-    paper_bgcolor = 'rgba(0,0,0,0)'  
+      annotations = list(
+        list(
+          x = df1$Year[1],
+          y = df1$VALUE[1],
+          text = paste(format(df1$VALUE[1], big.mark = ",")),
+          showarrow = TRUE,
+          arrowcolor = "white",
+          font = list(color = "white")
+        ),
+        list(
+          x = df1$Year[length(df1$Year)],
+          y = df1$VALUE[length(df1$VALUE)],
+          text = paste(
+            format(df1$VALUE[length(df1$VALUE)], big.mark = ","),
+            "\n",
+            "<span style='font-size:7px;'>(", df1$Year[length(df1$VALUE)], ")</span>"
+          ),
+          showarrow = TRUE,
+          arrowcolor = "white",
+          font = list(color = "white")
+        )
+      ),
+      plot_bgcolor = '#003366',
+      paper_bgcolor = '#003366'
     )
+  p1
+  
   validate(need(nrow(df1) > 0, "The data for this set of inputs is inadequate. To obtain a proper visualization, please adjust the inputs in the sidebar."))
   
-  p1 <- ggplotly(p1)
   return(p1)
 }
 
@@ -365,83 +374,121 @@ get_triangle_class <- function(Sign) {
 
 
 ui_indicatorpage_generalcss <- function(){
+  tags$head(
+    tags$style(HTML("
+    .chart-container {
+      height: 400px;
+      background-color: #f0f0f0;
+    }
+    .content-container {
+      display: flex;
+      position: relative;
+    }
+    .fixed-box {
+      position: absolute;
+      top: 0px;
+      right: 20px;
+      width: 400px;
+      background-color: #003366;
+      padding: 0px;
+      /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+      z-index: 1;
+      transition: top 0.3s;
+    }
+    .scrollable-boxes {
+      padding: 10px;
+      width: calc(100% - 440px); /* Adjust the width to make space for the fixed box */
+      margin-right: 20px;
+      background-color: #e9ecef;
+    }
+    .selectize-input, .selectize-dropdown {
+      background-color: #003366 !important;
+      color: white !important;
+      border-color: #00336 !important;
+      text-align: center; /* Center text horizontally */
+      padding-left: 0 !important; /* Minimize left padding */
+      padding-right: 0 !important; /* Minimize right padding */
+    }
+    .selectize-dropdown-content .option {
+      color: white !important;
+      text-align: center; /* Center text horizontally */
+    }
+    .selectize-input::after {
+      display: none !important;
+    }
 
-            tags$head(
-                tags$style(HTML("
-                        .chart-container {
-                          height: 400px;
-                          background-color: #f0f0f0;
-                        }
-                        .content-container {
-                          display: flex;
-                          position: relative;
-                          overflow: hidden; /* Hide scrolling for the content container */
-                          overflow-y: scroll; /* Allow scrolling for the content container */
-                          height: calc(120vh - 120px); /* Adjust height as needed */
-                        }
-                        .fixed-box {
-                          position: -webkit-sticky; /* For Safari */
-                          position: sticky;
-                          top: 0;
-                          width: 400px;
-                          /*background-color: white;*/
-                          padding: 10px;
-                          z-index: 1; /* Ensure the fixed box is above the moving boxes */
-                        }
-                        .scrollable-boxes {
-                          /*flex-grow: 1;*/
-                          padding: 10px;
-                          width: 1000px;
-                           /*background-color: #e9ecef;*/
-                          /*margin-left: 80px; Ensure space for fixed box */
-                        }
-                        
-                              .selectize-input, .selectize-dropdown {
-                          background-color: #003366 !important;
-                          color: white !important;
-                          border-color: #003366 !important;
-                        }
-                        .selectize-dropdown-content .option {
-                          color: white !important;
-                        }
-                        .selectize-input::after {
-                          display: none !important;
-                        }
-                        .blue-dropdown .selectize-input, .blue-dropdown .selectize-dropdown {
-                          background-color: #003366 !important;
-                          color: white !important;
-                          padding : 5px;
-                          font-size : 10px;
-                          border-color: #003366 !important;
-                        }
-                        .blue-dropdown .selectize-dropdown-content .option {
-                          color: white !important;
-                        }
-                        .grey-dropdown .selectize-input, .grey-dropdown .selectize-dropdown {
-                          background-color: #f2f2f2 !important;
-                          color: black !important;
-                          border-color: #f2f2f2 !important;
-                        }
-                        .grey-dropdown .selectize-dropdown-content .option {
-                          color: black !important;
-                        }
-                        .btn-custom {
-                          background-color: transparent;
-                          border: none;
-                        }
-                        .btn-custom .fa-cloud-download-alt {
-                          color: white;
-                        }
-                        .btn-custom-black {
-                          background-color: transparent;
-                          border: none;
-                          color: black;
-                        }
-                        .btn-custom-black .fa-cloud-download-alt {
-                          color: black;
-                        }
+    .blue-dropdown .selectize-input, .blue-dropdown .selectize-dropdown {
+      background-color: #003366 !important;
+      color: white !important;
+      padding: 5px;
+      font-size: 10px;
+      border-color: #004e93 !important;
+      text-align: center; /* Center text horizontally */
+      padding-left: 0 !important; /* Minimize left padding */
+      padding-right: 0 !important; /* Minimize right padding */
+    }
+    .blue-dropdown .selectize-dropdown-content .option {
+      color: white !important;
+      text-align: center; /* Center text horizontally */
 
-                            "))
+
+    }
+    .grey-dropdown .selectize-input, .grey-dropdown .selectize-dropdown {
+      background-color: #f2f2f2 !important;
+      color: black !important;
+      border-color: #cccccc !important;
+      text-align: center; /* Center text horizontally */
+      padding-left: 0 !important; /* Minimize left padding */
+      padding-right: 0 !important; /* Minimize right padding */
+    }
+    .grey-dropdown .selectize-dropdown-content .option {
+      color: black !important;
+      text-align: center; /* Center text horizontally */
+    }
+    .btn-custom {
+      background-color: transparent;
+      border: none;
+    }
+
+    .btn-custom .fa-cloud-download-alt {
+      color: white;
+    }
+    .btn-custom-black {
+      background-color: transparent;
+      border: none;
+      color: black;
+    }
+    .btn-custom-black .fa-cloud-download-alt {
+      color: black;
+    }
+  "))  ,
+  tags$script(HTML("
+  document.addEventListener('scroll', function() {
+    const fixedBox = document.querySelector('.fixed-box');
+    const contentContainer = document.querySelector('.content-container');
+    const containerRect = contentContainer.getBoundingClientRect();
+    const middleScreen = window.innerHeight / 2;
+
+    if (containerRect.top < middleScreen - fixedBox.offsetHeight / 2) {
+      fixedBox.style.position = 'fixed';
+      fixedBox.style.top = middleScreen - fixedBox.offsetHeight / 2 + 'px';
+      fixedBox.style.right = (window.innerWidth - contentContainer.offsetWidth) / 2 + 20 + 'px';
+    } else {
+      fixedBox.style.position = 'absolute';
+      fixedBox.style.top = '20px';
+      fixedBox.style.right = '20px';
+    }
+  });
+"))
+  
+  
+    
+    
+    
+    
+  
+  
+  
             ) }
 
 
