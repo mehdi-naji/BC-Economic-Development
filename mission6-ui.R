@@ -322,7 +322,7 @@ ui_m6_LP <- function(df){
             fluidRow(),
             fluidPage(
               fluidRow(h1("Deep-Dive Charts"), style = "padding-left: 10px;"),
-              style = "background-color: white; margin-left: 65px; margin-right: 65px; margin-top: 40px;",
+              style = "background-color: white; margin-top: 40px;",
               div(class = "content-container",
                   ###### Fixed Panel----
                   div(class = "fixed-box", 
@@ -365,7 +365,7 @@ ui_m6_LP <- function(df){
                             }
                           "))),
                         div(
-                          style = "position: relative; margin-bottom: 0px; height: 250px; margin-right: 100px; margin-left: 50px;",
+                          style = "position: relative; margin-bottom: 0px; height: 250px;",
                           plotlyOutput("m6_LP_lines"),
                           div(
                             actionButton("search_btn", label = icon("search", "fa-4x"), style = "color: white; background-color: #FEB70D; border: none;"),

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #main-chart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30vh; /* Adjust the height according to your preference */
+            background-color: #003366; /* Main chart background color */
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            color: white;
+        }
+        #main-chart {
+            flex: 3;
+            text-align: center;
+        }
+        #main-chart-info {
+            flex: 1;
+            background-color: #004080; /* Adjust as needed */
+            padding: 20px;
+            box-sizing: border-box;
+            height: 100%;
+            overflow-y: auto;
+        }
+        #deep-dive-section {
+            margin-top: 30vh; /* Same as main chart height */
+            display: flex;
+            height: 70vh;
+        }
+        #deep-dive-charts {
+            flex: 1;
+            overflow-y: scroll;
+            padding: 20px;
+            background-color: #f4f4f4; /* Background for the deep-dive charts section */
+        }
+        .deep-dive-chart {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #info-box {
+            width: 300px;
+            background-color: #eaeaea;
+            padding: 20px;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 30vh; /* Below the main chart */
+            right: 0;
+            height: 70vh; /* Match the deep-dive section height */
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-chart-container">
+        <div id="main-chart">
+            <h1>Main Indicator Chart</h1>
+            <!-- Place your main chart here -->
+        </div>
+        <div id="main-chart-info">
+            <h2>Explanation</h2>
+            <p>This text explains the main chart. You can add more detailed information or context here.</p>
+            <!-- Add more explanatory content as needed -->
+        </div>
+    </div>
+
+    <div id="deep-dive-section">
+        <div id="deep-dive-charts">
+            <div class="deep-dive-chart">
+                <h2>Deep-Dive Chart 1</h2>
+                <!-- Chart content -->
+            </div>
+            <div class="deep-dive-chart">
+                <h2>Deep-Dive Chart 2</h2>
+                <!-- Chart content -->
+            </div>
+            <div class="deep-dive-chart">
+                <h2>Deep-Dive Chart 3</h2>
+                <!-- Chart content -->
+            </div>
+            <!-- Add more deep-dive charts as needed -->
+        </div>
+        <div id="info-box">
+            <h2>Information Box</h2>
+            <p>Details about the deep-dive charts go here.</p>
+            <!-- More detailed information content -->
+        </div>
+    </div>
+
+</body>
+</html>
