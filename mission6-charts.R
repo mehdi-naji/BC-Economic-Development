@@ -407,16 +407,28 @@
     m6_nRinv_render_barplot <- function(df, input){
       
       df2 <- m6_nRinv_barplot_data(df, input$m6_nRinv_barplot_year)
+
       p2 <- df2 |> 
-        plot_ly(x = ~VALUE,y=~GEO, color=~Estimates, type = 'bar', 
-                orientation = 'h', stackgroup = 'group', text = ~VALUE) |>
+        plot_ly(x = ~VALUE, y = ~GEO, color = ~Estimates, type = 'bar', 
+                orientation = 'h', stackgroup = 'group', text = ~VALUE, 
+                width = 800, height = 600) |>
         layout(yaxis = list(title = ""),
                xaxis = list(title = ""),
                bargap = 0.2,
                barmode = "stack",
                barnorm = "percent",
-               legend = list(y = -0.3, x=0, orientation = 'h'),
-               autosize = TRUE)
+               legend = list(y = -0.3, x = 0, orientation = 'h'))
+      
+            # p2 <- df2 |> 
+      #   plot_ly(x = ~VALUE,y=~GEO, color=~Estimates, type = 'bar', 
+      #           orientation = 'h', stackgroup = 'group', text = ~VALUE) |>
+      #   layout(yaxis = list(title = ""),
+      #          xaxis = list(title = ""),
+      #          bargap = 0.2,
+      #          barmode = "stack",
+      #          barnorm = "percent",
+      #          legend = list(y = -0.3, x=0, orientation = 'h'),
+      #          autosize = TRUE)
       
       validate(need(nrow(df2) > 0, "The data for this year is inadequate. To obtain a proper visualization, please modify the year selection in the sidebar."))
       return(p2)
@@ -565,6 +577,7 @@
           branchvalues = "total",
           labels = ~Industry,
           parents = ~parent,
+          height = 290,
           values = ~per_val,
           marker = list(
             colors = parent_colors
@@ -588,7 +601,6 @@
         yaxis = list(
           title = ""
         ),
-        height = 290,
         margin = list(
           l = 50,
           r = 30,
@@ -681,6 +693,7 @@
       p2 <- data_long |> 
         plot_ly(x = ~value,y=~Region, name=~variable, type = 'bar', 
                 orientation = 'h', 
+                height = 290,
                 visible = ~ifelse(variable == unique(variable)[1], "legendonly", TRUE),
                 text = ~paste(round(value,1),"%")
                 ) |>
@@ -708,7 +721,6 @@
         yaxis = list(
           title = ""
         ),
-        height = 290,
         margin = list(
           l = 50,
           r = 30,

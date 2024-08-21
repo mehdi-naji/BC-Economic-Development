@@ -1,0 +1,11 @@
+Version: 1.0
+RestoreWorkspace: Default
+SaveWorkspace: Default
+AlwaysSaveHistory: Default
+EnableCodeIndexing: Yes
+UseSpacesForTab: Yes
+TabWidth: 2
+RnwWeave: knitr
+LaTeX: pdfLaTeX
+AutoAppendNewline: Yes
+BuildType: Package
